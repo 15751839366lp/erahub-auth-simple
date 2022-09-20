@@ -1,0 +1,2 @@
+com.erahub.common.mybatis.config.MybatisPlusConfiguration
+com.erahub.common.mybatis.service.SysDataScopeService

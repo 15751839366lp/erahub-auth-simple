@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.erahub</groupId>
+        <artifactId>erahub-auth-simple</artifactId>
+        <version>1.2.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>erahub-common-bom</module>
+        <module>erahub-common-alibaba-bom</module>
+        <module>erahub-common-log</module>
+        <module>erahub-common-dict</module>
+        <module>erahub-common-excel</module>
+        <module>erahub-common-core</module>
+        <module>erahub-common-redis</module>
+        <module>erahub-common-doc</module>
+        <module>erahub-common-security</module>
+        <module>erahub-common-satoken</module>
+        <module>erahub-common-web</module>
+        <module>erahub-common-mybatis</module>
+        <module>erahub-common-job</module>
+        <module>erahub-common-dubbo</module>
+        <module>erahub-common-seata</module>
+        <module>erahub-common-loadbalancer</module>
+        <module>erahub-common-oss</module>
+        <module>erahub-common-idempotent</module>
+        <module>erahub-common-mail</module>
+        <module>erahub-common-sms</module>
+        <module>erahub-common-logstash</module>
+        <module>erahub-common-elasticsearch</module>
+    </modules>
+
+    <artifactId>erahub-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        erahub-common通用模块
+    </description>
+
+</project>

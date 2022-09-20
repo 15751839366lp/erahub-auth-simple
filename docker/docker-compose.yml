@@ -1,0 +1,448 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.29
+    container_name: mysql
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # root 密码
+      MYSQL_ROOT_PASSWORD: erahub123
+      # 初始化数据库
+      MYSQL_DATABASE: erahub-cloud
+    ports:
+      - "3306:3306"
+    volumes:
+      # 数据挂载
+      - /docker/mysql/data/:/var/lib/mysql/
+      # 配置挂载
+      - /docker/mysql/conf/:/etc/mysql/conf.d/
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    privileged: true
+    network_mode: "host"
+
+  nacos:
+    image: nacos/nacos-server:v2.1.0
+    container_name: nacos
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    environment:
+      TZ: Asia/Shanghai
+      MODE: standalone
+      # 注意服务器配置防止内存溢出
+      JVM_XMS: 512m   #-Xms default :1g
+      JVM_XMX: 512m   #-Xmx default :1g
+      JVM_XMN: 256m   #-Xmn default :512m
+      #JVM_MS: 8m     #-XX:MetaspaceSize default :128m
+      #JVM_MMS: 8m    #-XX:MaxMetaspaceSize default :320
+      #鉴权
+      #NACOS_AUTH_ENABLE: true
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: 192.168.56.10
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: erahub123
+      MYSQL_SERVICE_DB_NAME: erahub-config
+      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    volumes:
+      - /docker/nacos/logs/:/home/nacos/logs
+      - /docker/nacos/config/custom.properties:/home/nacos/init.d/custom.properties
+    privileged: true
+    network_mode: "host"
+
+  redis:
+    image: redis:6.2.7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    volumes:
+      # 配置文件
+      - /docker/redis/conf:/redis/config
+      # 数据文件
+      - /docker/redis/data/:/redis/data/
+    command: "redis-server /redis/config/redis.conf"
+    privileged: true
+    network_mode: "host"
+
+  minio:
+    image: minio/minio:RELEASE.2022-05-26T05-48-41Z
+    container_name: minio
+    ports:
+      # api 端口
+      - "9000:9000"
+      # 控制台端口
+      - "9001:9001"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # 管理后台用户名
+      MINIO_ACCESS_KEY: erahub
+      # 管理后台密码，最小8个字符
+      MINIO_SECRET_KEY: erahub123
+      # https需要指定域名
+      MINIO_SERVER_URL: ""
+      # 开启压缩 on 开启 off 关闭
+      MINIO_COMPRESS: "off"
+      # 扩展名 .pdf,.doc 为空 所有类型均压缩
+      MINIO_COMPRESS_EXTENSIONS: ""
+      # mime 类型 application/pdf 为空 所有类型均压缩
+      MINIO_COMPRESS_MIME_TYPES: ""
+    volumes:
+      # 映射当前目录下的data目录至容器内/data目录
+      - /docker/minio/data:/data
+      # 映射配置目录
+      - /docker/minio/config:/root/.minio/
+    command: server --address ':9000' --console-address ':9001' /data  # 指定容器中的目录 /data
+    privileged: true
+    network_mode: "host"
+
+  seata-server:
+    image: erahub/erahub-seata-server:1.2.0
+    container_name: seata-server
+    ports:
+      - "7091:7091"
+      - "8091:8091"
+    environment:
+      TZ: Asia/Shanghai
+      # 注意 此处ip如果是外网使用 要改为外网ip
+      # SEATA_IP: 127.0.0.1
+      SEATA_PORT: 8091
+    volumes:
+      - /docker/erahub-seata-server/logs/:/erahub/seata-server/logs
+    privileged: true
+    network_mode: "host"
+
+  nginx-web:
+    image: nginx:1.21.6
+    container_name: nginx-web
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 证书映射
+      - /docker/nginx/cert:/etc/nginx/cert
+      # 配置文件映射
+      - /docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      # 页面目录
+      - /docker/nginx/html:/usr/share/nginx/html
+      # 日志目录
+      - /docker/nginx/log:/var/log/nginx
+    privileged: true
+    network_mode: "host"
+
+  sentinel:
+    image: erahub/erahub-sentinel-dashboard:1.2.0
+    container_name: sentinel
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8718:8718"
+    volumes:
+      # 配置文件
+      - /docker/erahub-sentinel-dashboard/logs/:/erahub/sentinel-dashboard/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-monitor-admin:
+    image: erahub/erahub-monitor:1.2.0
+    container_name: erahub-monitor
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9100:9100"
+    volumes:
+      # 配置文件
+      - /docker/erahub-monitor/logs/:/erahub/monitor/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-xxl-job-admin:
+    image: erahub/erahub-xxl-job-admin:1.2.0
+    container_name: erahub-xxl-job-admin
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9900:9900"
+    volumes:
+      # 配置文件
+      - /docker/erahub-xxl-job-admin/logs/:/erahub/xxl-job-admin/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-gateway:
+    image: erahub/erahub-gateway:1.2.0
+    container_name: erahub-gateway
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "8080:8080"
+    volumes:
+      # 配置文件
+      - /docker/erahub-gateway/logs/:/erahub/gateway/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-auth:
+    image: erahub/erahub-auth:1.2.0
+    container_name: erahub-auth
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9200:9200"
+    volumes:
+      # 配置文件
+      - /docker/erahub-auth/logs/:/erahub/auth/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-system:
+    image: erahub/erahub-system:1.2.0
+    container_name: erahub-system
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9201:9201"
+    volumes:
+      # 配置文件
+      - /docker/erahub-system/logs/:/erahub/system/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-gen:
+    image: erahub/erahub-gen:1.2.0
+    container_name: erahub-gen
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9202:9202"
+    volumes:
+      # 配置文件
+      - /docker/erahub-gen/logs/:/erahub/gen/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-job:
+    image: erahub/erahub-job:1.2.0
+    container_name: erahub-job
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9203:9203"
+    volumes:
+      # 配置文件
+      - /docker/erahub-job/logs/:/erahub/job/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-resource:
+    image: erahub/erahub-resource:1.2.0
+    container_name: erahub-resource
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9300:9300"
+    volumes:
+      # 配置文件
+      - /docker/erahub-resource/logs/:/erahub/resource/logs
+    privileged: true
+    network_mode: "host"
+
+  erahub-system-gen-job-resource:
+    image: erahub/erahub-system-gen-job-resource:1.2.0
+    container_name: erahub-system-gen-job-resource
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9201:9201"
+      - "9202:9202"
+      - "9203:9203"
+      - "9300:9300"
+    volumes:
+      # 配置文件
+      - /docker/erahub-system/logs/:/erahub/system/logs
+      - /docker/erahub-gen/logs/:/erahub/gen/logs
+      - /docker/erahub-job/logs/:/erahub/job/logs
+      - /docker/erahub-resource/logs/:/erahub/resource/logs
+    privileged: true
+    network_mode: "host"
+
+
+#################################################################################################
+#################################### 以下为扩展根据需求搭建 #########################################
+#################################################################################################
+
+  elasticsearch:
+    image: elasticsearch:7.17.2
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      # 设置集群名称
+      cluster.name: elasticsearch
+      # 以单一节点模式启动
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - /docker/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - /docker/elk/elasticsearch/data:/usr/share/elasticsearch/data
+      - /docker/elk/elasticsearch/logs:/usr/share/elasticsearch/logs
+    network_mode: "host"
+
+  kibana:
+    image: kibana:7.17.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      # kibana在elasticsearch启动之后再启动
+      - elasticsearch
+    environment:
+      #设置系统语言文中文
+      I18N_LOCALE: zh-CN
+      # 访问域名
+      # SERVER_PUBLICBASEURL: https://kibana.cloud.com
+    volumes:
+      - /docker/elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    network_mode: "host"
+
+  logstash:
+    image: logstash:7.17.2
+    container_name: logstash
+    ports:
+      - "4560:4560"
+    volumes:
+      - /docker/elk/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /docker/elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    depends_on:
+      - elasticsearch
+    network_mode: "host"
+
+  mqnamesrv:
+    image: apache/rocketmq:4.9.4
+    container_name: mqnamesrv
+    ports:
+      - "9876:9876"
+    environment:
+      JAVA_OPT: -server -Xms512m -Xmx512m
+    command: sh mqnamesrv
+    volumes:
+      - /docker/rocketmq/namesrv/logs:/home/rocketmq/logs/rocketmqlogs
+    network_mode: "host"
+
+  mqbroker1:
+    image: apache/rocketmq:4.9.4
+    container_name: mqbroker1
+    ports:
+      - "10911:10911"
+      - "10909:10909"
+      - "10912:10912"
+    environment:
+      JAVA_OPT_EXT: -server -Xms512M -Xmx512M -Xmn256m
+    command: sh mqbroker -c /home/rocketmq/rocketmq-4.9.4/conf/broker.conf
+    depends_on:
+      - mqnamesrv
+    volumes:
+      - /docker/rocketmq/broker1/conf/broker.conf:/home/rocketmq/rocketmq-4.9.4/conf/broker.conf
+      - /docker/rocketmq/broker1/logs:/home/rocketmq/logs/rocketmqlogs
+      - /docker/rocketmq/broker1/store:/home/rocketmq/store
+    network_mode: "host"
+
+  mqconsole:
+    image: styletang/rocketmq-console-ng
+    container_name: mqconsole
+    ports:
+      - "19876:19876"
+    environment:
+      JAVA_OPTS: -Dserver.port=19876 -Drocketmq.namesrv.addr=127.0.0.1:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+    depends_on:
+      - mqnamesrv
+    network_mode: "host"
+
+  rabbitmq:
+    image: rabbitmq:3.10.6
+    container_name: rabbitmq
+    build:
+      context: ./rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: erahub
+      RABBITMQ_DEFAULT_PASS: erahub123
+    ports:
+      - "15672:15672" # 管理界面端口
+      - "5672:5672"   # api 端口
+    volumes:
+      - /docker/rabbitmq/log:/var/log/rabbitmq
+      - /docker/rabbitmq/data:/var/lib/rabbitmq
+    network_mode: "host"
+
+  zookeeper:
+    image: 'bitnami/zookeeper:3.8.0'
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      TZ: Asia/Shanghai
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+      ZOO_SERVER_ID: 1
+      ZOO_PORT_NUMBER: 2181
+    network_mode: "host"
+
+  kafka:
+    image: 'bitnami/kafka:3.2.0'
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      TZ: Asia/Shanghai
+      # 更多变量 查看文档 https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md
+      KAFKA_BROKER_ID: 1
+      # 监听端口
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      # 实际访问ip 本地用 127 内网用 192 外网用 外网ip
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.56.10:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: 127.0.0.1:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    volumes:
+      - /docker/kafka/data:/bitnami/kafka/data
+    depends_on:
+      - zookeeper
+    network_mode: "host"
+
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    container_name: kafka-manager
+    ports:
+      - "19092:19092"
+    environment:
+      ZK_HOSTS: 127.0.0.1:2181
+      APPLICATION_SECRET: letmein
+      KAFKA_MANAGER_USERNAME: erahub
+      KAFKA_MANAGER_PASSWORD: erahub123
+      KM_ARGS: -Dhttp.port=19092
+    depends_on:
+      - kafka
+    network_mode: "host"

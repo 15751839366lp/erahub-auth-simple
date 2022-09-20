@@ -1,0 +1,26 @@
+[
+  {
+    "resource": "erahub-auth",
+    "count": 500,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "erahub-system",
+    "count": 1000,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "erahub-resource",
+    "count": 500,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  }
+]

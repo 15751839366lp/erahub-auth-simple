@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.erahub</groupId>
+        <artifactId>erahub-common</artifactId>
+        <version>1.2.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>erahub-common-log</artifactId>
+
+    <description>
+        erahub-common-log日志记录
+    </description>
+
+    <dependencies>
+
+        <!-- erahub Common Security -->
+        <dependency>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+</project>

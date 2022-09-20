@@ -1,0 +1,45 @@
+#FROM anapsix/alpine-java:8_server-jre_unlimited
+FROM ibm-semeru-runtimes:open-8-jre
+
+MAINTAINER erahub
+
+RUN mkdir -p /erahub/system
+RUN mkdir -p /erahub/system/logs
+RUN mkdir -p /erahub/system/temp
+
+RUN mkdir -p /erahub/gen
+RUN mkdir -p /erahub/gen/logs
+
+RUN mkdir -p /erahub/job
+RUN mkdir -p /erahub/job/logs
+RUN mkdir -p /erahub/job/temp
+
+RUN mkdir -p /erahub/resource
+RUN mkdir -p /erahub/resource/logs
+RUN mkdir -p /erahub/resource/temp
+
+WORKDIR /erahub
+
+ENV SERVER_PORT_SYSTEM=9201 SERVER_PORT_GEN=9202 SERVER_PORT_JOB=9203 SERVER_PORT_RESOURCE=9300
+
+EXPOSE ${SERVER_PORT_SYSTEM} ${SERVER_PORT_GEN} ${SERVER_PORT_JOB} ${SERVER_PORT_RESOURCE}
+
+ADD ./erahub-system/target/erahub-system.jar ./system/app.jar
+ADD ./erahub-gen/target/erahub-gen.jar ./gen/app.jar
+ADD ./erahub-job/target/erahub-job.jar ./job/app.jar
+ADD ./erahub-resource/target/erahub-resource.jar ./resource/app.jar
+
+RUN echo \
+"#!/bin/bash\n"\
+"nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT_SYSTEM} -jar ./system/app.jar &\n"\
+"nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT_GEN} -jar ./gen/app.jar &\n"\
+"nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT_JOB} -jar ./job/app.jar &\n"\
+"nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT_RESOURCE} -jar ./resource/app.jar &\n"\
+"while [[ true ]]; do\n"\
+"sleep 1\n"\
+"done"\
+>> start.sh
+
+RUN chmod +x start.sh
+
+ENTRYPOINT ["bash","./start.sh"]

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.erahub</groupId>
+    <artifactId>erahub-common-bom</artifactId>
+    <version>1.2.0</version>
+    <packaging>pom</packaging>
+
+    <description>
+        erahub-common-bom common依赖项
+    </description>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 接口模块 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-doc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 安全模块 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-satoken</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 日志记录 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 字典 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-dict</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- excel -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-excel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 缓存服务 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- web服务 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 数据库服务 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-job</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-dubbo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-seata</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-loadbalancer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-oss</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-idempotent</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-mail</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-sms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-logstash</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-elasticsearch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>

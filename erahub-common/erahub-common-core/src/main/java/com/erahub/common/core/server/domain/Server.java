@@ -37,6 +37,8 @@ public class Server
      */
     private Mem mem = new Mem();
 
+    private Swap swap = new Swap();
+
     /**
      * JVM相关信息
      */
@@ -70,6 +72,16 @@ public class Server
     public void setMem(Mem mem)
     {
         this.mem = mem;
+    }
+
+    public Swap getSwap()
+    {
+        return swap;
+    }
+
+    public void setSwap(Swap swap)
+    {
+        this.swap = swap;
     }
 
     public Jvm getJvm()
@@ -110,6 +122,7 @@ public class Server
         setCpuInfo(hal.getProcessor());
 
         setMemInfo(hal.getMemory());
+        setSwapInfo(hal.getMemory());
 
         setSysInfo();
 
@@ -152,6 +165,16 @@ public class Server
         mem.setTotal(memory.getTotal());
         mem.setUsed(memory.getTotal() - memory.getAvailable());
         mem.setFree(memory.getAvailable());
+    }
+
+    /**
+     * 设置虚拟内存信息
+     */
+    private void setSwapInfo(GlobalMemory memory)
+    {
+        swap.setTotal(memory.getVirtualMemory().getSwapTotal());
+        swap.setUsed(memory.getVirtualMemory().getSwapUsed());
+        swap.setFree(memory.getVirtualMemory().getSwapTotal() - memory.getVirtualMemory().getSwapUsed());
     }
 
     /**

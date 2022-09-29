@@ -21,7 +21,7 @@ import io.seata.metrics.exporter.Exporter;
 import io.seata.metrics.exporter.ExporterFactory;
 import io.seata.metrics.registry.Registry;
 import io.seata.metrics.registry.RegistryFactory;
-import io.seata.server.lock.event.EventBusManager;
+import io.seata.server.event.EventBusManager;
 
 import java.util.List;
 

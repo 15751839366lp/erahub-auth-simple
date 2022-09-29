@@ -19,7 +19,7 @@ package io.seata.server.metrics;
 import io.seata.core.event.EventBus;
 import io.seata.core.event.GlobalTransactionEvent;
 import io.seata.core.model.GlobalStatus;
-import io.seata.server.lock.event.EventBusManager;
+import io.seata.server.event.EventBusManager;
 import io.seata.server.session.GlobalSession;
 
 /**

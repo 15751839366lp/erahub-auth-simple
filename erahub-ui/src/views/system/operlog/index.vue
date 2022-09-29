@@ -101,6 +101,8 @@
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="日志编号" align="center" prop="operId" />
          <el-table-column label="系统模块" align="center" prop="title" />
+         <el-table-column label="用户" align="center" prop="operName" />
+         <el-table-column label="IP" align="center" prop="operIp" />
          <el-table-column label="操作类型" align="center" prop="businessType">
             <template #default="scope">
                <dict-tag :options="sys_oper_type" :value="scope.row.businessType" />

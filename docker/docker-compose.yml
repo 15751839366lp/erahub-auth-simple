@@ -29,7 +29,7 @@ services:
     network_mode: "host"
 
   nacos:
-    image: nacos/nacos-server:v2.1.0
+    image: erahub/erahub-nacos:1.2.0
     container_name: nacos
     ports:
       - "8848:8848"
@@ -37,26 +37,12 @@ services:
       - "9849:9849"
     environment:
       TZ: Asia/Shanghai
-      MODE: standalone
-      # 注意服务器配置防止内存溢出
-      JVM_XMS: 512m   #-Xms default :1g
-      JVM_XMX: 512m   #-Xmx default :1g
-      JVM_XMN: 256m   #-Xmn default :512m
-      #JVM_MS: 8m     #-XX:MetaspaceSize default :128m
-      #JVM_MMS: 8m    #-XX:MaxMetaspaceSize default :320
-      #鉴权
-      #NACOS_AUTH_ENABLE: true
-      SPRING_DATASOURCE_PLATFORM: mysql
-      MYSQL_SERVICE_HOST: 192.168.56.10
-      MYSQL_SERVICE_PORT: 3306
-      MYSQL_SERVICE_USER: root
-      MYSQL_SERVICE_PASSWORD: erahub123
-      MYSQL_SERVICE_DB_NAME: erahub-config
-      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+      JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - /docker/nacos/logs/:/home/nacos/logs
-      - /docker/nacos/config/custom.properties:/home/nacos/init.d/custom.properties
-    privileged: true
+      # 日志目录 注意集群模式下 日志目录不能一致 需要区分例如 nacos1 nacos2
+      - /docker/nacos/logs/:/root/nacos/logs
+      # 集群配置文件 集群所有nacos都必须使用此文件
+      - /docker/nacos/conf/cluster.conf:/root/nacos/conf/cluster.conf
     network_mode: "host"
 
   redis:
@@ -117,7 +103,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       # 注意 此处ip如果是外网使用 要改为外网ip
-      # SEATA_IP: 127.0.0.1
+      # SEATA_IP: 172.17.228.8
       SEATA_PORT: 8091
     volumes:
       - /docker/erahub-seata-server/logs/:/erahub/seata-server/logs
@@ -378,7 +364,7 @@ services:
     ports:
       - "19876:19876"
     environment:
-      JAVA_OPTS: -Dserver.port=19876 -Drocketmq.namesrv.addr=127.0.0.1:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+      JAVA_OPTS: -Dserver.port=19876 -Drocketmq.namesrv.addr=172.17.228.8:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
     depends_on:
       - mqnamesrv
     network_mode: "host"
@@ -423,8 +409,8 @@ services:
       # 监听端口
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
       # 实际访问ip 本地用 127 内网用 192 外网用 外网ip
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.56.10:9092
-      KAFKA_CFG_ZOOKEEPER_CONNECT: 127.0.0.1:2181
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://172.17.228.8:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: 172.17.228.8:2181
       ALLOW_PLAINTEXT_LISTENER: "yes"
     volumes:
       - /docker/kafka/data:/bitnami/kafka/data
@@ -438,7 +424,7 @@ services:
     ports:
       - "19092:19092"
     environment:
-      ZK_HOSTS: 127.0.0.1:2181
+      ZK_HOSTS: 172.17.228.8:2181
       APPLICATION_SECRET: letmein
       KAFKA_MANAGER_USERNAME: erahub
       KAFKA_MANAGER_PASSWORD: erahub123

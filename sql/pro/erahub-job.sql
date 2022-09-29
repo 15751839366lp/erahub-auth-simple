@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 18/09/2022 08:25:04
+ Date: 20/09/2022 20:02:15
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, NULL, '2022-09-18 08:24:53');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://172.17.228.8:9901/', '2022-09-20 20:02:15');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
@@ -90,7 +90,7 @@ CREATE TABLE `xxl_job_info`  (
 -- ----------------------------
 -- Records of xxl_job_info
 -- ----------------------------
-INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2018-11-03 22:21:31', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 0, 0, 0);
+INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2022-09-19 14:17:40', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 0, 0, 0);
 INSERT INTO `xxl_job_info` VALUES (2, 1, '多服务任务', '2022-02-17 12:21:31', '2022-09-17 10:24:11', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'multiServiceHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-02-17 12:21:31', '', 0, 0, 0);
 
 -- ----------------------------
@@ -130,12 +130,19 @@ CREATE TABLE `xxl_job_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `I_trigger_time`(`trigger_time`) USING BTREE,
   INDEX `I_handle_code`(`handle_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log
 -- ----------------------------
 INSERT INTO `xxl_job_log` VALUES (1, 1, 1, NULL, 'demoJobHandler', '', NULL, 0, '2022-09-17 10:23:59', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：自动注册<br>执行器-地址列表：null<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>调度失败：执行器地址为空<br><br>', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (2, 1, 1, NULL, 'demoJobHandler', '', NULL, 0, '2022-09-19 14:14:11', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：自动注册<br>执行器-地址列表：null<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>调度失败：执行器地址为空<br><br>', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (3, 1, 1, '47.92.112.236', 'demoJobHandler', '', NULL, 0, '2022-09-19 14:16:36', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：手动录入<br>执行器-地址列表：[47.92.112.236]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：47.92.112.236<br>code：500<br>msg：xxl-job remoting error(no protocol: 47.92.112.236/run), for url : 47.92.112.236/run', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (4, 1, 1, NULL, 'demoJobHandler', '', NULL, 0, '2022-09-19 14:28:17', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：自动注册<br>执行器-地址列表：null<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>调度失败：执行器地址为空<br><br>', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (5, 1, 1, '127.0.0.1', 'demoJobHandler', '', NULL, 0, '2022-09-19 14:29:07', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：手动录入<br>执行器-地址列表：[127.0.0.1]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：127.0.0.1<br>code：500<br>msg：xxl-job remoting error(no protocol: 127.0.0.1/run), for url : 127.0.0.1/run', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (6, 1, 1, NULL, 'demoJobHandler', '', NULL, 0, '2022-09-19 14:30:56', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：自动注册<br>执行器-地址列表：null<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>调度失败：执行器地址为空<br><br>', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (7, 1, 1, '172.17.228.8', 'demoJobHandler', '', NULL, 0, '2022-09-19 14:31:42', 500, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：手动录入<br>执行器-地址列表：[172.17.228.8]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：172.17.228.8<br>code：500<br>msg：xxl-job remoting error(no protocol: 172.17.228.8/run), for url : 172.17.228.8/run', NULL, 0, NULL, 2);
+INSERT INTO `xxl_job_log` VALUES (8, 1, 1, 'http://172.17.228.8:9901/', 'demoJobHandler', '', NULL, 0, '2022-09-19 15:11:42', 200, '任务触发类型：手动触发<br>调度机器：172.17.228.8<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://172.17.228.8:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://172.17.228.8:9901/<br>code：200<br>msg：null', '2022-09-19 15:11:52', 200, '', 0);
 
 -- ----------------------------
 -- Table structure for xxl_job_log_report
@@ -150,7 +157,7 @@ CREATE TABLE `xxl_job_log_report`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_trigger_day`(`trigger_day`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log_report
@@ -166,6 +173,8 @@ INSERT INTO `xxl_job_log_report` VALUES (8, '2022-09-15 00:00:00', 0, 0, 0, NULL
 INSERT INTO `xxl_job_log_report` VALUES (9, '2022-09-17 00:00:00', 0, 0, 1, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (10, '2022-09-16 00:00:00', 0, 0, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (11, '2022-09-18 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (12, '2022-09-19 00:00:00', 0, 1, 6, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (13, '2022-09-20 00:00:00', 0, 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for xxl_job_logglue
@@ -198,11 +207,12 @@ CREATE TABLE `xxl_job_registry`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `i_g_k_v`(`registry_group`, `registry_key`, `registry_value`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
+INSERT INTO `xxl_job_registry` VALUES (12, 'EXECUTOR', 'erahub-job-executor', 'http://172.17.228.8:9901/', '2022-09-20 20:02:00');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

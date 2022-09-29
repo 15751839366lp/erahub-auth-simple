@@ -10,6 +10,7 @@
 
     <modules>
         <module>erahub-monitor</module>
+        <module>erahub-nacos</module>
         <module>erahub-xxl-job-admin</module>
         <module>erahub-sentinel-dashboard</module>
         <module>erahub-seata-server</module>

@@ -51,22 +51,22 @@ spring:
             - ValidateCodeFilter
             - StripPrefix=1
         # 代码生成
-        - id: erahub-gen
-          uri: lb://erahub-gen
+        - id: erahub-base
+          uri: lb://erahub-base
           predicates:
             - Path=/code/**
           filters:
             - StripPrefix=1
         # 系统模块
-        - id: erahub-system
-          uri: lb://erahub-system
+        - id: erahub-base
+          uri: lb://erahub-base
           predicates:
             - Path=/system/**
           filters:
             - StripPrefix=1
         # 资源服务
-        - id: erahub-resource
-          uri: lb://erahub-resource
+        - id: erahub-base
+          uri: lb://erahub-base
           predicates:
             - Path=/resource/**
           filters:

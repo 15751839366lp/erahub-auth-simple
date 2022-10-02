@@ -254,7 +254,7 @@ swagger:
   # 服务文档路径映射 参考 gateway router 配置
   # 默认为服务名去除前缀转换为path 此处填特殊的配置
   service-mapping:
-    erahub-gen: /code
+    erahub-base: /code
 
 # seata配置
 seata:

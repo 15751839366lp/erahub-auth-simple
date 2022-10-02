@@ -201,9 +201,9 @@ services:
     privileged: true
     network_mode: "host"
 
-  erahub-system:
-    image: erahub/erahub-system:1.3.0
-    container_name: erahub-system
+  erahub-base:
+    image: erahub/erahub-base:1.3.0
+    container_name: erahub-base
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -211,21 +211,7 @@ services:
       - "9201:9201"
     volumes:
       # 配置文件
-      - /docker/erahub-system/logs/:/erahub/system/logs
-    privileged: true
-    network_mode: "host"
-
-  erahub-gen:
-    image: erahub/erahub-gen:1.3.0
-    container_name: erahub-gen
-    environment:
-      # 时区上海
-      TZ: Asia/Shanghai
-    ports:
-      - "9202:9202"
-    volumes:
-      # 配置文件
-      - /docker/erahub-gen/logs/:/erahub/gen/logs
+      - /docker/erahub-base/logs/:/erahub/base/logs
     privileged: true
     network_mode: "host"
 
@@ -242,21 +228,6 @@ services:
       - /docker/erahub-job/logs/:/erahub/job/logs
     privileged: true
     network_mode: "host"
-
-  erahub-resource:
-    image: erahub/erahub-resource:1.3.0
-    container_name: erahub-resource
-    environment:
-      # 时区上海
-      TZ: Asia/Shanghai
-    ports:
-      - "9204:9204"
-    volumes:
-      # 配置文件
-      - /docker/erahub-resource/logs/:/erahub/resource/logs
-    privileged: true
-    network_mode: "host"
-
 
 #################################################################################################
 #################################### 以下为扩展根据需求搭建 #########################################

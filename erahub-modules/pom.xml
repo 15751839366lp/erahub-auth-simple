@@ -9,10 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>erahub-system</module>
-        <module>erahub-gen</module>
+        <module>erahub-base</module>
         <module>erahub-job</module>
-        <module>erahub-resource</module>
     </modules>
 
     <artifactId>erahub-modules</artifactId>

@@ -1,3 +1,2 @@
 com.erahub.common.web.config.I18nConfig
 com.erahub.common.web.config.UndertowConfig
-com.erahub.common.web.config.NacosConfig

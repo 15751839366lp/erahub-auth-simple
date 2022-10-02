@@ -88,18 +88,25 @@ spring:
   cloud:
     # sentinel 配置
     sentinel:
+      # sentinel 开关
+      enabled: true
       # 取消控制台懒加载
       eager: true
       transport:
-        # 控制台地址
-        dashboard: localhost:8718
+        # dashboard控制台服务名 用于服务发现
+        # 如无此配置将默认使用下方 dashboard 配置直接注册
+        server-name: erahub-sentinel-dashboard
+        # 客户端指定注册的ip 用于多网卡ip不稳点使用
+        # client-ip:
+        # 控制台地址 从1.3.0开始使用 server-name 注册
+        # dashboard: localhost:8718
 
   # redis通用配置 子服务可以自行配置进行覆盖
   redis:
     host: localhost
     port: 6379
     # 密码(如没有密码请注释掉)
-    #password:
+    password: erahub123
     database: 0
     timeout: 10s
     ssl: false
@@ -126,22 +133,12 @@ redisson:
     timeout: 3000
     # 发布和订阅连接池大小
     subscriptionConnectionPoolSize: 50
-  # redisson 缓存配置
-  cacheGroup:
-    # 用例: @Cacheable(cacheNames="groupId", key="#XXX") 方可使用缓存组配置
-    - groupId: redissonCacheMap
-      # 组过期时间(脚本监控)
-      ttl: 60000
-      # 组最大空闲时间(脚本监控)
-      maxIdleTime: 60000
-      # 组最大长度
-      maxSize: 0
 
 # 分布式锁 lock4j 全局配置
 lock4j:
   # 获取分布式锁超时时间，默认为 3000 毫秒
   acquire-timeout: 3000
-  # 分布式锁的超时时间，默认为 30 毫秒
+  # 分布式锁的超时时间，默认为 30 秒
   expire: 30000
 
 # 暴露监控端点
@@ -237,7 +234,7 @@ swagger:
   enabled: true
   info:
     # 标题
-    title: '标题：Erahub-Plus-Auth微服务权限管理系统_接口文档'
+    title: '标题：erahub-auth-simple微服务权限管理系统_接口文档'
     # 描述
     description: '描述：微服务权限管理系统, 具体包括XXX,XXX模块...'
     # 版本
@@ -246,7 +243,7 @@ swagger:
     contact:
       name: erahub
       email: erahub@163.com
-      url: https://gitee.com/erahub/Erahub-Plus-Auth
+      url: https://gitee.com/erahub
   components:
     # 鉴权方式配置
     security-schemes:

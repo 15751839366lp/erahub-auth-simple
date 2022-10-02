@@ -1,1 +1,1 @@
-dubboRequestFilter=filter.com.erahub.common.dubbo.DubboRequestFilter
+dubboRequestFilter=com.erahub.common.dubbo.filter.DubboRequestFilter

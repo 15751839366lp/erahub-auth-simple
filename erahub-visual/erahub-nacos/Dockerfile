@@ -1,4 +1,5 @@
-FROM anapsix/alpine-java:8_server-jre_unlimited
+#FROM anapsix/alpine-java:8_server-jre_unlimited
+FROM ibm-semeru-runtimes:open-8-jre
 
 MAINTAINER erahub
 

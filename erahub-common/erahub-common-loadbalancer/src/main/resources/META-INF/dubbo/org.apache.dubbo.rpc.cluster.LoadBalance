@@ -1,1 +1,1 @@
-customDubboLoadBalancer=core.com.erahub.common.loadbalance.CustomDubboLoadBalancer
+customDubboLoadBalancer=com.erahub.common.loadbalance.core.CustomDubboLoadBalancer

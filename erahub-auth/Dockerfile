@@ -9,7 +9,7 @@ RUN mkdir -p /erahub/auth/temp
 
 WORKDIR /erahub/auth
 
-ENV SERVER_PORT=9200
+ENV SERVER_PORT=9210
 
 EXPOSE ${SERVER_PORT}
 

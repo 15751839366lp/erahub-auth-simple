@@ -30,30 +30,30 @@ public interface CacheConstants {
     /**
      * 参数管理 cache key
      */
-    String SYS_CONFIG_KEY = "sys_config:";
+    String SYS_CONFIG_KEY = "sys_config";
 
     /**
      * 字典管理 cache key
      */
-    String SYS_DICT_KEY = "sys_dict:";
+    String SYS_DICT_KEY = "sys_dict";
 
     /**
-     * 防重提交 redis key
+     * OSS配置
      */
-    String REPEAT_SUBMIT_KEY = "repeat_submit:";
+    String SYS_OSS_CONFIG = "sys_oss_config";
 
     /**
-     * 限流 redis key
+     * OSS配置
      */
-    String RATE_LIMIT_KEY = "rate_limit:";
-
-    /**
-     * OSS配置 redis key
-     */
-    String SYS_OSS_KEY = "sys_oss:";
+    String SYS_OSS = "sys_oss:";
 
     /**
      * 登录账户密码错误次数 redis key
      */
     String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
+
+    /**
+     * 防重提交 redis key
+     */
+    String REPEAT_SUBMIT_KEY = "repeat_submit:";
 }

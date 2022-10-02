@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'ruoyi-job-executor', '示例执行器', 0, NULL, '2022-09-15 19:57:45');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, NULL, '2022-09-15 19:57:45');
 
 -- ----------------------------
 -- Table structure for xxl_job_info

@@ -29,7 +29,7 @@ services:
     network_mode: "host"
 
   nacos:
-    image: erahub/erahub-nacos:1.2.0
+    image: erahub/erahub-nacos:1.3.0
     container_name: nacos
     ports:
       - "8848:8848"
@@ -78,7 +78,8 @@ services:
       # 管理后台密码，最小8个字符
       MINIO_SECRET_KEY: erahub123
       # https需要指定域名
-      MINIO_SERVER_URL: ""
+      #MINIO_SERVER_URL: "https://xxx.com:9000"
+      #MINIO_BROWSER_REDIRECT_URL: "https://xxx.com:9001"
       # 开启压缩 on 开启 off 关闭
       MINIO_COMPRESS: "off"
       # 扩展名 .pdf,.doc 为空 所有类型均压缩
@@ -95,7 +96,7 @@ services:
     network_mode: "host"
 
   seata-server:
-    image: erahub/erahub-seata-server:1.2.0
+    image: erahub/erahub-seata-server:1.3.0
     container_name: seata-server
     ports:
       - "7091:7091"
@@ -103,7 +104,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       # 注意 此处ip如果是外网使用 要改为外网ip
-      # SEATA_IP: 172.17.228.8
+      # SEATA_IP: 127.0.0.1
       SEATA_PORT: 8091
     volumes:
       - /docker/erahub-seata-server/logs/:/erahub/seata-server/logs
@@ -132,7 +133,7 @@ services:
     network_mode: "host"
 
   sentinel:
-    image: erahub/erahub-sentinel-dashboard:1.2.0
+    image: erahub/erahub-sentinel-dashboard:1.3.0
     container_name: sentinel
     environment:
       TZ: Asia/Shanghai
@@ -144,8 +145,8 @@ services:
     privileged: true
     network_mode: "host"
 
-  erahub-monitor-admin:
-    image: erahub/erahub-monitor:1.2.0
+  erahub-monitor:
+    image: erahub/erahub-monitor:1.3.0
     container_name: erahub-monitor
     environment:
       # 时区上海
@@ -159,7 +160,7 @@ services:
     network_mode: "host"
 
   erahub-xxl-job-admin:
-    image: erahub/erahub-xxl-job-admin:1.2.0
+    image: erahub/erahub-xxl-job-admin:1.3.0
     container_name: erahub-xxl-job-admin
     environment:
       # 时区上海
@@ -173,7 +174,7 @@ services:
     network_mode: "host"
 
   erahub-gateway:
-    image: erahub/erahub-gateway:1.2.0
+    image: erahub/erahub-gateway:1.3.0
     container_name: erahub-gateway
     environment:
       # 时区上海
@@ -187,13 +188,13 @@ services:
     network_mode: "host"
 
   erahub-auth:
-    image: erahub/erahub-auth:1.2.0
+    image: erahub/erahub-auth:1.3.0
     container_name: erahub-auth
     environment:
       # 时区上海
       TZ: Asia/Shanghai
     ports:
-      - "9200:9200"
+      - "9210:9210"
     volumes:
       # 配置文件
       - /docker/erahub-auth/logs/:/erahub/auth/logs
@@ -201,7 +202,7 @@ services:
     network_mode: "host"
 
   erahub-system:
-    image: erahub/erahub-system:1.2.0
+    image: erahub/erahub-system:1.3.0
     container_name: erahub-system
     environment:
       # 时区上海
@@ -215,7 +216,7 @@ services:
     network_mode: "host"
 
   erahub-gen:
-    image: erahub/erahub-gen:1.2.0
+    image: erahub/erahub-gen:1.3.0
     container_name: erahub-gen
     environment:
       # 时区上海
@@ -229,7 +230,7 @@ services:
     network_mode: "host"
 
   erahub-job:
-    image: erahub/erahub-job:1.2.0
+    image: erahub/erahub-job:1.3.0
     container_name: erahub-job
     environment:
       # 时区上海
@@ -243,35 +244,15 @@ services:
     network_mode: "host"
 
   erahub-resource:
-    image: erahub/erahub-resource:1.2.0
+    image: erahub/erahub-resource:1.3.0
     container_name: erahub-resource
     environment:
       # 时区上海
       TZ: Asia/Shanghai
     ports:
-      - "9300:9300"
+      - "9204:9204"
     volumes:
       # 配置文件
-      - /docker/erahub-resource/logs/:/erahub/resource/logs
-    privileged: true
-    network_mode: "host"
-
-  erahub-system-gen-job-resource:
-    image: erahub/erahub-system-gen-job-resource:1.2.0
-    container_name: erahub-system-gen-job-resource
-    environment:
-      # 时区上海
-      TZ: Asia/Shanghai
-    ports:
-      - "9201:9201"
-      - "9202:9202"
-      - "9203:9203"
-      - "9300:9300"
-    volumes:
-      # 配置文件
-      - /docker/erahub-system/logs/:/erahub/system/logs
-      - /docker/erahub-gen/logs/:/erahub/gen/logs
-      - /docker/erahub-job/logs/:/erahub/job/logs
       - /docker/erahub-resource/logs/:/erahub/resource/logs
     privileged: true
     network_mode: "host"
@@ -364,7 +345,7 @@ services:
     ports:
       - "19876:19876"
     environment:
-      JAVA_OPTS: -Dserver.port=19876 -Drocketmq.namesrv.addr=172.17.228.8:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+      JAVA_OPTS: -Dserver.port=19876 -Drocketmq.namesrv.addr=127.0.0.1:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
     depends_on:
       - mqnamesrv
     network_mode: "host"
@@ -409,8 +390,8 @@ services:
       # 监听端口
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
       # 实际访问ip 本地用 127 内网用 192 外网用 外网ip
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://172.17.228.8:9092
-      KAFKA_CFG_ZOOKEEPER_CONNECT: 172.17.228.8:2181
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.165:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: 127.0.0.1:2181
       ALLOW_PLAINTEXT_LISTENER: "yes"
     volumes:
       - /docker/kafka/data:/bitnami/kafka/data
@@ -424,7 +405,7 @@ services:
     ports:
       - "19092:19092"
     environment:
-      ZK_HOSTS: 172.17.228.8:2181
+      ZK_HOSTS: 127.0.0.1:2181
       APPLICATION_SECRET: letmein
       KAFKA_MANAGER_USERNAME: erahub
       KAFKA_MANAGER_PASSWORD: erahub123

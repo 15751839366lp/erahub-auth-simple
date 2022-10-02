@@ -1,6 +1,7 @@
 package com.erahub.resource.api;
 
 import com.erahub.common.core.exception.ServiceException;
+import com.erahub.resource.api.domain.SysFile;
 import com.erahub.resource.api.domain.SysSms;
 
 import java.util.Map;

@@ -1,5 +1,7 @@
 package com.erahub.common.log.aspect;
 
+import cn.hutool.core.lang.Dict;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.erahub.common.core.utils.JsonUtils;
 import com.erahub.common.core.utils.ServletUtils;
@@ -35,6 +37,11 @@ import java.util.Map;
 @AutoConfiguration
 public class LogAspect {
 
+    /**
+     * 排除敏感属性字段
+     */
+    public static final String[] EXCLUDE_PROPERTIES = { "password", "oldPassword", "newPassword", "confirmPassword" };
+
     @Autowired
     private AsyncLogService asyncLogService;
 
@@ -66,7 +73,7 @@ public class LogAspect {
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
             operLog.setOperIp(ServletUtils.getClientIP());
-            operLog.setOperUrl(ServletUtils.getRequest().getRequestURI());
+            operLog.setOperUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
             String username = LoginHelper.getUsername();
             if (StringUtils.isNotBlank(username)) {
                 operLog.setOperName(username);
@@ -142,8 +149,15 @@ public class LogAspect {
             for (Object o : paramsArray) {
                 if (ObjectUtil.isNotNull(o) && !isFilterObject(o)) {
                     try {
-                        params.append(JsonUtils.toJsonString(o)).append(" ");
+                        String str = JsonUtils.toJsonString(o);
+                        Dict dict = JsonUtils.parseMap(str);
+                        if (MapUtil.isNotEmpty(dict)) {
+                            MapUtil.removeAny(dict, EXCLUDE_PROPERTIES);
+                            str = JsonUtils.toJsonString(dict);
+                        }
+                        params.append(str).append(" ");
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }

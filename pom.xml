@@ -6,60 +6,55 @@
 
     <groupId>com.erahub</groupId>
     <artifactId>erahub-auth-simple</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 
     <name>erahub-auth-simple</name>
     <url></url>
     <description>erahub-auth-simple微服务系统</description>
 
     <properties>
-        <erahub.version>1.2.0</erahub.version>
+        <erahub.version>1.3.0</erahub.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.7.2</spring-boot.version>
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
-        <spring-boot-admin.version>2.7.3</spring-boot-admin.version>
+        <spring-boot.version>2.7.4</spring-boot.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-boot-admin.version>2.7.5</spring-boot-admin.version>
         <spring-boot.mybatis>2.2.2</spring-boot.mybatis>
         <mybatis.version>3.5.10</mybatis.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <druid.version>1.2.11</druid.version>
-        <dynamic-ds.version>3.5.1</dynamic-ds.version>
+        <druid.version>1.2.12</druid.version>
+        <dynamic-ds.version>3.5.2</dynamic-ds.version>
         <velocity.version>2.3</velocity.version>
         <fastjson.version>1.2.83</fastjson.version>
         <swagger.core.version>2.2.0</swagger.core.version>
-        <springdoc.version>1.6.9</springdoc.version>
+        <springdoc.version>1.6.11</springdoc.version>
         <poi.version>5.2.2</poi.version>
         <easyexcel.version>3.1.1</easyexcel.version>
-        <hutool.version>5.8.5</hutool.version>
-        <redisson.version>3.17.5</redisson.version>
+        <hutool.version>5.8.6</hutool.version>
+        <redisson.version>3.17.6</redisson.version>
         <lock4j.version>2.2.2</lock4j.version>
         <xxl-job.version>2.3.1</xxl-job.version>
         <satoken.version>1.30.0</satoken.version>
         <lombok.version>1.18.24</lombok.version>
         <logstash.version>7.1.1</logstash.version>
-        <easy-es.version>0.9.80</easy-es.version>
+        <easy-es.version>1.0.2</easy-es.version>
         <elasticsearch.version>7.14.0</elasticsearch.version>
-        <bitwalker.version>1.21</bitwalker.version>
         <oshi.version>6.2.2</oshi.version>
 
         <!-- 统一 guava 版本 解决隐式漏洞问题 -->
         <guava.version>31.1-jre</guava.version>
+        <!-- 临时修复 snakeyaml 漏洞 -->
+        <snakeyaml.version>1.32</snakeyaml.version>
 
         <!-- OSS 配置 -->
-        <aws-java-sdk-s3.version>1.12.264</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.300</aws-java-sdk-s3.version>
         <okhttp.version>4.10.0</okhttp.version>
 
         <!-- SMS 配置 -->
-        <aliyun.sms.version>2.0.16</aliyun.sms.version>
-        <tencent.sms.version>3.1.555</tencent.sms.version>
-
-        <!-- docker 配置 -->
-        <docker.registry.url>localhost</docker.registry.url>
-        <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
-        <docker.namespace>erahub</docker.namespace>
-        <docker.plugin.version>1.2.2</docker.plugin.version>
+        <aliyun.sms.version>2.0.18</aliyun.sms.version>
+        <tencent.sms.version>3.1.591</tencent.sms.version>
     </properties>
 
     <profiles>
@@ -312,18 +307,18 @@
                 <version>${guava.version}</version>
             </dependency>
 
+            <!-- 临时修复 snakeyaml 漏洞 -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+
             <!-- 统一 fastjson 版本 解决alibaba组件序列化漏洞问题 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
-            </dependency>
-
-            <!-- 解析客户端操作系统、浏览器等 -->
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>${bitwalker.version}</version>
             </dependency>
 
             <!-- 获取系统信息 -->
@@ -333,6 +328,7 @@
                 <version>${oshi.version}</version>
             </dependency>
 
+
         </dependencies>
     </dependencyManagement>
 
@@ -340,7 +336,7 @@
         <module>erahub-auth</module>
         <module>erahub-gateway</module>
         <module>erahub-visual</module>
-        <module>erahub-modules-base</module>
+        <module>erahub-modules</module>
         <module>erahub-api</module>
         <module>erahub-common</module>
         <module>erahub-example</module>
@@ -365,7 +361,7 @@
                         <path>
                             <groupId>com.github.therapi</groupId>
                             <artifactId>therapi-runtime-javadoc-scribe</artifactId>
-                            <version>0.13.0</version>
+                            <version>0.15.0</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -381,34 +377,14 @@
                 </configuration>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>${docker.plugin.version}</version>
-                    <configuration>
-                        <imageName>${docker.namespace}/${project.artifactId}:${project.version}</imageName>
-                        <dockerDirectory>${project.basedir}</dockerDirectory>
-                        <dockerHost>${docker.registry.host}</dockerHost>
-                        <registryUrl>${docker.registry.url}</registryUrl>
-                        <serverId>${docker.registry.url}</serverId>
-                        <resources>
-                            <resource>
-                                <targetPath>/</targetPath>
-                                <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <!-- 关闭过滤 -->
                 <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webapp/</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>

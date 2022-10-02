@@ -1,1 +1,1 @@
-dubboDataPermissionFilter=filter.com.erahub.common.mybatis.DubboDataPermissionFilter
+dubboDataPermissionFilter=com.erahub.common.mybatis.filter.DubboDataPermissionFilter

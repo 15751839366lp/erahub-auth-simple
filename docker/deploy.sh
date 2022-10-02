@@ -98,7 +98,7 @@ base(){
 
 #启动监控模块
 monitor(){
-    docker-compose up -d erahub-monitor-admin sentinel erahub-xxl-job-admin seata-server
+    docker-compose up -d erahub-monitor sentinel erahub-xxl-job-admin seata-server
 }
 
 #启动程序模块

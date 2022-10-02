@@ -27,10 +27,16 @@ public class DubboRequestFilter implements Filter {
             return invoker.invoke(invocation);
         }
         String client = CommonConstants.PROVIDER;
-        if (RpcContext.getServiceContext().isConsumerSide()) {
+        if (RpcContext.getServiceContext().getUrl() != null && RpcContext.getServiceContext().isConsumerSide()) {
             client = CommonConstants.CONSUMER;
         }
-        String baselog = "Client[" + client + "],InterfaceName=[" + invocation.getInvoker().getInterface().getSimpleName() + "],MethodName=[" + invocation.getMethodName() + "]";
+        String baselog = "";
+        if(invocation.getInvoker() == null ){
+            baselog = "Client[" + client + "],InterfaceName=[" + invocation.getTargetServiceUniqueName() + "],MethodName=[" + invocation.getMethodName() + "]";
+        }else {
+            baselog = "Client[" + client + "],InterfaceName=[" + invocation.getInvoker().getInterface().getSimpleName() + "],MethodName=[" + invocation.getMethodName() + "]";
+        }
+
         if (properties.getLogLevel() == RequestLogEnum.INFO) {
             log.info("DUBBO - 服务调用: {}", baselog);
         } else {

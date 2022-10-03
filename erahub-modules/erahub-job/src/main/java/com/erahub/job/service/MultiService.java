@@ -1,8 +1,8 @@
 package com.erahub.job.service;
 
-import com.erahub.system.api.RemoteUserService;
-import com.erahub.system.api.domain.SysUser;
-import com.erahub.system.api.model.LoginUser;
+import com.erahub.base.system.api.RemoteUserService;
+import com.erahub.base.system.api.domain.SysUser;
+import com.erahub.base.system.api.model.LoginUser;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import io.seata.spring.annotation.GlobalTransactional;

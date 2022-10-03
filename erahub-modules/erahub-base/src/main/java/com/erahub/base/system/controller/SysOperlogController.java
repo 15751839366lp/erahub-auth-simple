@@ -8,7 +8,7 @@ import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessType;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
-import com.erahub.system.api.domain.SysOperLog;
+import com.erahub.base.system.api.domain.SysOperLog;
 import com.erahub.base.system.service.ISysOperLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;

@@ -1,7 +1,7 @@
 package com.erahub.base.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
-import com.erahub.system.api.domain.SysDept;
+import com.erahub.base.system.api.domain.SysDept;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package com.erahub.base.system.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.mybatis.core.mapper.BaseMapperPlus;
-import com.erahub.system.api.domain.SysDictData;
+import com.erahub.base.system.api.domain.SysDictData;
 
 import java.util.List;
 

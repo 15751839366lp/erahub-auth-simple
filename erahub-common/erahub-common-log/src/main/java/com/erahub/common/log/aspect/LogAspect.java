@@ -10,7 +10,7 @@ import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessStatus;
 import com.erahub.common.log.service.AsyncLogService;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.domain.SysOperLog;
+import com.erahub.base.system.api.domain.SysOperLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

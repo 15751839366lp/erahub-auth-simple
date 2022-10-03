@@ -8,7 +8,7 @@ import com.erahub.base.system.service.ISysOperLogService;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
-import com.erahub.system.api.domain.SysOperLog;
+import com.erahub.base.system.api.domain.SysOperLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

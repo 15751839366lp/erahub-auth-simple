@@ -1,7 +1,7 @@
 package com.erahub.common.dict.service.impl;
 
 import com.erahub.common.core.service.DictService;
-import com.erahub.system.api.RemoteDictService;
+import com.erahub.base.system.api.RemoteDictService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 

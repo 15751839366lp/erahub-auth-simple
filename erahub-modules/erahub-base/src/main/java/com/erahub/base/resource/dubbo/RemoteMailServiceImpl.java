@@ -3,7 +3,7 @@ package com.erahub.base.resource.dubbo;
 import cn.hutool.core.util.ArrayUtil;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.mail.utils.MailUtils;
-import com.erahub.resource.api.RemoteMailService;
+import com.erahub.base.resource.api.RemoteMailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;

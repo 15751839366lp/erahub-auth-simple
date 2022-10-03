@@ -10,8 +10,7 @@
 
     <modules>
         <module>erahub-api-bom</module>
-        <module>erahub-api-system</module>
-        <module>erahub-api-resource</module>
+        <module>erahub-api-base</module>
     </modules>
 
     <artifactId>erahub-api</artifactId>

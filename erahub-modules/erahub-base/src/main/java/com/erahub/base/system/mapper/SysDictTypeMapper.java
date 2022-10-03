@@ -1,7 +1,7 @@
 package com.erahub.base.system.mapper;
 
 import com.erahub.common.mybatis.core.mapper.BaseMapperPlus;
-import com.erahub.system.api.domain.SysDictType;
+import com.erahub.base.system.api.domain.SysDictType;
 
 /**
  * 字典表 数据层

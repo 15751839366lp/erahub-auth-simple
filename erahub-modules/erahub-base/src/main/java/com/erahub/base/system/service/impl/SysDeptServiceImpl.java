@@ -15,9 +15,9 @@ import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.utils.TreeBuildUtils;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.domain.SysDept;
-import com.erahub.system.api.domain.SysRole;
-import com.erahub.system.api.domain.SysUser;
+import com.erahub.base.system.api.domain.SysDept;
+import com.erahub.base.system.api.domain.SysRole;
+import com.erahub.base.system.api.domain.SysUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

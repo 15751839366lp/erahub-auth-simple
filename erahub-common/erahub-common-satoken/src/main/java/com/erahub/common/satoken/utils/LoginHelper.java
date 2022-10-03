@@ -8,7 +8,7 @@ import com.erahub.common.core.enums.DeviceType;
 import com.erahub.common.core.enums.UserType;
 import com.erahub.common.core.exception.UtilException;
 import com.erahub.common.core.utils.StringUtils;
-import com.erahub.system.api.model.LoginUser;
+import com.erahub.base.system.api.model.LoginUser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

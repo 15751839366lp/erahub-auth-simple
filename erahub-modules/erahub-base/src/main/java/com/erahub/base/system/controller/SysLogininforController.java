@@ -10,7 +10,7 @@ import com.erahub.common.log.enums.BusinessType;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.erahub.common.redis.utils.RedisUtils;
-import com.erahub.system.api.domain.SysLogininfor;
+import com.erahub.base.system.api.domain.SysLogininfor;
 import com.erahub.base.system.service.ISysLogininforService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;

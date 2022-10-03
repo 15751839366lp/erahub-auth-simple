@@ -1,6 +1,6 @@
 package com.erahub.common.mybatis.service;
 
-import com.erahub.system.api.RemoteDataScopeService;
+import com.erahub.base.system.api.RemoteDataScopeService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 

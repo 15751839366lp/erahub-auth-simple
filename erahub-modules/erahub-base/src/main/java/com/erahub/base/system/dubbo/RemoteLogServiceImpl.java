@@ -1,8 +1,8 @@
 package com.erahub.base.system.dubbo;
 
-import com.erahub.system.api.RemoteLogService;
-import com.erahub.system.api.domain.SysLogininfor;
-import com.erahub.system.api.domain.SysOperLog;
+import com.erahub.base.system.api.RemoteLogService;
+import com.erahub.base.system.api.domain.SysLogininfor;
+import com.erahub.base.system.api.domain.SysOperLog;
 import com.erahub.base.system.service.ISysLogininforService;
 import com.erahub.base.system.service.ISysOperLogService;
 import lombok.RequiredArgsConstructor;

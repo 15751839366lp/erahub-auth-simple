@@ -1,7 +1,7 @@
 package com.erahub.base.system.mapper;
 
 import com.erahub.common.mybatis.core.mapper.BaseMapperPlus;
-import com.erahub.system.api.domain.SysLogininfor;
+import com.erahub.base.system.api.domain.SysLogininfor;
 
 /**
  * 系统访问日志情况信息 数据层

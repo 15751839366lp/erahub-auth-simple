@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>erahub-system</artifactId>
+    <artifactId>erahub-base</artifactId>
 
     <description>
-        erahub-system系统模块
+        erahub-base基础模块
     </description>
 
     <dependencies>
@@ -103,17 +103,11 @@
             <artifactId>erahub-common-sms</artifactId>
         </dependency>
 
-        <!-- erahub Api System -->
+        <!-- erahub Api Base -->
         <dependency>
             <groupId>com.erahub</groupId>
-            <artifactId>erahub-api-system</artifactId>
+            <artifactId>erahub-api-base</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.erahub</groupId>
-            <artifactId>erahub-api-resource</artifactId>
-        </dependency>
-
 
     </dependencies>
 

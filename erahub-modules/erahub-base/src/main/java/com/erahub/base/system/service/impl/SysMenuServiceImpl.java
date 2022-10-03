@@ -15,7 +15,7 @@ import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.utils.TreeBuildUtils;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.domain.SysRole;
+import com.erahub.base.system.api.domain.SysRole;
 import com.erahub.base.system.domain.SysMenu;
 import com.erahub.base.system.domain.SysRoleMenu;
 import com.erahub.base.system.domain.vo.MetaVo;

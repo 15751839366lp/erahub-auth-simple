@@ -11,7 +11,7 @@ import com.erahub.common.core.utils.ValidatorUtils;
 import com.erahub.common.excel.core.ExcelListener;
 import com.erahub.common.excel.core.ExcelResult;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.domain.SysUser;
+import com.erahub.base.system.api.domain.SysUser;
 import com.erahub.base.system.domain.vo.SysUserImportVo;
 import com.erahub.base.system.service.ISysConfigService;
 import com.erahub.base.system.service.ISysUserService;

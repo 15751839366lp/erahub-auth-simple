@@ -2,7 +2,7 @@ package com.erahub.base.system.service;
 
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
-import com.erahub.system.api.domain.SysRole;
+import com.erahub.base.system.api.domain.SysRole;
 import com.erahub.base.system.domain.SysUserRole;
 
 import java.util.List;

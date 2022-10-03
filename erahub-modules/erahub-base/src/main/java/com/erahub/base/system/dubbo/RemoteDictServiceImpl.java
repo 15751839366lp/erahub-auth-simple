@@ -2,8 +2,8 @@ package com.erahub.base.system.dubbo;
 
 import cn.hutool.core.collection.CollUtil;
 import com.erahub.common.core.utils.StringUtils;
-import com.erahub.system.api.RemoteDictService;
-import com.erahub.system.api.domain.SysDictData;
+import com.erahub.base.system.api.RemoteDictService;
+import com.erahub.base.system.api.domain.SysDictData;
 import com.erahub.base.system.service.ISysDictTypeService;
 import lombok.RequiredArgsConstructor;
 import org.apache.dubbo.config.annotation.DubboService;

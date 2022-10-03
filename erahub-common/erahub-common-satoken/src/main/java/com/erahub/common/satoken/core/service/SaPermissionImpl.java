@@ -3,7 +3,8 @@ package com.erahub.common.satoken.core.service;
 import cn.dev33.satoken.stp.StpInterface;
 import com.erahub.common.core.enums.UserType;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.model.LoginUser;
+import com.erahub.base.system.api.model.LoginUser;
+
 
 import java.util.ArrayList;
 import java.util.List;

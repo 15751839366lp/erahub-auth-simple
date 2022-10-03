@@ -9,7 +9,7 @@ import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.web.controller.BaseController;
 import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessType;
-import com.erahub.system.api.domain.SysDept;
+import com.erahub.base.system.api.domain.SysDept;
 import com.erahub.base.system.service.ISysDeptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;

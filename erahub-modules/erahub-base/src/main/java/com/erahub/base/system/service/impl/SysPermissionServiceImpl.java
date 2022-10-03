@@ -4,8 +4,8 @@ import com.erahub.base.system.service.ISysMenuService;
 import com.erahub.base.system.service.ISysPermissionService;
 import com.erahub.base.system.service.ISysRoleService;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.domain.SysRole;
-import com.erahub.system.api.domain.SysUser;
+import com.erahub.base.system.api.domain.SysRole;
+import com.erahub.base.system.api.domain.SysUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

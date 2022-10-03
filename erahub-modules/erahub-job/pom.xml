@@ -77,10 +77,10 @@
             <artifactId>erahub-common-job</artifactId>
         </dependency>
 
-        <!-- erahub Api System -->
+        <!-- erahub Api Base -->
         <dependency>
             <groupId>com.erahub</groupId>
-            <artifactId>erahub-api-system</artifactId>
+            <artifactId>erahub-api-base</artifactId>
         </dependency>
 
     </dependencies>

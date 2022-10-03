@@ -13,7 +13,7 @@ import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.domain.SysRole;
+import com.erahub.base.system.api.domain.SysRole;
 import com.erahub.base.system.domain.SysRoleDept;
 import com.erahub.base.system.domain.SysRoleMenu;
 import com.erahub.base.system.domain.SysUserRole;

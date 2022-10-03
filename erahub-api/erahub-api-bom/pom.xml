@@ -16,17 +16,10 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- 系统接口 -->
+            <!-- 基础接口 -->
             <dependency>
                 <groupId>com.erahub</groupId>
-                <artifactId>erahub-api-system</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- 资源服务接口 -->
-            <dependency>
-                <groupId>com.erahub</groupId>
-                <artifactId>erahub-api-resource</artifactId>
+                <artifactId>erahub-api-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

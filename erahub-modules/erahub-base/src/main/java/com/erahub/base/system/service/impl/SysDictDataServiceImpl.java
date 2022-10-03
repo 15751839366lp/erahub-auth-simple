@@ -10,7 +10,7 @@ import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.erahub.common.redis.utils.CacheUtils;
-import com.erahub.system.api.domain.SysDictData;
+import com.erahub.base.system.api.domain.SysDictData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;

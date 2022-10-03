@@ -7,7 +7,7 @@ import com.erahub.base.system.service.ISysLogininforService;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
-import com.erahub.system.api.domain.SysLogininfor;
+import com.erahub.base.system.api.domain.SysLogininfor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.erahub.common.dict.utils;
 
 import com.erahub.common.core.constant.CacheNames;
 import com.erahub.common.redis.utils.CacheUtils;
-import com.erahub.system.api.domain.SysDictData;
+import com.erahub.base.system.api.domain.SysDictData;
 
 import java.util.List;
 

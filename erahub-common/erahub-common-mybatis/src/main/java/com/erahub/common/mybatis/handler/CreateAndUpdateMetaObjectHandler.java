@@ -7,7 +7,7 @@ import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.web.domain.BaseEntity;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.system.api.model.LoginUser;
+import com.erahub.base.system.api.model.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 

@@ -1,7 +1,7 @@
 package com.erahub.common.log.service;
 
-import com.erahub.system.api.RemoteLogService;
-import com.erahub.system.api.domain.SysOperLog;
+import com.erahub.base.system.api.RemoteLogService;
+import com.erahub.base.system.api.domain.SysOperLog;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

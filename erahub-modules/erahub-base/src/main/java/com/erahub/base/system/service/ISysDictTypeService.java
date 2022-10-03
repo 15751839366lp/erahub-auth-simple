@@ -2,8 +2,8 @@ package com.erahub.base.system.service;
 
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
-import com.erahub.system.api.domain.SysDictData;
-import com.erahub.system.api.domain.SysDictType;
+import com.erahub.base.system.api.domain.SysDictData;
+import com.erahub.base.system.api.domain.SysDictType;
 
 import java.util.List;
 

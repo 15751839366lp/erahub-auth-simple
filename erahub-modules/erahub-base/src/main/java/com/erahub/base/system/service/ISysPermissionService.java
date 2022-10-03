@@ -2,7 +2,7 @@ package com.erahub.base.system.service;
 
 import java.util.Set;
 
-import com.erahub.system.api.domain.SysUser;
+import com.erahub.base.system.api.domain.SysUser;
 
 /**
  * 权限信息 服务层

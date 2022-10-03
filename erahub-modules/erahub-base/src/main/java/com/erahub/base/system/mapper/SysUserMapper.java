@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.erahub.common.mybatis.annotation.DataColumn;
 import com.erahub.common.mybatis.annotation.DataPermission;
 import com.erahub.common.mybatis.core.mapper.BaseMapperPlus;
-import com.erahub.system.api.domain.SysUser;
+import com.erahub.base.system.api.domain.SysUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

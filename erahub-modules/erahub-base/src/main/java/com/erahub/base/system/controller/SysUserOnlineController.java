@@ -12,7 +12,7 @@ import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessType;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.erahub.common.redis.utils.RedisUtils;
-import com.erahub.system.api.domain.SysUserOnline;
+import com.erahub.base.system.api.domain.SysUserOnline;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 {
-  "name": "erahub-plus-auth",
+  "name": "Erahub-Auth-Simple",
   "version": "1.2.0",
-  "description": "Erahub-Plus-Auth后台管理系统",
+  "description": "Erahub-Auth-Simple后台管理系统",
   "author": "erahub",
   "license": "MIT",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/Erahub-Plus-Auth-UI.git"
+    "url": "https://gitee.com/Erahub-Auth-Simple-UI.git"
   },
   "dependencies": {
     "@element-plus/icons-vue": "1.1.4",

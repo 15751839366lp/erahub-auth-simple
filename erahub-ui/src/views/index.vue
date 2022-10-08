@@ -2,9 +2,9 @@
   <div class="app-container home">
     <el-row :gutter="20">
       <el-col :sm="24" :lg="12" style="padding-left: 20px">
-        <h2>Erahub-Plus-Auth后台管理系统</h2>
+        <h2>Erahub-Auth-Simple后台管理系统</h2>
         <p>
-            Erahub-Plus-Auth 微服务通用权限管理系统
+            Erahub-Auth-Simple 微服务通用权限管理系统
           <br/>
           * 前端开发框架 Vue3、Element PLUS<br/>
           * 后端开发框架 Spring Boot<br/>

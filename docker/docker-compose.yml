@@ -10,7 +10,7 @@ services:
       # root 密码
       MYSQL_ROOT_PASSWORD: erahub123
       # 初始化数据库
-      MYSQL_DATABASE: erahub-cloud
+      MYSQL_DATABASE: erahub-cloud,erahub-config,erahub-job,erahub-seata
     ports:
       - "3306:3306"
     volumes:

@@ -4,6 +4,8 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.erahub.auth.form.RegisterBody;
 import com.erahub.auth.properties.UserPasswordProperties;
 import com.erahub.common.core.constant.CacheConstants;
@@ -16,6 +18,7 @@ import com.erahub.common.core.exception.user.UserException;
 import com.erahub.common.core.utils.MessageUtils;
 import com.erahub.common.core.utils.ServletUtils;
 import com.erahub.common.core.utils.StringUtils;
+import com.erahub.common.core.utils.ip.AddressUtils;
 import com.erahub.common.redis.utils.RedisUtils;
 import com.erahub.common.satoken.utils.LoginHelper;
 import com.erahub.base.system.api.RemoteLogService;
@@ -128,9 +131,13 @@ public class SysLoginService {
      * @return
      */
     public void recordLogininfor(String username, String status, String message) {
+        UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         SysLogininfor logininfor = new SysLogininfor();
         logininfor.setUserName(username);
         logininfor.setIpaddr(ServletUtils.getClientIP());
+        logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ServletUtils.getClientIP()));
+        logininfor.setBrowser(userAgent.getBrowser().getName());
+        logininfor.setOs(userAgent.getOs().getName());
         logininfor.setMsg(message);
         // 日志状态
         if (StringUtils.equalsAny(status, Constants.LOGIN_SUCCESS, Constants.LOGOUT, Constants.REGISTER)) {

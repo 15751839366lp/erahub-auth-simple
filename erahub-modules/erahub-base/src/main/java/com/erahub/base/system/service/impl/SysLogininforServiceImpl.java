@@ -32,6 +32,9 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
         Map<String, Object> params = logininfor.getParams();
         LambdaQueryWrapper<SysLogininfor> lqw = new LambdaQueryWrapper<SysLogininfor>()
             .like(StringUtils.isNotBlank(logininfor.getIpaddr()), SysLogininfor::getIpaddr, logininfor.getIpaddr())
+            .like(StringUtils.isNotBlank(logininfor.getLoginLocation()), SysLogininfor::getLoginLocation, logininfor.getLoginLocation())
+            .like(StringUtils.isNotBlank(logininfor.getBrowser()), SysLogininfor::getBrowser, logininfor.getBrowser())
+            .like(StringUtils.isNotBlank(logininfor.getOs()), SysLogininfor::getOs, logininfor.getOs())
             .eq(StringUtils.isNotBlank(logininfor.getStatus()), SysLogininfor::getStatus, logininfor.getStatus())
             .like(StringUtils.isNotBlank(logininfor.getUserName()), SysLogininfor::getUserName, logininfor.getUserName())
             .between(params.get("beginTime") != null && params.get("endTime") != null,

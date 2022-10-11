@@ -55,6 +55,24 @@ public class SysLogininfor implements Serializable {
     private String ipaddr;
 
     /**
+     * 登录地址
+     */
+    @ExcelProperty(value = "登录地址")
+    private String loginLocation;
+
+    /**
+     * 浏览器类型
+     */
+    @ExcelProperty(value = "浏览器类型")
+    private String browser;
+
+    /**
+     * 操作系统
+     */
+    @ExcelProperty(value = "操作系统")
+    private String os;
+
+    /**
      * 描述
      */
     @ExcelProperty(value = "描述")
@@ -71,5 +89,6 @@ public class SysLogininfor implements Serializable {
      */
     @TableField(exist = false)
     private Map<String, Object> params = new HashMap<>();
+
 
 }

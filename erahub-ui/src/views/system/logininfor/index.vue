@@ -1,10 +1,10 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-         <el-form-item label="登录地址" prop="ipaddr">
+         <el-form-item label="登录IP" prop="ipaddr">
             <el-input
                v-model="queryParams.ipaddr"
-               placeholder="请输入登录地址"
+               placeholder="请输入登录IP"
                clearable
                style="width: 240px;"
                @keyup.enter="handleQuery"
@@ -19,6 +19,33 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
+          <el-form-item label="登录地址" prop="loginLocation">
+              <el-input
+                  v-model="queryParams.loginLocation"
+                  placeholder="请输入登录地址"
+                  clearable
+                  style="width: 240px;"
+                  @keyup.enter="handleQuery"
+              />
+          </el-form-item>
+          <el-form-item label="浏览器" prop="browser">
+              <el-input
+                  v-model="queryParams.browser"
+                  placeholder="请输入浏览器"
+                  clearable
+                  style="width: 240px;"
+                  @keyup.enter="handleQuery"
+              />
+          </el-form-item>
+          <el-form-item label="操作系统" prop="os">
+              <el-input
+                  v-model="queryParams.os"
+                  placeholder="请输入操作系统"
+                  clearable
+                  style="width: 240px;"
+                  @keyup.enter="handleQuery"
+              />
+          </el-form-item>
          <el-form-item label="状态" prop="status">
             <el-select
                v-model="queryParams.status"
@@ -89,21 +116,24 @@
                v-hasPermi="['system:logininfor:export']"
             >导出</el-button>
          </el-col>
-         <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
       </el-row>
 
       <el-table ref="logininforRef" v-loading="loading" :data="logininforList" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
-         <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="访问编号" align="center" prop="infoId" />
-         <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
-          <el-table-column label="IP" align="center" prop="ipaddr" />
-          <el-table-column label="登录状态" align="center" prop="status">
+         <el-table-column type="selection" width="55" align="center"/>
+         <el-table-column label="访问编号" align="center" prop="infoId" v-if="columns[0].visible" />
+         <el-table-column label="用户名称" align="center" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
+          <el-table-column label="IP" align="center" prop="ipaddr" v-if="columns[2].visible" />
+          <el-table-column label="登录地址" align="center" prop="loginLocation" v-if="columns[3].visible" />
+          <el-table-column label="浏览器类型" align="center" prop="browser" v-if="columns[4].visible" />
+          <el-table-column label="操作系统" align="center" prop="os" v-if="columns[5].visible" />
+          <el-table-column label="登录状态" align="center" prop="status" v-if="columns[6].visible">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="描述" align="center" prop="msg" />
-         <el-table-column label="访问时间" align="center" prop="accessTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
+         <el-table-column label="描述" align="center" prop="msg" v-if="columns[7].visible" />
+         <el-table-column label="访问时间" align="center" prop="accessTime" v-if="columns[8].visible" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.accessTime) }}</span>
             </template>
@@ -137,11 +167,27 @@ const total = ref(0);
 const dateRange = ref([]);
 const defaultSort = ref({ prop: "loginTime", order: "descending" });
 
+// 列显隐信息
+const columns = ref([
+    { key: 0, label: `访问编号`, visible: true },
+    { key: 1, label: `用户名称`, visible: true },
+    { key: 2, label: `IP`, visible: true },
+    { key: 3, label: `登录地址`, visible: true },
+    { key: 4, label: `浏览器类型`, visible: true },
+    { key: 5, label: `操作系统`, visible: true },
+    { key: 6, label: `登录状态`, visible: true },
+    { key: 7, label: `描述`, visible: true },
+    { key: 8, label: `访问时间`, visible: true }
+]);
+
 // 查询参数
 const queryParams = ref({
   pageNum: 1,
   pageSize: 10,
   ipaddr: undefined,
+  loginLocation: undefined,
+  browser: undefined,
+  os: undefined,
   userName: undefined,
   status: undefined,
   orderByColumn: undefined,

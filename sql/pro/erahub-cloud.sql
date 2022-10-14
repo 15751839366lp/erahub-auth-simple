@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 08/10/2022 17:19:39
+ Date: 11/10/2022 18:35:24
 */
 
 SET NAMES utf8mb4;
@@ -50,7 +50,9 @@ CREATE TABLE `gen_table`  (
 -- ----------------------------
 INSERT INTO `gen_table` VALUES (1574229171989590017, 'sys_user', '用户信息表', NULL, NULL, 'SysUser', 'crud', 'com.erahub.cr', 'cr', 'cr', '财务', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":5}', 'admin', '2022-09-17 08:51:19', 'admin', '2022-09-26 10:49:20', NULL);
 INSERT INTO `gen_table` VALUES (1574291627189415937, 'sys_dict_data', '字典数据表', NULL, NULL, 'SysDictData', 'crud', 'com.erahub.system', 'system', 'data', '字典数据', 'erahub', '0', '/', NULL, 'admin', '2022-09-17 08:51:18', 'admin', '2022-09-17 08:51:18', NULL);
-INSERT INTO `gen_table` VALUES (1574291628342849537, 'sys_dict_type', '字典类型表', NULL, NULL, 'SysDictType', 'crud', 'com.erahub.system', 'system', 'type', '字典类型', 'erahub', '0', '/', NULL, 'admin', '2022-09-17 08:51:18', 'admin', '2022-09-17 08:51:18', NULL);
+INSERT INTO `gen_table` VALUES (1574291628342849537, 'sys_dict_type', '字典类型表', NULL, NULL, 'SysDictType', 'crud', 'com.erahub.system', 'system', 'type', '字典类型', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"\"}', 'admin', '2022-09-17 08:51:18', 'admin', '2022-10-08 17:53:41', NULL);
+INSERT INTO `gen_table` VALUES (1579263009648226306, 'test_tree', '测试树表', NULL, NULL, 'TestTree', 'crud', 'com.erahub.base', 'base', 'tree', '测试树', 'erahub', '0', '/', NULL, 'admin', '2022-10-08 09:19:20', 'admin', '2022-10-08 09:19:20', NULL);
+INSERT INTO `gen_table` VALUES (1579720854126669825, 'sys_logininfor', '系统访问记录', NULL, NULL, 'SysLogininfor', 'crud', 'com.erahub.base', 'base', 'logininfor', '系统访问记录', 'erahub', '0', '/', NULL, 'admin', '2022-10-08 09:19:18', 'admin', '2022-10-08 09:19:18', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -118,15 +120,32 @@ INSERT INTO `gen_table_column` VALUES (1574291628221214721, 1574291627189415937,
 INSERT INTO `gen_table_column` VALUES (1574291628233797633, 1574291627189415937, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
 INSERT INTO `gen_table_column` VALUES (1574291628250574850, 1574291627189415937, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
 INSERT INTO `gen_table_column` VALUES (1574291628263157762, 1574291627189415937, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 14, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628401569794, 1574291628342849537, 'dict_id', '字典主键', 'bigint', 'Long', 'dictId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628435124226, 1574291628342849537, 'dict_name', '字典名称', 'varchar(100)', 'String', 'dictName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628451901442, 1574291628342849537, 'dict_type', '字典类型', 'varchar(100)', 'String', 'dictType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628460290050, 1574291628342849537, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628472872961, 1574291628342849537, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 5, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628485455874, 1574291628342849537, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 6, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628498038785, 1574291628342849537, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 7, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628514816002, 1574291628342849537, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 8, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628527398914, 1574291628342849537, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 9, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `gen_table_column` VALUES (1574291628401569794, 1574291628342849537, 'dict_id', '字典主键', 'bigint', 'Long', 'dictId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628435124226, 1574291628342849537, 'dict_name', '字典名称', 'varchar(100)', 'String', 'dictName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628451901442, 1574291628342849537, 'dict_type', '字典类型', 'varchar(100)', 'String', 'dictType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628460290050, 1574291628342849537, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628472872961, 1574291628342849537, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 5, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628485455874, 1574291628342849537, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, '1', 'EQ', 'datetime', '', 6, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628498038785, 1574291628342849537, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 7, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628514816002, 1574291628342849537, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 8, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1574291628527398914, 1574291628342849537, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 9, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `gen_table_column` VALUES (1579263009698557953, 1579263009648226306, 'id', '主键', 'bigint', 'Long', 'id', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009719529474, 1579263009648226306, 'parent_id', '父id', 'bigint', 'Long', 'parentId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009719529475, 1579263009648226306, 'dept_id', '部门id', 'bigint', 'Long', 'deptId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009732112385, 1579263009648226306, 'user_id', '用户id', 'bigint', 'Long', 'userId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009744695297, 1579263009648226306, 'tree_name', '值', 'varchar(255)', 'String', 'treeName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009753083906, 1579263009648226306, 'version', '版本', 'int', 'Long', 'version', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009757278209, 1579263009648226306, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 7, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009765666818, 1579263009648226306, 'create_by', '创建人', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 8, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009774055426, 1579263009648226306, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 9, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009778249730, 1579263009648226306, 'update_by', '更新人', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579263009782444034, 1579263009648226306, 'del_flag', '删除标志', 'int', 'Long', 'delFlag', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 11, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `gen_table_column` VALUES (1579720854147641346, 1579720854126669825, 'info_id', '访问ID', 'bigint', 'Long', 'infoId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `gen_table_column` VALUES (1579720854160224257, 1579720854126669825, 'user_name', '用户账号', 'varchar(50)', 'String', 'userName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `gen_table_column` VALUES (1579720854168612865, 1579720854126669825, 'ipaddr', '登录IP地址', 'varchar(128)', 'String', 'ipaddr', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `gen_table_column` VALUES (1579720854168612866, 1579720854126669825, 'status', '登录状态（0成功 1失败）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `gen_table_column` VALUES (1579720854168612867, 1579720854126669825, 'msg', '提示信息', 'varchar(255)', 'String', 'msg', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `gen_table_column` VALUES (1579720854181195778, 1579720854126669825, 'access_time', '访问时间', 'datetime', 'Date', 'accessTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 6, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -153,7 +172,7 @@ INSERT INTO `sys_config` VALUES (1, '主框架页-默认皮肤样式名称', 'sy
 INSERT INTO `sys_config` VALUES (2, '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-20 14:39:07', '初始化密码 123456');
 INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-20 15:14:48', '深色主题theme-dark，浅色主题theme-light');
 INSERT INTO `sys_config` VALUES (4, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-19 10:28:31', '是否开启注册用户功能（true开启，false关闭）');
-INSERT INTO `sys_config` VALUES (11, 'OSS预览列表资源开关', 'sys.oss.previewListResource', 'true', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-27 14:41:35', 'true:开启, false:关闭');
+INSERT INTO `sys_config` VALUES (11, 'OSS预览列表资源开关', 'sys.oss.previewListResource', 'true', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-10-09 14:49:59', 'true:开启, false:关闭');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -586,6 +605,26 @@ INSERT INTO `sys_logininfor` VALUES (1578594347853492226, 'admin', '183.209.136.
 INSERT INTO `sys_logininfor` VALUES (1578594526589562882, 'admin', '223.104.150.44', '0', '退出成功', '2022-10-08 11:53:59');
 INSERT INTO `sys_logininfor` VALUES (1578594542204956674, 'admin', '223.104.150.44', '0', '登录成功', '2022-10-08 11:54:02');
 INSERT INTO `sys_logininfor` VALUES (1578673717402087426, 'admin', '183.209.136.16', '0', '登录成功', '2022-10-08 17:08:39');
+INSERT INTO `sys_logininfor` VALUES (1578948045846818817, 'admin', '180.101.128.240', '0', '登录成功', '2022-10-09 11:18:44');
+INSERT INTO `sys_logininfor` VALUES (1579000288948203521, 'admin', '180.101.128.240', '0', '登录成功', '2022-10-09 14:46:20');
+INSERT INTO `sys_logininfor` VALUES (1579001051355230209, 'admin', '180.101.128.240', '0', '登录成功', '2022-10-09 14:49:22');
+INSERT INTO `sys_logininfor` VALUES (1579017784375848962, 'test01', '180.101.128.240', '0', '登录成功', '2022-10-09 15:55:51');
+INSERT INTO `sys_logininfor` VALUES (1579017954131914753, 'test01', '180.101.128.240', '0', '退出成功', '2022-10-09 15:56:32');
+INSERT INTO `sys_logininfor` VALUES (1579017981952733186, 'admin', '180.101.128.240', '0', '登录成功', '2022-10-09 15:56:38');
+INSERT INTO `sys_logininfor` VALUES (1579260747605553154, 'admin', '223.112.3.243', '0', '登录成功', '2022-10-10 08:01:18');
+INSERT INTO `sys_logininfor` VALUES (1579305029972471809, 'admin', '223.112.3.243', '0', '登录成功', '2022-10-10 10:57:16');
+INSERT INTO `sys_logininfor` VALUES (1579309458360578050, 'admin', '223.112.3.243', '0', '登录成功', '2022-10-10 11:14:52');
+INSERT INTO `sys_logininfor` VALUES (1579309615399514113, 'admin', '223.112.3.243', '0', '退出成功', '2022-10-10 11:15:29');
+INSERT INTO `sys_logininfor` VALUES (1579309644075970562, 'admin', '223.112.3.243', '0', '登录成功', '2022-10-10 11:15:36');
+INSERT INTO `sys_logininfor` VALUES (1579309688447512577, 'admin', '223.104.150.74', '0', '登录成功', '2022-10-10 11:15:47');
+INSERT INTO `sys_logininfor` VALUES (1579310060717158401, 'admin', '223.104.150.74', '1', '密码输入错误1次', '2022-10-10 11:17:15');
+INSERT INTO `sys_logininfor` VALUES (1579310166493310978, 'admin', '223.104.150.74', '0', '登录成功', '2022-10-10 11:17:41');
+INSERT INTO `sys_logininfor` VALUES (1579350103276072962, 'admin', '223.112.3.243', '0', '登录成功', '2022-10-10 13:56:22');
+INSERT INTO `sys_logininfor` VALUES (1579357999049158658, 'admin', '223.112.3.243', '0', '登录成功', '2022-10-10 14:27:45');
+INSERT INTO `sys_logininfor` VALUES (1579407270574239745, 'admin', '183.209.136.16', '0', '登录成功', '2022-10-10 17:43:32');
+INSERT INTO `sys_logininfor` VALUES (1579637925295894530, 'admin', '122.96.105.26', '0', '登录成功', '2022-10-11 09:00:04');
+INSERT INTO `sys_logininfor` VALUES (1579715889459048450, 'admin', '122.96.105.26', '0', '登录成功', '2022-10-11 14:09:52');
+INSERT INTO `sys_logininfor` VALUES (1579776007030648833, 'admin', '183.209.136.16', '0', '登录成功', '2022-10-11 18:08:46');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1139,6 +1178,24 @@ INSERT INTO `sys_oper_log` VALUES (1578673959870607362, '角色管理', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1578674097443778562, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.edit()', 'PUT', 1, 'admin', '', '/role', '183.209.136.16', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:10:09\",\"params\":{},\"roleId\":2,\"roleName\":\"管理员\",\"roleKey\":\"common\",\"roleSort\":2,\"dataScope\":\"2\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":\"管理员\",\"flag\":false,\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,105,1026,1027,1028,1029,1030,106,1031,1032,1033,1034,1035,107,1036,1037,1038,1039,108,500,1040,1041,1042,501,1043,1044,1045,1050,118,1600,1601,1602,1603,1604,1605,2,109,1046,1047,1048,\"1570009901798481921\",\"1570010319794429953\",\"1570022388644143106\",113,111,110,112,\"1570758202780676098\",\"1572393811995209730\",3,114,115,1055,1056,1058,1057,1059,1060,5,1500,1501,1502,1503,1504,1505,1506,1507,1508,1509,1510,1511,\"1574206588866998274\",\"1574206638720495617\",\"1574206696736108546\"],\"deptIds\":null,\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-08 17:10:10');
 INSERT INTO `sys_oper_log` VALUES (1578674342126891009, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.dataScope()', 'PUT', 1, 'admin', '', '/role/dataScope', '183.209.136.16', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:11:08\",\"params\":{},\"roleId\":2,\"roleName\":\"管理员\",\"roleKey\":\"common\",\"roleSort\":2,\"dataScope\":\"4\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":\"管理员\",\"flag\":false,\"menuIds\":null,\"deptIds\":[],\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-08 17:11:08');
 INSERT INTO `sys_oper_log` VALUES (1578674385022038018, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.dataScope()', 'PUT', 1, 'admin', '', '/role/dataScope', '183.209.136.16', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:11:18\",\"params\":{},\"roleId\":2,\"roleName\":\"管理员\",\"roleKey\":\"common\",\"roleSort\":2,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":\"管理员\",\"flag\":false,\"menuIds\":null,\"deptIds\":[],\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-08 17:11:18');
+INSERT INTO `sys_oper_log` VALUES (1578685048133988354, '代码生成', 2, 'com.erahub.base.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', '', '/gen', '183.209.136.16', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:53:40\",\"params\":{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"\"},\"tableId\":\"1574291628342849537\",\"tableName\":\"sys_dict_type\",\"tableComment\":\"字典类型表\",\"subTableName\":null,\"subTableFkName\":null,\"className\":\"SysDictType\",\"tplCategory\":\"crud\",\"packageName\":\"com.erahub.system\",\"moduleName\":\"system\",\"businessName\":\"type\",\"functionName\":\"字典类型\",\"functionAuthor\":\"erahub\",\"genType\":\"0\",\"genPath\":\"/\",\"pkColumn\":null,\"subTable\":null,\"columns\":[{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-26 14:55:48\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:53:40\",\"params\":{},\"columnId\":\"1574291628401569794\",\"tableId\":\"1574291628342849537\",\"columnName\":\"dict_id\",\"columnComment\":\"字典主键\",\"columnType\":\"bigint\",\"javaType\":\"Long\",\"javaField\":\"dictId\",\"isPk\":\"1\",\"isIncrement\":\"0\",\"isRequired\":\"1\",\"isInsert\":null,\"isEdit\":\"1\",\"isList\":\"1\",\"isQuery\":null,\"queryType\":\"EQ\",\"htmlType\":\"input\",\"dictType\":\"\",\"sort\":1,\"capJavaField\":\"DictId\",\"pk\":true,\"increment\":false,\"required\":true,\"insert\":false,\"edit\":true,\"list\":true,\"query\":false,\"superColumn\":false,\"usableColumn\":false},{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-26 14:55:48\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:53:40\",\"params\":{},\"columnId\":\"1574291628435124226\",\"tableId\":\"1574291628342849537\",\"columnName\":\"dict_name\",\"columnComment\":\"字典名称\",\"columnType\":\"varchar(100)\",\"javaType\":\"String\",\"javaField\":\"dictName\",\"isPk\":\"0\",\"isIncrement\":\"0\",\"isRequired\":\"1\",\"isInsert\":\"1\",\"isEdit\":\"1\",\"isList\":\"1\",\"isQuery\":\"1\",\"queryType\":\"LIKE\",\"htmlType\":\"input\",\"dictType\":\"\",\"sort\":2,\"capJavaField\":\"DictName\",\"pk\":false,\"increment\":false,\"required\":true,\"insert\":true,\"edit\":true,\"list\":true,\"query\":true,\"superColumn\":false,\"usableColumn\":false},{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-26 14:55:48\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-08 17:53:40\",\"params\":{},\"columnId\":\"1', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-08 17:53:41');
+INSERT INTO `sys_oper_log` VALUES (1579000755262533633, '参数管理', 9, 'com.erahub.base.system.controller.SysConfigController.refreshCache()', 'DELETE', 1, 'admin', '', '/config/refreshCache', '180.101.128.240', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-09 14:48:11');
+INSERT INTO `sys_oper_log` VALUES (1579001197342175233, '参数管理', 2, 'com.erahub.base.system.controller.SysConfigController.updateByKey()', 'PUT', 1, 'admin', '', '/config/updateByKey', '180.101.128.240', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-10-09 14:49:56\",\"params\":{},\"configId\":null,\"configName\":null,\"configKey\":\"sys.oss.previewListResource\",\"configValue\":\"false\",\"configType\":null,\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-09 14:49:57');
+INSERT INTO `sys_oper_log` VALUES (1579001209371439106, '参数管理', 2, 'com.erahub.base.system.controller.SysConfigController.updateByKey()', 'PUT', 1, 'admin', '', '/config/updateByKey', '180.101.128.240', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-10-09 14:49:59\",\"params\":{},\"configId\":null,\"configName\":null,\"configKey\":\"sys.oss.previewListResource\",\"configValue\":\"true\",\"configType\":null,\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-09 14:49:59');
+INSERT INTO `sys_oper_log` VALUES (1579263009920856066, '代码生成', 6, 'com.erahub.base.gen.controller.GenController.importTableSave()', 'POST', 1, 'admin', '', '/gen/importTable', '223.112.3.243', '', '\"test_tree\"', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-10 08:10:18');
+INSERT INTO `sys_oper_log` VALUES (1579264599780175873, '菜单管理', 3, 'com.erahub.base.system.controller.SysMenuController.remove()', 'DELETE', 1, 'admin', '', '/menu/5', '223.112.3.243', '', '', '{\"code\":500,\"msg\":\"存在子菜单,不允许删除\",\"data\":null,\"error\":true,\"success\":false}', 0, '', '2022-10-10 08:16:37');
+INSERT INTO `sys_oper_log` VALUES (1579308898517463041, '操作日志', 3, 'com.erahub.base.system.controller.SysOperlogController.remove()', 'DELETE', 1, 'admin', '', '/operlog/1579308865856417794', '223.112.3.243', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-10 11:12:38');
+INSERT INTO `sys_oper_log` VALUES (1579310953025974273, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '', '/user', '223.112.3.243', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":null,\"updateTime\":null,\"params\":{},\"userId\":1,\"deptId\":103,\"userName\":\"admin\",\"nickName\":\"erahub\",\"userType\":\"sys_user\",\"email\":\"123456@gmail.com\",\"phonenumber\":\"13999999999\",\"sex\":\"0\",\"avatar\":\"http://47.92.112.236:9000/erahub/2022/10/08/64f778b1cd7740459864f09b57e13a0d.jpg\",\"status\":\"0\",\"delFlag\":\"0\",\"loginIp\":\"127.0.0.1\",\"loginDate\":\"2022-09-10 17:10:48\",\"remark\":\"管理员\",\"dept\":{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"parentName\":null,\"parentId\":101,\"children\":[],\"deptId\":103,\"deptName\":\"研发部门\",\"orderNum\":1,\"leader\":\"erahub\",\"phone\":null,\"email\":null,\"status\":\"0\",\"delFlag\":null,\"ancestors\":\"0,100,101\"},\"roles\":[{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"roleId\":1,\"roleName\":\"超级管理员\",\"roleKey\":\"admin\",\"roleSort\":1,\"dataScope\":\"1\",\"menuCheckStrictly\":null,\"deptCheckStrictly\":null,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":null,\"deptIds\":null,\"permissions\":null,\"admin\":true}],\"roleIds\":[1],\"postIds\":[1],\"roleId\":null,\"admin\":true}', '', 1, '不允许操作超级管理员用户', '2022-10-10 11:20:48');
+INSERT INTO `sys_oper_log` VALUES (1579638036407201794, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.resetPwd()', 'PUT', 1, 'admin', '', '/user/resetPwd', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:00:30\",\"params\":{},\"userId\":\"1569245585432358914\",\"deptId\":null,\"userName\":null,\"nickName\":null,\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":null,\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":null,\"postIds\":null,\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:00:31');
+INSERT INTO `sys_oper_log` VALUES (1579638871681871874, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.changeStatus()', 'PUT', 1, 'admin', '', '/user/changeStatus', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:03:49\",\"params\":{},\"userId\":\"1569245585432358914\",\"deptId\":null,\"userName\":null,\"nickName\":null,\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"1\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":null,\"postIds\":null,\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:03:50');
+INSERT INTO `sys_oper_log` VALUES (1579638881509126146, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.changeStatus()', 'PUT', 1, 'admin', '', '/user/changeStatus', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:03:52\",\"params\":{},\"userId\":\"1569245585432358914\",\"deptId\":null,\"userName\":null,\"nickName\":null,\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"0\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":null,\"postIds\":null,\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:03:52');
+INSERT INTO `sys_oper_log` VALUES (1579638933002596353, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '', '/user', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-12 16:44:37\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:04:04\",\"params\":{},\"userId\":\"1569245585432358914\",\"deptId\":109,\"userName\":\"test01\",\"nickName\":\"test01\",\"userType\":\"sys_user\",\"email\":\"\",\"phonenumber\":\"\",\"sex\":\"0\",\"avatar\":\"http://47.92.112.236:9000/erahub/2022/09/26/1f99b455f93f4fd9af4b7cf1ac1d8de8.jpg\",\"status\":\"0\",\"delFlag\":\"0\",\"loginIp\":\"\",\"loginDate\":null,\"remark\":null,\"dept\":{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"parentName\":null,\"parentId\":102,\"children\":[],\"deptId\":109,\"deptName\":\"财务部门\",\"orderNum\":2,\"leader\":\"erahub\",\"phone\":null,\"email\":null,\"status\":\"0\",\"delFlag\":null,\"ancestors\":\"0,100,102\"},\"roles\":[{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"roleId\":\"1569245300584591362\",\"roleName\":\"test01\",\"roleKey\":\"test01\",\"roleSort\":3,\"dataScope\":\"4\",\"menuCheckStrictly\":null,\"deptCheckStrictly\":null,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":null,\"deptIds\":null,\"permissions\":null,\"admin\":false}],\"roleIds\":[\"1569245300584591362\",2],\"postIds\":[],\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:04:05');
+INSERT INTO `sys_oper_log` VALUES (1579638956884963330, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '', '/user', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-12 16:44:37\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:04:10\",\"params\":{},\"userId\":\"1569245585432358914\",\"deptId\":109,\"userName\":\"test01\",\"nickName\":\"test01\",\"userType\":\"sys_user\",\"email\":\"\",\"phonenumber\":\"\",\"sex\":\"0\",\"avatar\":\"http://47.92.112.236:9000/erahub/2022/09/26/1f99b455f93f4fd9af4b7cf1ac1d8de8.jpg\",\"status\":\"0\",\"delFlag\":\"0\",\"loginIp\":\"\",\"loginDate\":null,\"remark\":null,\"dept\":{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"parentName\":null,\"parentId\":102,\"children\":[],\"deptId\":109,\"deptName\":\"财务部门\",\"orderNum\":2,\"leader\":\"erahub\",\"phone\":null,\"email\":null,\"status\":\"0\",\"delFlag\":null,\"ancestors\":\"0,100,102\"},\"roles\":[{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"roleId\":2,\"roleName\":\"管理员\",\"roleKey\":\"common\",\"roleSort\":2,\"dataScope\":\"1\",\"menuCheckStrictly\":null,\"deptCheckStrictly\":null,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":null,\"deptIds\":null,\"permissions\":null,\"admin\":false},{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"roleId\":\"1569245300584591362\",\"roleName\":\"test01\",\"roleKey\":\"test01\",\"roleSort\":3,\"dataScope\":\"4\",\"menuCheckStrictly\":null,\"deptCheckStrictly\":null,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":null,\"deptIds\":null,\"permissions\":null,\"admin\":false}],\"roleIds\":[\"1569245300584591362\"],\"postIds\":[],\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:04:10');
+INSERT INTO `sys_oper_log` VALUES (1579639082751832066, '角色管理', 1, 'com.erahub.base.system.controller.SysRoleController.add()', 'POST', 1, 'admin', '', '/role', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-10-11 09:04:40\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:04:40\",\"params\":{},\"roleId\":\"1579639082500173826\",\"roleName\":\"test02\",\"roleKey\":\"test02\",\"roleSort\":4,\"dataScope\":null,\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,105,1026,1027,1028,1029,1030,106,1031,1032,1033,1034,1035,107,1036,1037,1038,1039,108,500,1040,1041,1042,501,1043,1044,1045,1050,118,1600,1601,1602,1603,1604,1605],\"deptIds\":[],\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:04:40');
+INSERT INTO `sys_oper_log` VALUES (1579639153316802562, '角色管理', 1, 'com.erahub.base.system.controller.SysRoleController.add()', 'POST', 1, 'admin', '', '/role', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-10-11 09:04:57\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:04:57\",\"params\":{},\"roleId\":\"1579639153224527874\",\"roleName\":\"test03\",\"roleKey\":\"test03\",\"roleSort\":5,\"dataScope\":null,\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":[2,109,1046,1047,1048,\"1570009901798481921\",\"1570010319794429953\",\"1570022388644143106\",113,111,110,112,\"1570758202780676098\",\"1572393811995209730\"],\"deptIds\":[],\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:04:57');
+INSERT INTO `sys_oper_log` VALUES (1579639274892898306, '角色管理', 1, 'com.erahub.base.system.controller.SysRoleController.add()', 'POST', 1, 'admin', '', '/role', '122.96.105.26', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-10-11 09:05:26\",\"updateBy\":\"admin\",\"updateTime\":\"2022-10-11 09:05:26\",\"params\":{},\"roleId\":\"1579639274796429313\",\"roleName\":\"test04\",\"roleKey\":\"test04\",\"roleSort\":6,\"dataScope\":null,\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":[3,114,115,1055,1056,1058,1057,1059,1060],\"deptIds\":[],\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 09:05:26');
+INSERT INTO `sys_oper_log` VALUES (1579640676293750785, '登录日志', 5, 'com.erahub.base.system.controller.SysLogininforController.export()', 'POST', 1, 'admin', '', '/logininfor/export', '122.96.105.26', '', '{\"infoId\":null,\"userName\":null,\"status\":null,\"ipaddr\":null,\"msg\":null,\"accessTime\":null,\"params\":{}}', '', 0, '', '2022-10-11 09:11:00');
+INSERT INTO `sys_oper_log` VALUES (1579720854302830594, '代码生成', 6, 'com.erahub.base.gen.controller.GenController.importTableSave()', 'POST', 1, 'admin', '', '/gen/importTable', '122.96.105.26', '', '\"sys_logininfor\"', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-10-11 14:29:36');
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -1254,6 +1311,9 @@ INSERT INTO `sys_role` VALUES (2, '管理员', 'common', 2, '1', 1, 1, '0', '0',
 INSERT INTO `sys_role` VALUES (3, '本部门及以下', 'test1', 3, '4', 1, 1, '0', '2', 'admin', '2022-09-10 17:10:57', 'admin', NULL, NULL);
 INSERT INTO `sys_role` VALUES (4, '仅本人', 'test2', 4, '5', 1, 1, '0', '2', 'admin', '2022-09-10 17:10:57', 'admin', NULL, NULL);
 INSERT INTO `sys_role` VALUES (1569245300584591362, 'test01', 'test01', 3, '4', 1, 1, '0', '0', 'admin', '2022-09-12 16:43:29', 'admin', '2022-10-08 17:09:37', NULL);
+INSERT INTO `sys_role` VALUES (1579639082500173826, 'test02', 'test02', 4, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:04:40', 'admin', '2022-10-11 09:04:40', NULL);
+INSERT INTO `sys_role` VALUES (1579639153224527874, 'test03', 'test03', 5, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:04:57', 'admin', '2022-10-11 09:04:57', NULL);
+INSERT INTO `sys_role` VALUES (1579639274796429313, 'test04', 'test04', 6, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:05:26', 'admin', '2022-10-11 09:05:26', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -1420,6 +1480,94 @@ INSERT INTO `sys_role_menu` VALUES (1569245300584591362, 1600);
 INSERT INTO `sys_role_menu` VALUES (1569245300584591362, 1570009901798481921);
 INSERT INTO `sys_role_menu` VALUES (1569245300584591362, 1570010319794429953);
 INSERT INTO `sys_role_menu` VALUES (1569245300584591362, 1570022388644143106);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 100);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 101);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 102);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 103);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 104);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 105);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 106);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 107);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 108);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 118);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 500);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 501);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1001);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1002);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1003);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1004);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1005);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1006);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1007);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1008);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1009);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1010);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1011);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1012);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1013);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1014);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1015);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1016);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1017);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1018);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1019);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1020);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1021);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1022);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1023);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1024);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1025);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1026);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1027);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1028);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1029);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1030);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1031);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1032);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1033);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1034);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1035);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1036);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1037);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1038);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1039);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1040);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1041);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1042);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1043);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1044);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1045);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1050);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1600);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1601);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1602);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1603);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1604);
+INSERT INTO `sys_role_menu` VALUES (1579639082500173826, 1605);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 2);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 109);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 110);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 111);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 112);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 113);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1046);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1047);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1048);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1570009901798481921);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1570010319794429953);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1570022388644143106);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1570758202780676098);
+INSERT INTO `sys_role_menu` VALUES (1579639153224527874, 1572393811995209730);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 3);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 114);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 115);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 1055);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 1056);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 1057);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 1058);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 1059);
+INSERT INTO `sys_role_menu` VALUES (1579639274796429313, 1060);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -1457,7 +1605,7 @@ INSERT INTO `sys_user` VALUES (3, 108, 'test', '本部门及以下 密码666666'
 INSERT INTO `sys_user` VALUES (4, 102, 'test1', '仅本人 密码666666', 'sys_user', '', '', '0', '', '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '2', '127.0.0.1', '2022-09-10 17:10:57', 'admin', '2022-09-10 17:10:57', 'test1', '2022-09-10 17:10:57', NULL);
 INSERT INTO `sys_user` VALUES (5, 101, 'test03', 'test03', 'sys_user', '', '', '0', '', '$2a$10$FH9R/Swubpy/0Shjly10Ref8Qd3X2F6W.b7mi8Ft3fZJ/8VYTqOCW', '0', '2', '', NULL, 'admin', '2022-09-12 19:56:26', 'admin', '2022-09-12 19:56:26', NULL);
 INSERT INTO `sys_user` VALUES (6, 101, 'test04', 'test04', 'sys_user', '', '', '0', '', '$2a$10$FH9R/Swubpy/0Shjly10Ref8Qd3X2F6W.b7mi8Ft3fZJ/8VYTqOCW', '0', '2', '', NULL, 'admin', '2022-09-12 19:56:26', 'admin', '2022-09-12 19:56:26', NULL);
-INSERT INTO `sys_user` VALUES (1569245585432358914, 109, 'test01', 'test01', 'sys_user', '', '', '0', 'http://47.92.112.236:9000/erahub/2022/09/26/1f99b455f93f4fd9af4b7cf1ac1d8de8.jpg', '$2a$10$Ip7oP/7m5gbZ7V1tqVr/leN76SXQu/3Tl1crXaD58Nvl.qLYgT4q6', '0', '0', '', NULL, 'admin', '2022-09-12 16:44:37', 'admin', '2022-09-21 14:03:04', NULL);
+INSERT INTO `sys_user` VALUES (1569245585432358914, 109, 'test01', 'test01', 'sys_user', '', '', '0', 'http://47.92.112.236:9000/erahub/2022/09/26/1f99b455f93f4fd9af4b7cf1ac1d8de8.jpg', '$2a$10$rcWa9McgQMwRuGs2UjS2KeBPwI7F5yM2Cul/lhXV9l3HZVE3mGWty', '0', '0', '', NULL, 'admin', '2022-09-12 16:44:37', 'admin', '2022-10-11 09:04:10', NULL);
 INSERT INTO `sys_user` VALUES (1569246527183630337, 100, 'test02', 'test02', 'sys_user', '', '', '0', '', '$2a$10$MQIbXDzpRf1S0Yx8BtvBuuFCriXSSZ5X8/owo..sYj4CmnEvG8yuO', '0', '0', '', NULL, 'admin', '2022-09-12 16:48:22', 'admin', '2022-10-08 09:56:48', NULL);
 INSERT INTO `sys_user` VALUES (1569254790117699586, 108, 'test03', 'test03', 'sys_user', '', '', '0', '', '$2a$10$bMaY30XqbcZ3lxc/1OK7eugTJRXFwBQyEni9YQwBKT7fWdz.nKTwe', '0', '2', '', NULL, 'admin', '2022-09-12 17:21:12', 'admin', '2022-09-12 17:21:12', NULL);
 

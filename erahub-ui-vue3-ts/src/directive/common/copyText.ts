@@ -35,7 +35,7 @@ function copyTextToClipboard(input, { target = document.body } = {}) {
   element.style.left = '-9999px'
   element.style.fontSize = '12pt' // Prevent zooming on iOS
 
-  const selection = document.getSelection()
+  const selection = document.getSelection() as any
   const originalRange = selection.rangeCount > 0 && selection.getRangeAt(0)
 
   target.append(element)

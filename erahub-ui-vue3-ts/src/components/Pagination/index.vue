@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'hidden': hidden }" class="pagination-container">
+  <div :class="{ hidden: hidden }" class="pagination-container">
     <el-pagination
       :background="background"
       v-model:current-page="currentPage"
@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { scrollTo } from '@/utils/scroll-to'
 
 const props = defineProps({
@@ -59,10 +59,13 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits();
+const { total, page, limit, pageSizes, pagerCount, layout, background, autoScroll, hidden } =
+  toRef(props)
+
+const emit = defineEmits(['update:page', 'update:limit', 'pagination'])
 const currentPage = computed({
   get() {
-    return props.page
+    return page
   },
   set(val) {
     emit('update:page', val)
@@ -70,28 +73,27 @@ const currentPage = computed({
 })
 const pageSize = computed({
   get() {
-    return props.limit
+    return limit
   },
-  set(val){
+  set(val) {
     emit('update:limit', val)
   }
 })
 function handleSizeChange(val) {
-  if (currentPage.value * val > props.total) {
+  if (currentPage.value * val > total) {
     currentPage.value = 1
   }
   emit('pagination', { page: currentPage.value, limit: val })
-  if (props.autoScroll) {
+  if (autoScroll) {
     scrollTo(0, 800)
   }
 }
 function handleCurrentChange(val) {
   emit('pagination', { page: val, limit: pageSize.value })
-  if (props.autoScroll) {
+  if (autoScroll) {
     scrollTo(0, 800)
   }
 }
-
 </script>
 
 <style scoped>

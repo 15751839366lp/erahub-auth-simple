@@ -1,7 +1,16 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!settingsStore.topNav" />
+    <hamburger
+      id="hamburger-container"
+      :is-active="appStore.sidebar.opened"
+      class="hamburger-container"
+      @toggleClick="toggleSideBar"
+    />
+    <breadcrumb
+      id="breadcrumb-container"
+      class="breadcrumb-container"
+      v-if="!settingsStore.topNav"
+    />
     <top-nav id="topmenu-container" class="topmenu-container" v-if="settingsStore.topNav" />
 
     <div class="right-menu">
@@ -47,8 +56,8 @@ import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import HeaderSearch from '@/components/HeaderSearch'
-import erahubGit from '@/components/erahub/Git'
-import erahubDoc from '@/components/erahub/Doc'
+// import erahubGit from '@/components/erahub/Git'
+// import erahubDoc from '@/components/erahub/Doc'
 import useAppStore from '@/store/modules/app'
 import useUserStore from '@/store/modules/user'
 import useSettingsStore from '@/store/modules/settings'
@@ -63,14 +72,14 @@ function toggleSideBar() {
 
 function handleCommand(command) {
   switch (command) {
-    case "setLayout":
-      setLayout();
-      break;
-    case "logout":
-      logout();
-      break;
+    case 'setLayout':
+      setLayout()
+      break
+    case 'logout':
+      logout()
+      break
     default:
-      break;
+      break
   }
 }
 
@@ -79,20 +88,22 @@ function logout() {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
-  }).then(() => {
-    userStore.logOut().then(() => {
-      location.href = import.meta.env.VITE_APP_CONTEXT_PATH + 'index';
+  })
+    .then(() => {
+      userStore.logOut().then(() => {
+        location.href = import.meta.env.VITE_APP_CONTEXT_PATH + 'index'
+      })
     })
-  }).catch(() => { });
+    .catch(() => {})
 }
 
 const emits = defineEmits(['setLayout'])
 function setLayout() {
-  emits('setLayout');
+  emits('setLayout')
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .navbar {
   height: 50px;
   overflow: hidden;

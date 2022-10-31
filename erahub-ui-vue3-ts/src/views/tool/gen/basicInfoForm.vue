@@ -23,7 +23,7 @@
       </el-col>
       <el-col :span="24">
         <el-form-item label="备注" prop="remark">
-          <el-input type="textarea" :rows="3" v-model="info.remark"></el-input>
+          <el-input type="textarea" :rows="3" v-model="info.remark" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -36,13 +36,15 @@ defineProps({
     type: Object,
     default: null
   }
-});
+})
+
+const { info } = toRefs(props)
 
 // 表单校验
 const rules = ref({
-  tableName: [{ required: true, message: "请输入表名称", trigger: "blur" }],
-  tableComment: [{ required: true, message: "请输入表描述", trigger: "blur" }],
-  className: [{ required: true, message: "请输入实体类名称", trigger: "blur" }],
-  functionAuthor: [{ required: true, message: "请输入作者", trigger: "blur" }]
-});
+  tableName: [{ required: true, message: '请输入表名称', trigger: 'blur' }],
+  tableComment: [{ required: true, message: '请输入表描述', trigger: 'blur' }],
+  className: [{ required: true, message: '请输入实体类名称', trigger: 'blur' }],
+  functionAuthor: [{ required: true, message: '请输入作者', trigger: 'blur' }]
+})
 </script>

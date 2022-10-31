@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <i-frame v-model:src="url"></i-frame>
-    </div>
+  <div>
+    <i-frame v-model:src="url" />
+  </div>
 </template>
 
 <script setup>
 import iFrame from '@/components/iFrame'
 
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const url = ref(import.meta.env.VITE_APP_SENTINEL);
+const url = ref(import.meta.env.VITE_APP_SENTINEL)
 </script>

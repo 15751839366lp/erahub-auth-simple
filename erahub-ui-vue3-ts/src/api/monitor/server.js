@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 // 获取服务信息
 export function getServer() {
-    return request({
-        url: '/system/server',
-        method: 'get'
-    })
+  return request({
+    url: '/system/server',
+    method: 'get'
+  })
 }

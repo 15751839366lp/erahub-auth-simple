@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build:prod": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "npx rimraf node_modules",
+    "clean:cache": "npx rimraf node_modules/.cache"
   },
   "repository": {
     "type": "git",

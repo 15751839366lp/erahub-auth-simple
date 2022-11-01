@@ -51,4 +51,3 @@ export function delDemo(id) {
     method: 'delete'
   })
 }
-

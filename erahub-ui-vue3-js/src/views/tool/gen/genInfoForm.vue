@@ -7,7 +7,7 @@
           <el-select v-model="info.tplCategory" @change="tplSelectChange">
             <el-option label="单表（增删改查）" value="crud" />
             <el-option label="树表（增删改查）" value="tree" />
-<!--            <el-option label="主子表（增删改查）" value="sub" />-->
+            <!--            <el-option label="主子表（增删改查）" value="sub" />-->
           </el-select>
         </el-form-item>
       </el-col>
@@ -71,7 +71,7 @@
           <tree-select
             v-model:value="info.parentMenuId"
             :options="menuOptions"
-            :objMap="{ value: 'menuId', label: 'menuName', children: 'children' }"
+            :obj-map="{ value: 'menuId', label: 'menuName', children: 'children' }"
             placeholder="请选择系统菜单"
           />
         </el-form-item>
@@ -90,7 +90,7 @@
         </el-form-item>
       </el-col>
 
-      <el-col :span="24" v-if="info.genType == '1'">
+      <el-col v-if="info.genType == '1'" :span="24">
         <el-form-item prop="genPath">
           <template #label>
             自定义路径
@@ -107,7 +107,9 @@
                 </el-button>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click="info.genPath = '/'">恢复默认的生成基础路径</el-dropdown-item>
+                    <el-dropdown-item @click="info.genPath = '/'"
+                      >恢复默认的生成基础路径</el-dropdown-item
+                    >
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -218,16 +220,15 @@
         </el-col>
       </el-row>
     </template>
-
   </el-form>
 </template>
 
 <script setup>
-import { listMenu } from "@/api/system/menu";
+import { listMenu } from '@/api/system/menu'
 
-const subColumns = ref([]);
-const menuOptions = ref({});
-const { proxy } = getCurrentInstance();
+const subColumns = ref([])
+const menuOptions = ref({})
+const { proxy } = getCurrentInstance()
 
 const props = defineProps({
   info: {
@@ -238,44 +239,47 @@ const props = defineProps({
     type: Array,
     default: null
   }
-});
+})
 
 // 表单校验
 const rules = ref({
-  tplCategory: [{ required: true, message: "请选择生成模板", trigger: "blur" }],
-  packageName: [{ required: true, message: "请输入生成包路径", trigger: "blur" }],
-  moduleName: [{ required: true, message: "请输入生成模块名", trigger: "blur" }],
-  businessName: [{ required: true, message: "请输入生成业务名", trigger: "blur" }],
-  functionName: [{ required: true, message: "请输入生成功能名", trigger: "blur" }]
-});
+  tplCategory: [{ required: true, message: '请选择生成模板', trigger: 'blur' }],
+  packageName: [{ required: true, message: '请输入生成包路径', trigger: 'blur' }],
+  moduleName: [{ required: true, message: '请输入生成模块名', trigger: 'blur' }],
+  businessName: [{ required: true, message: '请输入生成业务名', trigger: 'blur' }],
+  functionName: [{ required: true, message: '请输入生成功能名', trigger: 'blur' }]
+})
 function subSelectChange(value) {
-  props.info.subTableFkName = "";
+  props.info.subTableFkName = ''
 }
 function tplSelectChange(value) {
-  if (value !== "sub") {
-    props.info.subTableName = "";
-    props.info.subTableFkName = "";
+  if (value !== 'sub') {
+    props.info.subTableName = ''
+    props.info.subTableFkName = ''
   }
 }
 function setSubTableColumns(value) {
   for (var item in props.tables) {
-    const name = props.tables[item].tableName;
+    const name = props.tables[item].tableName
     if (value === name) {
-      subColumns.value = props.tables[item].columns;
-      break;
+      subColumns.value = props.tables[item].columns
+      break
     }
   }
 }
 /** 查询菜单下拉树结构 */
 function getMenuTreeselect() {
-  listMenu().then(response => {
-    menuOptions.value = proxy.handleTree(response.data, "menuId");
-  });
+  listMenu().then((response) => {
+    menuOptions.value = proxy.handleTree(response.data, 'menuId')
+  })
 }
 
-watch(() => props.info.subTableName, val => {
-  setSubTableColumns(val);
-});
+watch(
+  () => props.info.subTableName,
+  (val) => {
+    setSubTableColumns(val)
+  }
+)
 
-getMenuTreeselect();
+getMenuTreeselect()
 </script>

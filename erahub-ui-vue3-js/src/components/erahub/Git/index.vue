@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-const url = ref('https://gitee.com/Erahub-Auth-Simple');
+const url = ref('https://gitee.com/Erahub-Auth-Simple')
 
 function goto() {
   window.open(url.value)

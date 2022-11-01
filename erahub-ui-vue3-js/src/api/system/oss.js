@@ -24,4 +24,3 @@ export function delOss(ossId) {
     method: 'delete'
   })
 }
-

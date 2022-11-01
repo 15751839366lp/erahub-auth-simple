@@ -10,7 +10,7 @@ let downloadLoadingInstance
 
 export default {
   oss(ossId) {
-    var url = baseURL + '/resource/oss/download/' + ossId
+    const url = baseURL + '/resource/oss/download/' + ossId
     downloadLoadingInstance = ElLoading.service({
       text: '正在下载数据，请稍候',
       background: 'rgba(0, 0, 0, 0.7)'
@@ -25,7 +25,7 @@ export default {
         const isLogin = await blobValidate(res.data)
         if (isLogin) {
           const blob = new Blob([res.data], { type: 'application/octet-stream' })
-          this.saveAs(blob, decodeURI(res.headers['download-filename']))
+          this.saveAs(blob, decodeURI(res.headers['download-filename']), null)
         } else {
           this.printErrMsg(res.data)
         }
@@ -38,17 +38,17 @@ export default {
       })
   },
   zip(url, name) {
-    var url = baseURL + url
+    const URL = baseURL + url
     axios({
       method: 'get',
-      url: url,
+      url: URL,
       responseType: 'blob',
       headers: { Authorization: 'Bearer ' + getToken() }
     }).then(async (res) => {
       const isLogin = await blobValidate(res.data)
       if (isLogin) {
         const blob = new Blob([res.data], { type: 'application/zip' })
-        this.saveAs(blob, name)
+        this.saveAs(blob, name, null)
       } else {
         this.printErrMsg(res.data)
       }

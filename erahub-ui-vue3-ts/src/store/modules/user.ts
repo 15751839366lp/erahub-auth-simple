@@ -20,7 +20,7 @@ const useUserStore = defineStore('user', {
       return new Promise((resolve, reject) => {
         login(username, password, code, uuid)
           .then((res) => {
-            let data = res.data
+            const data = res.data
             setToken(data.access_token)
             this.token = data.access_token
             resolve()

@@ -29,7 +29,7 @@ const useDictStore = defineStore('dict', {
     },
     // 删除字典
     removeDict(_key) {
-      var bln = false
+      let bln = false
       try {
         for (let i = 0; i < this.dict.length; i++) {
           if (this.dict[i].key == _key) {

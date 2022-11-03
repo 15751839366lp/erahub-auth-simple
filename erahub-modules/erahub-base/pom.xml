@@ -47,6 +47,13 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!-- 实现数据库文档 -->
+        <dependency>
+            <groupId>cn.smallbun.screw</groupId>
+            <artifactId>screw-core</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>com.erahub</groupId>
             <artifactId>erahub-common-sentinel</artifactId>

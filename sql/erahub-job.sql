@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 16/09/2022 18:19:15
+ Date: 03/11/2022 19:23:50
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, NULL, '2022-09-15 19:57:45');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://192.168.115.98:9901/', '2022-11-01 09:02:44');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
@@ -149,7 +149,7 @@ CREATE TABLE `xxl_job_log_report`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_trigger_day`(`trigger_day`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log_report
@@ -162,6 +162,33 @@ INSERT INTO `xxl_job_log_report` VALUES (5, '2022-09-12 00:00:00', 0, 0, 0, NULL
 INSERT INTO `xxl_job_log_report` VALUES (6, '2022-09-14 00:00:00', 0, 0, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (7, '2022-09-13 00:00:00', 0, 0, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (8, '2022-09-15 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (9, '2022-09-19 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (10, '2022-09-18 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (11, '2022-09-17 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (12, '2022-09-20 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (13, '2022-09-25 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (14, '2022-09-24 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (15, '2022-09-23 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (16, '2022-09-28 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (17, '2022-09-27 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (18, '2022-09-26 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (19, '2022-09-29 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (20, '2022-09-30 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (21, '2022-10-01 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (22, '2022-10-02 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (23, '2022-10-03 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (24, '2022-10-08 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (25, '2022-10-07 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (26, '2022-10-06 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (27, '2022-10-21 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (28, '2022-10-20 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (29, '2022-10-19 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (30, '2022-10-29 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (31, '2022-10-28 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (32, '2022-10-27 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (33, '2022-10-31 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (34, '2022-10-30 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (35, '2022-11-01 00:00:00', 0, 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for xxl_job_logglue
@@ -194,11 +221,12 @@ CREATE TABLE `xxl_job_registry`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `i_g_k_v`(`registry_group`, `registry_key`, `registry_value`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
+INSERT INTO `xxl_job_registry` VALUES (34, 'EXECUTOR', 'erahub-job-executor', 'http://192.168.115.98:9901/', '2022-11-01 09:02:36');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

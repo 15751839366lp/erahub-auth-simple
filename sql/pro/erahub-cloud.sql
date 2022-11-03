@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 01/11/2022 14:30:06
+ Date: 03/11/2022 19:22:58
 */
 
 SET NAMES utf8mb4;
@@ -631,6 +631,22 @@ INSERT INTO `sys_logininfor` VALUES (1579776007030648833, 'admin', '183.209.136.
 INSERT INTO `sys_logininfor` VALUES (1587327113739870210, 'admin', '223.104.150.74', '1', '密码输入错误1次', '2022-11-01 14:14:10', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1587327147311079425, 'admin', '223.104.150.74', '0', '登录成功', '2022-11-01 14:14:18', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1587330516540956673, 'admin', '223.104.150.74', '0', '登录成功', '2022-11-01 14:27:41', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587341438231748610, 'admin', '223.104.150.74', '0', '登录成功', '2022-11-01 15:11:05', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587341462785204226, 'admin', '223.104.150.74', '0', '退出成功', '2022-11-01 15:11:11', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587341482007699457, 'admin', '223.104.150.74', '0', '登录成功', '2022-11-01 15:11:15', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587413242640048129, 'admin', '223.104.150.18', '0', '登录成功', '2022-11-01 19:56:24', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587442627367641090, 'admin', '223.104.150.18', '0', '登录成功', '2022-11-01 21:53:10', '江苏省 南京市', 'MiuiBrowser', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1587449707315044354, 'admin', '223.104.150.18', '0', '登录成功', '2022-11-01 22:21:18', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587454476591013890, 'admin', '223.104.150.18', '0', '登录成功', '2022-11-01 22:40:15', '江苏省 南京市', 'MiuiBrowser', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1587600493735026689, 'admin', '223.104.4.54', '0', '登录成功', '2022-11-02 08:20:29', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587614069858213890, 'admin', '223.104.150.61', '0', '登录成功', '2022-11-02 09:14:25', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587664444275531778, 'admin', '117.136.45.132', '0', '登录成功', '2022-11-02 12:34:36', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587976019003809793, 'admin', '223.104.150.77', '0', '登录成功', '2022-11-03 09:12:41', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1587983329369497602, 'test01', '223.104.150.77', '1', '密码输入错误1次', '2022-11-03 09:41:44', '江苏省 南京市', 'MiuiBrowser', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1587983387838095362, 'test01', '223.104.150.77', '0', '登录成功', '2022-11-03 09:41:58', '江苏省 南京市', 'MiuiBrowser', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1588016114897494018, 'admin', '223.104.4.32', '0', '登录成功', '2022-11-03 11:52:00', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588076371795484673, 'admin', '223.104.150.64', '0', '登录成功', '2022-11-03 15:51:27', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588124906444267521, 'admin', '223.104.150.64', '0', '登录成功', '2022-11-03 19:04:18', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -766,6 +782,8 @@ INSERT INTO `sys_menu` VALUES (1572393811995209730, 'Seata', 2, 10, 'http://1.11
 INSERT INTO `sys_menu` VALUES (1574206588866998274, '测试菜单1', 5, 3, '/////', NULL, NULL, 1, 0, 'M', '0', '0', NULL, '404', 'admin', '2022-09-26 09:17:53', 'admin', '2022-09-26 09:17:53', '');
 INSERT INTO `sys_menu` VALUES (1574206638720495617, '测试菜单2', 1574206588866998274, 1, '测试菜单', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'bug', 'admin', '2022-09-26 09:18:05', 'admin', '2022-09-26 09:18:05', '');
 INSERT INTO `sys_menu` VALUES (1574206696736108546, '测试菜单3', 1574206638720495617, 1, '测试菜单', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'cascader', 'admin', '2022-09-26 09:18:19', 'admin', '2022-09-26 09:18:19', '');
+INSERT INTO `sys_menu` VALUES (1588077119135821826, '数据库文档', 2, 2, 'dbDoc', 'monitor/dbDoc/index', NULL, 1, 0, 'C', '0', '0', 'system:database:doc:list', 'date-range', 'admin', '2022-11-03 15:54:25', 'admin', '2022-11-03 15:54:56', '');
+INSERT INTO `sys_menu` VALUES (1588092486994432002, '数据库文档导出', 1588077119135821826, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'system:database:doc:export', '#', 'admin', '2022-11-03 16:55:29', 'admin', '2022-11-03 16:55:29', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -1222,6 +1240,10 @@ INSERT INTO `sys_oper_log` VALUES (1587330446676434945, '在线用户', 7, 'com.
 INSERT INTO `sys_oper_log` VALUES (1587330452984668162, '在线用户', 7, 'com.erahub.base.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', '', '/online/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxIiwicm5TdHIiOiIyRjZhVmRYMGY3T3lmdG4xRjlUZ1ZURWp4WXU4TzNxayJ9.bOuBY5ochW29CvMiK42zLU5sCtP7LBgvtrFWKqAfqlY', '223.104.150.74', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-01 14:27:26');
 INSERT INTO `sys_oper_log` VALUES (1587330459020271617, '在线用户', 7, 'com.erahub.base.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', '', '/online/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxIiwicm5TdHIiOiI2Z0UzZ2pJc2NNRUhCZzdPRGduUExUTmdNRFR4UVRzUiJ9.hVUy9AsOeEYTkTd-JzkJAnPrGcoo1Oe0PbjMfme2nl0', '223.104.150.74', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-01 14:27:27');
 INSERT INTO `sys_oper_log` VALUES (1587330465060069377, '在线用户', 7, 'com.erahub.base.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', '', '/online/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxIiwicm5TdHIiOiJGMlZRZmJvbnhlYktpb3RTQXcwRTFpZllkZ0VkeWEwUyJ9.2a8Ark5Y98RQpkMQ9-X0GiKakC_AFzBZ1rQ3vu4CD84', '223.104.150.74', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-01 14:27:29');
+INSERT INTO `sys_oper_log` VALUES (1587456631393722369, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.edit()', 'PUT', 1, 'admin', '', '/role', '223.104.150.18', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-10-11 09:05:26\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-01 22:48:48\",\"params\":{},\"roleId\":\"1579639274796429313\",\"roleName\":\"test04\",\"roleKey\":\"test04\",\"roleSort\":6,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":null,\"flag\":false,\"menuIds\":[2,109,1046,1047,1048,\"1570009901798481921\",\"1570010319794429953\",\"1570022388644143106\",113,111,110,112,\"1570758202780676098\",\"1572393811995209730\",3,114,115,1055,1056,1058,1057,1059,1060],\"deptIds\":null,\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-01 22:48:49');
+INSERT INTO `sys_oper_log` VALUES (1587456646082174978, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.edit()', 'PUT', 1, 'admin', '', '/role', '223.104.150.18', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-10-11 09:05:26\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-01 22:48:52\",\"params\":{},\"roleId\":\"1579639274796429313\",\"roleName\":\"test04\",\"roleKey\":\"test04\",\"roleSort\":6,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":null,\"flag\":false,\"menuIds\":[3,114,115,1055,1056,1058,1057,1059,1060],\"deptIds\":null,\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-01 22:48:53');
+INSERT INTO `sys_oper_log` VALUES (1587456678059548673, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.dataScope()', 'PUT', 1, 'admin', '', '/role/dataScope', '223.104.150.18', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-10-11 09:05:26\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-01 22:49:00\",\"params\":{},\"roleId\":\"1579639274796429313\",\"roleName\":\"test04\",\"roleKey\":\"test04\",\"roleSort\":6,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":null,\"flag\":false,\"menuIds\":null,\"deptIds\":[],\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-01 22:49:00');
+INSERT INTO `sys_oper_log` VALUES (1588124937549225985, '角色管理', 5, 'com.erahub.base.system.controller.SysRoleController.export()', 'POST', 1, 'admin', '', '/role/export', '223.104.150.64', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"params\":{},\"roleId\":null,\"roleName\":null,\"roleKey\":null,\"roleSort\":null,\"dataScope\":null,\"menuCheckStrictly\":null,\"deptCheckStrictly\":null,\"status\":null,\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":null,\"deptIds\":null,\"permissions\":null,\"admin\":false}', '', 0, '', '2022-11-03 19:04:26');
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -1339,7 +1361,7 @@ INSERT INTO `sys_role` VALUES (4, '仅本人', 'test2', 4, '5', 1, 1, '0', '2', 
 INSERT INTO `sys_role` VALUES (1569245300584591362, 'test01', 'test01', 3, '4', 1, 1, '0', '0', 'admin', '2022-09-12 16:43:29', 'admin', '2022-10-08 17:09:37', NULL);
 INSERT INTO `sys_role` VALUES (1579639082500173826, 'test02', 'test02', 4, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:04:40', 'admin', '2022-10-11 09:04:40', NULL);
 INSERT INTO `sys_role` VALUES (1579639153224527874, 'test03', 'test03', 5, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:04:57', 'admin', '2022-10-11 09:04:57', NULL);
-INSERT INTO `sys_role` VALUES (1579639274796429313, 'test04', 'test04', 6, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:05:26', 'admin', '2022-10-11 09:05:26', NULL);
+INSERT INTO `sys_role` VALUES (1579639274796429313, 'test04', 'test04', 6, '1', 1, 1, '0', '0', 'admin', '2022-10-11 09:05:26', 'admin', '2022-11-01 22:49:00', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_dept

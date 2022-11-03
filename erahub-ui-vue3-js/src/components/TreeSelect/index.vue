@@ -129,10 +129,11 @@ watch(valueId, () => {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.module.scss';
+
 .el-scrollbar .el-scrollbar__view .el-select-dropdown__item {
+  height: auto;
   padding: 0;
   background-color: #fff;
-  height: auto;
 }
 
 .el-select-dropdown__item.selected {
@@ -149,7 +150,7 @@ ul li .el-tree .el-tree-node__content {
 :deep(.el-tree-node__content:active),
 :deep(.is-current > div:first-child),
 :deep(.el-tree-node__content:focus) {
-  background-color: mix(#fff, $--color-primary, 90%);
   color: $--color-primary;
+  background-color: mix(#fff, $--color-primary, 90%);
 }
 </style>

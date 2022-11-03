@@ -7,19 +7,29 @@ import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
 
 import '@/assets/styles/index.scss' // global css
 
+// 引入全局样式
+import '@/styles/index.less'
+
 import App from './App'
 import store from './store'
 import router from './router'
 import directive from './directive' // directive
 
+import 'virtual:windi.css'
+import 'virtual:windi-devtools' // windicss
+
 // 注册指令
 import plugins from './plugins' // plugins
 import { download } from '@/utils/request'
 
-// svg图标
+// 图标
 import 'virtual:svg-icons-register'
+import Iconify from '@/components/Iconify'
 import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
+
+// 高亮
+import Highlight from '@/components/Highlight'
 
 import './permission' // permission control
 
@@ -76,7 +86,9 @@ app.use(router)
 app.use(store)
 app.use(plugins)
 app.use(elementIcons)
+app.component('Iconify', Iconify)
 app.component('SvgIcon', SvgIcon)
+app.component('Highlight', Highlight)
 
 directive(app)
 

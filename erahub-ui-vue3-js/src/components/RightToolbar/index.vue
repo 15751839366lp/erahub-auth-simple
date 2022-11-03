@@ -97,10 +97,11 @@ for (let item in props.columns) {
 
 <style lang="scss" scoped>
 :deep(.el-transfer__button) {
-  border-radius: 50%;
   display: block;
-  margin-left: 0px;
+  margin-left: 0;
+  border-radius: 50%;
 }
+
 :deep(.el-transfer__button:first-child) {
   margin-bottom: 10px;
 }

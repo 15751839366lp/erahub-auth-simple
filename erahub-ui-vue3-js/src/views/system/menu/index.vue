@@ -161,9 +161,9 @@
                         v-if="form.icon"
                         :icon-class="form.icon"
                         class="el-input__icon"
-                        style="height: 32px; width: 16px"
+                        style="width: 16px; height: 32px"
                       />
-                      <el-icon v-else style="height: 32px; width: 16px"><search /></el-icon>
+                      <el-icon v-else style="width: 16px; height: 32px"><search /></el-icon>
                     </template>
                   </el-input>
                 </template>
@@ -250,7 +250,7 @@
               <template #label>
                 <span>
                   <el-tooltip
-                    content='访问路由的默认传递参数，如：`{"id": 1, "name": "erahub"}`'
+                    content="访问路由的默认传递参数，如：`{id: 1, name: erahub}`"
                     placement="top"
                   >
                     <el-icon><question-filled /></el-icon>
@@ -469,13 +469,13 @@ function submitForm() {
   proxy.$refs['menuRef'].validate((valid) => {
     if (valid) {
       if (form.value.menuId != undefined) {
-        updateMenu(form.value).then((response) => {
+        updateMenu(form.value).then(() => {
           proxy.$modal.msgSuccess('修改成功')
           open.value = false
           getList()
         })
       } else {
-        addMenu(form.value).then((response) => {
+        addMenu(form.value).then(() => {
           proxy.$modal.msgSuccess('新增成功')
           open.value = false
           getList()

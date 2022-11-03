@@ -94,22 +94,22 @@ function setLayout() {
 
 <style lang='scss' scoped>
 .navbar {
+  position: relative;
   height: 50px;
   overflow: hidden;
-  position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 
   .hamburger-container {
-    line-height: 46px;
-    height: 100%;
     float: left;
+    height: 100%;
+    line-height: 46px;
     cursor: pointer;
     transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.025);
+      background: rgb(0 0 0 / 2.5%);
     }
   }
 
@@ -128,10 +128,10 @@ function setLayout() {
   }
 
   .right-menu {
+    display: flex;
     float: right;
     height: 100%;
     line-height: 50px;
-    display: flex;
 
     &:focus {
       outline: none;
@@ -139,8 +139,8 @@ function setLayout() {
 
     .right-menu-item {
       display: inline-block;
-      padding: 0 8px;
       height: 100%;
+      padding: 0 8px;
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
@@ -150,7 +150,7 @@ function setLayout() {
         transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, 0.025);
+          background: rgb(0 0 0 / 2.5%);
         }
       }
     }
@@ -159,22 +159,22 @@ function setLayout() {
       margin-right: 40px;
 
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
+        margin-top: 5px;
 
         .user-avatar {
-          cursor: pointer;
           width: 40px;
           height: 40px;
+          cursor: pointer;
           border-radius: 10px;
         }
 
         i {
-          cursor: pointer;
           position: absolute;
-          right: -20px;
           top: 25px;
+          right: -20px;
           font-size: 12px;
+          cursor: pointer;
         }
       }
     }

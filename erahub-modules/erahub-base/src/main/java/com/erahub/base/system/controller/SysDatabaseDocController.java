@@ -12,6 +12,8 @@ import cn.smallbun.screw.core.process.ProcessConfig;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import com.erahub.common.core.utils.ServletUtils;
+import com.erahub.common.log.annotation.Log;
+import com.erahub.common.log.enums.BusinessType;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,7 @@ public class SysDatabaseDocController {
     private static final String DOC_VERSION = "1.0.0";
     private static final String DOC_DESCRIPTION = "文档描述";
 
+    @Log(title = "数据库文档", businessType = BusinessType.EXPORT)
     @GetMapping("/export-html")
     @SaCheckPermission("system:database:doc:export")
     public void exportHtml(@RequestParam(defaultValue = "true") Boolean deleteFile,
@@ -49,6 +52,7 @@ public class SysDatabaseDocController {
         doExportFile(EngineFileType.HTML, deleteFile, response);
     }
 
+    @Log(title = "数据库文档", businessType = BusinessType.EXPORT)
     @GetMapping("/export-word")
     @SaCheckPermission("system:database:doc:export")
     public void exportWord(@RequestParam(defaultValue = "true") Boolean deleteFile,
@@ -56,6 +60,7 @@ public class SysDatabaseDocController {
         doExportFile(EngineFileType.WORD, deleteFile, response);
     }
 
+    @Log(title = "数据库文档", businessType = BusinessType.EXPORT)
     @GetMapping("/export-markdown")
     @SaCheckPermission("system:database:doc:export")
     public void exportMarkdown(@RequestParam(defaultValue = "true") Boolean deleteFile,

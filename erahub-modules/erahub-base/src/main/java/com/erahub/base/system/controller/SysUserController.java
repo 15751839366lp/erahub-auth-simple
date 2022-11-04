@@ -100,7 +100,10 @@ public class SysUserController extends BaseController {
      */
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) throws IOException {
-        ExcelUtil.exportExcel(new ArrayList<>(), "用户数据", SysUserImportVo.class, response);
+        // todo 增加样本数据
+        SysUserImportVo sysUserImportVoTemp = new SysUserImportVo(1111111L, 1010101L, "test", "test", "test@qq.com", "13912345678", "1", "0");
+        ExcelUtil.exportExcel(Arrays.asList(sysUserImportVoTemp), "用户数据", SysUserImportVo.class, response);
+//        ExcelUtil.exportExcel(new ArrayList<>(), "用户数据", SysUserImportVo.class, response);
     }
 
     /**

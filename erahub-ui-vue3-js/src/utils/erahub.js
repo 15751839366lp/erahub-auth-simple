@@ -212,6 +212,9 @@ export function handleTree(data, id, parentId, children) {
  */
 export function tansParams(params) {
   let result = ''
+  if (!params) {
+    return null
+  }
   for (const propName of Object.keys(params)) {
     const value = params[propName]
     var part = encodeURIComponent(propName) + '='

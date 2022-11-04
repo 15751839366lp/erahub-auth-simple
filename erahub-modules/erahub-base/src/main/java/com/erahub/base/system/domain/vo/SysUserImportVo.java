@@ -3,6 +3,7 @@ package com.erahub.base.system.domain.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.erahub.common.excel.annotation.ExcelDictFormat;
 import com.erahub.common.excel.convert.ExcelDictConvert;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class SysUserImportVo implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -177,14 +177,22 @@ export function download(url, params, filename) {
     })
 }
 
-// 获取整个返回数据的get下载方法
+// 获取整个返回数据的get下载方法 
 export async function downloadToRes(options) {
+  const { url, method, params, data, headersType, responseType } = options
   return await service({
-    url: options.url,
-    method: 'get',
-    responseType: 'blob',
+    url: url,
+    method: method || 'get',
+    responseType: responseType || 'blob',
+    params,
+    transformRequest: [
+      (params) => {
+        return tansParams(params)
+      }
+    ],
+    data,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': headersType || 'application/json'
     }
   })
 }

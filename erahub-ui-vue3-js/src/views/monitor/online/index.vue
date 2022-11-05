@@ -33,7 +33,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="会话编号"
+        label="访问令牌"
         align="center"
         prop="tokenId"
         :show-overflow-tooltip="true"

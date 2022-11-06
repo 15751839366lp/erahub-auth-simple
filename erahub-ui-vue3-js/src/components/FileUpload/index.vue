@@ -40,7 +40,7 @@
 
 <script setup>
 import { getToken } from "@/utils/auth";
-import { listByIds, delOss } from "@/api/system/oss";
+import { listByIds, delOss } from "@/api/basicservice/oss";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
@@ -71,7 +71,7 @@ const emit = defineEmits();
 const number = ref(0);
 const uploadList = ref([]);
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const uploadFileUrl = ref(baseUrl + "/resource/oss/upload"); // 上传的图片服务器地址
+const uploadFileUrl = ref(baseUrl + "/basicservice/oss/upload"); // 上传的图片服务器地址
 const headers = ref({ Authorization: "Bearer " + getToken() });
 const fileList = ref([]);
 const showTip = computed(

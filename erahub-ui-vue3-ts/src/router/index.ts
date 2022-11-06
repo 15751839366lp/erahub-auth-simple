@@ -145,7 +145,7 @@ export const dynamicRoutes = [
     ]
   },
   {
-    path: '/tool/gen-edit',
+    path: '/tool/tool-edit',
     component: Layout,
     hidden: true,
     permissions: ['tool:gen:edit'],
@@ -154,7 +154,7 @@ export const dynamicRoutes = [
         path: 'index/:tableId(\\d+)',
         component: () => import('@/views/tool/gen/editTable'),
         name: 'GenEdit',
-        meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
+        meta: { title: '修改生成配置', activeMenu: '/tool/tool' }
       }
     ]
   }

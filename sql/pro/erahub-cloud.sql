@@ -11,141 +11,94 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 04/11/2022 08:29:49
+ Date: 06/11/2022 10:19:02
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for gen_table
+-- Table structure for bs_notice
 -- ----------------------------
-DROP TABLE IF EXISTS `gen_table`;
-CREATE TABLE `gen_table`  (
-  `table_id` bigint(0) NOT NULL COMMENT '编号',
-  `table_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '表名称',
-  `table_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '表描述',
-  `sub_table_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联子表的表名',
-  `sub_table_fk_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子表关联的外键名',
-  `class_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '实体类名称',
-  `tpl_category` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作）',
-  `package_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成包路径',
-  `module_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成模块名',
-  `business_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成业务名',
-  `function_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成功能名',
-  `function_author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成功能作者',
-  `gen_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
-  `gen_path` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
-  `options` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其它生成选项',
+DROP TABLE IF EXISTS `bs_notice`;
+CREATE TABLE `bs_notice`  (
+  `notice_id` bigint(0) NOT NULL COMMENT '公告ID',
+  `notice_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告标题',
+  `notice_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
+  `notice_content` longblob NULL COMMENT '公告内容',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`notice_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of bs_notice
+-- ----------------------------
+INSERT INTO `bs_notice` VALUES (1588327071490220034, '系统更新维护', '1', 0xE4BB8AE697A5E58D81E782B9E5BC80E5A78BE4B8BAE69C9FE4B889E5B08FE697B6E79A84E69BB4E696B0E7BBB4E68AA4, '0', 'admin', '2022-11-04 08:27:38', 'admin', '2022-11-04 08:28:08', NULL);
+
+-- ----------------------------
+-- Table structure for bs_oss
+-- ----------------------------
+DROP TABLE IF EXISTS `bs_oss`;
+CREATE TABLE `bs_oss`  (
+  `oss_id` bigint(0) NOT NULL COMMENT '对象存储主键',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `original_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '原名',
+  `file_suffix` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件后缀名',
+  `url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'URL地址',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '上传人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新人',
+  `service` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'minio' COMMENT '服务商',
+  PRIMARY KEY (`oss_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'OSS对象存储表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of bs_oss
+-- ----------------------------
+INSERT INTO `bs_oss` VALUES (1587329790653734913, '2022/11/01/0027a25d5fbe4bad8de13ae87eab13f9.png', '1111111.png', '.png', 'http://1.117.176.57:9000/erahub/2022/11/01/0027a25d5fbe4bad8de13ae87eab13f9.png', '2022-11-01 14:24:48', 'admin', '2022-11-01 14:24:48', 'admin', 'minio');
+INSERT INTO `bs_oss` VALUES (1587329986913607682, '2022/11/01/2b40ec9a694e4be7a3d0cf5c7461b0c9.jpg', '1580571204769.jpg', '.jpg', 'http://1.117.176.57:9000/erahub/2022/11/01/2b40ec9a694e4be7a3d0cf5c7461b0c9.jpg', '2022-11-01 14:25:35', 'admin', '2022-11-01 14:25:35', 'admin', 'minio');
+INSERT INTO `bs_oss` VALUES (1588132831418097666, '2022/11/03/2dd43677096e4fa696fdb62103e90bcb.jpg', '3a44ea743b5db91ede2c34eee2cc46cc6fefe86f.jpg', '.jpg', 'http://1.117.176.57:9000/erahub/2022/11/03/2dd43677096e4fa696fdb62103e90bcb.jpg', '2022-11-03 19:35:48', 'admin', '2022-11-03 19:35:48', 'admin', 'minio');
+INSERT INTO `bs_oss` VALUES (1588472459517992962, '2022/11/04/6f38d86491314647ae52b7037038c51b.jpg', '2be4264be9b35a5755298952340d31556167e027_raw.jpg', '.jpg', 'http://1.117.176.57:9000/erahub/2022/11/04/6f38d86491314647ae52b7037038c51b.jpg', '2022-11-04 18:05:21', 'admin', '2022-11-04 18:05:21', 'admin', 'minio');
+
+-- ----------------------------
+-- Table structure for bs_oss_config
+-- ----------------------------
+DROP TABLE IF EXISTS `bs_oss_config`;
+CREATE TABLE `bs_oss_config`  (
+  `oss_config_id` bigint(0) NOT NULL COMMENT '主建',
+  `config_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '配置key',
+  `access_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT 'accessKey',
+  `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '秘钥',
+  `bucket_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '桶名称',
+  `prefix` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '前缀',
+  `endpoint` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '访问站点',
+  `domain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '自定义域名',
+  `is_https` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否https（Y=是,N=否）',
+  `region` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '域',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '状态（0=正常,1=停用）',
+  `ext1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '扩展字段',
   `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`oss_config_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '对象存储配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of gen_table
+-- Records of bs_oss_config
 -- ----------------------------
-INSERT INTO `gen_table` VALUES (1574229171989590017, 'sys_user', '用户信息表', NULL, NULL, 'SysUser', 'crud', 'com.erahub.cr', 'cr', 'cr', '财务', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":5}', 'admin', '2022-09-17 08:51:19', 'admin', '2022-09-26 10:49:20', NULL);
-INSERT INTO `gen_table` VALUES (1574291627189415937, 'sys_dict_data', '字典数据表', NULL, NULL, 'SysDictData', 'crud', 'com.erahub.system', 'system', 'data', '字典数据', 'erahub', '0', '/', NULL, 'admin', '2022-09-17 08:51:18', 'admin', '2022-09-17 08:51:18', NULL);
-INSERT INTO `gen_table` VALUES (1574291628342849537, 'sys_dict_type', '字典类型表', NULL, NULL, 'SysDictType', 'crud', 'com.erahub.system', 'system', 'type', '字典类型', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"\"}', 'admin', '2022-09-17 08:51:18', 'admin', '2022-10-08 17:53:41', NULL);
-INSERT INTO `gen_table` VALUES (1579263009648226306, 'test_tree', '测试树表', NULL, NULL, 'TestTree', 'crud', 'com.erahub.base', 'base', 'tree', '测试树', 'erahub', '0', '/', NULL, 'admin', '2022-10-08 09:19:20', 'admin', '2022-10-08 09:19:20', NULL);
-INSERT INTO `gen_table` VALUES (1579720854126669825, 'sys_logininfor', '系统访问记录', NULL, NULL, 'SysLogininfor', 'crud', 'com.erahub.base', 'base', 'logininfor', '系统访问记录', 'erahub', '0', '/', NULL, 'admin', '2022-10-08 09:19:18', 'admin', '2022-10-08 09:19:18', NULL);
-
--- ----------------------------
--- Table structure for gen_table_column
--- ----------------------------
-DROP TABLE IF EXISTS `gen_table_column`;
-CREATE TABLE `gen_table_column`  (
-  `column_id` bigint(0) NOT NULL COMMENT '编号',
-  `table_id` bigint(0) NULL DEFAULT NULL COMMENT '归属表编号',
-  `column_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列名称',
-  `column_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列描述',
-  `column_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列类型',
-  `java_type` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'JAVA类型',
-  `java_field` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'JAVA字段名',
-  `is_pk` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否主键（1是）',
-  `is_increment` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否自增（1是）',
-  `is_required` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否必填（1是）',
-  `is_insert` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否为插入字段（1是）',
-  `is_edit` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否编辑字段（1是）',
-  `is_list` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否列表字段（1是）',
-  `is_query` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否查询字段（1是）',
-  `query_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
-  `html_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
-  `dict_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典类型',
-  `sort` int(0) NULL DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of gen_table_column
--- ----------------------------
-INSERT INTO `gen_table_column` VALUES (1574229172060893186, 1574229171989590017, 'user_id', '用户ID', 'bigint', 'Long', 'userId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172081864706, 1574229171989590017, 'dept_id', '部门ID', 'bigint', 'Long', 'deptId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172098641922, 1574229171989590017, 'user_name', '用户账号', 'varchar(30)', 'String', 'userName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172107030529, 1574229171989590017, 'nick_name', '用户昵称', 'varchar(30)', 'String', 'nickName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 4, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172123807745, 1574229171989590017, 'user_type', '用户类型（sys_user系统用户）', 'varchar(10)', 'String', 'userType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 5, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172132196353, 1574229171989590017, 'email', '用户邮箱', 'varchar(50)', 'String', 'email', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172140584961, 1574229171989590017, 'phonenumber', '手机号码', 'varchar(11)', 'String', 'phonenumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172157362178, 1574229171989590017, 'sex', '用户性别（0男 1女 2未知）', 'char(1)', 'String', 'sex', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 8, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172174139394, 1574229171989590017, 'avatar', '头像地址', 'varchar(100)', 'String', 'avatar', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172186722305, 1574229171989590017, 'password', '密码', 'varchar(100)', 'String', 'password', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172195110913, 1574229171989590017, 'status', '帐号状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 11, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172211888130, 1574229171989590017, 'del_flag', '删除标志（0代表存在 2代表删除）', 'char(1)', 'String', 'delFlag', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172220276738, 1574229171989590017, 'login_ip', '最后登录IP', 'varchar(128)', 'String', 'loginIp', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172245442562, 1574229171989590017, 'login_date', '最后登录时间', 'datetime', 'Date', 'loginDate', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 14, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172262219778, 1574229171989590017, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172283191298, 1574229171989590017, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 16, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172291579905, 1574229171989590017, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 17, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172320940033, 1574229171989590017, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 18, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574229172329328642, 1574229171989590017, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 19, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
-INSERT INTO `gen_table_column` VALUES (1574291628070219777, 1574291627189415937, 'dict_code', '字典编码', 'bigint', 'Long', 'dictCode', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628086996994, 1574291627189415937, 'dict_sort', '字典排序', 'int', 'Long', 'dictSort', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628103774210, 1574291627189415937, 'dict_label', '字典标签', 'varchar(100)', 'String', 'dictLabel', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628116357122, 1574291627189415937, 'dict_value', '字典键值', 'varchar(100)', 'String', 'dictValue', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628120551425, 1574291627189415937, 'dict_type', '字典类型', 'varchar(100)', 'String', 'dictType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 5, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628149911554, 1574291627189415937, 'css_class', '样式属性（其他样式扩展）', 'varchar(100)', 'String', 'cssClass', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628179271682, 1574291627189415937, 'list_class', '表格回显样式', 'varchar(100)', 'String', 'listClass', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628191854594, 1574291627189415937, 'is_default', '是否默认（Y是 N否）', 'char(1)', 'String', 'isDefault', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628196048897, 1574291627189415937, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 9, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628212826113, 1574291627189415937, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628221214721, 1574291627189415937, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 11, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628233797633, 1574291627189415937, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628250574850, 1574291627189415937, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628263157762, 1574291627189415937, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 14, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
-INSERT INTO `gen_table_column` VALUES (1574291628401569794, 1574291628342849537, 'dict_id', '字典主键', 'bigint', 'Long', 'dictId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628435124226, 1574291628342849537, 'dict_name', '字典名称', 'varchar(100)', 'String', 'dictName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628451901442, 1574291628342849537, 'dict_type', '字典类型', 'varchar(100)', 'String', 'dictType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628460290050, 1574291628342849537, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628472872961, 1574291628342849537, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 5, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628485455874, 1574291628342849537, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, '1', 'EQ', 'datetime', '', 6, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628498038785, 1574291628342849537, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 7, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628514816002, 1574291628342849537, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 8, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1574291628527398914, 1574291628342849537, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 9, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
-INSERT INTO `gen_table_column` VALUES (1579263009698557953, 1579263009648226306, 'id', '主键', 'bigint', 'Long', 'id', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009719529474, 1579263009648226306, 'parent_id', '父id', 'bigint', 'Long', 'parentId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009719529475, 1579263009648226306, 'dept_id', '部门id', 'bigint', 'Long', 'deptId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009732112385, 1579263009648226306, 'user_id', '用户id', 'bigint', 'Long', 'userId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009744695297, 1579263009648226306, 'tree_name', '值', 'varchar(255)', 'String', 'treeName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009753083906, 1579263009648226306, 'version', '版本', 'int', 'Long', 'version', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009757278209, 1579263009648226306, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 7, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009765666818, 1579263009648226306, 'create_by', '创建人', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 8, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009774055426, 1579263009648226306, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 9, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009778249730, 1579263009648226306, 'update_by', '更新人', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579263009782444034, 1579263009648226306, 'del_flag', '删除标志', 'int', 'Long', 'delFlag', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 11, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
-INSERT INTO `gen_table_column` VALUES (1579720854147641346, 1579720854126669825, 'info_id', '访问ID', 'bigint', 'Long', 'infoId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
-INSERT INTO `gen_table_column` VALUES (1579720854160224257, 1579720854126669825, 'user_name', '用户账号', 'varchar(50)', 'String', 'userName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
-INSERT INTO `gen_table_column` VALUES (1579720854168612865, 1579720854126669825, 'ipaddr', '登录IP地址', 'varchar(128)', 'String', 'ipaddr', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
-INSERT INTO `gen_table_column` VALUES (1579720854168612866, 1579720854126669825, 'status', '登录状态（0成功 1失败）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
-INSERT INTO `gen_table_column` VALUES (1579720854168612867, 1579720854126669825, 'msg', '提示信息', 'varchar(255)', 'String', 'msg', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
-INSERT INTO `gen_table_column` VALUES (1579720854181195778, 1579720854126669825, 'access_time', '访问时间', 'datetime', 'Date', 'accessTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 6, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `bs_oss_config` VALUES (1, 'minio', 'erahub', 'erahub123', 'erahub', '', '1.117.176.57:9000', '', 'N', '', '0', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-01 14:23:57', '');
+INSERT INTO `bs_oss_config` VALUES (2, 'qiniu', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 's3-cn-north-1.qiniucs.com', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 17:04:33', '');
+INSERT INTO `bs_oss_config` VALUES (3, 'aliyun', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 'oss-cn-beijing.aliyuncs.com', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:29', '');
+INSERT INTO `bs_oss_config` VALUES (4, 'qcloud', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub-1250000000', '', 'cos.ap-beijing.myqcloud.com', '', 'N', 'ap-beijing', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:33', '');
+INSERT INTO `bs_oss_config` VALUES (5, 'image', 'erahub', 'erahub123', 'erahub', 'image', '127.0.0.1:9000', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:41', '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -654,6 +607,23 @@ INSERT INTO `sys_logininfor` VALUES (1588152686598922241, 'admin', '223.104.150.
 INSERT INTO `sys_logininfor` VALUES (1588173066562674689, 'admin', '223.104.150.64', '0', '登录成功', '2022-11-03 22:15:41', '江苏省 南京市', 'MiuiBrowser', 'Android');
 INSERT INTO `sys_logininfor` VALUES (1588310925084958721, 'admin', '117.136.45.101', '0', '登录成功', '2022-11-04 07:23:29', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1588325512459034625, 'admin', '117.136.45.101', '0', '登录成功', '2022-11-04 08:21:26', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588342346906312706, 'admin', '117.136.45.101', '0', '登录成功', '2022-11-04 09:28:20', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588362082318786561, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 10:46:45', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588370226256257025, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 11:19:07', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588414986501201921, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 14:16:59', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588431331162824706, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 15:21:56', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588436126560919554, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 15:40:59', '江苏省 南京市', 'MSEdge', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588438963986604034, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 15:52:15', '江苏省 南京市', 'MicroMessenger', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1588449474996314114, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 16:34:01', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588463663710183426, 'admin', '223.104.150.124', '0', '登录成功', '2022-11-04 17:30:24', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588514807966834690, 'admin', '223.104.150.67', '0', '登录成功', '2022-11-04 20:53:38', '江苏省 南京市', 'MiuiBrowser', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1588526435793870849, 'admin', '223.104.150.67', '0', '登录成功', '2022-11-04 21:39:50', '江苏省 南京市', 'MiuiBrowser', 'Android');
+INSERT INTO `sys_logininfor` VALUES (1588684344725053441, 'admin', '223.104.150.84', '0', '登录成功', '2022-11-05 08:07:19', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588699565061545985, 'admin', '223.104.150.84', '0', '登录成功', '2022-11-05 09:07:48', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588700397714776065, 'admin', '223.104.150.84', '0', '退出成功', '2022-11-05 09:11:06', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588722641165852674, 'admin', '223.104.150.84', '0', '登录成功', '2022-11-05 10:39:29', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588738611343237122, 'admin', '223.104.150.84', '0', '登录成功', '2022-11-05 11:42:57', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1588828539708219394, 'admin', '183.209.139.54', '0', '登录成功', '2022-11-05 17:40:18', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -696,16 +666,16 @@ INSERT INTO `sys_menu` VALUES (103, '部门管理', 1, 4, 'dept', 'system/dept/i
 INSERT INTO `sys_menu` VALUES (104, '岗位管理', 1, 5, 'post', 'system/post/index', '', 1, 0, 'C', '0', '0', 'system:post:list', 'post', 'admin', '2022-09-10 17:10:48', '', NULL, '岗位管理菜单');
 INSERT INTO `sys_menu` VALUES (105, '字典管理', 1, 6, 'dict', 'system/dict/index', '', 1, 0, 'C', '0', '0', 'system:dict:list', 'dict', 'admin', '2022-09-10 17:10:48', '', NULL, '字典管理菜单');
 INSERT INTO `sys_menu` VALUES (106, '参数设置', 1, 7, 'config', 'system/config/index', '', 1, 0, 'C', '0', '0', 'system:config:list', 'edit', 'admin', '2022-09-10 17:10:48', '', NULL, '参数设置菜单');
-INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message', 'admin', '2022-09-10 17:10:48', '', NULL, '通知公告菜单');
+INSERT INTO `sys_menu` VALUES (107, '通知公告', 1588742925398171649, 1, 'notice', 'basicservice/notice/index', '', 1, 0, 'C', '0', '0', 'basicservice:notice:list', 'message', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 12:01:13', '通知公告菜单');
 INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2022-09-10 17:10:48', '', NULL, '日志管理菜单');
 INSERT INTO `sys_menu` VALUES (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2022-09-10 17:10:48', '', NULL, '在线用户菜单');
 INSERT INTO `sys_menu` VALUES (110, 'XxlJob', 2, 7, 'Xxljob', 'monitor/xxljob/index', '', 1, 0, 'C', '0', '0', 'monitor:xxljob:list', 'job', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-23 10:44:19', '定时任务菜单');
 INSERT INTO `sys_menu` VALUES (111, 'Sentinel', 2, 6, 'Sentinel', 'monitor/sentinel/index', '', 1, 0, 'C', '0', '0', 'monitor:sentinel:list', 'sentinel', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-23 10:44:15', '流量控制菜单');
-INSERT INTO `sys_menu` VALUES (112, 'Nacos', 2, 8, 'http://1.117.176.57:8848/nacos', '', '', 0, 0, 'C', '0', '0', 'monitor:nacos:list', 'nacos', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-01 14:22:18', '服务治理菜单');
+INSERT INTO `sys_menu` VALUES (112, 'Nacos', 2, 8, 'http://127.0.0.1:8848/nacos', '', '', 0, 0, 'C', '0', '0', 'monitor:nacos:list', 'nacos', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-29 18:06:46', '服务治理菜单');
 INSERT INTO `sys_menu` VALUES (113, 'Admin', 2, 5, 'Admin', 'monitor/admin/index', '', 1, 0, 'C', '0', '0', 'monitor:admin:list', 'server', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-23 18:33:28', '服务监控菜单');
-INSERT INTO `sys_menu` VALUES (114, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '1', 'tool:build:list', 'build', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-01 14:26:46', '表单构建菜单');
+INSERT INTO `sys_menu` VALUES (114, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '1', 'tool:build:list', 'build', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-01 08:32:36', '表单构建菜单');
 INSERT INTO `sys_menu` VALUES (115, '代码生成', 3, 2, 'gen', 'tool/gen/index', '', 1, 0, 'C', '0', '0', 'tool:gen:list', 'code', 'admin', '2022-09-10 17:10:48', '', NULL, '代码生成菜单');
-INSERT INTO `sys_menu` VALUES (118, '文件管理', 1, 10, 'oss', 'system/oss/index', '', 1, 0, 'C', '0', '0', 'system:oss:list', 'upload', 'admin', '2022-09-10 17:10:48', '', NULL, '文件管理菜单');
+INSERT INTO `sys_menu` VALUES (118, '文件管理', 1588742925398171649, 2, 'oss', 'basicservice/oss/index', '', 1, 0, 'C', '0', '0', 'basicservice:oss:list', 'upload', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 12:00:54', '文件管理菜单');
 INSERT INTO `sys_menu` VALUES (500, '操作日志', 108, 1, 'operlog', 'system/operlog/index', '', 1, 0, 'C', '0', '0', 'system:operlog:list', 'form', 'admin', '2022-09-10 17:10:48', '', NULL, '操作日志菜单');
 INSERT INTO `sys_menu` VALUES (501, '登录日志', 108, 2, 'logininfor', 'system/logininfor/index', '', 1, 0, 'C', '0', '0', 'system:logininfor:list', 'logininfor', 'admin', '2022-09-10 17:10:48', '', NULL, '登录日志菜单');
 INSERT INTO `sys_menu` VALUES (1001, '用户查询', 100, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:user:query', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
@@ -743,10 +713,10 @@ INSERT INTO `sys_menu` VALUES (1032, '参数新增', 106, 2, '#', '', '', 1, 0, 
 INSERT INTO `sys_menu` VALUES (1033, '参数修改', 106, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:edit', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1034, '参数删除', 106, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:remove', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1035, '参数导出', 106, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:export', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1036, '公告查询', 107, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:query', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1037, '公告新增', 107, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:add', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1038, '公告修改', 107, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:edit', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1039, '公告删除', 107, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:remove', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (1036, '公告查询', 107, 1, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:notice:query', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:42:37', '');
+INSERT INTO `sys_menu` VALUES (1037, '公告新增', 107, 2, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:notice:add', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:42:42', '');
+INSERT INTO `sys_menu` VALUES (1038, '公告修改', 107, 3, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:notice:edit', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:42:47', '');
+INSERT INTO `sys_menu` VALUES (1039, '公告删除', 107, 4, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:notice:remove', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:42:52', '');
 INSERT INTO `sys_menu` VALUES (1040, '操作查询', 500, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:operlog:query', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1041, '操作删除', 500, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:operlog:remove', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1042, '日志导出', 500, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:operlog:export', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
@@ -757,7 +727,7 @@ INSERT INTO `sys_menu` VALUES (1046, '在线查询', 109, 1, '#', '', '', 1, 0, 
 INSERT INTO `sys_menu` VALUES (1047, '批量强退', 109, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:batchLogout', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1048, '单条强退', 109, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:forceLogout', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1050, '账户解锁', 501, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:unlock', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1055, '生成查询', 115, 1, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:query', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (1055, '生成查询', 115, 1, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2022-09-10 17:10:48', 'test01', '2022-11-05 19:00:24', '');
 INSERT INTO `sys_menu` VALUES (1056, '生成修改', 115, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:edit', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1057, '生成删除', 115, 3, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:remove', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1058, '导入代码', 115, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
@@ -775,45 +745,23 @@ INSERT INTO `sys_menu` VALUES (1508, '测试树表新增', 1506, 2, '#', '', NUL
 INSERT INTO `sys_menu` VALUES (1509, '测试树表修改', 1506, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'demo:tree:edit', '#', 'admin', '2022-09-10 17:10:57', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1510, '测试树表删除', 1506, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'demo:tree:remove', '#', 'admin', '2022-09-10 17:10:57', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1511, '测试树表导出', 1506, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'demo:tree:export', '#', 'admin', '2022-09-10 17:10:57', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1600, '文件查询', 118, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:oss:query', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1601, '文件上传', 118, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:oss:upload', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1602, '文件下载', 118, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:oss:download', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1603, '文件删除', 118, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:oss:remove', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1604, '配置添加', 118, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:oss:add', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1605, '配置编辑', 118, 6, '#', '', '', 1, 0, 'F', '0', '0', 'system:oss:edit', '#', 'admin', '2022-09-10 17:10:48', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1570009901798481921, '缓存监控', 2, 2, 'cache', 'monitor/cache/index', NULL, 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2022-09-14 19:21:45', 'admin', '2022-11-04 08:29:13', '');
+INSERT INTO `sys_menu` VALUES (1600, '文件查询', 118, 1, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:oss:query', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:43:03', '');
+INSERT INTO `sys_menu` VALUES (1601, '文件上传', 118, 2, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:oss:upload', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:43:07', '');
+INSERT INTO `sys_menu` VALUES (1602, '文件下载', 118, 3, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:oss:download', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:43:15', '');
+INSERT INTO `sys_menu` VALUES (1603, '文件删除', 118, 4, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:oss:remove', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:43:20', '');
+INSERT INTO `sys_menu` VALUES (1604, '配置添加', 118, 5, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:oss:add', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:43:25', '');
+INSERT INTO `sys_menu` VALUES (1605, '配置编辑', 118, 6, '#', '', '', 1, 0, 'F', '0', '0', 'basicservice:oss:edit', '#', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 17:43:29', '');
+INSERT INTO `sys_menu` VALUES (1570009901798481921, '缓存监控', 2, 2, 'cache', 'monitor/cache/index', NULL, 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2022-09-14 19:21:45', 'admin', '2022-11-05 11:18:09', '');
 INSERT INTO `sys_menu` VALUES (1570010319794429953, '缓存列表', 2, 3, 'cacheList', 'monitor/cache/list', NULL, 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2022-09-14 19:23:24', 'admin', '2022-09-14 19:23:24', '');
 INSERT INTO `sys_menu` VALUES (1570022388644143106, '服务监控', 2, 4, 'server', 'monitor/server/index', NULL, 1, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2022-09-14 20:11:22', 'admin', '2022-09-15 18:39:17', '');
-INSERT INTO `sys_menu` VALUES (1570758202780676098, 'Minio', 2, 9, 'http://1.117.176.57:9000', '', NULL, 0, 0, 'C', '0', '0', 'monitor:minio:list', 'upload', 'admin', '2022-09-16 20:55:13', 'admin', '2022-11-01 14:22:24', '');
-INSERT INTO `sys_menu` VALUES (1572393811995209730, 'Seata', 2, 10, 'http://1.117.176.57:7091', NULL, NULL, 0, 0, 'C', '0', '0', 'monitor:seata:list', 'tool', 'admin', '2022-09-21 09:14:33', 'admin', '2022-11-01 14:22:29', '');
+INSERT INTO `sys_menu` VALUES (1570758202780676098, 'Minio', 2, 9, 'http://127.0.0.1:9000', '', NULL, 0, 0, 'C', '0', '0', 'monitor:minio:list', 'upload', 'admin', '2022-09-16 20:55:13', 'admin', '2022-09-29 18:06:55', '');
+INSERT INTO `sys_menu` VALUES (1572393811995209730, 'Seata', 2, 10, 'http://127.0.0.1:7091', NULL, NULL, 0, 0, 'C', '0', '0', 'monitor:seata:list', 'tool', 'admin', '2022-09-21 09:14:33', 'admin', '2022-09-29 18:07:04', '');
 INSERT INTO `sys_menu` VALUES (1574206588866998274, '测试菜单1', 5, 3, '/////', NULL, NULL, 1, 0, 'M', '0', '0', NULL, '404', 'admin', '2022-09-26 09:17:53', 'admin', '2022-09-26 09:17:53', '');
 INSERT INTO `sys_menu` VALUES (1574206638720495617, '测试菜单2', 1574206588866998274, 1, '测试菜单', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'bug', 'admin', '2022-09-26 09:18:05', 'admin', '2022-09-26 09:18:05', '');
 INSERT INTO `sys_menu` VALUES (1574206696736108546, '测试菜单3', 1574206638720495617, 1, '测试菜单', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'cascader', 'admin', '2022-09-26 09:18:19', 'admin', '2022-09-26 09:18:19', '');
-INSERT INTO `sys_menu` VALUES (1588077119135821826, '数据库文档', 3, 2, 'dbDoc', 'monitor/dbDoc/index', NULL, 1, 0, 'C', '0', '0', 'system:database:doc:list', 'date-range', 'admin', '2022-11-03 15:54:25', 'admin', '2022-11-04 08:29:07', '');
-INSERT INTO `sys_menu` VALUES (1588092486994432002, '数据库文档导出', 1588077119135821826, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'system:database:doc:export', '#', 'admin', '2022-11-03 16:55:29', 'admin', '2022-11-03 16:55:29', '');
-
--- ----------------------------
--- Table structure for sys_notice
--- ----------------------------
-DROP TABLE IF EXISTS `sys_notice`;
-CREATE TABLE `sys_notice`  (
-  `notice_id` bigint(0) NOT NULL COMMENT '公告ID',
-  `notice_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告标题',
-  `notice_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
-  `notice_content` longblob NULL COMMENT '公告内容',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_notice
--- ----------------------------
-INSERT INTO `sys_notice` VALUES (1588327071490220034, '系统更新维护', '1', 0xE4BB8AE697A5E58D81E782B9E5BC80E5A78BE4B8BAE69C9FE4B889E5B08FE697B6E79A84E69BB4E696B0E7BBB4E68AA4, '0', 'admin', '2022-11-04 08:27:38', 'admin', '2022-11-04 08:28:08', NULL);
+INSERT INTO `sys_menu` VALUES (1588077119135821826, '数据库文档', 3, 2, 'dbDoc', 'tool/dbDoc/index', NULL, 1, 0, 'C', '0', '0', 'tool:database:doc:list', 'date-range', 'admin', '2022-11-03 15:54:25', 'admin', '2022-11-05 17:20:41', '');
+INSERT INTO `sys_menu` VALUES (1588092486994432002, '数据库文档导出', 1588077119135821826, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'tool:database:doc:export', '#', 'admin', '2022-11-03 16:55:29', 'admin', '2022-11-05 17:41:58', '');
+INSERT INTO `sys_menu` VALUES (1588742925398171649, '基础服务', 0, 4, 'basicservice', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'server', 'admin', '2022-11-05 12:00:05', 'admin', '2022-11-05 12:00:05', '');
 
 -- ----------------------------
 -- Table structure for sys_oper_log
@@ -1271,65 +1219,9 @@ INSERT INTO `sys_oper_log` VALUES (1588327178939899906, '通知公告', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1588327197357088770, '通知公告', 2, 'com.erahub.base.system.controller.SysNoticeController.edit()', 'PUT', 1, 'admin', '', '/notice', '117.136.45.101', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-04 08:27:38\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-04 08:28:08\",\"params\":{},\"noticeId\":\"1588327071490220034\",\"noticeTitle\":\"系统更新维护\",\"noticeType\":\"1\",\"noticeContent\":\"今日十点开始为期三小时的更新维护\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-04 08:28:08');
 INSERT INTO `sys_oper_log` VALUES (1588327445357895682, '菜单管理', 2, 'com.erahub.base.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '', '/menu', '117.136.45.101', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-03 15:54:25\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-04 08:29:07\",\"params\":{},\"parentName\":null,\"parentId\":3,\"children\":[],\"menuId\":\"1588077119135821826\",\"menuName\":\"数据库文档\",\"orderNum\":2,\"path\":\"dbDoc\",\"component\":\"monitor/dbDoc/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"system:database:doc:list\",\"icon\":\"date-range\",\"remark\":\"\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-04 08:29:07');
 INSERT INTO `sys_oper_log` VALUES (1588327467977777153, '菜单管理', 2, 'com.erahub.base.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '', '/menu', '117.136.45.101', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-09-14 19:21:45\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-04 08:29:12\",\"params\":{},\"parentName\":null,\"parentId\":2,\"children\":[],\"menuId\":\"1570009901798481921\",\"menuName\":\"缓存监控\",\"orderNum\":2,\"path\":\"cache\",\"component\":\"monitor/cache/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"monitor:cache:list\",\"icon\":\"redis\",\"remark\":\"\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-04 08:29:13');
-
--- ----------------------------
--- Table structure for sys_oss
--- ----------------------------
-DROP TABLE IF EXISTS `sys_oss`;
-CREATE TABLE `sys_oss`  (
-  `oss_id` bigint(0) NOT NULL COMMENT '对象存储主键',
-  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
-  `original_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '原名',
-  `file_suffix` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件后缀名',
-  `url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'URL地址',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '上传人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新人',
-  `service` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'minio' COMMENT '服务商',
-  PRIMARY KEY (`oss_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'OSS对象存储表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_oss
--- ----------------------------
-INSERT INTO `sys_oss` VALUES (1587329790653734913, '2022/11/01/0027a25d5fbe4bad8de13ae87eab13f9.png', '1111111.png', '.png', 'http://1.117.176.57:9000/erahub/2022/11/01/0027a25d5fbe4bad8de13ae87eab13f9.png', '2022-11-01 14:24:48', 'admin', '2022-11-01 14:24:48', 'admin', 'minio');
-INSERT INTO `sys_oss` VALUES (1587329986913607682, '2022/11/01/2b40ec9a694e4be7a3d0cf5c7461b0c9.jpg', '1580571204769.jpg', '.jpg', 'http://1.117.176.57:9000/erahub/2022/11/01/2b40ec9a694e4be7a3d0cf5c7461b0c9.jpg', '2022-11-01 14:25:35', 'admin', '2022-11-01 14:25:35', 'admin', 'minio');
-INSERT INTO `sys_oss` VALUES (1588132831418097666, '2022/11/03/2dd43677096e4fa696fdb62103e90bcb.jpg', '3a44ea743b5db91ede2c34eee2cc46cc6fefe86f.jpg', '.jpg', 'http://1.117.176.57:9000/erahub/2022/11/03/2dd43677096e4fa696fdb62103e90bcb.jpg', '2022-11-03 19:35:48', 'admin', '2022-11-03 19:35:48', 'admin', 'minio');
-
--- ----------------------------
--- Table structure for sys_oss_config
--- ----------------------------
-DROP TABLE IF EXISTS `sys_oss_config`;
-CREATE TABLE `sys_oss_config`  (
-  `oss_config_id` bigint(0) NOT NULL COMMENT '主建',
-  `config_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '配置key',
-  `access_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT 'accessKey',
-  `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '秘钥',
-  `bucket_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '桶名称',
-  `prefix` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '前缀',
-  `endpoint` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '访问站点',
-  `domain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '自定义域名',
-  `is_https` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否https（Y=是,N=否）',
-  `region` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '域',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '状态（0=正常,1=停用）',
-  `ext1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '扩展字段',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`oss_config_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '对象存储配置表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_oss_config
--- ----------------------------
-INSERT INTO `sys_oss_config` VALUES (1, 'minio', 'erahub', 'erahub123', 'erahub', '', '1.117.176.57:9000', '', 'N', '', '0', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-01 14:23:57', '');
-INSERT INTO `sys_oss_config` VALUES (2, 'qiniu', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 's3-cn-north-1.qiniucs.com', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 17:04:33', '');
-INSERT INTO `sys_oss_config` VALUES (3, 'aliyun', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 'oss-cn-beijing.aliyuncs.com', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:29', '');
-INSERT INTO `sys_oss_config` VALUES (4, 'qcloud', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub-1250000000', '', 'cos.ap-beijing.myqcloud.com', '', 'N', 'ap-beijing', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:33', '');
-INSERT INTO `sys_oss_config` VALUES (5, 'image', 'erahub', 'erahub123', 'erahub', 'image', '127.0.0.1:9000', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:41', '');
+INSERT INTO `sys_oper_log` VALUES (1588472460260384769, '用户头像', 2, 'com.erahub.base.system.controller.SysProfileController.avatar()', 'POST', 1, 'admin', '', '/user/profile/avatar', '223.104.150.124', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"imgUrl\":\"http://1.117.176.57:9000/erahub/2022/11/04/6f38d86491314647ae52b7037038c51b.jpg\"},\"error\":false,\"success\":true}', 0, '', '2022-11-04 18:05:22');
+INSERT INTO `sys_oper_log` VALUES (1588740218839605250, '菜单管理', 2, 'com.erahub.base.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '', '/menu', '223.104.150.84', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-03 15:54:25\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-05 11:49:20\",\"params\":{},\"parentName\":null,\"parentId\":3,\"children\":[],\"menuId\":\"1588077119135821826\",\"menuName\":\"数据库文档\",\"orderNum\":2,\"path\":\"dbDoc\",\"component\":\"tool/dbDoc/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"system:database:doc:list\",\"icon\":\"date-range\",\"remark\":\"\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-05 11:49:20');
+INSERT INTO `sys_oper_log` VALUES (1588740249986506753, '菜单管理', 2, 'com.erahub.base.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '', '/menu', '223.104.150.84', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-03 15:54:25\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-05 11:49:27\",\"params\":{},\"parentName\":null,\"parentId\":3,\"children\":[],\"menuId\":\"1588077119135821826\",\"menuName\":\"数据库文档\",\"orderNum\":3,\"path\":\"dbDoc\",\"component\":\"tool/dbDoc/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"system:database:doc:list\",\"icon\":\"date-range\",\"remark\":\"\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-05 11:49:28');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1677,7 +1569,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'erahub', 'sys_user', '123456@163.com', '13999999999', '0', 'http://1.117.176.57:9000/erahub/2022/11/03/2dd43677096e4fa696fdb62103e90bcb.jpg', '$2a$10$2KbtE3bhyJfyu1uYJ/C0V.JEfl09h7sBFLWM8IdnCXNw35Ku0ZJ3S', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:15:23', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'erahub', 'sys_user', '123456@163.com', '13999999999', '0', 'http://1.117.176.57:9000/erahub/2022/11/04/6f38d86491314647ae52b7037038c51b.jpg', '$2a$10$2KbtE3bhyJfyu1uYJ/C0V.JEfl09h7sBFLWM8IdnCXNw35Ku0ZJ3S', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:15:23', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'lionli', '疯狂的狮子Li', 'sys_user', 'crazyLionLi@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '2', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', '', NULL, '测试员');
 INSERT INTO `sys_user` VALUES (3, 108, 'test', '本部门及以下 密码666666', 'sys_user', '', '', '0', '', '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '2', '127.0.0.1', '2022-09-10 17:10:57', 'admin', '2022-09-10 17:10:57', 'admin', '2022-09-11 08:41:22', NULL);
 INSERT INTO `sys_user` VALUES (4, 102, 'test1', '仅本人 密码666666', 'sys_user', '', '', '0', '', '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '2', '127.0.0.1', '2022-09-10 17:10:57', 'admin', '2022-09-10 17:10:57', 'test1', '2022-09-10 17:10:57', NULL);
@@ -1797,6 +1689,136 @@ INSERT INTO `test_tree` VALUES (10, 7, 108, 3, '子节点66', 0, '2022-09-10 17:
 INSERT INTO `test_tree` VALUES (11, 7, 108, 3, '子节点77', 0, '2022-09-10 17:10:57', 'admin', NULL, NULL, 0);
 INSERT INTO `test_tree` VALUES (12, 10, 108, 3, '子节点88', 0, '2022-09-10 17:10:57', 'admin', NULL, NULL, 0);
 INSERT INTO `test_tree` VALUES (13, 10, 108, 3, '子节点99', 0, '2022-09-10 17:10:57', 'admin', NULL, NULL, 0);
+
+-- ----------------------------
+-- Table structure for to_gen_table
+-- ----------------------------
+DROP TABLE IF EXISTS `to_gen_table`;
+CREATE TABLE `to_gen_table`  (
+  `table_id` bigint(0) NOT NULL COMMENT '编号',
+  `table_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '表名称',
+  `table_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '表描述',
+  `sub_table_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联子表的表名',
+  `sub_table_fk_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子表关联的外键名',
+  `class_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '实体类名称',
+  `tpl_category` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作）',
+  `package_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成包路径',
+  `module_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成模块名',
+  `business_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成业务名',
+  `function_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成功能名',
+  `function_author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成功能作者',
+  `gen_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
+  `gen_path` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
+  `options` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其它生成选项',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`table_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of to_gen_table
+-- ----------------------------
+INSERT INTO `to_gen_table` VALUES (1574229171989590017, 'sys_user', '用户信息表', NULL, NULL, 'SysUser', 'crud', 'com.erahub.cr', 'cr', 'cr', '财务', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":5}', 'admin', '2022-09-17 08:51:19', 'admin', '2022-09-26 10:49:20', NULL);
+INSERT INTO `to_gen_table` VALUES (1574291627189415937, 'sys_dict_data', '字典数据表', NULL, NULL, 'SysDictData', 'crud', 'com.erahub.system', 'system', 'data', '字典数据', 'erahub', '0', '/', NULL, 'admin', '2022-09-17 08:51:18', 'admin', '2022-09-17 08:51:18', NULL);
+INSERT INTO `to_gen_table` VALUES (1574291628342849537, 'sys_dict_type', '字典类型表', NULL, NULL, 'SysDictType', 'crud', 'com.erahub.system', 'system', 'type', '字典类型', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"\"}', 'admin', '2022-09-17 08:51:18', 'admin', '2022-10-08 17:53:41', NULL);
+INSERT INTO `to_gen_table` VALUES (1579263009648226306, 'test_tree', '测试树表', NULL, NULL, 'TestTree', 'crud', 'com.erahub.base', 'base', 'tree', '测试树', 'erahub', '0', '/', NULL, 'admin', '2022-10-08 09:19:20', 'admin', '2022-10-08 09:19:20', NULL);
+INSERT INTO `to_gen_table` VALUES (1579720854126669825, 'sys_logininfor', '系统访问记录', NULL, NULL, 'SysLogininfor', 'crud', 'com.erahub.base', 'base', 'logininfor', '系统访问记录', 'erahub', '0', '/', NULL, 'admin', '2022-10-08 09:19:18', 'admin', '2022-10-08 09:19:18', NULL);
+
+-- ----------------------------
+-- Table structure for to_gen_table_column
+-- ----------------------------
+DROP TABLE IF EXISTS `to_gen_table_column`;
+CREATE TABLE `to_gen_table_column`  (
+  `column_id` bigint(0) NOT NULL COMMENT '编号',
+  `table_id` bigint(0) NULL DEFAULT NULL COMMENT '归属表编号',
+  `column_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列名称',
+  `column_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列描述',
+  `column_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列类型',
+  `java_type` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'JAVA类型',
+  `java_field` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'JAVA字段名',
+  `is_pk` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否主键（1是）',
+  `is_increment` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否自增（1是）',
+  `is_required` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否必填（1是）',
+  `is_insert` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否为插入字段（1是）',
+  `is_edit` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否编辑字段（1是）',
+  `is_list` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否列表字段（1是）',
+  `is_query` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否查询字段（1是）',
+  `query_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
+  `html_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
+  `dict_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典类型',
+  `sort` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`column_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of to_gen_table_column
+-- ----------------------------
+INSERT INTO `to_gen_table_column` VALUES (1574229172060893186, 1574229171989590017, 'user_id', '用户ID', 'bigint', 'Long', 'userId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172081864706, 1574229171989590017, 'dept_id', '部门ID', 'bigint', 'Long', 'deptId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172098641922, 1574229171989590017, 'user_name', '用户账号', 'varchar(30)', 'String', 'userName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172107030529, 1574229171989590017, 'nick_name', '用户昵称', 'varchar(30)', 'String', 'nickName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 4, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172123807745, 1574229171989590017, 'user_type', '用户类型（sys_user系统用户）', 'varchar(10)', 'String', 'userType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 5, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172132196353, 1574229171989590017, 'email', '用户邮箱', 'varchar(50)', 'String', 'email', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172140584961, 1574229171989590017, 'phonenumber', '手机号码', 'varchar(11)', 'String', 'phonenumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172157362178, 1574229171989590017, 'sex', '用户性别（0男 1女 2未知）', 'char(1)', 'String', 'sex', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 8, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172174139394, 1574229171989590017, 'avatar', '头像地址', 'varchar(100)', 'String', 'avatar', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172186722305, 1574229171989590017, 'password', '密码', 'varchar(100)', 'String', 'password', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172195110913, 1574229171989590017, 'status', '帐号状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 11, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172211888130, 1574229171989590017, 'del_flag', '删除标志（0代表存在 2代表删除）', 'char(1)', 'String', 'delFlag', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172220276738, 1574229171989590017, 'login_ip', '最后登录IP', 'varchar(128)', 'String', 'loginIp', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172245442562, 1574229171989590017, 'login_date', '最后登录时间', 'datetime', 'Date', 'loginDate', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 14, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172262219778, 1574229171989590017, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172283191298, 1574229171989590017, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 16, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172291579905, 1574229171989590017, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 17, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172320940033, 1574229171989590017, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 18, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574229172329328642, 1574229171989590017, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 19, 'admin', '2022-09-26 10:47:37', 'admin', '2022-09-26 10:49:20');
+INSERT INTO `to_gen_table_column` VALUES (1574291628070219777, 1574291627189415937, 'dict_code', '字典编码', 'bigint', 'Long', 'dictCode', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628086996994, 1574291627189415937, 'dict_sort', '字典排序', 'int', 'Long', 'dictSort', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628103774210, 1574291627189415937, 'dict_label', '字典标签', 'varchar(100)', 'String', 'dictLabel', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628116357122, 1574291627189415937, 'dict_value', '字典键值', 'varchar(100)', 'String', 'dictValue', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628120551425, 1574291627189415937, 'dict_type', '字典类型', 'varchar(100)', 'String', 'dictType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 5, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628149911554, 1574291627189415937, 'css_class', '样式属性（其他样式扩展）', 'varchar(100)', 'String', 'cssClass', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628179271682, 1574291627189415937, 'list_class', '表格回显样式', 'varchar(100)', 'String', 'listClass', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628191854594, 1574291627189415937, 'is_default', '是否默认（Y是 N否）', 'char(1)', 'String', 'isDefault', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628196048897, 1574291627189415937, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 9, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628212826113, 1574291627189415937, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628221214721, 1574291627189415937, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 11, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628233797633, 1574291627189415937, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628250574850, 1574291627189415937, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628263157762, 1574291627189415937, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 14, 'admin', '2022-09-26 14:55:48', 'admin', '2022-09-26 14:55:48');
+INSERT INTO `to_gen_table_column` VALUES (1574291628401569794, 1574291628342849537, 'dict_id', '字典主键', 'bigint', 'Long', 'dictId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628435124226, 1574291628342849537, 'dict_name', '字典名称', 'varchar(100)', 'String', 'dictName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628451901442, 1574291628342849537, 'dict_type', '字典类型', 'varchar(100)', 'String', 'dictType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628460290050, 1574291628342849537, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628472872961, 1574291628342849537, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 5, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628485455874, 1574291628342849537, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, '1', 'EQ', 'datetime', '', 6, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628498038785, 1574291628342849537, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 7, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628514816002, 1574291628342849537, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 8, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1574291628527398914, 1574291628342849537, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '1', '1', '1', '1', NULL, 'EQ', 'textarea', '', 9, 'admin', '2022-09-26 14:55:48', 'admin', '2022-10-08 17:53:41');
+INSERT INTO `to_gen_table_column` VALUES (1579263009698557953, 1579263009648226306, 'id', '主键', 'bigint', 'Long', 'id', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009719529474, 1579263009648226306, 'parent_id', '父id', 'bigint', 'Long', 'parentId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009719529475, 1579263009648226306, 'dept_id', '部门id', 'bigint', 'Long', 'deptId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009732112385, 1579263009648226306, 'user_id', '用户id', 'bigint', 'Long', 'userId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009744695297, 1579263009648226306, 'tree_name', '值', 'varchar(255)', 'String', 'treeName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009753083906, 1579263009648226306, 'version', '版本', 'int', 'Long', 'version', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009757278209, 1579263009648226306, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 7, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009765666818, 1579263009648226306, 'create_by', '创建人', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 8, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009774055426, 1579263009648226306, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 9, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009778249730, 1579263009648226306, 'update_by', '更新人', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579263009782444034, 1579263009648226306, 'del_flag', '删除标志', 'int', 'Long', 'delFlag', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 11, 'admin', '2022-10-10 08:10:17', 'admin', '2022-10-10 08:10:17');
+INSERT INTO `to_gen_table_column` VALUES (1579720854147641346, 1579720854126669825, 'info_id', '访问ID', 'bigint', 'Long', 'infoId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `to_gen_table_column` VALUES (1579720854160224257, 1579720854126669825, 'user_name', '用户账号', 'varchar(50)', 'String', 'userName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `to_gen_table_column` VALUES (1579720854168612865, 1579720854126669825, 'ipaddr', '登录IP地址', 'varchar(128)', 'String', 'ipaddr', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `to_gen_table_column` VALUES (1579720854168612866, 1579720854126669825, 'status', '登录状态（0成功 1失败）', 'char(1)', 'String', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `to_gen_table_column` VALUES (1579720854168612867, 1579720854126669825, 'msg', '提示信息', 'varchar(255)', 'String', 'msg', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
+INSERT INTO `to_gen_table_column` VALUES (1579720854181195778, 1579720854126669825, 'access_time', '访问时间', 'datetime', 'Date', 'accessTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 6, 'admin', '2022-10-11 14:29:36', 'admin', '2022-10-11 14:29:36');
 
 -- ----------------------------
 -- Table structure for undo_log

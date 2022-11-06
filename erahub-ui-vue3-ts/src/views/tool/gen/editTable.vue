@@ -159,15 +159,15 @@ function submitForm() {
   Promise.all([basicForm, genForm].map(getFormPromise)).then((res) => {
     const validateResult = res.every((item) => !!item)
     if (validateResult) {
-      const genTable = Object.assign({}, info.value)
-      genTable.columns = columns.value
-      genTable.params = {
+      const toGenTable = Object.assign({}, info.value)
+      toGenTable.columns = columns.value
+      toGenTable.params = {
         treeCode: info.value.treeCode,
         treeName: info.value.treeName,
         treeParentCode: info.value.treeParentCode,
         parentMenuId: info.value.parentMenuId
       }
-      updateGenTable(genTable).then((res) => {
+      updateGenTable(toGenTable).then((res) => {
         proxy.$modal.msgSuccess(res.msg)
         if (res.code === 200) {
           close()
@@ -188,7 +188,7 @@ function getFormPromise(form) {
 }
 
 function close() {
-  const obj = { path: '/tool/gen', query: { t: Date.now(), pageNum: route.query.pageNum } }
+  const obj = { path: '/tool/tool', query: { t: Date.now(), pageNum: route.query.pageNum } }
   proxy.$tab.closeOpenPage(obj)
 }
 

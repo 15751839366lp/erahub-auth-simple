@@ -57,7 +57,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             perms.add("*:*:*");
         } else {
             List<SysRole> roles = user.getRoles();
-            if (!roles.isEmpty() && roles.size() > 1) {
+            if (roles != null && roles.size() > 1) {
                 // 多角色设置permissions属性，以便数据权限匹配权限
                 for (SysRole role : roles) {
                     Set<String> rolePerms = menuService.selectMenuPermsByRoleId(role.getRoleId());

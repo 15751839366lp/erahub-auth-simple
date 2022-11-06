@@ -10,7 +10,7 @@ let downloadLoadingInstance
 
 export default {
   oss(ossId) {
-    const url = baseURL + '/resource/oss/download/' + ossId
+    const url = baseURL + '/basicservice/oss/download/' + ossId
     downloadLoadingInstance = ElLoading.service({
       text: '正在下载数据，请稍候',
       background: 'rgba(0, 0, 0, 0.7)'

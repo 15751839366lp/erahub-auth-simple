@@ -581,7 +581,7 @@
 <!--  inputComponents,-->
 <!--  selectComponents,-->
 <!--  layoutComponents-->
-<!--} from '@/utils/generator/config'-->
+<!--} from '@/utils/tool/config'-->
 
 <!--const dateTimeFormat = {-->
 <!--  date: 'yyyy-MM-dd',-->

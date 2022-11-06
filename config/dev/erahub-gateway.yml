@@ -16,7 +16,7 @@ security:
   xss:
     enabled: true
     excludeUrls:
-      - /system/notice
+      - /basicservice/notice
   # 不校验白名单
   ignore:
     whites:
@@ -26,7 +26,7 @@ security:
       - /auth/smsLogin
       - /auth/xcxLogin
       - /auth/register
-      - /resource/sms/code
+      - /basicservice/sms/code
       - /*/v3/api-docs
       - /csrf
 
@@ -50,11 +50,11 @@ spring:
             # 验证码处理
             - ValidateCodeFilter
             - StripPrefix=1
-        # 代码生成
+        # 系统工具
         - id: erahub-base
           uri: lb://erahub-base
           predicates:
-            - Path=/code/**
+            - Path=/tool/**
           filters:
             - StripPrefix=1
         # 系统模块
@@ -64,11 +64,11 @@ spring:
             - Path=/system/**
           filters:
             - StripPrefix=1
-        # 资源服务
+        # 基础服务
         - id: erahub-base
           uri: lb://erahub-base
           predicates:
-            - Path=/resource/**
+            - Path=/basicservice/**
           filters:
             - StripPrefix=1
         # 演示服务

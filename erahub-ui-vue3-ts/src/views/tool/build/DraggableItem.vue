@@ -1,6 +1,6 @@
 <!--<script>-->
 <!--import draggable from 'vuedraggable'-->
-<!--import render from '@/utils/generator/render'-->
+<!--import render from '@/utils/tool/render'-->
 
 <!--const components = {-->
 <!--  itemBtns(h, element, index, parent) {-->

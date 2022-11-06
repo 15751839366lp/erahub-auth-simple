@@ -139,14 +139,14 @@
 <!--import draggable from 'vuedraggable'-->
 <!--import beautifier from 'js-beautify'-->
 <!--import ClipboardJS from 'clipboard'-->
-<!--import render from '@/utils/generator/render'-->
+<!--import render from '@/utils/tool/render'-->
 <!--import RightPanel from './RightPanel'-->
-<!--import { inputComponents, selectComponents, layoutComponents, formConf } from '@/utils/generator/config'-->
+<!--import { inputComponents, selectComponents, layoutComponents, formConf } from '@/utils/tool/config'-->
 <!--import { beautifierConf, titleCase } from '@/utils/index'-->
-<!--import { makeUpHtml, vueTemplate, vueScript, cssStyle } from '@/utils/generator/html'-->
-<!--import { makeUpJs } from '@/utils/generator/js'-->
-<!--import { makeUpCss } from '@/utils/generator/css'-->
-<!--import drawingDefault from '@/utils/generator/drawingDefault'-->
+<!--import { makeUpHtml, vueTemplate, vueScript, cssStyle } from '@/utils/tool/html'-->
+<!--import { makeUpJs } from '@/utils/tool/js'-->
+<!--import { makeUpCss } from '@/utils/tool/css'-->
+<!--import drawingDefault from '@/utils/tool/drawingDefault'-->
 <!--import logo from '@/assets/logo/logo.png'-->
 <!--import CodeTypeDialog from './CodeTypeDialog'-->
 <!--import DraggableItem from './DraggableItem'-->

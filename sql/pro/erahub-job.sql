@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 01/11/2022 14:30:19
+ Date: 06/11/2022 10:00:31
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://10.0.4.7:9901/', '2022-11-01 14:30:08');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://10.0.4.7:9901/', '2022-11-06 10:00:04');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
@@ -90,7 +90,7 @@ CREATE TABLE `xxl_job_info`  (
 -- ----------------------------
 -- Records of xxl_job_info
 -- ----------------------------
-INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2022-09-19 14:17:40', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 0, 0, 0);
+INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2022-11-04 15:57:39', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 1, 1667664000000, 1667750400000);
 INSERT INTO `xxl_job_info` VALUES (2, 1, '多服务任务', '2022-02-17 12:21:31', '2022-09-17 10:24:11', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'multiServiceHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-02-17 12:21:31', '', 0, 0, 0);
 
 -- ----------------------------
@@ -130,11 +130,15 @@ CREATE TABLE `xxl_job_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `I_trigger_time`(`trigger_time`) USING BTREE,
   INDEX `I_handle_code`(`handle_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log
 -- ----------------------------
+INSERT INTO `xxl_job_log` VALUES (9, 1, 2, 'http://10.0.4.7:9901/', 'multiServiceHandler', '', NULL, 0, '2022-11-04 15:55:09', 200, '任务触发类型：手动触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-04 15:55:10', 500, 'java.lang.reflect.InvocationTargetException\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n	at java.lang.reflect.Method.invoke(Method.java:498)\n	at com.xxl.job.core.handler.impl.MethodJobHandler.execute(MethodJobHandler.java:31)\n	at com.xxl.job.core.thread.JobThread.run(JobThread.java:166)\nCaused by: java.lang.RuntimeException: com.erahub.common.core.exception.ServiceException: 当前系统没有开启注册功能\ncom.erahub.common.core.exception.ServiceException: 当前系统没有开启注册功能\n	at com.erahub.base.system.dubbo.RemoteUserServiceImpl.registerUserInfo(RemoteUserServiceImpl.java:95)\n	at com.erahub.base.system.dubbo.RemoteUserServiceImplDubboWrap5.invokeMethod(RemoteUserServiceImplDubboWrap5.java)\n	at org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory$1.doInvoke(JavassistProxyFactory.java:71)\n	at org.apache.dubbo.rpc.proxy.AbstractProxyInvoker.invoke(AbstractProxyInvoker.java:99)\n	at org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker.invoke(DelegateProviderMetaDataInvoker.java:55)\n	at org.apache.dubbo.rpc.protocol.InvokerWrapper.invoke(InvokerWrapper.java:56)\n	at org.apache.dubbo.rpc.filter.ClassLoaderCallbackFilter.invoke(ClassLoaderCallbackFilter.java:38)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at io.seata.integration.dubbo.ApacheDubboTransactionPropagationFilter.invoke(ApacheDubboTransactionPropagationFilter.java:64)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at com.alibaba.dubbo.rpc.Invoker$CompatibleInvoker.invoke(Invoker.java:55)\n	at io.seata.integration.dubbo.alibaba.AlibabaDubboTransactionPropagationFilter.invoke(AlibabaDubboTransactionPropagationFilter.java:45)\n	at com.alibaba.dubbo.rpc.Filter.invoke(Filter.java:29)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.protocol.dubbo.filter.TraceFilter.invoke(TraceFilter.java:77)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.TimeoutFilter.invoke(TimeoutFilter.java:44)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.monitor.support.MonitorFilter.invoke(MonitorFilter.java:99)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.ExceptionFilter.invoke(ExceptionFilter.java:52)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at com.erahub.common.dubbo.filter.DubboRequestFilter.invoke(DubboRequestFilter.java:48)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.GenericFilter.invoke(GenericFilter.java:191)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.ClassLoaderFilter.invoke(ClassLoaderFilter.java:54)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.EchoFilter.invoke(EchoFilter.java:41)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at cn.dev33.satoken.context.dubbo.filter.SaTokenDubboProviderFilter.invoke(SaTokenDubboProviderFilter.java:35)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.ProfilerServerFilter.invoke(ProfilerServerFilter.java:56)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.filter.ContextFilter.invoke(ContextFilter.java:133)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:326)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.invoke(FilterChainBuilder.java:193)\n	at org.apache.dubbo.rpc.protocol.dubbo.DubboProtocol$1.reply(DubboProtocol.java:152)\n	at org.apache.dubbo.remoting.exchange.support.header.HeaderExchangeHandler.handleRequest(HeaderExchangeHandler.java:100)\n	at org.apache.dubbo.remoting.exchange.support.header.HeaderExchangeHandler.received(HeaderExchangeHandler.java:175)\n	at org.apache.dubbo.remoting.transport.DecodeHandler.received(DecodeHandler.java:51)\n	at org.apache.dubbo.remoting.transport.dispatcher.ChannelEventRunnable.run(ChannelEventRunnable.java:59)\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n	at org.apache.dubbo.common.threadlocal.InternalRunnable.run(InternalRunnable.java:41)\n	at java.lang.Thread.run(Thread.java:827)\n\n	at org.apache.dubbo.rpc.filter.ExceptionFilter.onResponse(ExceptionFilter.java:98)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.lambda$invoke$1(FilterChainBuilder.java:217)\n	at org.apache.dubbo.rpc.AsyncRpcResult.lambda$whenCompleteWithContext$0(AsyncRpcResult.java:215)\n	at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)\n	at java.util.concurrent.CompletableFuture.uniWhenCompleteStage(CompletableFuture.java:792)\n	at java.util.concurrent.CompletableFuture.whenComplete(CompletableFuture.java:2153)\n	at org.apache.dubbo.rpc.AsyncRpcResult.whenCompleteWithContext(AsyncRpcResult.java:211)\n	at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.invoke(FilterChainBuilder.java:194)\n	at org.apache.dubbo.rpc.protocol.dubbo.DubboProtocol$1.reply(DubboProtocol.java:152)\n	at org.apache.dubbo.remoting.exchange.support.header.HeaderExchangeHandler.handleRequest(HeaderExchangeHandler.java:100)\n	at org.apache.dubbo.remoting.exchange.support.header.HeaderExchangeHandler.received(HeaderExchangeHandler.java:175)\n	at org.apache.dubbo.remoting.transport.DecodeHandler.received(DecodeHandler.java:51)\n	at org.apache.dubbo.remoting.transport.dispatcher.ChannelEventRunnable.run(ChannelEventRunnable.java:59)\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n	at org.apache.dubbo.common.threadlocal.InternalRunnable.run(InternalRunnable.java:41)\n	at java.lang.Thread.run(Thread.java:827)\n', 2);
+INSERT INTO `xxl_job_log` VALUES (10, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-04 15:55:27', 200, '任务触发类型：手动触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-04 15:55:37', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (11, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-05 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-05 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (12, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-06 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-06 00:00:10', 200, '', 0);
 
 -- ----------------------------
 -- Table structure for xxl_job_log_report
@@ -149,7 +153,7 @@ CREATE TABLE `xxl_job_log_report`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_trigger_day`(`trigger_day`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log_report
@@ -188,6 +192,11 @@ INSERT INTO `xxl_job_log_report` VALUES (31, '2022-10-08 00:00:00', 0, 0, 0, NUL
 INSERT INTO `xxl_job_log_report` VALUES (32, '2022-11-01 00:00:00', 0, 0, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (33, '2022-10-31 00:00:00', 0, 0, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (34, '2022-10-30 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (35, '2022-11-02 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (36, '2022-11-03 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (37, '2022-11-04 00:00:00', 0, 1, 1, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (38, '2022-11-05 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (39, '2022-11-06 00:00:00', 0, 1, 0, NULL);
 
 -- ----------------------------
 -- Table structure for xxl_job_logglue
@@ -225,7 +234,7 @@ CREATE TABLE `xxl_job_registry`  (
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
-INSERT INTO `xxl_job_registry` VALUES (16, 'EXECUTOR', 'erahub-job-executor', 'http://10.0.4.7:9901/', '2022-11-01 14:30:20');
+INSERT INTO `xxl_job_registry` VALUES (16, 'EXECUTOR', 'erahub-job-executor', 'http://10.0.4.7:9901/', '2022-11-06 10:00:01');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

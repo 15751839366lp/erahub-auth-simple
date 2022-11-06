@@ -271,7 +271,7 @@ function handleGenTable(row) {
       proxy.$modal.msgSuccess('成功生成到自定义路径：' + row.genPath)
     })
   } else {
-    proxy.$download.zip('/code/gen/batchGenCode?tables=' + tbNames, 'erahub')
+    proxy.$download.zip('/tool/gen/batchGenCode?tables=' + tbNames, 'erahub')
   }
 }
 /** 同步数据库操作 */
@@ -320,7 +320,7 @@ function handleSelectionChange(selection) {
 function handleEditTable(row) {
   const tableId = row.tableId || ids.value[0]
   router.push({
-    path: '/tool/gen-edit/index/' + tableId,
+    path: '/tool/tool-edit/index/' + tableId,
     query: { pageNum: queryParams.value.pageNum }
   })
 }

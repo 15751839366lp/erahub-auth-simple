@@ -11,8 +11,8 @@ import com.erahub.common.core.web.controller.BaseController;
 import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessType;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.base.resource.api.RemoteFileService;
-import com.erahub.base.resource.api.domain.SysFile;
+import com.erahub.base.basicservice.api.RemoteFileService;
+import com.erahub.base.basicservice.api.domain.BSFile;
 import com.erahub.base.system.api.domain.SysUser;
 import com.erahub.base.system.service.ISysUserService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -119,11 +119,11 @@ public class SysProfileController extends BaseController {
             if (!StringUtils.equalsAnyIgnoreCase(extension, MimeTypeUtils.IMAGE_EXTENSION)) {
                 return R.fail("文件格式不正确，请上传" + Arrays.toString(MimeTypeUtils.IMAGE_EXTENSION) + "格式");
             }
-            SysFile sysFile = remoteFileService.upload(avatarfile.getName(), avatarfile.getOriginalFilename(), avatarfile.getContentType(), avatarfile.getBytes());
-            if (ObjectUtil.isNull(sysFile)) {
+            BSFile BSFile = remoteFileService.upload(avatarfile.getName(), avatarfile.getOriginalFilename(), avatarfile.getContentType(), avatarfile.getBytes());
+            if (ObjectUtil.isNull(BSFile)) {
                 return R.fail("文件服务异常，请联系管理员");
             }
-            String url = sysFile.getUrl();
+            String url = BSFile.getUrl();
             if (userService.updateUserAvatar(LoginHelper.getUsername(), url)) {
                 Map<String, Object> ajax = new HashMap<>();
                 ajax.put("imgUrl", url);

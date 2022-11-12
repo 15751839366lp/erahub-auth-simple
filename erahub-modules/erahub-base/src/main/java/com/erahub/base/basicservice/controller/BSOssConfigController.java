@@ -37,6 +37,17 @@ public class BSOssConfigController extends BaseController {
     private final IBSOssConfigService iBSOssConfigService;
 
     /**
+     * 刷新字典缓存
+     */
+    @SaCheckPermission("basicservice:oss:remove")
+    @Log(title = "对象存储配置", businessType = BusinessType.CLEAN)
+    @DeleteMapping("/init")
+    public R<Void> init() {
+        iBSOssConfigService.init();
+        return R.ok();
+    }
+
+    /**
      * 查询对象存储配置列表
      */
     @SaCheckPermission("basicservice:oss:list")

@@ -2,11 +2,12 @@ package com.erahub.base.basicservice.service;
 
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
-import com.erahub.base.basicservice.domain.BSOss;
 import com.erahub.base.basicservice.domain.bo.BSOssBo;
 import com.erahub.base.basicservice.domain.vo.BSOssVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,7 +24,9 @@ public interface IBSOssService {
 
     BSOssVo getById(Long ossId);
 
-    BSOss upload(MultipartFile file);
+    BSOssVo upload(MultipartFile file);
+
+    void download(Long ossId, HttpServletResponse response) throws IOException;
 
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
 

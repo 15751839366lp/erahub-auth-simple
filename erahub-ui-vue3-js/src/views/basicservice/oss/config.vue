@@ -72,6 +72,16 @@
           >删除</el-button
         >
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          v-hasPermi="['basicservice:oss:remove']"
+          type="danger"
+          plain
+          icon="Delete"
+          @click="initCache"
+          >刷新缓存</el-button
+        >
+      </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -96,7 +106,19 @@
       <el-table-column v-if="columns[4].visible" label="桶名称" align="center" prop="bucketName" />
       <el-table-column v-if="columns[5].visible" label="前缀" align="center" prop="prefix" />
       <el-table-column v-if="columns[6].visible" label="域" align="center" prop="region" />
-      <el-table-column v-if="columns[7].visible" label="状态" align="center" prop="status">
+      <el-table-column
+        v-if="columns[7].visible"
+        label="桶权限类型"
+        align="center"
+        prop="accessPolicy"
+      >
+        <template #default="scope">
+          <el-tag type="warning" v-if="scope.row.accessPolicy === '0'">private</el-tag>
+          <el-tag type="success" v-if="scope.row.accessPolicy === '1'">public</el-tag>
+          <el-tag type="info" v-if="scope.row.accessPolicy === '2'">custom</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column v-if="columns[8].visible" label="状态" align="center" prop="status">
         <template #default="scope">
           <el-switch
             v-model="scope.row.status"
@@ -170,6 +192,13 @@
             }}</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="桶权限类型">
+          <el-radio-group v-model="form.accessPolicy">
+            <el-radio label="0">private</el-radio>
+            <el-radio label="1">public</el-radio>
+            <el-radio label="2">custom</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="域" prop="region">
           <el-input v-model="form.region" placeholder="请输入域" />
         </el-form-item>
@@ -194,7 +223,8 @@ import {
   delOssConfig,
   addOssConfig,
   updateOssConfig,
-  changeOssConfigStatus
+  changeOssConfigStatus,
+  initOssConfigCache
 } from '@/api/basicservice/ossConfig'
 
 const { proxy } = getCurrentInstance()
@@ -220,7 +250,8 @@ const columns = ref([
   { key: 4, label: `桶名称`, visible: true },
   { key: 5, label: `前缀`, visible: true },
   { key: 6, label: `域`, visible: true },
-  { key: 7, label: `状态`, visible: true }
+  { key: 7, label: `桶权限类型`, visible: true },
+  { key: 8, label: `状态`, visible: true }
 ])
 
 const data = reactive({
@@ -270,7 +301,8 @@ const data = reactive({
         message: 'endpoint名称长度必须介于 2 和 100 之间',
         trigger: 'blur'
       }
-    ]
+    ],
+    accessPolicy: [{ required: true, message: 'accessPolicy不能为空', trigger: 'blur' }]
   }
 })
 
@@ -302,6 +334,7 @@ function reset() {
     endpoint: undefined,
     domain: undefined,
     isHttps: 'N',
+    accessPolicy: '1',
     region: undefined,
     status: '1',
     remark: undefined
@@ -403,6 +436,18 @@ function handleDelete(row) {
     })
     .finally(() => {
       loading.value = false
+    })
+}
+
+/** 刷新缓存按钮操作 */
+function initCache() {
+  proxy.$modal
+    .confirm('是否确认刷新缓存?')
+    .then(() => {
+      return initOssConfigCache()
+    })
+    .then(() => {
+      proxy.$modal.msgSuccess('刷新成功')
     })
 }
 

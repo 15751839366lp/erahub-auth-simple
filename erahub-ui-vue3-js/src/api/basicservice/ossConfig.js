@@ -43,6 +43,14 @@ export function delOssConfig(ossConfigId) {
   })
 }
 
+// 对象存储配置刷新缓存
+export function initOssConfigCache() {
+  return request({
+    url: '/basicservice/oss/config/init',
+    method: 'delete'
+  })
+}
+
 // 对象存储状态修改
 export function changeOssConfigStatus(ossConfigId, status, configKey) {
   const data = {

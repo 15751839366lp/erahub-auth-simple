@@ -30,13 +30,35 @@ spring:
         minEvictableIdleTimeMillis: 300000
         validationQuery: SELECT 1 FROM DUAL
         testWhileIdle: true
-        testOnBorrow: false
+        testOnBorrow:   false
         testOnReturn: false
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
-        filters: stat,slf4j
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
-
+        filters: stat,wall,slf4j
+        # 启用内置过滤器（第一个 stat必须，否则监控不到SQL）
+        filter:
+          stat:
+            enabled: true
+            # 慢SQL记录
+            log-slow-sql: true
+            slow-sql-millis: 1000
+            merge-sql: true
+          wall:
+            config:
+              multi-statement-allow: true
+        # 配置 DruidStatFilter
+        web-stat-filter:
+          enabled: true
+          url-pattern: /*
+          exclusions: .js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
+        # 配置监控访问
+        stat-view-servlet:
+          enabled: true
+          url-pattern: '/druid/*'
+          reset-enabled: false
+          login-username: erahub
+          login-password: erahub123
 # seata配置
 seata:
   # 关闭自动代理

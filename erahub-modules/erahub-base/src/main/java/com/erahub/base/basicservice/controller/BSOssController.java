@@ -44,6 +44,8 @@ import java.util.Map;
 @RequestMapping("/oss")
 public class BSOssController extends BaseController {
 
+    // todo 文件和图片各自区分并分类，先创建分类，之后上传时根据类别的后缀要求研判
+    // 整合druid监控
     private final IBSOssService iBSOssService;
 
     /**
@@ -79,7 +81,7 @@ public class BSOssController extends BaseController {
         if (ObjectUtil.isNull(file)) {
             throw new ServiceException("上传文件不能为空");
         }
-        BSOss oss = iBSOssService.upload(file);
+        BSOssVo oss = iBSOssService.upload(file);
         Map<String, String> map = new HashMap<>(2);
         map.put("url", oss.getUrl());
         map.put("fileName", oss.getOriginalName());
@@ -95,23 +97,7 @@ public class BSOssController extends BaseController {
     @SaCheckPermission("basicservice:oss:download")
     @GetMapping("/download/{ossId}")
     public void download(@PathVariable Long ossId, HttpServletResponse response) throws IOException {
-        BSOssVo sysOss = iBSOssService.getById(ossId);
-        if (ObjectUtil.isNull(sysOss)) {
-            throw new ServiceException("文件数据不存在!");
-        }
-        FileUtils.setAttachmentResponseHeader(response, sysOss.getOriginalName());
-        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE + "; charset=UTF-8");
-        long data;
-        try {
-            data = HttpUtil.download(sysOss.getUrl(), response.getOutputStream(), false);
-        } catch (HttpException e) {
-            if (e.getMessage().contains("403")) {
-                throw new ServiceException("无读取权限, 请在对应的OSS开启'公有读'权限!");
-            } else {
-                throw new ServiceException(e.getMessage());
-            }
-        }
-        response.setContentLength(Convert.toInt(data));
+        iBSOssService.download(ossId,response);
     }
 
     /**

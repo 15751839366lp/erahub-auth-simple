@@ -1,5 +1,17 @@
 <template>
   <div class="component-upload-image">
+    <!-- todo 文件分类上传 -->
+    <el-select
+               placeholder="图片类别"
+               clearable
+               style="width: 240px"
+            >
+               <el-option
+                  key="dict.value"
+                  label="dict.label"
+                  value="dict.value"
+               />
+            </el-select>
     <el-upload
       multiple
       :action="uploadImgUrl"

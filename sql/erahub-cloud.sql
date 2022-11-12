@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 06/11/2022 09:59:44
+ Date: 12/11/2022 17:59:56
 */
 
 SET NAMES utf8mb4;
@@ -71,6 +71,7 @@ INSERT INTO `bs_oss` VALUES (1589071597439467521, '2022/11/06/3eef1e2afcd5454892
 INSERT INTO `bs_oss` VALUES (1589071886171160577, '2022/11/06/ed0e52124f124743bb7ad775a76c4f27.jpg', '4d53c49c3fdb6ed9476748e27973f964fcc79720.jpg', '.jpg', 'http://127.0.0.1:9000/erahub/2022/11/06/ed0e52124f124743bb7ad775a76c4f27.jpg', '2022-11-06 09:47:16', 'admin', '2022-11-06 09:47:16', 'admin', 'minio');
 INSERT INTO `bs_oss` VALUES (1589071886234075138, '2022/11/06/11deee09da1645869d636c62f77af1a3.jpg', 'null-21402ac2c14a52b8.jpg', '.jpg', 'http://127.0.0.1:9000/erahub/2022/11/06/11deee09da1645869d636c62f77af1a3.jpg', '2022-11-06 09:47:16', 'admin', '2022-11-06 09:47:16', 'admin', 'minio');
 INSERT INTO `bs_oss` VALUES (1589071886364098561, '2022/11/06/bd924211840d4122b5bdef47d1335a29.jpg', '6fda9fc715ad61e2a439fbd606a86a7e5080f2dc_raw.jpg', '.jpg', 'http://127.0.0.1:9000/erahub/2022/11/06/bd924211840d4122b5bdef47d1335a29.jpg', '2022-11-06 09:47:16', 'admin', '2022-11-06 09:47:16', 'admin', 'minio');
+INSERT INTO `bs_oss` VALUES (1591003235132059650, '2022/11/11/fac590a7a46e4ff99fe5d89ebf134a43.pdf', 'RuoYi-Cloud-Plus.pdf', '.pdf', 'http://127.0.0.1:9000/erahub/2022/11/11/fac590a7a46e4ff99fe5d89ebf134a43.pdf', '2022-11-11 17:41:45', 'admin', '2022-11-11 17:41:45', 'admin', 'minio');
 
 -- ----------------------------
 -- Table structure for bs_oss_config
@@ -87,6 +88,7 @@ CREATE TABLE `bs_oss_config`  (
   `domain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '自定义域名',
   `is_https` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否https（Y=是,N=否）',
   `region` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '域',
+  `access_policy` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '桶权限类型(0=private 1=public 2=custom)',
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '状态（0=正常,1=停用）',
   `ext1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '扩展字段',
   `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
@@ -100,11 +102,11 @@ CREATE TABLE `bs_oss_config`  (
 -- ----------------------------
 -- Records of bs_oss_config
 -- ----------------------------
-INSERT INTO `bs_oss_config` VALUES (1, 'minio', 'minioadmin', 'minioadmin', 'erahub', '', '127.0.0.1:9000', '', 'N', '', '0', '', 'admin', '2022-09-10 17:10:48', 'test01', '2022-11-06 09:35:54', '');
-INSERT INTO `bs_oss_config` VALUES (2, 'qiniu', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 's3-cn-north-1.qiniucs.com', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 17:04:33', '');
-INSERT INTO `bs_oss_config` VALUES (3, 'aliyun', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 'oss-cn-beijing.aliyuncs.com', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:29', '');
-INSERT INTO `bs_oss_config` VALUES (4, 'qcloud', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub-1250000000', '', 'cos.ap-beijing.myqcloud.com', '', 'N', 'ap-beijing', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:33', '');
-INSERT INTO `bs_oss_config` VALUES (5, 'image', 'erahub', 'erahub123', 'erahub', 'image', '127.0.0.1:9000', '', 'N', '', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:41', '');
+INSERT INTO `bs_oss_config` VALUES (1, 'minio', 'minioadmin', 'minioadmin', 'erahub', '', '127.0.0.1:9000', '', 'N', '', '1', '0', '', 'admin', '2022-09-10 17:10:48', 'test01', '2022-11-06 09:35:54', '');
+INSERT INTO `bs_oss_config` VALUES (2, 'qiniu', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 's3-cn-north-1.qiniucs.com', '', 'N', '', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 17:04:33', '');
+INSERT INTO `bs_oss_config` VALUES (3, 'aliyun', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 'oss-cn-beijing.aliyuncs.com', '', 'N', '', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:29', '');
+INSERT INTO `bs_oss_config` VALUES (4, 'qcloud', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub-1250000000', '', 'cos.ap-beijing.myqcloud.com', '', 'N', 'ap-beijing', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:33', '');
+INSERT INTO `bs_oss_config` VALUES (5, 'image', 'erahub', 'erahub123', 'erahub', 'image', '127.0.0.1:9000', '', 'N', '', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:41', '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -666,6 +668,9 @@ INSERT INTO `sys_logininfor` VALUES (1588851397364416514, 'admin', '127.0.0.1', 
 INSERT INTO `sys_logininfor` VALUES (1589068834735267841, 'test01', '127.0.0.1', '0', '登录成功', '2022-11-06 09:35:08', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1589069203527835650, 'test01', '127.0.0.1', '0', '退出成功', '2022-11-06 09:36:36', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1589069229394108417, 'admin', '127.0.0.1', '0', '登录成功', '2022-11-06 09:36:42', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1589564111653138434, 'admin', '127.0.0.1', '0', '登录成功', '2022-11-07 18:23:12', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1589575441512644609, 'admin', '127.0.0.1', '0', '登录成功', '2022-11-07 19:08:13', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1591003140869271554, 'admin', '127.0.0.1', '0', '登录成功', '2022-11-11 17:41:23', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -804,6 +809,7 @@ INSERT INTO `sys_menu` VALUES (1574206696736108546, '测试菜单3', 15742066387
 INSERT INTO `sys_menu` VALUES (1588077119135821826, '数据库文档', 3, 2, 'dbDoc', 'tool/dbDoc/index', NULL, 1, 0, 'C', '0', '0', 'tool:database:doc:list', 'date-range', 'admin', '2022-11-03 15:54:25', 'admin', '2022-11-05 17:20:41', '');
 INSERT INTO `sys_menu` VALUES (1588092486994432002, '数据库文档导出', 1588077119135821826, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'tool:database:doc:export', '#', 'admin', '2022-11-03 16:55:29', 'admin', '2022-11-05 17:41:58', '');
 INSERT INTO `sys_menu` VALUES (1588742925398171649, '基础服务', 0, 4, 'basicservice', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'server', 'admin', '2022-11-05 12:00:05', 'admin', '2022-11-05 12:00:05', '');
+INSERT INTO `sys_menu` VALUES (1589564491350896641, 'Druid', 2, 6, 'Druid', 'monitor/druid/index', NULL, 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid', 'admin', '2022-11-07 18:24:42', 'admin', '2022-11-07 18:24:42', '');
 
 -- ----------------------------
 -- Table structure for sys_oper_log
@@ -1394,6 +1400,8 @@ INSERT INTO `sys_oper_log` VALUES (1589073378055716866, '代码生成', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1589073417603809282, '代码生成', 2, 'com.erahub.base.tool.controller.ToGenController.synchDb()', 'GET', 1, 'admin', '', '/gen/synchDb/bs_oss', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-06 09:53:21');
 INSERT INTO `sys_oper_log` VALUES (1589073508204969986, '代码生成', 2, 'com.erahub.base.tool.controller.ToGenController.editSave()', 'PUT', 1, 'admin', '', '/gen', '127.0.0.1', '', '{\"searchValue\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-11-06 09:53:42\",\"params\":{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"1588742925398171649\"},\"tableId\":\"1589073210258391042\",\"tableName\":\"bs_oss\",\"tableComment\":\"OSS对象存储表\",\"subTableName\":null,\"subTableFkName\":null,\"className\":\"BsOss\",\"tplCategory\":\"crud\",\"packageName\":\"com.erahub.base.tool\",\"moduleName\":\"base\",\"businessName\":\"oss\",\"functionName\":\"OSS对象存储\",\"functionAuthor\":\"erahub\",\"genType\":\"0\",\"genPath\":\"/\",\"pkColumn\":null,\"subTable\":null,\"columns\":[{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-06 09:52:32\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-06 09:53:42\",\"params\":{},\"columnId\":\"1589073210325499906\",\"tableId\":\"1589073210258391042\",\"columnName\":\"oss_id\",\"columnComment\":\"对象存储主键\",\"columnType\":\"bigint\",\"javaType\":\"Long\",\"javaField\":\"ossId\",\"isPk\":\"1\",\"isIncrement\":\"0\",\"isRequired\":\"1\",\"isInsert\":null,\"isEdit\":\"1\",\"isList\":\"1\",\"isQuery\":null,\"queryType\":\"EQ\",\"htmlType\":\"input\",\"dictType\":\"\",\"sort\":1,\"required\":true,\"list\":true,\"superColumn\":false,\"edit\":true,\"pk\":true,\"insert\":false,\"usableColumn\":false,\"increment\":false,\"query\":false,\"capJavaField\":\"OssId\"},{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-06 09:52:32\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-06 09:53:42\",\"params\":{},\"columnId\":\"1589073210333888513\",\"tableId\":\"1589073210258391042\",\"columnName\":\"file_name\",\"columnComment\":\"文件名\",\"columnType\":\"varchar(255)\",\"javaType\":\"String\",\"javaField\":\"fileName\",\"isPk\":\"0\",\"isIncrement\":\"0\",\"isRequired\":\"1\",\"isInsert\":\"1\",\"isEdit\":\"1\",\"isList\":\"1\",\"isQuery\":\"1\",\"queryType\":\"LIKE\",\"htmlType\":\"input\",\"dictType\":\"\",\"sort\":2,\"required\":true,\"list\":true,\"superColumn\":false,\"edit\":true,\"pk\":false,\"insert\":true,\"usableColumn\":false,\"increment\":false,\"query\":true,\"capJavaField\":\"FileName\"},{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-06 09:52:32\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-06 09:53:42\",\"params\":{},\"co', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-06 09:53:43');
 INSERT INTO `sys_oper_log` VALUES (1589073700295704578, '代码生成', 8, 'com.erahub.base.tool.controller.ToGenController.batchGenCode()', 'GET', 1, 'admin', '', '/gen/batchGenCode', '127.0.0.1', '', '', '', 0, '', '2022-11-06 09:54:28');
+INSERT INTO `sys_oper_log` VALUES (1589564491548028930, '菜单管理', 1, 'com.erahub.base.system.controller.SysMenuController.add()', 'POST', 1, 'admin', '', '/menu', '127.0.0.1', '', '{\"searchValue\":null,\"createBy\":\"admin\",\"createTime\":\"2022-11-07 18:24:42\",\"updateBy\":\"admin\",\"updateTime\":\"2022-11-07 18:24:42\",\"params\":{},\"parentName\":null,\"parentId\":2,\"children\":[],\"menuId\":\"1589564491350896641\",\"menuName\":\"Druid\",\"orderNum\":6,\"path\":\"Druid\",\"component\":\"monitor/druid/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"monitor:druid:list\",\"icon\":\"druid\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null,\"error\":false,\"success\":true}', 0, '', '2022-11-07 18:24:42');
+INSERT INTO `sys_oper_log` VALUES (1591003235450826753, 'OSS对象存储', 1, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'admin', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":\"1591003235132059650\",\"url\":\"http://127.0.0.1:9000/erahub/2022/11/11/fac590a7a46e4ff99fe5d89ebf134a43.pdf\",\"fileName\":\"RuoYi-Cloud-Plus.pdf\"},\"error\":false,\"success\":true}', 0, '', '2022-11-11 17:41:45');
 
 -- ----------------------------
 -- Table structure for sys_post

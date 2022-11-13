@@ -52,6 +52,10 @@ public class BSOssServiceImpl implements IBSOssService {
     @Override
     public TableDataInfo<BSOssVo> queryPageList(BSOssBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<BSOss> lqw = buildQueryWrapper(bo);
+        if (StringUtils.isBlank(pageQuery.getOrderByColumn())) {
+            pageQuery.setOrderByColumn("create_time");
+            pageQuery.setIsAsc("desc");
+        }
         Page<BSOssVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
         List<BSOssVo> filterResult = result.getRecords().stream().map(this::matchingUrl).collect(Collectors.toList());
         result.setRecords(filterResult);

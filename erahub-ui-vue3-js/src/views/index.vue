@@ -9,7 +9,7 @@
                 <img :src="avatar" alt="" class="w-70px h-70px rounded-[50%] mr-20px" />
                 <div>
                   <div class="text-20px text-700">
-                    {{ 'Welcome' }} {{ username }} {{ 'HappyDay' }}
+                    {{ 'Welcome' }} {{ nickName }} {{ 'HappyDay' }}
                   </div>
                   <div class="mt-10px text-14px text-gray-500"> {{ 'Toady' }}，20℃ - 32℃！ </div>
                 </div>
@@ -188,7 +188,7 @@ import { formatTime } from '@/utils'
 const userStore = useUserStore()
 const loading = ref(true)
 const avatar = userStore.avatar
-const username = userStore.name
+const nickName = userStore.nickName
 
 // 获取统计数
 let totalSate = reactive({

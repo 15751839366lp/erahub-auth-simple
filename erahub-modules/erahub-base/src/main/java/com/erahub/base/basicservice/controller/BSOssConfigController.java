@@ -39,7 +39,7 @@ public class BSOssConfigController extends BaseController {
     /**
      * 刷新字典缓存
      */
-    @SaCheckPermission("basicservice:oss:remove")
+    @SaCheckPermission("basicservice:oss:config:remove")
     @Log(title = "对象存储配置", businessType = BusinessType.CLEAN)
     @DeleteMapping("/init")
     public R<Void> init() {
@@ -50,7 +50,7 @@ public class BSOssConfigController extends BaseController {
     /**
      * 查询对象存储配置列表
      */
-    @SaCheckPermission("basicservice:oss:list")
+    @SaCheckPermission("basicservice:oss:config:list")
     @GetMapping("/list")
     public TableDataInfo<BSOssConfigVo> list(@Validated(QueryGroup.class) BSOssConfigBo bo, PageQuery pageQuery) {
         return iBSOssConfigService.queryPageList(bo, pageQuery);
@@ -61,7 +61,7 @@ public class BSOssConfigController extends BaseController {
      *
      * @param ossConfigId OSS配置ID
      */
-    @SaCheckPermission("basicservice:oss:query")
+    @SaCheckPermission("basicservice:oss:config:query")
     @GetMapping("/{ossConfigId}")
     public R<BSOssConfigVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("ossConfigId") Long ossConfigId) {
         return R.ok(iBSOssConfigService.queryById(ossConfigId));
@@ -70,7 +70,7 @@ public class BSOssConfigController extends BaseController {
     /**
      * 新增对象存储配置
      */
-    @SaCheckPermission("basicservice:oss:add")
+    @SaCheckPermission("basicservice:oss:config:add")
     @Log(title = "对象存储配置", businessType = BusinessType.INSERT)
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody BSOssConfigBo bo) {
@@ -80,7 +80,7 @@ public class BSOssConfigController extends BaseController {
     /**
      * 修改对象存储配置
      */
-    @SaCheckPermission("basicservice:oss:edit")
+    @SaCheckPermission("basicservice:oss:config:edit")
     @Log(title = "对象存储配置", businessType = BusinessType.UPDATE)
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody BSOssConfigBo bo) {
@@ -92,7 +92,7 @@ public class BSOssConfigController extends BaseController {
      *
      * @param ossConfigIds OSS配置ID串
      */
-    @SaCheckPermission("basicservice:oss:remove")
+    @SaCheckPermission("basicservice:oss:config:remove")
     @Log(title = "对象存储配置", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ossConfigIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossConfigIds) {

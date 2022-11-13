@@ -42,7 +42,7 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['basicservice:oss:add']"
+          v-hasPermi="['basicservice:oss:config:add']"
           type="primary"
           plain
           icon="Plus"
@@ -52,7 +52,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['basicservice:oss:edit']"
+          v-hasPermi="['basicservice:oss:config:edit']"
           type="success"
           plain
           icon="Edit"
@@ -63,7 +63,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['basicservice:oss:remove']"
+          v-hasPermi="['basicservice:oss:config:remove']"
           type="danger"
           plain
           icon="Delete"
@@ -74,7 +74,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['basicservice:oss:remove']"
+          v-hasPermi="['basicservice:oss:config:remove']"
           type="danger"
           plain
           icon="Delete"
@@ -136,14 +136,14 @@
       >
         <template #default="scope">
           <el-button
-            v-hasPermi="['basicservice:oss:edit']"
+            v-hasPermi="['basicservice:oss:config:edit']"
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
             >修改</el-button
           >
           <el-button
-            v-hasPermi="['basicservice:oss:remove']"
+            v-hasPermi="['basicservice:oss:config:remove']"
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"

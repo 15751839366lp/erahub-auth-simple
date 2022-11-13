@@ -131,20 +131,6 @@ export const dynamicRoutes = [
     ]
   },
   {
-    path: '/basicservice/oss-config',
-    component: Layout,
-    hidden: true,
-    permissions: ['basicservice:oss:list'],
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/basicservice/oss/config'),
-        name: 'OssConfig',
-        meta: { title: '配置管理', activeMenu: '/basicservice/oss' }
-      }
-    ]
-  },
-  {
     path: '/tool/tool-edit',
     component: Layout,
     hidden: true,

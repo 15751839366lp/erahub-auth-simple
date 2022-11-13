@@ -104,16 +104,6 @@
           >预览开关 : {{ previewListResource ? '禁用' : '启用' }}</el-button
         >
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          v-hasPermi="['basicservice:oss:list']"
-          type="info"
-          plain
-          icon="Operation"
-          @click="handleOssConfig"
-          >配置管理</el-button
-        >
-      </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -140,7 +130,7 @@
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="上传人" align="center" prop="createBy" />
@@ -280,10 +270,6 @@ function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.ossId)
   single.value = selection.length != 1
   multiple.value = !selection.length
-}
-/** 任务日志列表查询 */
-function handleOssConfig() {
-  router.push('/basicservice/oss-config/index')
 }
 /** 文件按钮操作 */
 function handleFile() {

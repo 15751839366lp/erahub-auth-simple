@@ -27,6 +27,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * S3 存储协议 所有兼容S3协议的云厂商均支持
@@ -106,6 +108,9 @@ public class OssClient {
             // 设置上传对象的 Acl 为公共读
             putObjectRequest.setCannedAcl(getAccessPolicy().getAcl());
             client.putObject(putObjectRequest);
+//            ObjectListing objectListing = client.listObjects(new ListObjectsRequest().withBucketName("my-destination-bucket"));
+//            List<String> urls = objectListing.getObjectSummaries().stream().map(S3ObjectSummary::getKey).collect(Collectors.toList());
+//            System.out.println(urls);
         } catch (Exception e) {
             throw new OssException("上传文件失败，请检查配置信息:[" + e.getMessage() + "]");
         }

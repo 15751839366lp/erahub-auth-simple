@@ -1,3 +1,0 @@
-pwd:
-erahub或admin
-123456或erahub123

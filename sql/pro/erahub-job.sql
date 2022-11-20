@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 06/11/2022 10:00:31
+ Date: 18/11/2022 18:30:40
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://10.0.4.7:9901/', '2022-11-06 10:00:04');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://10.0.4.7:9901/', '2022-11-18 18:30:30');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
@@ -90,7 +90,7 @@ CREATE TABLE `xxl_job_info`  (
 -- ----------------------------
 -- Records of xxl_job_info
 -- ----------------------------
-INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2022-11-04 15:57:39', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 1, 1667664000000, 1667750400000);
+INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2022-11-04 15:57:39', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 1, 1668700800000, 1668787200000);
 INSERT INTO `xxl_job_info` VALUES (2, 1, '多服务任务', '2022-02-17 12:21:31', '2022-09-17 10:24:11', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'multiServiceHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-02-17 12:21:31', '', 0, 0, 0);
 
 -- ----------------------------
@@ -130,7 +130,7 @@ CREATE TABLE `xxl_job_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `I_trigger_time`(`trigger_time`) USING BTREE,
   INDEX `I_handle_code`(`handle_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log
@@ -139,6 +139,18 @@ INSERT INTO `xxl_job_log` VALUES (9, 1, 2, 'http://10.0.4.7:9901/', 'multiServic
 INSERT INTO `xxl_job_log` VALUES (10, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-04 15:55:27', 200, '任务触发类型：手动触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-04 15:55:37', 200, '', 0);
 INSERT INTO `xxl_job_log` VALUES (11, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-05 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-05 00:00:10', 200, '', 0);
 INSERT INTO `xxl_job_log` VALUES (12, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-06 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-06 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (13, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-07 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-07 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (14, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-08 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-08 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (15, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-09 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-09 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (16, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-10 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-10 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (17, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-11 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-11 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (18, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-12 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-12 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (19, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-13 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-13 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (20, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-14 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-14 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (21, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-15 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-15 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (22, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-16 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-16 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (23, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-17 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-17 00:00:10', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (24, 1, 1, 'http://10.0.4.7:9901/', 'demoJobHandler', '', NULL, 0, '2022-11-18 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2022-11-18 00:00:10', 200, '', 0);
 
 -- ----------------------------
 -- Table structure for xxl_job_log_report
@@ -153,7 +165,7 @@ CREATE TABLE `xxl_job_log_report`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_trigger_day`(`trigger_day`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log_report
@@ -197,6 +209,18 @@ INSERT INTO `xxl_job_log_report` VALUES (36, '2022-11-03 00:00:00', 0, 0, 0, NUL
 INSERT INTO `xxl_job_log_report` VALUES (37, '2022-11-04 00:00:00', 0, 1, 1, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (38, '2022-11-05 00:00:00', 0, 1, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (39, '2022-11-06 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (40, '2022-11-07 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (41, '2022-11-08 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (42, '2022-11-09 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (43, '2022-11-10 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (44, '2022-11-11 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (45, '2022-11-12 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (46, '2022-11-13 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (47, '2022-11-14 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (48, '2022-11-15 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (49, '2022-11-16 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (50, '2022-11-17 00:00:00', 0, 1, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (51, '2022-11-18 00:00:00', 0, 1, 0, NULL);
 
 -- ----------------------------
 -- Table structure for xxl_job_logglue
@@ -229,12 +253,12 @@ CREATE TABLE `xxl_job_registry`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `i_g_k_v`(`registry_group`, `registry_key`, `registry_value`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
-INSERT INTO `xxl_job_registry` VALUES (16, 'EXECUTOR', 'erahub-job-executor', 'http://10.0.4.7:9901/', '2022-11-06 10:00:01');
+INSERT INTO `xxl_job_registry` VALUES (18, 'EXECUTOR', 'erahub-job-executor', 'http://10.0.4.7:9901/', '2022-11-18 18:30:20');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

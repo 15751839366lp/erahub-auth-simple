@@ -14,6 +14,10 @@ import lombok.EqualsAndHashCode;
 public class BSOssBo extends BaseEntity {
 
     /**
+     * 对象存储主键
+     */
+    private Long ossId;
+    /**
      * 文件名
      */
     private String fileName;

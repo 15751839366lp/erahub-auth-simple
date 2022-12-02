@@ -77,6 +77,11 @@
             <artifactId>erahub-common-job</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-oss</artifactId>
+        </dependency>
+
         <!-- erahub Api Base -->
         <dependency>
             <groupId>com.erahub</groupId>

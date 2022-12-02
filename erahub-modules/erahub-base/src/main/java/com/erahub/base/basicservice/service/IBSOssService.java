@@ -24,10 +24,14 @@ public interface IBSOssService {
 
     BSOssVo getById(Long ossId);
 
-    BSOssVo upload(MultipartFile file);
+    BSOssVo upload(MultipartFile file) throws IOException;
+
+    Boolean insertByBo(List<BSOssBo> bsOssBos);
 
     void download(Long ossId, HttpServletResponse response) throws IOException;
 
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
 
+
+    Boolean deleteTempFilesByFileNames(List<String> asList, boolean isValid);
 }

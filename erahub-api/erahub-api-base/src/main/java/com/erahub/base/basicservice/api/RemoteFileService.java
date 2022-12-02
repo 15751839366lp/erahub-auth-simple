@@ -17,4 +17,11 @@ public interface RemoteFileService {
      * @return 结果
      */
     BSFile upload(String name, String originalFilename, String contentType, byte[] file) throws ServiceException;
+
+    /**
+     * 清理临时文件
+     *
+     * @return 结果
+     */
+    void clearTempFiles() throws ServiceException;
 }

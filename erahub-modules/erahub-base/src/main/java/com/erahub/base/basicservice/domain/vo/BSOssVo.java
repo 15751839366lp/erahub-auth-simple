@@ -54,5 +54,8 @@ public class BSOssVo {
      */
     private String service;
 
-
+    /**
+     * 格式类型
+     */
+    private String contentType;
 }

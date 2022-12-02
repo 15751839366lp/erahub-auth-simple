@@ -31,11 +31,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -117,26 +117,61 @@ public class BSOssServiceImpl implements IBSOssService {
 
     @Override
     public BSOssVo upload(MultipartFile file) {
-        String originalfileName = file.getOriginalFilename();
-        String suffix = StringUtils.substring(originalfileName, originalfileName.lastIndexOf("."), originalfileName.length());
-        OssClient storage = OssFactory.instance();
-        UploadResult uploadResult;
+        BSOssVo bsOssVo = new BSOssVo();
+        bsOssVo.setOriginalName(file.getOriginalFilename());
+        bsOssVo.setFileSuffix(StringUtils.substring(bsOssVo.getOriginalName(),
+            bsOssVo.getOriginalName().lastIndexOf("."),
+            bsOssVo.getOriginalName().length()));
+        bsOssVo.setFileName(UUID.randomUUID().toString().replaceAll("-", "") + bsOssVo.getFileSuffix());
+        bsOssVo.setContentType(file.getContentType());
+
+        File tempFile;
+        String path = System.getProperty("user.dir");
         try {
-            uploadResult = storage.uploadSuffix(file.getBytes(), suffix, file.getContentType());
+            tempFile = FileUtils.writeBytes(file.getBytes(),
+                path + File.separator + "temp_files" + File.separator
+                + bsOssVo.getFileName());
         } catch (IOException e) {
             throw new ServiceException(e.getMessage());
         }
+
+        return bsOssVo;
+    }
+
+    @Override
+    public Boolean insertByBo(List<BSOssBo> bsOssBos) {
+        OssClient storage = OssFactory.instance();
+        List<BSOss> osses = new ArrayList<>();
+
+        //循环遍历插入minio
+        bsOssBos.forEach(bsOssBo -> {
+            String originalfileName = bsOssBo.getOriginalName();
+            String suffix = bsOssBo.getFileSuffix();
+            String path = System.getProperty("user.dir") + File.separator + "temp_files" + File.separator;
+
+            File file = new File(path + bsOssBo.getFileName());
+            if(!file.exists()){
+                throw new ServiceException("文件" + bsOssBo.getOriginalName() + "已被清除，请重新上传！");
+            }
+            UploadResult uploadResult = storage.uploadSuffix(FileUtils.readBytes(file), suffix, bsOssBo.getContentType());
+
+            BSOss oss = new BSOss();
+            oss.setUrl(uploadResult.getUrl());
+            oss.setFileSuffix(suffix);
+            oss.setFileName(uploadResult.getFilename());
+            oss.setOriginalName(originalfileName);
+            oss.setService(storage.getConfigKey());
+            osses.add(oss);
+            file.delete();
+        });
+
         // 保存文件信息
-        BSOss oss = new BSOss();
-        oss.setUrl(uploadResult.getUrl());
-        oss.setFileSuffix(suffix);
-        oss.setFileName(uploadResult.getFilename());
-        oss.setOriginalName(originalfileName);
-        oss.setService(storage.getConfigKey());
-        baseMapper.insert(oss);
-        BSOssVo bSOssVo = new BSOssVo();
-        BeanCopyUtils.copy(oss, bSOssVo);
-        return this.matchingUrl(bSOssVo);
+        Boolean r = baseMapper.insertBatch(osses);
+        List<BSOssVo> bsOssVos = BeanCopyUtils.copyList(osses, BSOssVo.class);
+        bsOssVos.forEach(bsOssVo -> {
+            this.matchingUrl(bsOssVo);
+        });
+        return r;
     }
 
     @Override
@@ -150,6 +185,21 @@ public class BSOssServiceImpl implements IBSOssService {
             storage.delete(BSOss.getUrl());
         }
         return baseMapper.deleteBatchIds(ids) > 0;
+    }
+
+    @Override
+    public Boolean deleteTempFilesByFileNames(List<String> fileNames, boolean isValid) {
+        if (isValid) {
+            // 做一些业务上的校验,判断是否需要校验
+        }
+        String path = System.getProperty("user.dir") + File.separator + "temp_files" + File.separator;
+        fileNames.forEach(fileName -> {
+            File file = new File(path + fileName);
+            if(file.exists()){
+                file.delete();
+            }
+        });
+        return true;
     }
 
     /**

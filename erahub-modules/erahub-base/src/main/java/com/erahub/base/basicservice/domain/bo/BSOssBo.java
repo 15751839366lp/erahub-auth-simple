@@ -37,5 +37,8 @@ public class BSOssBo extends BaseEntity {
      * 服务商
      */
     private String service;
-
+    /**
+     * 格式类型
+     */
+    private String contentType;
 }

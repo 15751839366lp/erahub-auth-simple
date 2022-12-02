@@ -182,9 +182,8 @@
 </template>
 
 <script setup name="Oss">
-import { listOss, delOss } from '@/api/basicservice/oss'
+import { listOss, addOssBatch, delOss, delTempFiles } from '@/api/basicservice/oss'
 
-const router = useRouter()
 const { proxy } = getCurrentInstance()
 
 const ossList = ref([])
@@ -242,8 +241,26 @@ function checkFileSuffix(fileSuffix) {
     return fileSuffix.indexOf(type) > -1
   })
 }
+/** 提交按钮 */
+function submitForm() {
+  if (form.value.file && form.value.file.length > 0) {
+    console.log(form.value.file)
+    addOssBatch(form.value.file).then(() => {
+      proxy.$modal.msgSuccess('上传成功')
+      open.value = false
+      getList()
+    })
+  } else {
+    proxy.$modal.msgError(`文件不能为空!`)
+  }
+}
 /** 取消按钮 */
 function cancel() {
+  // 删除已上传的临时文件
+  if (form.value.file && form.value.file.length > 0) {
+    const fileNames = form.value.file.map((f) => f.fileName)
+    delTempFiles(fileNames)
+  }
   open.value = false
   reset()
 }
@@ -284,11 +301,6 @@ function handleImage() {
   open.value = true
   title.value = '上传图片'
   type.value = 1
-}
-/** 提交按钮 */
-function submitForm() {
-  open.value = false
-  getList()
 }
 /** 下载按钮操作 */
 function handleDownload(row) {

@@ -17,10 +17,27 @@ export function listByIds(ossId) {
   })
 }
 
+// 批量新增OSS对象存储
+export function addOssBatch(data) {
+  return request({
+    url: '/basicservice/oss/addOssBatch',
+    method: 'post',
+    data: data
+  })
+}
+
 // 删除OSS对象存储
 export function delOss(ossId) {
   return request({
     url: '/basicservice/oss/' + ossId,
+    method: 'delete'
+  })
+}
+
+// 删除临时文件
+export function delTempFiles(fileNames) {
+  return request({
+    url: '/basicservice/oss/removeTempFiles/' + fileNames,
     method: 'delete'
   })
 }

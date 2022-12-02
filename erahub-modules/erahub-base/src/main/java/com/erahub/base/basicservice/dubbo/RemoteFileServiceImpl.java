@@ -1,5 +1,6 @@
 package com.erahub.base.basicservice.dubbo;
 
+import cn.hutool.core.io.FileUtil;
 import com.erahub.base.basicservice.domain.BSOss;
 import com.erahub.base.basicservice.mapper.BSOssMapper;
 import com.erahub.common.core.exception.ServiceException;
@@ -14,6 +15,8 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
 
 /**
  * 文件请求处理
@@ -56,4 +59,16 @@ public class RemoteFileServiceImpl implements RemoteFileService {
         }
     }
 
+    @Override
+    public void clearTempFiles() throws ServiceException {
+        try {
+            String dir = System.getProperty("user.dir") + File.separator + "temp_files";
+            if(FileUtil.isDirectory(dir)){
+                FileUtil.del(dir);
+            }
+        } catch (Exception e) {
+            log.error("临时文件清理失败", e);
+            throw new ServiceException("临时文件清理失败");
+        }
+    }
 }

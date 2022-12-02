@@ -70,23 +70,31 @@ public class BSOssController extends BaseController {
     }
 
     /**
-     * 上传OSS对象存储
+     * 上传临时文件
      *
      * @param file 文件
      */
     @SaCheckPermission("basicservice:oss:upload")
     @Log(title = "OSS对象存储", businessType = BusinessType.INSERT)
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<Map<String, String>> upload(@RequestPart("file") MultipartFile file) {
+    public R<BSOssVo> upload(@RequestPart("file") MultipartFile file) throws IOException {
         if (ObjectUtil.isNull(file)) {
             throw new ServiceException("上传文件不能为空");
         }
         BSOssVo oss = iBSOssService.upload(file);
-        Map<String, String> map = new HashMap<>(2);
-        map.put("url", oss.getUrl());
-        map.put("fileName", oss.getOriginalName());
-        map.put("ossId", oss.getOssId().toString());
-        return R.ok(map);
+        return R.ok(oss);
+    }
+
+    /**
+     * 上传OSS对象存储
+     *
+     * @param bsOssBos 文件数据
+     */
+    @SaCheckPermission("basicservice:oss:upload")
+    @Log(title = "OSS对象存储", businessType = BusinessType.INSERT)
+    @PostMapping("/addOssBatch")
+    public R<Void> insertBatch(@Validated @RequestBody List<BSOssBo> bsOssBos) {
+        return toAjax(iBSOssService.insertByBo(bsOssBos) ? 1 : 0);
     }
 
     /**
@@ -110,6 +118,19 @@ public class BSOssController extends BaseController {
     @DeleteMapping("/{ossIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
         return toAjax(iBSOssService.deleteWithValidByIds(Arrays.asList(ossIds), true) ? 1 : 0);
+    }
+
+    // todo 前端上传minio,删除临时文件， 后端删除临时文件
+    /**
+     * 删除临时文件
+     *
+     * @param fileNames 临时文件名称
+     */
+    @SaCheckPermission("basicservice:oss:remove")
+    @Log(title = "OSS对象存储", businessType = BusinessType.DELETE)
+    @DeleteMapping("/removeTempFiles/{fileNames}")
+    public R<Void> removeTempFiles(@NotEmpty(message = "路径不能为空") @PathVariable String[] fileNames) {
+        return toAjax(iBSOssService.deleteTempFilesByFileNames(Arrays.asList(fileNames), true) ? 1 : 0);
     }
 
 }

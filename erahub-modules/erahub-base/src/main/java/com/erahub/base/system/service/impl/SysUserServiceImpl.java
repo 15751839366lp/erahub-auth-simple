@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.erahub.base.basicservice.api.RemoteFileService;
 import com.erahub.base.system.mapper.*;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.exception.ServiceException;
@@ -16,6 +17,8 @@ import com.erahub.common.core.utils.StreamUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
+import com.erahub.common.oss.core.OssClient;
+import com.erahub.common.oss.factory.OssFactory;
 import com.erahub.common.satoken.utils.LoginHelper;
 import com.erahub.base.system.api.domain.SysDept;
 import com.erahub.base.system.api.domain.SysRole;
@@ -51,6 +54,8 @@ public class SysUserServiceImpl implements ISysUserService {
     private final SysPostMapper postMapper;
     private final SysUserRoleMapper userRoleMapper;
     private final SysUserPostMapper userPostMapper;
+
+    private final RemoteFileService remoteFileService;
 
     @Override
     public TableDataInfo<SysUser> selectPageUserList(SysUser user, PageQuery pageQuery) {
@@ -363,8 +368,13 @@ public class SysUserServiceImpl implements ISysUserService {
      * @param avatar   头像地址
      * @return 结果
      */
+    @Transactional
     @Override
     public boolean updateUserAvatar(String userName, String avatar) {
+        SysUser sysUser = baseMapper.selectOne(new LambdaUpdateWrapper<SysUser>()
+            .set(SysUser::getAvatar, avatar)
+            .eq(SysUser::getUserName, userName));
+        remoteFileService.deleteByUrls(Arrays.asList(sysUser.getAvatar()));
         return baseMapper.update(null,
             new LambdaUpdateWrapper<SysUser>()
                 .set(SysUser::getAvatar, avatar)

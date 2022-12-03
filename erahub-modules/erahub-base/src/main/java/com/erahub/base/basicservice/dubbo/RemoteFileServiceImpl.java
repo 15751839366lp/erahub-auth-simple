@@ -1,6 +1,7 @@
 package com.erahub.base.basicservice.dubbo;
 
 import cn.hutool.core.io.FileUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.erahub.base.basicservice.domain.BSOss;
 import com.erahub.base.basicservice.mapper.BSOssMapper;
 import com.erahub.common.core.exception.ServiceException;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 文件请求处理
@@ -59,11 +62,54 @@ public class RemoteFileServiceImpl implements RemoteFileService {
         }
     }
 
+    /**
+     * 删除上传文件
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Boolean deleteByUrls(List<String> urls) throws ServiceException {
+        try {
+            List<BSOss> list = bSOssMapper.selectList(new LambdaQueryWrapper<BSOss>()
+                .in(BSOss::getUrl, urls));
+
+            for (BSOss bSOss : list) {
+                OssClient storage = OssFactory.instance(bSOss.getService());
+                storage.delete(bSOss.getUrl());
+            }
+
+            return bSOssMapper.deleteBatchIds(list.stream()
+                .map(BSOss::getOssId)
+                .collect(Collectors.toList())) > 0;
+        } catch (Exception e) {
+            log.error("删除上传文件", e);
+            throw new ServiceException("删除上传文件");
+        }
+    }
+
+    /**
+     * 删除上传文件
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Boolean deleteByIds(List<Long> ids) throws ServiceException {
+        try {
+            List<BSOss> list = bSOssMapper.selectBatchIds(ids);
+            for (BSOss bSOss : list) {
+                OssClient storage = OssFactory.instance(bSOss.getService());
+                storage.delete(bSOss.getUrl());
+            }
+            return bSOssMapper.deleteBatchIds(ids) > 0;
+        } catch (Exception e) {
+            log.error("删除上传文件", e);
+            throw new ServiceException("删除上传文件");
+        }
+    }
+
     @Override
     public void clearTempFiles() throws ServiceException {
         try {
             String dir = System.getProperty("user.dir") + File.separator + "temp_files";
-            if(FileUtil.isDirectory(dir)){
+            if (FileUtil.isDirectory(dir)) {
                 FileUtil.del(dir);
             }
         } catch (Exception e) {

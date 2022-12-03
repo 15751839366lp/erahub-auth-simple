@@ -180,9 +180,9 @@ public class BSOssServiceImpl implements IBSOssService {
             // 做一些业务上的校验,判断是否需要校验
         }
         List<BSOss> list = baseMapper.selectBatchIds(ids);
-        for (BSOss BSOss : list) {
-            OssClient storage = OssFactory.instance(BSOss.getService());
-            storage.delete(BSOss.getUrl());
+        for (BSOss bSOss : list) {
+            OssClient storage = OssFactory.instance(bSOss.getService());
+            storage.delete(bSOss.getUrl());
         }
         return baseMapper.deleteBatchIds(ids) > 0;
     }

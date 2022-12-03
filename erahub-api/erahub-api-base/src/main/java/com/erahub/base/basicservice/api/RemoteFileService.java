@@ -3,6 +3,8 @@ package com.erahub.base.basicservice.api;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.base.basicservice.api.domain.BSFile;
 
+import java.util.List;
+
 /**
  * 文件服务
  *
@@ -17,6 +19,16 @@ public interface RemoteFileService {
      * @return 结果
      */
     BSFile upload(String name, String originalFilename, String contentType, byte[] file) throws ServiceException;
+
+    /**
+     * 删除上传文件
+     */
+    Boolean deleteByUrls(List<String> urls) throws ServiceException;
+
+    /**
+     * 删除上传文件
+     */
+    Boolean deleteByIds(List<Long> ids) throws ServiceException;
 
     /**
      * 清理临时文件

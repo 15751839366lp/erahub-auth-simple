@@ -4,6 +4,7 @@ import com.alibaba.nacos.api.common.Constants;
 import com.erahub.auth.form.LoginBody;
 import com.erahub.auth.form.RegisterBody;
 import com.erahub.auth.form.SmsLoginBody;
+import com.erahub.auth.service.impl.BlogLoginServiceImpl;
 import com.erahub.auth.service.impl.SysLoginServiceImpl;
 import com.erahub.common.core.domain.R;
 import lombok.RequiredArgsConstructor;
@@ -18,24 +19,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * token 控制
+ * 博客模块
  *
  * @author erahub
  */
 @Validated
 @RequiredArgsConstructor
 @RestController
-public class TokenController {
+public class BlogTokenController {
 
-    private final SysLoginServiceImpl sysLoginServiceImpl;
+    private final BlogLoginServiceImpl blogLoginService;
 
     /**
      * 登录方法
      */
-    @PostMapping("login")
+    @PostMapping("/blog/login")
     public R<Map<String, Object>> login(@Validated @RequestBody LoginBody form) {
         // 用户登录
-        String accessToken = sysLoginServiceImpl.login(form.getUsername(), form.getPassword());
+        String accessToken = blogLoginService.login(form.getUsername(), form.getPassword());
 
         // 接口返回信息
         Map<String, Object> rspMap = new HashMap<String, Object>();
@@ -49,11 +50,11 @@ public class TokenController {
      * @param smsLoginBody 登录信息
      * @return 结果
      */
-    @PostMapping("/smsLogin")
+    @PostMapping("/blog//smsLogin")
     public R<Map<String, Object>> smsLogin(@Validated @RequestBody SmsLoginBody smsLoginBody) {
         Map<String, Object> ajax = new HashMap<>();
         // 生成令牌
-        String token = sysLoginServiceImpl.smsLogin(smsLoginBody.getPhonenumber(), smsLoginBody.getSmsCode());
+        String token = blogLoginService.smsLogin(smsLoginBody.getPhonenumber(), smsLoginBody.getSmsCode());
         ajax.put(Constants.TOKEN, token);
         return R.ok(ajax);
     }
@@ -64,11 +65,11 @@ public class TokenController {
      * @param xcxCode 小程序code
      * @return 结果
      */
-    @PostMapping("/xcxLogin")
+    @PostMapping("/blog//xcxLogin")
     public R<Map<String, Object>> xcxLogin(@NotBlank(message = "{xcx.code.not.blank}") String xcxCode) {
         Map<String, Object> ajax = new HashMap<>();
         // 生成令牌
-        String token = sysLoginServiceImpl.xcxLogin(xcxCode);
+        String token = blogLoginService.xcxLogin(xcxCode);
         ajax.put(Constants.TOKEN, token);
         return R.ok(ajax);
     }
@@ -76,20 +77,19 @@ public class TokenController {
     /**
      * 登出方法
      */
-    @DeleteMapping("logout")
+    @DeleteMapping("/blog/logout")
     public R<Void> logout() {
-        sysLoginServiceImpl.logout();
+        blogLoginService.logout();
         return R.ok();
     }
 
     /**
      * 用户注册
      */
-    @PostMapping("register")
+    @PostMapping("/blog/register")
     public R<Void> register(@RequestBody RegisterBody registerBody) {
         // 用户注册
-        sysLoginServiceImpl.register(registerBody);
+        blogLoginService.register(registerBody);
         return R.ok();
     }
-
 }

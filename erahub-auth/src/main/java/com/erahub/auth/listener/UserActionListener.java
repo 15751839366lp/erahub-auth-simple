@@ -7,7 +7,9 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.erahub.common.core.constant.CacheConstants;
+import com.erahub.common.core.constant.LoginModuleTypeConstants;
 import com.erahub.common.core.enums.UserType;
+import com.erahub.common.core.exception.user.UserException;
 import com.erahub.common.core.utils.ServletUtils;
 import com.erahub.common.core.utils.ip.AddressUtils;
 import com.erahub.common.redis.utils.RedisUtils;
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.util.Objects;
 
 /**
  * 用户行为 侦听器的实现
@@ -37,30 +40,43 @@ public class UserActionListener implements SaTokenListener {
      */
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
-        UserType userType = UserType.getUserType(loginId.toString());
-        if (userType == UserType.SYS_USER) {
-            UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
-            String ip = ServletUtils.getClientIP();
-            LoginUser user = LoginHelper.getLoginUser();
-            SysUserOnline userOnline = new SysUserOnline();
-            userOnline.setIpaddr(ip);
-            userOnline.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
-            userOnline.setBrowser(userAgent.getBrowser().getName());
-            userOnline.setOs(userAgent.getOs().getName());
-            userOnline.setLoginTime(System.currentTimeMillis());
-            userOnline.setTokenId(tokenValue);
-            userOnline.setUserName(user.getUsername());
-            if (ObjectUtil.isNotNull(user.getDeptName())) {
-                userOnline.setDeptName(user.getDeptName());
+        if(Objects.equals(loginType, LoginModuleTypeConstants.LOGIN)){
+            UserType userType = UserType.getUserType(loginId.toString());
+            if (userType == UserType.SYS_USER) {
+                UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
+                String ip = ServletUtils.getClientIP();
+                LoginUser user = LoginHelper.getLoginUser();
+                SysUserOnline userOnline = new SysUserOnline();
+                userOnline.setIpaddr(ip);
+                userOnline.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+                userOnline.setBrowser(userAgent.getBrowser().getName());
+                userOnline.setOs(userAgent.getOs().getName());
+                userOnline.setLoginTime(System.currentTimeMillis());
+                userOnline.setTokenId(tokenValue);
+                userOnline.setUserName(user.getUsername());
+                if (ObjectUtil.isNotNull(user.getDeptName())) {
+                    userOnline.setDeptName(user.getDeptName());
+                }
+                if(tokenConfig.getTimeout() == -1) {
+                    RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, userOnline);
+                } else {
+                    RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, userOnline, Duration.ofSeconds(tokenConfig.getTimeout()));
+                }
+                log.info("user doLogin, useId:{}, token:{}", loginId, tokenValue);
+            } else if (userType == UserType.APP_USER) {
+                // app端 自行根据业务编写
             }
+        } else if (Objects.equals(loginType, LoginModuleTypeConstants.BLOG_LOGIN)) {
+            // 博客模块登录
+
             if(tokenConfig.getTimeout() == -1) {
-                RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, userOnline);
+//                RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, userOnline);
             } else {
-                RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, userOnline, Duration.ofSeconds(tokenConfig.getTimeout()));
+//                RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, userOnline, Duration.ofSeconds(tokenConfig.getTimeout()));
             }
             log.info("user doLogin, useId:{}, token:{}", loginId, tokenValue);
-        } else if (userType == UserType.APP_USER) {
-            // app端 自行根据业务编写
+        } else {
+            throw new UserException("登录模块错误");
         }
     }
 

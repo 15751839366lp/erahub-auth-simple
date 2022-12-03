@@ -1,4 +1,4 @@
-package com.erahub.auth.service;
+package com.erahub.auth.service.impl;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.secure.BCrypt;
@@ -8,6 +8,7 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.erahub.auth.form.RegisterBody;
 import com.erahub.auth.properties.UserPasswordProperties;
+import com.erahub.auth.service.LoginService;
 import com.erahub.common.core.constant.CacheConstants;
 import com.erahub.common.core.constant.Constants;
 import com.erahub.common.core.enums.DeviceType;
@@ -40,7 +41,7 @@ import java.util.function.Supplier;
  * @author erahub
  */
 @Service
-public class SysLoginService {
+public class SysLoginServiceImpl implements LoginService {
 
     @DubboReference
     private RemoteLogService remoteLogService;
@@ -53,6 +54,7 @@ public class SysLoginService {
     /**
      * 登录
      */
+    @Override
     public String login(String username, String password) {
         LoginUser userInfo = remoteUserService.getUserInfo(username);
 
@@ -64,6 +66,7 @@ public class SysLoginService {
         return StpUtil.getTokenValue();
     }
 
+    @Override
     public String smsLogin(String phonenumber, String smsCode) {
         // 通过手机号查找用户
         LoginUser userInfo = remoteUserService.getUserInfoByPhonenumber(phonenumber);
@@ -76,6 +79,7 @@ public class SysLoginService {
         return StpUtil.getTokenValue();
     }
 
+    @Override
     public String xcxLogin(String xcxCode) {
         // xcxCode 为 小程序调用 wx.login 授权后获取
         // todo 自行实现 校验 appid + appsrcret + xcxCode 调用登录凭证校验接口 获取 session_key 与 openid
@@ -91,6 +95,7 @@ public class SysLoginService {
     /**
      * 退出登录
      */
+    @Override
     public void logout() {
         try {
             String username = LoginHelper.getUsername();
@@ -103,6 +108,7 @@ public class SysLoginService {
     /**
      * 注册
      */
+    @Override
     public void register(RegisterBody registerBody) {
         String username = registerBody.getUsername();
         String password = registerBody.getPassword();

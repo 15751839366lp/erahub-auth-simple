@@ -25,6 +25,7 @@ import com.erahub.base.basicservice.domain.vo.BSOssVo;
 import com.erahub.base.basicservice.mapper.BSOssMapper;
 import com.erahub.base.basicservice.service.IBSOssService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -138,6 +139,8 @@ public class BSOssServiceImpl implements IBSOssService {
         return bsOssVo;
     }
 
+    // todo
+//    @CachePut(cacheNames = CacheNames.SYS_OSS, key = "")
     @Override
     public Boolean insertByBo(List<BSOssBo> bsOssBos) {
         OssClient storage = OssFactory.instance();

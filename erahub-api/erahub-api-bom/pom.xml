@@ -22,7 +22,12 @@
                 <artifactId>erahub-api-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <!-- 博客模块接口 -->
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-api-blog</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

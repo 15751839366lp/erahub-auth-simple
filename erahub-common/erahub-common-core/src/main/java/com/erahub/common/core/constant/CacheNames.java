@@ -33,7 +33,7 @@ public interface CacheNames {
     /**
      * OSS内容
      */
-    String SYS_OSS = "sys_oss#30d";
+    String SYS_OSS = "sys_oss";
 
     /**
      * OSS配置

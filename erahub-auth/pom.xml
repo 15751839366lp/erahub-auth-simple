@@ -65,6 +65,11 @@
             <artifactId>erahub-common-seata</artifactId>
         </dependency>
 
+        <!-- erahub Api Base -->
+        <dependency>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-api-blog</artifactId>
+        </dependency>
 
         <!-- 自定义负载均衡(多团队开发使用) -->
 <!--        <dependency>-->

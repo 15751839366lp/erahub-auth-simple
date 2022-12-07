@@ -33,7 +33,7 @@ public class BlogTokenController {
     /**
      * 登录方法
      */
-    @PostMapping("/blog/login")
+    @PostMapping("/blogLogin")
     public R<Map<String, Object>> login(@Validated @RequestBody LoginBody form) {
         // 用户登录
         String accessToken = blogLoginService.login(form.getUsername(), form.getPassword());
@@ -50,7 +50,7 @@ public class BlogTokenController {
      * @param smsLoginBody 登录信息
      * @return 结果
      */
-    @PostMapping("/blog//smsLogin")
+    @PostMapping("/blogSmsLogin")
     public R<Map<String, Object>> smsLogin(@Validated @RequestBody SmsLoginBody smsLoginBody) {
         Map<String, Object> ajax = new HashMap<>();
         // 生成令牌
@@ -65,7 +65,7 @@ public class BlogTokenController {
      * @param xcxCode 小程序code
      * @return 结果
      */
-    @PostMapping("/blog//xcxLogin")
+    @PostMapping("/blogXcxLogin")
     public R<Map<String, Object>> xcxLogin(@NotBlank(message = "{xcx.code.not.blank}") String xcxCode) {
         Map<String, Object> ajax = new HashMap<>();
         // 生成令牌
@@ -77,7 +77,7 @@ public class BlogTokenController {
     /**
      * 登出方法
      */
-    @DeleteMapping("/blog/logout")
+    @DeleteMapping("/blogLogout")
     public R<Void> logout() {
         blogLoginService.logout();
         return R.ok();
@@ -86,7 +86,7 @@ public class BlogTokenController {
     /**
      * 用户注册
      */
-    @PostMapping("/blog/register")
+    @PostMapping("/blogRegister")
     public R<Void> register(@RequestBody RegisterBody registerBody) {
         // 用户注册
         blogLoginService.register(registerBody);

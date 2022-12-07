@@ -26,6 +26,11 @@ security:
       - /auth/smsLogin
       - /auth/xcxLogin
       - /auth/register
+      - /auth/blogLogout
+      - /auth/blogLogin
+      - /auth/blogSmsLogin
+      - /auth/blogXcxLogin
+      - /auth/blogRegister
       - /basicservice/sms/code
       - /*/v3/api-docs
       - /csrf

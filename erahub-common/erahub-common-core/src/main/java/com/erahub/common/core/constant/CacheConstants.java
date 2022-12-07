@@ -27,25 +27,6 @@ public interface CacheConstants {
      */
     String CAPTCHA_CODE_KEY = "captcha_codes:";
 
-    /**
-     * 参数管理 cache key
-     */
-    String SYS_CONFIG_KEY = "sys_config";
-
-    /**
-     * 字典管理 cache key
-     */
-    String SYS_DICT_KEY = "sys_dict";
-
-    /**
-     * OSS配置
-     */
-    String SYS_OSS_CONFIG = "sys_oss_config";
-
-    /**
-     * OSS配置
-     */
-    String SYS_OSS = "sys_oss:";
 
     /**
      * 登录账户密码错误次数 redis key

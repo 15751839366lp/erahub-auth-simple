@@ -19,6 +19,7 @@
             :expand-on-click-node="false"
             :filter-node-method="filterNode"
             ref="deptTreeRef"
+            node-key="id"
             highlight-current
             default-expand-all
             @node-click="handleNodeClick"
@@ -214,7 +215,8 @@
             <template #default="scope">
               <el-tooltip content="修改" placement="top" v-if="scope.row.userId !== 1">
                 <el-button
-                  type="text"
+                  link
+                  type="primary"
                   icon="Edit"
                   @click="handleUpdate(scope.row)"
                   v-hasPermi="['system:user:edit']"
@@ -222,7 +224,8 @@
               </el-tooltip>
               <el-tooltip content="删除" placement="top" v-if="scope.row.userId !== 1">
                 <el-button
-                  type="text"
+                  link
+                  type="primary"
                   icon="Delete"
                   @click="handleDelete(scope.row)"
                   v-hasPermi="['system:user:remove']"
@@ -230,7 +233,8 @@
               </el-tooltip>
               <el-tooltip content="重置密码" placement="top" v-if="scope.row.userId !== 1">
                 <el-button
-                  type="text"
+                  link
+                  type="primary"
                   icon="Key"
                   @click="handleResetPwd(scope.row)"
                   v-hasPermi="['system:user:resetPwd']"
@@ -238,7 +242,8 @@
               </el-tooltip>
               <el-tooltip content="分配角色" placement="top" v-if="scope.row.userId !== 1">
                 <el-button
-                  type="text"
+                  link
+                  type="primary"
                   icon="CircleCheck"
                   @click="handleAuthRole(scope.row)"
                   v-hasPermi="['system:user:edit']"
@@ -546,6 +551,8 @@ function handleQuery() {
 function resetQuery() {
   dateRange.value = []
   proxy.resetForm('queryRef')
+  queryParams.value.deptId = undefined
+  proxy.$refs['deptTreeRef'].setCurrentKey(null)
   handleQuery()
 }
 /** 删除按钮操作 */

@@ -6,11 +6,17 @@
           v-model="queryParams.deptName"
           placeholder="请输入部门名称"
           clearable
+          style="width: 200px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="部门状态" clearable>
+        <el-select
+          v-model="queryParams.status"
+          placeholder="部门状态"
+          clearable
+          style="width: 200px"
+        >
           <el-option
             v-for="dict in sys_normal_disable"
             :key="dict.value"
@@ -77,14 +83,16 @@
         <template #default="scope">
           <el-button
             v-hasPermi="['system:dept:edit']"
-            type="text"
+            link
+            type="primary"
             icon="Edit"
             @click="handleUpdate(scope.row)"
             >修改</el-button
           >
           <el-button
             v-hasPermi="['system:dept:add']"
-            type="text"
+            link
+            type="primary"
             icon="Plus"
             @click="handleAdd(scope.row)"
             >新增</el-button
@@ -92,7 +100,8 @@
           <el-button
             v-if="scope.row.parentId != 0"
             v-hasPermi="['system:dept:remove']"
-            type="text"
+            link
+            type="primary"
             icon="Delete"
             @click="handleDelete(scope.row)"
             >删除</el-button

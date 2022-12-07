@@ -21,6 +21,7 @@
           :auto-crop-width="options.autoCropWidth"
           :auto-crop-height="options.autoCropHeight"
           :fixed-box="options.fixedBox"
+          :outputType="options.outputType"
           @realTime="realTime"
         />
       </el-col>
@@ -85,6 +86,7 @@ const options = reactive({
   autoCropHeight: 200, // 默认生成截图框高度
   fixedBox: true, // 固定截图框大小 不允许改变
   filename: '',
+  outputType: 'png', // 默认生成截图为PNG格式
   previews: {} //预览数据
 })
 

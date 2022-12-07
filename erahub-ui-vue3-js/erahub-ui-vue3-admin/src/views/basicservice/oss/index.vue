@@ -107,7 +107,14 @@
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="ossList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="ossList"
+      @selection-change="handleSelectionChange"
+      :header-cell-class-name="handleHeaderClass"
+      @header-click="handleHeaderCLick"
+      v-if="showTable"
+    >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column v-if="false" label="对象存储主键" align="center" prop="ossId" />
       <el-table-column label="文件名" align="center" prop="fileName" />
@@ -128,25 +135,33 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column
+        label="创建时间"
+        align="center"
+        prop="createTime"
+        width="180"
+        sortable="custom"
+      >
         <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="上传人" align="center" prop="createBy" />
-      <el-table-column label="服务商" align="center" prop="service" />
+      <el-table-column label="服务商" align="center" prop="service" sortable="custom" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button
             v-hasPermi="['basicservice:oss:download']"
-            type="text"
+            link
+            type="primary"
             icon="Edit"
             @click="handleDownload(scope.row)"
             >下载</el-button
           >
           <el-button
             v-hasPermi="['basicservice:oss:remove']"
-            type="text"
+            link
+            type="primary"
             icon="Delete"
             @click="handleDelete(scope.row)"
             >删除</el-button
@@ -188,6 +203,7 @@ const { proxy } = getCurrentInstance()
 
 const ossList = ref([])
 const open = ref(false)
+const showTable = ref(true)
 const buttonLoading = ref(false)
 const loading = ref(true)
 const showSearch = ref(true)
@@ -199,6 +215,8 @@ const title = ref('')
 const type = ref(0)
 const previewListResource = ref(true)
 const daterangeCreateTime = ref([])
+// 默认排序
+const defaultSort = ref({ prop: 'createTime', order: 'ascending' })
 
 const data = reactive({
   form: {},
@@ -232,6 +250,7 @@ function getList() {
       ossList.value = response.rows
       total.value = response.total
       loading.value = false
+      showTable.value = true
     }
   )
 }
@@ -244,7 +263,6 @@ function checkFileSuffix(fileSuffix) {
 /** 提交按钮 */
 function submitForm() {
   if (form.value.file && form.value.file.length > 0) {
-    console.log(form.value.file)
     addOssBatch(form.value.file).then(() => {
       proxy.$modal.msgSuccess('上传成功')
       open.value = false
@@ -278,8 +296,11 @@ function handleQuery() {
 }
 /** 重置按钮操作 */
 function resetQuery() {
+  showTable.value = false
   daterangeCreateTime.value = []
   proxy.resetForm('queryRef')
+  queryParams.value.orderByColumn = defaultSort.value.prop
+  queryParams.value.isAsc = defaultSort.value.order
   handleQuery()
 }
 /** 选择条数  */
@@ -287,6 +308,51 @@ function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.ossId)
   single.value = selection.length != 1
   multiple.value = !selection.length
+}
+// 设置列的排序为我们自定义的排序
+function handleHeaderClass({ column }) {
+  column.order = column.multiOrder
+}
+// 点击表头进行排序
+function handleHeaderCLick(column) {
+  if (column.sortable !== 'custom') {
+    return
+  }
+  switch (column.multiOrder) {
+    case 'descending':
+      column.multiOrder = 'ascending'
+      break
+    case 'ascending':
+      column.multiOrder = ''
+      break
+    default:
+      column.multiOrder = 'descending'
+      break
+  }
+  handleOrderChange(column.property, column.multiOrder)
+}
+function handleOrderChange(prop, order) {
+  let orderByArr = queryParams.value.orderByColumn ? queryParams.value.orderByColumn.split(',') : []
+  let isAscArr = queryParams.value.isAsc ? queryParams.value.isAsc.split(',') : []
+  let propIndex = orderByArr.indexOf(prop)
+  if (propIndex !== -1) {
+    if (order) {
+      //排序里已存在 只修改排序
+      isAscArr[propIndex] = order
+    } else {
+      //如果order为null 则删除排序字段和属性
+      isAscArr.splice(propIndex, 1) //删除排序
+      orderByArr.splice(propIndex, 1) //删除属性
+    }
+  } else {
+    //排序里不存在则新增排序
+    orderByArr.push(prop)
+    isAscArr.push(order)
+  }
+  //合并排序
+  queryParams.value.orderByColumn = orderByArr.join(',')
+  queryParams.value.isAsc = isAscArr.join(',')
+  getList()
 }
 /** 文件按钮操作 */
 function handleFile() {

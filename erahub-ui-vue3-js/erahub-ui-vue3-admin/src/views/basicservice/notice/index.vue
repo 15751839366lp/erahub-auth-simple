@@ -1,17 +1,12 @@
 <template>
   <div class="app-container">
-    <el-form
-      v-show="showSearch"
-      ref="queryRef"
-      :model="queryParams"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form v-show="showSearch" ref="queryRef" :model="queryParams" :inline="true">
       <el-form-item label="公告标题" prop="noticeTitle">
         <el-input
           v-model="queryParams.noticeTitle"
           placeholder="请输入公告标题"
           clearable
+          style="width: 200px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -20,11 +15,17 @@
           v-model="queryParams.createBy"
           placeholder="请输入操作人员"
           clearable
+          style="width: 200px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="类型" prop="noticeType">
-        <el-select v-model="queryParams.noticeType" placeholder="公告类型" clearable>
+        <el-select
+          v-model="queryParams.noticeType"
+          placeholder="公告类型"
+          clearable
+          style="width: 200px"
+        >
           <el-option
             v-for="dict in sys_notice_type"
             :key="dict.value"
@@ -104,14 +105,16 @@
         <template #default="scope">
           <el-button
             v-hasPermi="['basicservice:notice:edit']"
-            type="text"
+            link
+            type="primary"
             icon="Edit"
             @click="handleUpdate(scope.row)"
             >修改</el-button
           >
           <el-button
             v-hasPermi="['basicservice:notice:remove']"
-            type="text"
+            link
+            type="primary"
             icon="Delete"
             @click="handleDelete(scope.row)"
             >删除</el-button
@@ -181,7 +184,13 @@
 </template>
 
 <script setup name="Notice">
-import { listNotice, getNotice, delNotice, addNotice, updateNotice } from '@/api/basicservice/notice'
+import {
+  listNotice,
+  getNotice,
+  delNotice,
+  addNotice,
+  updateNotice
+} from '@/api/basicservice/notice'
 
 const { proxy } = getCurrentInstance()
 const { sys_notice_status, sys_notice_type } = proxy.useDict('sys_notice_status', 'sys_notice_type')

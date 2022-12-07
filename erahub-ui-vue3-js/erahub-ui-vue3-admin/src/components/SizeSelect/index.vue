@@ -29,13 +29,13 @@ const route = useRoute()
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 const sizeOptions = ref([
-  { label: 'large', value: 'large' },
-  { label: 'default', value: 'default' },
-  { label: 'small', value: 'small' }
+  { label: '较大', value: 'large' },
+  { label: '默认', value: 'default' },
+  { label: '稍小', value: 'small' }
 ])
 
 function handleSetSize(size) {
-  proxy.$modal.loading('正在修改布局大小，请稍等...')
+  proxy.$modal.loading('正在设置布局大小，请稍候...')
   appStore.setSize(size)
   setTimeout('window.location.reload()', 1000)
 }

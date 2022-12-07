@@ -81,7 +81,7 @@ const emit = defineEmits()
 const number = ref(0)
 const uploadList = ref([])
 const baseUrl = import.meta.env.VITE_APP_BASE_API
-const uploadFileUrl = ref(baseUrl + '/basicservice/oss/upload') // 上传的图片服务器地址
+const uploadFileUrl = ref(baseUrl + '/basicservice/oss/upload') // 上传的文件服务器地址
 const headers = ref({ Authorization: 'Bearer ' + getToken() })
 const fileList = ref([])
 const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize))
@@ -119,15 +119,9 @@ watch(
 function handleBeforeUpload(file) {
   // 校检文件类型
   if (props.fileType.length) {
-    let fileExtension = ''
-    if (file.name.lastIndexOf('.') > -1) {
-      fileExtension = file.name.slice(file.name.lastIndexOf('.') + 1)
-    }
-    const isTypeOk = props.fileType.some((type) => {
-      if (file.type.indexOf(type) > -1) return true
-      if (fileExtension && fileExtension.indexOf(type) > -1) return true
-      return false
-    })
+    const fileName = file.name.split('.');
+    const fileExt = fileName[fileName.length - 1];
+    const isTypeOk = props.fileType.indexOf(fileExt) >= 0;
     if (!isTypeOk) {
       proxy.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join('/')}格式文件!`)
       return false

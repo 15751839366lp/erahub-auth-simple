@@ -6,11 +6,17 @@
           v-model="queryParams.menuName"
           placeholder="请输入菜单名称"
           clearable
+          style="width: 200px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="菜单状态" clearable>
+        <el-select
+          v-model="queryParams.status"
+          placeholder="菜单状态"
+          clearable
+          style="width: 200px"
+        >
           <el-option
             v-for="dict in sys_normal_disable"
             :key="dict.value"
@@ -85,27 +91,30 @@
       <el-table-column
         label="操作"
         align="center"
-        width="200"
+        width="210"
         class-name="small-padding fixed-width"
       >
         <template #default="scope">
           <el-button
             v-hasPermi="['system:menu:edit']"
-            type="text"
+            link
+            type="primary"
             icon="Edit"
             @click="handleUpdate(scope.row)"
             >修改</el-button
           >
           <el-button
             v-hasPermi="['system:menu:add']"
-            type="text"
+            link
+            type="primary"
             icon="Plus"
             @click="handleAdd(scope.row)"
             >新增</el-button
           >
           <el-button
             v-hasPermi="['system:menu:remove']"
-            type="text"
+            link
+            type="primary"
             icon="Delete"
             @click="handleDelete(scope.row)"
             >删除</el-button
@@ -154,7 +163,7 @@
                     v-click-outside="hideSelectIcon"
                     placeholder="点击选择图标"
                     readonly
-                    @click="showSelectIcon"
+                    @blur="showSelectIcon"
                   >
                     <template #prefix>
                       <svg-icon

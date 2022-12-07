@@ -1,18 +1,12 @@
 <template>
   <div class="app-container">
-    <el-form
-      v-show="showSearch"
-      ref="queryForm"
-      :model="queryParams"
-      size="small"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
       <el-form-item label="表名称" prop="tableName">
         <el-input
           v-model="queryParams.tableName"
           placeholder="请输入表名称"
           clearable
+          style="width: 200px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -21,6 +15,7 @@
           v-model="queryParams.tableComment"
           placeholder="请输入表描述"
           clearable
+          style="width: 200px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -118,7 +113,8 @@
           <el-tooltip content="预览" placement="top">
             <el-button
               v-hasPermi="['tool:gen:preview']"
-              type="text"
+              link
+              type="primary"
               icon="View"
               @click="handlePreview(scope.row)"
             ></el-button>
@@ -126,7 +122,8 @@
           <el-tooltip content="编辑" placement="top">
             <el-button
               v-hasPermi="['tool:gen:edit']"
-              type="text"
+              link
+              type="primary"
               icon="Edit"
               @click="handleEditTable(scope.row)"
             ></el-button>
@@ -134,7 +131,8 @@
           <el-tooltip content="删除" placement="top">
             <el-button
               v-hasPermi="['tool:gen:remove']"
-              type="text"
+              link
+              type="primary"
               icon="Delete"
               @click="handleDelete(scope.row)"
             ></el-button>
@@ -142,7 +140,8 @@
           <el-tooltip content="同步" placement="top">
             <el-button
               v-hasPermi="['tool:gen:edit']"
-              type="text"
+              link
+              type="primary"
               icon="Refresh"
               @click="handleSynchDb(scope.row)"
             ></el-button>
@@ -150,7 +149,8 @@
           <el-tooltip content="生成代码" placement="top">
             <el-button
               v-hasPermi="['tool:gen:code']"
-              type="text"
+              link
+              type="primary"
               icon="Download"
               @click="handleGenTable(scope.row)"
             ></el-button>
@@ -172,7 +172,7 @@
       width="80%"
       top="5vh"
       append-to-body
-      custom-class="scrollbar"
+      class="scrollbar"
     >
       <el-tabs v-model="preview.activeName">
         <el-tab-pane
@@ -240,7 +240,7 @@ onActivated(() => {
     uniqueId.value = time
     queryParams.value.pageNum = Number(route.query.pageNum)
     dateRange.value = []
-    proxy.resetForm('queryForm')
+    proxy.resetForm('queryRef')
     getList()
   }
 })
@@ -271,7 +271,7 @@ function handleGenTable(row) {
       proxy.$modal.msgSuccess('成功生成到自定义路径：' + row.genPath)
     })
   } else {
-    proxy.$download.zip('/tool/gen/batchGenCode?tables=' + tbNames, 'erahub')
+    proxy.$download.zip('/tool/gen/batchGenCode?tables=' + tbNames, 'erahub.zip')
   }
 }
 /** 同步数据库操作 */

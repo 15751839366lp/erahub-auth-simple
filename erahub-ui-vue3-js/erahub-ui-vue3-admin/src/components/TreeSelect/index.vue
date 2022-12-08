@@ -128,7 +128,7 @@ watch(valueId, () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.module.scss';
+@import '@/styles/variables.module.scss';
 
 .el-scrollbar .el-scrollbar__view .el-select-dropdown__item {
   height: auto;

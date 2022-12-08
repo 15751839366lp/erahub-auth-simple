@@ -186,7 +186,7 @@ function handleDelete(file) {
 // 上传结束处理
 function uploadedSuccessfully() {
   if (number.value > 0) {
-    
+
     fileList.value = uploadList.value.map((item) => {
       item = { name: item.fileName, url: item.blobUrl }
       return item

@@ -127,7 +127,7 @@
             style="width: 100px; height: 100px"
             :src="scope.row.url"
             :preview-src-list="[scope.row.url]"
-            append-to-body
+            preview-teleported
           />
           <span
             v-if="!checkFileSuffix(scope.row.fileSuffix) || !previewListResource"

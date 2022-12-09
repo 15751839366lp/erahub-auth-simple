@@ -27,7 +27,11 @@
       </el-col>
       <el-col :xs="24" :md="12" :style="{ height: '350px' }">
         <div class="avatar-upload-preview">
-          <img :src="options.previews.url" :style="options.previews.img" />
+          <img
+            class="avatar-preview-img"
+            :src="options.previews.url"
+            :style="options.previews.img"
+          />
         </div>
       </el-col>
     </el-row>
@@ -174,5 +178,16 @@ function closeDialog() {
   background: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   content: '+';
+}
+
+.avatar-preview-img {
+  display: initial;
+  max-width: initial;
+}
+
+.img-circle {
+  display: initial;
+  max-width: initial;
+  vertical-align: initial;
 }
 </style>

@@ -20,22 +20,22 @@
     </scroll-pane>
     <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
       <li @click="refreshSelectedTag(selectedTag)">
-        <refresh-right style="width: 1em; height: 1em;" /> 刷新页面
+        <refresh-right style="width: 1em; height: 1em; display: initial;" /> 刷新页面
       </li>
       <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
-        <close style="width: 1em; height: 1em;" /> 关闭当前
+        <close style="width: 1em; height: 1em; display: initial;" /> 关闭当前
       </li>
       <li @click="closeOthersTags">
-        <circle-close style="width: 1em; height: 1em;" /> 关闭其他
+        <circle-close style="width: 1em; height: 1em; display: initial;" /> 关闭其他
       </li>
       <li v-if="!isFirstView()" @click="closeLeftTags">
-        <back style="width: 1em; height: 1em;" /> 关闭左侧
+        <back style="width: 1em; height: 1em; display: initial;" /> 关闭左侧
       </li>
       <li v-if="!isLastView()" @click="closeRightTags">
-        <right style="width: 1em; height: 1em;" /> 关闭右侧
+        <right style="width: 1em; height: 1em; display: initial;" /> 关闭右侧
       </li>
       <li @click="closeAllTags(selectedTag)">
-        <circle-close style="width: 1em; height: 1em;" /> 全部关闭
+        <circle-close style="width: 1em; height: 1em; display: initial;" /> 全部关闭
       </li>
     </ul>
   </div>
@@ -326,6 +326,7 @@ function handleScroll() {
       height: 16px;
       text-align: center;
       vertical-align: 2px;
+      display: initial;
       border-radius: 50%;
       transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
       transform-origin: 100% 50%;

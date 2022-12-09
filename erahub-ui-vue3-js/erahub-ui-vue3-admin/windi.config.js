@@ -11,9 +11,7 @@ export default defineConfig({
     include: ['src/**/*.{vue,html,jsx,tsx}'],
     exclude: [
       'node_modules', 
-      '.git', 
-      // 如果临时需要windicss，注释掉下行
-      'src/**/*.{vue,html,jsx,tsx}'
+      '.git'
     ]
   },
   darkMode: 'class',

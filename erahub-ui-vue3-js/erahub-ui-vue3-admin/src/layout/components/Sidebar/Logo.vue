@@ -80,6 +80,7 @@ const sideTheme = computed(() => settingsStore.sideTheme)
       height: 32px;
       margin-right: 12px;
       vertical-align: middle;
+      display: initial;
     }
 
     & .sidebar-title {

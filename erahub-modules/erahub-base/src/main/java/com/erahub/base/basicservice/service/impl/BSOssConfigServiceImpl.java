@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.erahub.base.basicservice.domain.BSOss;
+import com.erahub.base.basicservice.mapper.BSOssMapper;
 import com.erahub.base.basicservice.service.IBSOssConfigService;
 import com.erahub.common.core.constant.CacheNames;
 import com.erahub.common.core.constant.UserConstants;
@@ -43,14 +45,16 @@ import java.util.List;
 @Service
 public class BSOssConfigServiceImpl implements IBSOssConfigService {
 
-    private final BSOssConfigMapper baseMapper;
+    private final BSOssConfigMapper bsOssConfigMapper;
+
+    private final BSOssMapper bsOssMapper;
 
     /**
      * 项目启动时，初始化参数到缓存，加载配置类
      */
     @Override
     public void init() {
-        List<BSOssConfig> list = baseMapper.selectList();
+        List<BSOssConfig> list = bsOssConfigMapper.selectList();
         // 加载OSS初始化配置
         for (BSOssConfig config : list) {
             String configKey = config.getConfigKey();
@@ -65,13 +69,13 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
 
     @Override
     public BSOssConfigVo queryById(Long ossConfigId) {
-        return baseMapper.selectVoById(ossConfigId);
+        return bsOssConfigMapper.selectVoById(ossConfigId);
     }
 
     @Override
     public TableDataInfo<BSOssConfigVo> queryPageList(BSOssConfigBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<BSOssConfig> lqw = buildQueryWrapper(bo);
-        Page<BSOssConfigVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        Page<BSOssConfigVo> result = bsOssConfigMapper.selectVoPage(pageQuery.build(), lqw);
         return TableDataInfo.build(result);
     }
 
@@ -88,20 +92,24 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
     public Boolean insertByBo(BSOssConfigBo bo) {
         BSOssConfig config = BeanUtil.toBean(bo, BSOssConfig.class);
         validEntityBeforeSave(config);
-        return setConfigCache(baseMapper.insert(config) > 0, config);
+        return setConfigCache(bsOssConfigMapper.insert(config) > 0, config);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean updateByBo(BSOssConfigBo bo) {
         BSOssConfig config = BeanUtil.toBean(bo, BSOssConfig.class);
         validEntityBeforeSave(config);
+
+        // todo oss的service应该存config_id,修改时判断是否有文件，是否有同名，删除同理，取消长度限制，
+        // todo 修改ossconfig表结构，设置服务商和桶名称分离，oss利用连表查询，为后续配置oss分类，取消默认服务商 提供基础
         LambdaUpdateWrapper<BSOssConfig> luw = new LambdaUpdateWrapper<>();
         luw.set(ObjectUtil.isNull(config.getPrefix()), BSOssConfig::getPrefix, "");
         luw.set(ObjectUtil.isNull(config.getRegion()), BSOssConfig::getRegion, "");
         luw.set(ObjectUtil.isNull(config.getExt1()), BSOssConfig::getExt1, "");
         luw.set(ObjectUtil.isNull(config.getRemark()), BSOssConfig::getRemark, "");
         luw.eq(BSOssConfig::getOssConfigId, config.getOssConfigId());
-        return setConfigCache(baseMapper.update(config, luw) > 0, config);
+        return setConfigCache(bsOssConfigMapper.update(config, luw) > 0, config);
     }
 
     /**
@@ -121,12 +129,14 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
                 throw new ServiceException("系统内置, 不可删除!");
             }
         }
+
+        // todo 先确认桶没有文件才能删除
         List<BSOssConfig> list = CollUtil.newArrayList();
         for (Long configId : ids) {
-            BSOssConfig config = baseMapper.selectById(configId);
+            BSOssConfig config = bsOssConfigMapper.selectById(configId);
             list.add(config);
         }
-        boolean flag = baseMapper.deleteBatchIds(ids) > 0;
+        boolean flag = bsOssConfigMapper.deleteBatchIds(ids) > 0;
         if (flag) {
             list.forEach(BSOssConfig ->
                 CacheUtils.evict(CacheNames.SYS_OSS_CONFIG, BSOssConfig.getConfigKey()));
@@ -139,7 +149,7 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
      */
     private String checkConfigKeyUnique(BSOssConfig bSOssConfig) {
         long ossConfigId = ObjectUtil.isNull(bSOssConfig.getOssConfigId()) ? -1L : bSOssConfig.getOssConfigId();
-        BSOssConfig info = baseMapper.selectOne(new LambdaQueryWrapper<BSOssConfig>()
+        BSOssConfig info = bsOssConfigMapper.selectOne(new LambdaQueryWrapper<BSOssConfig>()
             .select(BSOssConfig::getOssConfigId, BSOssConfig::getConfigKey)
             .eq(BSOssConfig::getConfigKey, bSOssConfig.getConfigKey()));
         if (ObjectUtil.isNotNull(info) && info.getOssConfigId() != ossConfigId) {
@@ -155,9 +165,9 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
     @Transactional(rollbackFor = Exception.class)
     public int updateOssConfigStatus(BSOssConfigBo bo) {
         BSOssConfig bSOssConfig = BeanUtil.toBean(bo, BSOssConfig.class);
-        int row = baseMapper.update(null, new LambdaUpdateWrapper<BSOssConfig>()
+        int row = bsOssConfigMapper.update(null, new LambdaUpdateWrapper<BSOssConfig>()
             .set(BSOssConfig::getStatus, "1"));
-        row += baseMapper.updateById(bSOssConfig);
+        row += bsOssConfigMapper.updateById(bSOssConfig);
         if (row > 0) {
             RedisUtils.setCacheObject(OssConstant.DEFAULT_CONFIG_KEY, bSOssConfig.getConfigKey());
         }

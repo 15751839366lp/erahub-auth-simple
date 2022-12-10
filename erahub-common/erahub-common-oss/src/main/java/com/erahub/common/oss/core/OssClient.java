@@ -108,9 +108,6 @@ public class OssClient {
             // 设置上传对象的 Acl 为公共读
             putObjectRequest.setCannedAcl(getAccessPolicy().getAcl());
             client.putObject(putObjectRequest);
-//            ObjectListing objectListing = client.listObjects(new ListObjectsRequest().withBucketName("my-destination-bucket"));
-//            List<String> urls = objectListing.getObjectSummaries().stream().map(S3ObjectSummary::getKey).collect(Collectors.toList());
-//            System.out.println(urls);
         } catch (Exception e) {
             throw new OssException("上传文件失败，请检查配置信息:[" + e.getMessage() + "]");
         }

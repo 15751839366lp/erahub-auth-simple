@@ -105,7 +105,7 @@ public class BSOssController extends BaseController {
     @SaCheckPermission("basicservice:oss:download")
     @GetMapping("/download/{ossId}")
     public void download(@PathVariable Long ossId, HttpServletResponse response) throws IOException {
-        iBSOssService.download(ossId,response);
+        iBSOssService.download(ossId, response);
     }
 
     /**
@@ -121,6 +121,7 @@ public class BSOssController extends BaseController {
     }
 
     // todo 前端上传minio,删除临时文件， 后端删除临时文件
+
     /**
      * 删除临时文件
      *

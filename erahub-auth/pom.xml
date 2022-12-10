@@ -71,18 +71,29 @@
             <artifactId>erahub-api-blog</artifactId>
         </dependency>
 
-        <!-- 自定义负载均衡(多团队开发使用) -->
+<!--&lt;!&ndash;        自定义负载均衡(多团队开发使用)&ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>com.erahub</groupId>-->
 <!--            <artifactId>erahub-common-loadbalancer</artifactId>-->
 <!--        </dependency>-->
 
-        <!-- ELK 日志收集 -->
+<!--&lt;!&ndash;        ELK 日志收集&ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>com.erahub</groupId>-->
 <!--            <artifactId>erahub-common-logstash</artifactId>-->
 <!--        </dependency>-->
 
+<!--&lt;!&ndash;        skywalking&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.erahub</groupId>-->
+<!--            <artifactId>erahub-common-skylog</artifactId>-->
+<!--        </dependency>-->
+
+<!--&lt;!&ndash;        prometheus 监控&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.erahub</groupId>-->
+<!--            <artifactId>erahub-common-prometheus</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

@@ -3,9 +3,9 @@ FROM ibm-semeru-runtimes:open-8-jre
 
 MAINTAINER erahub
 
-RUN mkdir -p /erahub/job
-RUN mkdir -p /erahub/job/logs
-RUN mkdir -p /erahub/job/temp
+RUN mkdir -p /erahub/job/logs \
+    /erahub/job/temp \
+    /erahub/skywalking/agent
 
 WORKDIR /erahub/job
 
@@ -15,4 +15,9 @@ EXPOSE ${SERVER_PORT}
 
 ADD ./target/erahub-job.jar ./app.jar
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dserver.port=${SERVER_PORT}", "-jar", "app.jar"]
+ENTRYPOINT ["java", \
+            "-Djava.security.egd=file:/dev/./urandom", \
+            "-Dserver.port=${SERVER_PORT}", \
+#            "-Dskywalking.agent.service_name=erahub-job", \
+#            "-javaagent:/erahub/skywalking/agent/skywalking-agent.jar", \
+            "-jar", "app.jar"]

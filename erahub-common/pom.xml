@@ -32,6 +32,8 @@
         <module>erahub-common-logstash</module>
         <module>erahub-common-elasticsearch</module>
         <module>erahub-common-sentinel</module>
+        <module>erahub-common-skylog</module>
+        <module>erahub-common-prometheus</module>
     </modules>
 
     <artifactId>erahub-common</artifactId>

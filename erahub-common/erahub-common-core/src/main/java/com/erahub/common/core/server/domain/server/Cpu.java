@@ -6,7 +6,7 @@ import com.erahub.common.core.utils.Arith;
 /**
  * CPU相关信息
  *
- * @author ruoyi
+ * @author erahub
  */
 public class Cpu
 {

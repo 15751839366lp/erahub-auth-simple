@@ -29,6 +29,7 @@
     <properties>
         <seata.version>1.5.2</seata.version>
         <jcommander.version>1.72</jcommander.version>
+        <druid.version>1.2.12</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -106,8 +107,8 @@
             <artifactId>h2</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

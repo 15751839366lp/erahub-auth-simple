@@ -2,6 +2,7 @@ package com.erahub.auth.service.impl;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.secure.BCrypt;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
@@ -99,9 +100,9 @@ public class BlogLoginServiceImpl implements LoginService {
     @Override
     public void logout() {
         try {
-            String username = LoginHelper.getUsername();
+            LoginUser loginUser = LoginHelper.getLoginUser();
             StpBlogUserUtil.logout();
-            recordLogininfor(username, Constants.LOGOUT, MessageUtils.message("blogUser.logout.success"));
+            recordLogininfor(loginUser.getUsername(), Constants.LOGOUT, MessageUtils.message("user.logout.success"));
         } catch (NotLoginException e) {
         }
     }

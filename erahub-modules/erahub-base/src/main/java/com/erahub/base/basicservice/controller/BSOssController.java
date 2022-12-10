@@ -94,7 +94,7 @@ public class BSOssController extends BaseController {
     @Log(title = "OSS对象存储", businessType = BusinessType.INSERT)
     @PostMapping("/addOssBatch")
     public R<Void> insertBatch(@Validated @RequestBody List<BSOssBo> bsOssBos) {
-        return toAjax(iBSOssService.insertByBo(bsOssBos) ? 1 : 0);
+        return toAjax(iBSOssService.insertByBo(bsOssBos));
     }
 
     /**
@@ -117,7 +117,7 @@ public class BSOssController extends BaseController {
     @Log(title = "OSS对象存储", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ossIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
-        return toAjax(iBSOssService.deleteWithValidByIds(Arrays.asList(ossIds), true) ? 1 : 0);
+        return toAjax(iBSOssService.deleteWithValidByIds(Arrays.asList(ossIds), true));
     }
 
     // todo 前端上传minio,删除临时文件， 后端删除临时文件
@@ -130,7 +130,7 @@ public class BSOssController extends BaseController {
     @Log(title = "OSS对象存储", businessType = BusinessType.DELETE)
     @DeleteMapping("/removeTempFiles/{fileNames}")
     public R<Void> removeTempFiles(@NotEmpty(message = "路径不能为空") @PathVariable String[] fileNames) {
-        return toAjax(iBSOssService.deleteTempFilesByFileNames(Arrays.asList(fileNames), true) ? 1 : 0);
+        return toAjax(iBSOssService.deleteTempFilesByFileNames(Arrays.asList(fileNames), true));
     }
 
 }

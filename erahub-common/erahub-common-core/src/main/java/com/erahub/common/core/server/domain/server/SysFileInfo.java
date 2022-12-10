@@ -4,7 +4,7 @@ package com.erahub.common.core.server.domain.server;
 /**
  * 系统文件相关信息
  *
- * @author ruoyi
+ * @author erahub
  */
 public class SysFileInfo {
     /**

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql:8.0.29
+    image: mysql:8.0.31
     container_name: mysql
     environment:
       # 时区上海
@@ -108,11 +108,13 @@ services:
       SEATA_PORT: 8091
     volumes:
       - /docker/erahub-seata-server/logs/:/erahub/seata-server/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
   nginx-web:
-    image: nginx:1.21.6
+    image: nginx:1.22.1
     container_name: nginx-web
     environment:
       # 时区上海
@@ -142,6 +144,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-sentinel-dashboard/logs/:/erahub/sentinel-dashboard/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -156,6 +160,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-monitor/logs/:/erahub/monitor/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -170,6 +176,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-xxl-job-admin/logs/:/erahub/xxl-job-admin/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -184,6 +192,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-gateway/logs/:/erahub/gateway/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -198,6 +208,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-auth/logs/:/erahub/auth/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -212,6 +224,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-base/logs/:/erahub/base/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -226,6 +240,8 @@ services:
     volumes:
       # 配置文件
       - /docker/erahub-job/logs/:/erahub/job/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
     privileged: true
     network_mode: "host"
 
@@ -234,7 +250,7 @@ services:
 #################################################################################################
 
   elasticsearch:
-    image: elasticsearch:7.17.2
+    image: elasticsearch:7.17.6
     container_name: elasticsearch
     ports:
       - "9200:9200"
@@ -252,7 +268,7 @@ services:
     network_mode: "host"
 
   kibana:
-    image: kibana:7.17.2
+    image: kibana:7.17.6
     container_name: kibana
     ports:
       - "5601:5601"
@@ -269,7 +285,7 @@ services:
     network_mode: "host"
 
   logstash:
-    image: logstash:7.17.2
+    image: logstash:7.17.6
     container_name: logstash
     ports:
       - "4560:4560"
@@ -383,4 +399,59 @@ services:
       KM_ARGS: -Dhttp.port=19092
     depends_on:
       - kafka
+    network_mode: "host"
+
+  sky-oap:
+    image: apache/skywalking-oap-server:8.9.1
+    container_name: sky-oap
+    ports:
+      - "11800:11800"
+      - "12800:12800"
+    environment:
+      JAVA_OPTS: -Xms512m -Xmx1g
+      #记录数据的有效期，单位天
+      SW_CORE_RECORD_DATA_TTL: 7
+      #分析指标数据的有效期，单位天
+      SW_CORE_METRICS_DATA_TTL: 7
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: 127.0.0.1:9200
+      TZ: Asia/Shanghai
+    network_mode: "host"
+
+  sky-ui:
+    image: apache/skywalking-ui:8.9.1
+    container_name: sky-ui
+    ports:
+      - "18080:18080"
+    environment:
+      SW_OAP_ADDRESS: http://127.0.0.1:12800
+      TZ: Asia/Shanghai
+      JAVA_OPTS: "-Dserver.port=18080"
+    depends_on:
+      - sky-oap
+    network_mode: "host"
+
+  prometheus:
+    image: prom/prometheus:v2.40.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - /docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    network_mode: "host"
+
+  grafana:
+    image: grafana/grafana:9.2.4
+    container_name: grafana
+    environment:
+      TZ: Asia/Shanghai
+      # 服务地址 用于指定外网ip或域名
+      GF_SERVER_ROOT_URL: ""
+      # admin 管理员密码
+      GF_SECURITY_ADMIN_PASSWORD: 123456
+    ports:
+      - "3000:3000"
+    volumes:
+      - /docker/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - /docker/grafana:/var/lib/grafana
     network_mode: "host"

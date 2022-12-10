@@ -5,6 +5,7 @@ import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.ObjectUtil;
+import com.erahub.base.system.api.model.LoginUser;
 import com.erahub.base.system.service.*;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.domain.R;
@@ -112,15 +113,12 @@ public class SysUserController extends BaseController {
      */
     @GetMapping("getInfo")
     public R<Map<String, Object>> getInfo() {
-        SysUser user = userService.selectUserById(LoginHelper.getUserId());
-        // 角色集合
-        Set<String> roles = permissionService.getRolePermission(user);
-        // 权限集合
-        Set<String> permissions = permissionService.getMenuPermission(user);
+        LoginUser loginUser = LoginHelper.getLoginUser();
+        SysUser user = userService.selectUserById(loginUser.getUserId());
         Map<String, Object> ajax = new HashMap<>();
         ajax.put("user", user);
-        ajax.put("roles", roles);
-        ajax.put("permissions", permissions);
+        ajax.put("roles", loginUser.getRolePermission());
+        ajax.put("permissions", loginUser.getMenuPermission());
         return R.ok(ajax);
     }
 
@@ -153,7 +151,7 @@ public class SysUserController extends BaseController {
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysUser user) {
-        if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName()))) {
+        if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user))) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
         } else if (StringUtils.isNotEmpty(user.getPhonenumber())
             && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
@@ -175,7 +173,9 @@ public class SysUserController extends BaseController {
     public R<Void> edit(@Validated @RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
-        if (StringUtils.isNotEmpty(user.getPhonenumber())
+        if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user))) {
+            return R.fail("修改用户'" + user.getUserName() + "'失败，登录账号已存在");
+        } else if (StringUtils.isNotEmpty(user.getPhonenumber())
             && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtils.isNotEmpty(user.getEmail())

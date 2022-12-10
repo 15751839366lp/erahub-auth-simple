@@ -1,6 +1,7 @@
 package com.erahub.base.system.dubbo;
 
 import cn.hutool.core.collection.CollUtil;
+import com.erahub.common.core.utils.SpringUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.base.system.api.RemoteDictService;
 import com.erahub.base.system.api.domain.SysDictData;

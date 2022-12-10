@@ -67,7 +67,7 @@ public class BSOssServiceImpl implements IBSOssService {
     public List<BSOssVo> listByIds(Collection<Long> ossIds) {
         List<BSOssVo> list = new ArrayList<>();
         for (Long id : ossIds) {
-            BSOssVo vo = getById(id);
+            BSOssVo vo = SpringUtils.getAopProxy(this).getById(id);
             if (ObjectUtil.isNotNull(vo)) {
                 list.add(this.matchingUrl(vo));
             }

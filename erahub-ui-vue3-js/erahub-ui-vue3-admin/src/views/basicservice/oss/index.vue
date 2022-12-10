@@ -216,7 +216,7 @@ const type = ref(0)
 const previewListResource = ref(true)
 const daterangeCreateTime = ref([])
 // 默认排序
-const defaultSort = ref({ prop: 'createTime', order: 'ascending' })
+const defaultSort = ref({ prop: 'createTime', order: 'descending' })
 
 const data = reactive({
   form: {},
@@ -299,6 +299,7 @@ function resetQuery() {
   showTable.value = false
   daterangeCreateTime.value = []
   proxy.resetForm('queryRef')
+  defaultSort.value = {}
   queryParams.value.orderByColumn = defaultSort.value.prop
   queryParams.value.isAsc = defaultSort.value.order
   handleQuery()

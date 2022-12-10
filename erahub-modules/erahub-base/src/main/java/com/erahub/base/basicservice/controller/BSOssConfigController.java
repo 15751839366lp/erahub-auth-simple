@@ -74,7 +74,7 @@ public class BSOssConfigController extends BaseController {
     @Log(title = "对象存储配置", businessType = BusinessType.INSERT)
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody BSOssConfigBo bo) {
-        return toAjax(iBSOssConfigService.insertByBo(bo) ? 1 : 0);
+        return toAjax(iBSOssConfigService.insertByBo(bo));
     }
 
     /**
@@ -84,7 +84,7 @@ public class BSOssConfigController extends BaseController {
     @Log(title = "对象存储配置", businessType = BusinessType.UPDATE)
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody BSOssConfigBo bo) {
-        return toAjax(iBSOssConfigService.updateByBo(bo) ? 1 : 0);
+        return toAjax(iBSOssConfigService.updateByBo(bo));
     }
 
     /**
@@ -96,7 +96,7 @@ public class BSOssConfigController extends BaseController {
     @Log(title = "对象存储配置", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ossConfigIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossConfigIds) {
-        return toAjax(iBSOssConfigService.deleteWithValidByIds(Arrays.asList(ossConfigIds), true) ? 1 : 0);
+        return toAjax(iBSOssConfigService.deleteWithValidByIds(Arrays.asList(ossConfigIds), true));
     }
 
     /**

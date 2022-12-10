@@ -106,9 +106,34 @@ start(){
     docker-compose up -d erahub-gateway erahub-auth erahub-job erahub-base
 }
 
+#启动es模块
+es(){
+    docker-compose up -d elasticsearch
+}
+
+#启动日志监控模块
+elk(){
+    docker-compose up -d elasticsearch kibana logstash
+}
+
+#启动链路追踪模块
+sky(){
+    docker-compose up -d elasticsearch sky-oap sky-ui
+}
+
+#启动服务监控模块
+pg(){
+    docker-compose up -d prometheus grafana
+}
+
 #停止程序模块
 stop(){
     docker-compose stop erahub-gateway erahub-auth erahub-job erahub-base
+}
+
+#停止扩展模块
+stopextend(){
+    docker-compose stop elasticsearch kibana logstash sky-oap sky-ui prometheus grafana
 }
 
 #关闭所有模块
@@ -143,8 +168,23 @@ case "$1" in
 "start")
     start
 ;;
+"es")
+    es
+;;
+"elk")
+    elk
+;;
+"sky")
+    sky
+;;
+"pg")
+    pg
+;;
 "stop")
     stop
+;;
+"stopextend")
+    stopextend
 ;;
 "stopall")
     stopall

@@ -3,7 +3,6 @@ FROM ibm-semeru-runtimes:open-8-jre
 
 MAINTAINER erahub
 
-RUN mkdir -p /erahub/monitor
 RUN mkdir -p /erahub/monitor/logs
 
 WORKDIR /erahub/monitor

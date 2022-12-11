@@ -12,6 +12,7 @@ import com.erahub.base.system.mapper.SysRoleMenuMapper;
 import com.erahub.base.system.service.ISysMenuService;
 import com.erahub.common.core.constant.Constants;
 import com.erahub.common.core.constant.UserConstants;
+import com.erahub.common.core.utils.StreamUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.utils.TreeBuildUtils;
 import com.erahub.common.satoken.utils.LoginHelper;
@@ -426,13 +427,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
      * 得到子节点列表
      */
     private List<SysMenu> getChildList(List<SysMenu> list, SysMenu t) {
-        List<SysMenu> tlist = new ArrayList<SysMenu>();
-        for (SysMenu n : list) {
-            if (n.getParentId().longValue() == t.getMenuId().longValue()) {
-                tlist.add(n);
-            }
-        }
-        return tlist;
+        return StreamUtils.filter(list, n -> n.getParentId().equals(t.getMenuId()));
     }
 
     /**

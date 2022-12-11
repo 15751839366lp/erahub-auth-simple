@@ -1,9 +1,8 @@
 package com.erahub.base.basicservice.service.impl;
 
-import cn.hutool.core.convert.Convert;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.http.HttpException;
-import cn.hutool.http.HttpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -32,10 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -67,7 +63,7 @@ public class BSOssServiceImpl implements IBSOssService {
     public List<BSOssVo> listByIds(Collection<Long> ossIds) {
         List<BSOssVo> list = new ArrayList<>();
         for (Long id : ossIds) {
-            BSOssVo vo = SpringUtils.getAopProxy(this).getById(id);
+            BSOssVo vo = getById(id);
             if (ObjectUtil.isNotNull(vo)) {
                 list.add(this.matchingUrl(vo));
             }
@@ -97,23 +93,20 @@ public class BSOssServiceImpl implements IBSOssService {
 
     @Override
     public void download(Long ossId, HttpServletResponse response) throws IOException {
-        BSOssVo sysOss = this.matchingUrl(SpringUtils.getAopProxy(this).getById(ossId));
+        BSOssVo sysOss = SpringUtils.getAopProxy(this).getById(ossId);
         if (ObjectUtil.isNull(sysOss)) {
             throw new ServiceException("文件数据不存在!");
         }
         FileUtils.setAttachmentResponseHeader(response, sysOss.getOriginalName());
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE + "; charset=UTF-8");
-        long data;
-        try {
-            data = HttpUtil.download(sysOss.getUrl(), response.getOutputStream(), false);
-        } catch (HttpException e) {
-            if (e.getMessage().contains("403")) {
-                throw new ServiceException("无读取权限, 请在对应的OSS开启'公有读'权限!");
-            } else {
-                throw new ServiceException(e.getMessage());
-            }
+        OssClient storage = OssFactory.instance();
+        try(InputStream inputStream = storage.getObjectContent(sysOss.getUrl())) {
+            int available = inputStream.available();
+            IoUtil.copy(inputStream, response.getOutputStream(), available);
+            response.setContentLength(available);
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
         }
-        response.setContentLength(Convert.toInt(data));
     }
 
     @Override
@@ -129,7 +122,7 @@ public class BSOssServiceImpl implements IBSOssService {
         File tempFile;
         String path = System.getProperty("user.dir");
         try {
-            tempFile = FileUtils.writeBytes(file.getBytes(),
+            tempFile = FileUtil.writeBytes(file.getBytes(),
                 path + File.separator + "temp_files" + File.separator
                 + bsOssVo.getFileName());
         } catch (IOException e) {
@@ -156,7 +149,7 @@ public class BSOssServiceImpl implements IBSOssService {
             if(!file.exists()){
                 throw new ServiceException("文件" + bsOssBo.getOriginalName() + "已被清除，请重新上传！");
             }
-            UploadResult uploadResult = storage.uploadSuffix(FileUtils.readBytes(file), suffix, bsOssBo.getContentType());
+            UploadResult uploadResult = storage.uploadSuffix(FileUtil.readBytes(file), suffix, bsOssBo.getContentType());
 
             BSOss oss = new BSOss();
             oss.setUrl(uploadResult.getUrl());

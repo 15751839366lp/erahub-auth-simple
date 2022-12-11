@@ -1,5 +1,6 @@
 package com.erahub.common.oss.core;
 
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.HttpMethod;
@@ -100,6 +101,9 @@ public class OssClient {
     }
 
     public UploadResult upload(InputStream inputStream, String path, String contentType) {
+        if (!(inputStream instanceof ByteArrayInputStream)) {
+            inputStream = new ByteArrayInputStream(IoUtil.readBytes(inputStream));
+        }
         try {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
@@ -137,9 +141,17 @@ public class OssClient {
      * @param path 完整文件路径
      */
     public ObjectMetadata getObjectMetadata(String path) {
+        path = path.replace(getUrl() + "/", "");
         S3Object object = client.getObject(properties.getBucketName(), path);
         return object.getObjectMetadata();
     }
+
+    public InputStream getObjectContent(String path) {
+        path = path.replace(getUrl() + "/", "");
+        S3Object object = client.getObject(properties.getBucketName(), path);
+        return object.getObjectContent();
+    }
+
 
     public String getUrl() {
         String domain = properties.getDomain();

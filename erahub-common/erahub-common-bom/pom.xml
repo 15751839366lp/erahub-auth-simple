@@ -151,14 +151,14 @@
             </dependency>
 
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-skylog</artifactId>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-skylog</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-prometheus</artifactId>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-prometheus</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

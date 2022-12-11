@@ -26,6 +26,7 @@ dubbo:
       # APPLICATION_FIRST，智能决策接口级/应用级地址，双订阅
       # FORCE_APPLICATION，只消费应用级地址，如无地址则报错，单订阅 3.x 地址
       migration: FORCE_APPLICATION
+    qos-enable: false
   protocol:
     # 设置为 tri 即可使用 Triple 3.0 新协议
     # 性能对比 dubbo 协议并没有提升 但基于 http2 用于多语言异构等 http 交互场景
@@ -171,8 +172,8 @@ sa-token:
   activity-timeout: 1800
   # 开启内网服务调用鉴权
   check-same-token: true
-  # Id-Token的有效期 (单位: 秒)
-  id-token-timeout: 600
+  # Same-Token的有效期 (单位: 秒)
+  same-token-timeout: 600
   # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
   is-concurrent: true
   # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
@@ -185,8 +186,6 @@ sa-token:
   token-prefix: "Bearer"
   # jwt秘钥
   jwt-secret-key: abcdefghijklmnopqrstuvwxyz
-  # 是否输出操作日志
-  is-log: true
 
 # MyBatisPlus配置
 # https://baomidou.com/config/

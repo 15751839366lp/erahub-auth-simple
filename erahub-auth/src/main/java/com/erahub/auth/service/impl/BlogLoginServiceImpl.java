@@ -103,7 +103,7 @@ public class BlogLoginServiceImpl implements LoginService {
             LoginUser loginUser = LoginHelper.getLoginUser();
             StpBlogUserUtil.logout();
             recordLogininfor(loginUser.getUsername(), Constants.LOGOUT, MessageUtils.message("user.logout.success"));
-        } catch (NotLoginException e) {
+        } catch (NotLoginException ignored) {
         }
     }
 

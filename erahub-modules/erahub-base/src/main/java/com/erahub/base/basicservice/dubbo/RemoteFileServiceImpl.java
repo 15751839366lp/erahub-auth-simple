@@ -1,5 +1,7 @@
 package com.erahub.base.basicservice.dubbo;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.erahub.base.basicservice.domain.BSOss;
@@ -70,6 +72,10 @@ public class RemoteFileServiceImpl implements RemoteFileService {
     @Override
     public Boolean deleteByUrls(List<String> urls) throws ServiceException {
         try {
+            if(CollUtil.isEmpty(urls)){
+                return true;
+            }
+
             List<BSOss> list = bSOssMapper.selectList(new LambdaQueryWrapper<BSOss>()
                 .in(BSOss::getUrl, urls));
 

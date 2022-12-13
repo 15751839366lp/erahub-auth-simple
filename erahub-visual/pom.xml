@@ -14,6 +14,7 @@
         <module>erahub-sentinel-dashboard</module>
         <module>erahub-seata-server</module>
         <module>erahub-nacos</module>
+        <module>erahub-nacos-dev</module>
     </modules>
 
     <artifactId>erahub-visual</artifactId>

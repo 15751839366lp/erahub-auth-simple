@@ -88,6 +88,9 @@ mount(){
         mkdir -p /docker/rocketmq/
         cp -r rocketmq/* /docker/rocketmq
     fi
+}
+
+auth(){
     chmod -R 777 /docker
 }
 
@@ -158,6 +161,9 @@ case "$1" in
 ;;
 "mount")
     mount
+;;
+"auth")
+    auth
 ;;
 "base")
     base

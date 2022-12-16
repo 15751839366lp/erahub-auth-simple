@@ -79,6 +79,10 @@ public class RemoteFileServiceImpl implements RemoteFileService {
             List<BSOss> list = bSOssMapper.selectList(new LambdaQueryWrapper<BSOss>()
                 .in(BSOss::getUrl, urls));
 
+            if(CollUtil.isEmpty(list)){
+                return true;
+            }
+
             for (BSOss bSOss : list) {
                 OssClient storage = OssFactory.instance(bSOss.getService());
                 storage.delete(bSOss.getUrl());

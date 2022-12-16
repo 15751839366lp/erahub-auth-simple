@@ -404,6 +404,8 @@ services:
   sky-oap:
     image: apache/skywalking-oap-server:8.9.1
     container_name: sky-oap
+    depends_on:
+      - elasticsearch
     ports:
       - "11800:11800"
       - "12800:12800"
@@ -448,7 +450,7 @@ services:
       # 服务地址 用于指定外网ip或域名
       GF_SERVER_ROOT_URL: ""
       # admin 管理员密码
-      GF_SECURITY_ADMIN_PASSWORD: 123456
+      GF_SECURITY_ADMIN_PASSWORD: erahub123
     ports:
       - "3000:3000"
     volumes:

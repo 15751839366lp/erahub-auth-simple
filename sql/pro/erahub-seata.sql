@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 1.117.176.57
+ Source Server         : 192.168.56.10
  Source Server Type    : MySQL
- Source Server Version : 80029
- Source Host           : 1.117.176.57:3306
+ Source Server Version : 80031
+ Source Host           : 192.168.56.10:3306
  Source Schema         : erahub-seata
 
  Target Server Type    : MySQL
- Target Server Version : 80029
+ Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 18/11/2022 18:30:44
+ Date: 16/12/2022 18:02:14
 */
 
 SET NAMES utf8mb4;

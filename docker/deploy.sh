@@ -46,6 +46,14 @@ port(){
     firewall-cmd --add-port=9876/tcp --permanent
     firewall-cmd --add-port=19876/tcp --permanent
     firewall-cmd --add-port=10911/tcp --permanent
+    # skywalking端口
+    firewall-cmd --add-port=11800/tcp --permanent
+    firewall-cmd --add-port=12800/tcp --permanent
+    firewall-cmd --add-port=18080/tcp --permanent
+    # prometheus端口
+    firewall-cmd --add-port=9090/tcp --permanent
+    # grafana端口
+    firewall-cmd --add-port=3000/tcp --permanent
     # 重启防火墙
     service firewalld restart
 }
@@ -121,7 +129,7 @@ elk(){
 
 #启动链路追踪模块
 sky(){
-    docker-compose up -d elasticsearch sky-oap sky-ui
+    docker-compose up -d sky-oap sky-ui
 }
 
 #启动服务监控模块

@@ -11,6 +11,7 @@
     <modules>
         <module>erahub-base</module>
         <module>erahub-job</module>
+        <module>erahub-blog</module>
     </modules>
 
     <artifactId>erahub-modules</artifactId>

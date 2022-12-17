@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 16/12/2022 18:02:09
+ Date: 16/12/2022 19:49:14
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://192.168.56.10:9901/', '2022-12-16 18:01:50');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://192.168.56.10:9901/', '2022-12-16 19:49:08');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
@@ -251,7 +251,7 @@ CREATE TABLE `xxl_job_registry`  (
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
-INSERT INTO `xxl_job_registry` VALUES (50, 'EXECUTOR', 'erahub-job-executor', 'http://192.168.56.10:9901/', '2022-12-16 18:01:50');
+INSERT INTO `xxl_job_registry` VALUES (51, 'EXECUTOR', 'erahub-job-executor', 'http://192.168.56.10:9901/', '2022-12-16 19:48:55');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

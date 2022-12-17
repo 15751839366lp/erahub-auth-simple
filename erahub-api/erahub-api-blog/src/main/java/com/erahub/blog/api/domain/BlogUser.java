@@ -36,11 +36,6 @@ public class BlogUser extends BaseEntity {
     private Long userId;
 
     /**
-     * 部门ID
-     */
-    private Long deptId;
-
-    /**
      * 用户账号
      */
     @Xss(message = "用户账号不能包含脚本字符")
@@ -56,7 +51,7 @@ public class BlogUser extends BaseEntity {
     private String nickName;
 
     /**
-     * 用户类型（sys_user系统用户）
+     * 用户类型
      */
     private String userType;
 
@@ -126,33 +121,8 @@ public class BlogUser extends BaseEntity {
      */
     private String remark;
 
-    /**
-     * 角色组
-     */
-    @TableField(exist = false)
-    private Long[] roleIds;
-
-    /**
-     * 岗位组
-     */
-    @TableField(exist = false)
-    private Long[] postIds;
-
-    /**
-     * 数据权限 当前角色ID
-     */
-    @TableField(exist = false)
-    private Long roleId;
-
     public BlogUser(Long userId) {
         this.userId = userId;
-    }
-
-    /**
-     * 是否管理员
-     */
-    public boolean isAdmin() {
-        return UserConstants.ADMIN_ID.equals(this.userId);
     }
 
 }

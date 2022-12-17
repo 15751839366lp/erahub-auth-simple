@@ -1,13 +1,10 @@
 package com.erahub.blog.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.erahub.common.core.constant.CacheConstants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 /**
  * 用户信息
@@ -16,7 +13,7 @@ import java.util.Set;
  */
 @Data
 @NoArgsConstructor
-public class LoginUser implements Serializable {
+public class LoginBlogUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -69,6 +66,5 @@ public class LoginUser implements Serializable {
      */
     @JsonIgnore
     private String password;
-
 
 }

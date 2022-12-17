@@ -60,21 +60,6 @@ public class BlogTokenController {
     }
 
     /**
-     * 小程序登录(示例)
-     *
-     * @param xcxCode 小程序code
-     * @return 结果
-     */
-    @PostMapping("/blogXcxLogin")
-    public R<Map<String, Object>> xcxLogin(@NotBlank(message = "{xcx.code.not.blank}") String xcxCode) {
-        Map<String, Object> ajax = new HashMap<>();
-        // 生成令牌
-        String token = blogLoginService.xcxLogin(xcxCode);
-        ajax.put(Constants.TOKEN, token);
-        return R.ok(ajax);
-    }
-
-    /**
      * 登出方法
      */
     @DeleteMapping("/blogLogout")

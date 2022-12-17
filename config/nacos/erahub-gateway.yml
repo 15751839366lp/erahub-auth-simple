@@ -75,6 +75,13 @@ spring:
             - Path=/basicservice/**
           filters:
             - StripPrefix=1
+        # 博客服务
+        - id: erahub-blog
+          uri: lb://erahub-blog
+          predicates:
+            - Path=/blog/**
+          filters:
+            - StripPrefix=1
         # 演示服务
         - id: erahub-demo
           uri: lb://erahub-demo

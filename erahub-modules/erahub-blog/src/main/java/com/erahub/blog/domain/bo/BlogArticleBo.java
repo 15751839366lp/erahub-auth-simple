@@ -28,11 +28,6 @@ public class BlogArticleBo extends BaseEntity {
     private Long blogArticleId;
 
     /**
-     * 作者ID
-     */
-    private Long userId;
-
-    /**
      * 文章分类ID
      */
     private Long categoryId;

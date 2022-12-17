@@ -28,12 +28,6 @@ public class BlogArticleVo {
     private Long blogArticleId;
 
     /**
-     * 作者ID
-     */
-    @ExcelProperty(value = "作者ID")
-    private Long userId;
-
-    /**
      * 文章分类ID
      */
     @ExcelProperty(value = "文章分类ID")

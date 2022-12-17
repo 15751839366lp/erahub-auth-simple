@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
-      <el-form-item label="作者" prop="userName">
+      <el-form-item label="作者" prop="createBy">
         <el-input
-          v-model="queryParams.userName"
+          v-model="queryParams.createBy"
           placeholder="请输入作者"
           clearable
           style="width: 200px"
@@ -143,7 +143,7 @@
     <el-table v-loading="loading" :data="articleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="文章ID" align="center" prop="blogArticleId" v-if="true" width="130"/>
-      <el-table-column label="作者ID" align="center" prop="userId" />
+      <el-table-column label="作者" align="center" prop="createBy" />
       <el-table-column label="文章分类ID" align="center" prop="categoryId" />
       <el-table-column label="文章缩略图" align="center" prop="articleCover" width="100">
         <template #default="scope">
@@ -214,7 +214,7 @@
     <!-- 添加或修改博客文章对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="articleRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="作者" prop="userName">
+        <el-form-item label="作者">
           <el-input v-model="userStore.nickName" disabled />
         </el-form-item>
         <el-form-item label="文章分类ID" prop="categoryId">
@@ -317,7 +317,7 @@ const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    userName: undefined,
+    createBy: undefined,
     categoryId: undefined,
     articleTitle: undefined,
     isTop: undefined,
@@ -357,7 +357,7 @@ function cancel() {
 // 表单重置
 function reset() {
   form.value = {
-    userName: null,
+    createBy: null,
     categoryId: null,
     articleCover: null,
     articleTitle: null,

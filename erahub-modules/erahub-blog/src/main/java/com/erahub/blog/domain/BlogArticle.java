@@ -29,10 +29,6 @@ public class BlogArticle extends BaseEntity {
     @TableId(value = "blog_article_id")
     private Long blogArticleId;
     /**
-     * 作者ID
-     */
-    private Long userId;
-    /**
      * 文章分类ID
      */
     private Long categoryId;

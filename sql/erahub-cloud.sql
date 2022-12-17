@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 17/12/2022 18:29:20
+ Date: 17/12/2022 19:56:21
 */
 
 SET NAMES utf8mb4;
@@ -23,7 +23,6 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `blog_article`;
 CREATE TABLE `blog_article`  (
   `blog_article_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '文章ID',
-  `user_id` int(0) NOT NULL COMMENT '作者ID',
   `category_id` int(0) NULL DEFAULT NULL COMMENT '文章分类ID',
   `article_cover` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文章缩略图',
   `article_title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文章标题',
@@ -45,7 +44,8 @@ CREATE TABLE `blog_article`  (
 -- ----------------------------
 -- Records of blog_article
 -- ----------------------------
-INSERT INTO `blog_article` VALUES (1604060262542467074, 1, 11, NULL, '11', NULL, 0, 0, 0, 1, 1, '11', '11', 'admin', '2022-12-17 18:25:43', 'admin', '2022-12-17 18:25:43');
+INSERT INTO `blog_article` VALUES (1604060262542467074, 11, 'http://127.0.0.1:9000/erahub/2022/12/02/4cc68162eeff43d88b1b751adde1bb95.jpg', '11dddsss', NULL, 0, 0, 0, 2, 2, '11', '11', 'admin', '2022-12-17 18:25:43', 'test', '2022-12-17 19:51:20');
+INSERT INTO `blog_article` VALUES (1604081892463243265, 123, 'http://127.0.0.1:9000/erahub/2022/12/11/49b8cc3fe7d0461f8c44f02d3ef830c7.jpg', 'sss', NULL, 0, 0, 0, 2, 1, NULL, NULL, 'test', '2022-12-17 19:51:40', 'test', '2022-12-17 19:51:40');
 
 -- ----------------------------
 -- Table structure for blog_user
@@ -852,6 +852,17 @@ INSERT INTO `sys_logininfor` VALUES (1604037089159651330, 'admin', '127.0.0.1', 
 INSERT INTO `sys_logininfor` VALUES (1604037098814939137, 'admin', '127.0.0.1', '0', '登录成功', '2022-12-17 16:53:41', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1604059574894698498, 'admin', '127.0.0.1', '0', '退出成功', '2022-12-17 18:22:59', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1604059585384652801, 'admin', '127.0.0.1', '0', '登录成功', '2022-12-17 18:23:02', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604080799016644609, 'admin', '127.0.0.1', '0', '登录成功', '2022-12-17 19:47:20', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604081566104514561, 'admin', '127.0.0.1', '0', '退出成功', '2022-12-17 19:50:22', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604081598761365506, 'test', '127.0.0.1', '0', '登录成功', '2022-12-17 19:50:30', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604081663307509762, 'test', '127.0.0.1', '0', '退出成功', '2022-12-17 19:50:46', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604081691635838978, 'admin', '127.0.0.1', '0', '登录成功', '2022-12-17 19:50:52', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604081749882138625, 'admin', '127.0.0.1', '0', '退出成功', '2022-12-17 19:51:06', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604081776096538626, 'test', '127.0.0.1', '0', '登录成功', '2022-12-17 19:51:12', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604082129948995585, 'test', '127.0.0.1', '0', '退出成功', '2022-12-17 19:52:37', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604082154661834753, 'admin', '127.0.0.1', '0', '登录成功', '2022-12-17 19:52:43', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604082259603320833, 'admin', '127.0.0.1', '0', '退出成功', '2022-12-17 19:53:08', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1604082294076305409, 'test', '127.0.0.1', '0', '登录成功', '2022-12-17 19:53:16', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -2147,6 +2158,20 @@ INSERT INTO `sys_oper_log` VALUES (1604059630137876482, '参数管理', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1604060231231971329, '博客文章', 3, 'com.erahub.blog.controller.BlogArticleController.remove()', 'DELETE', 1, 'admin', '', '/article/1604059186879651841', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 18:25:36');
 INSERT INTO `sys_oper_log` VALUES (1604060262542450689, '博客文章', 1, 'com.erahub.blog.controller.BlogArticleController.add()', 'POST', 1, 'admin', '', '/article', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"blogArticleId\":\"1604060262542467074\",\"userId\":null,\"categoryId\":11,\"articleCover\":null,\"articleTitle\":\"11\",\"articleContent\":null,\"isTop\":0,\"isFeatured\":0,\"isDelete\":0,\"status\":1,\"type\":1,\"originalUrl\":\"11\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 18:25:43');
 INSERT INTO `sys_oper_log` VALUES (1604060315956912129, '博客文章', 5, 'com.erahub.blog.controller.BlogArticleController.export()', 'POST', 1, 'admin', '', '/article/export', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"blogArticleId\":null,\"userId\":null,\"categoryId\":null,\"articleCover\":null,\"articleTitle\":null,\"articleContent\":null,\"isTop\":null,\"isFeatured\":null,\"isDelete\":null,\"status\":null,\"type\":null,\"originalUrl\":null}', '', 0, '', '2022-12-17 18:25:56');
+INSERT INTO `sys_oper_log` VALUES (1604080992508276737, '用户管理', 1, 'com.erahub.base.system.controller.SysUserController.add()', 'POST', 1, 'admin', '', '/user', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"userId\":null,\"deptId\":null,\"userName\":\"admin\",\"nickName\":\"admin\",\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"0\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":[],\"postIds\":[],\"roleId\":null,\"admin\":false}', '{\"code\":500,\"msg\":\"新增用户\'admin\'失败，登录账号已存在\",\"data\":null}', 0, '', '2022-12-17 19:48:06');
+INSERT INTO `sys_oper_log` VALUES (1604081020060659714, '用户管理', 1, 'com.erahub.base.system.controller.SysUserController.add()', 'POST', 1, 'admin', '', '/user', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 19:48:12\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:48:12\",\"userId\":\"1604081020035493890\",\"deptId\":null,\"userName\":\"erahub\",\"nickName\":\"admin\",\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"0\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":[],\"postIds\":[],\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:48:12');
+INSERT INTO `sys_oper_log` VALUES (1604081066067980290, '用户管理', 3, 'com.erahub.base.system.controller.SysUserController.remove()', 'DELETE', 1, 'admin', '', '/user/1604081020035493890', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:48:23');
+INSERT INTO `sys_oper_log` VALUES (1604081128718299137, '用户管理', 1, 'com.erahub.base.system.controller.SysUserController.add()', 'POST', 1, 'admin', '', '/user', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 19:48:38\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:48:38\",\"userId\":\"1604081128693133313\",\"deptId\":null,\"userName\":\"erahub\",\"nickName\":\"erahuhb\",\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"0\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":[],\"postIds\":[],\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:48:38');
+INSERT INTO `sys_oper_log` VALUES (1604081142177820674, '用户管理', 3, 'com.erahub.base.system.controller.SysUserController.remove()', 'DELETE', 1, 'admin', '', '/user/1604081128693133313', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:48:41');
+INSERT INTO `sys_oper_log` VALUES (1604081182988398593, '用户管理', 1, 'com.erahub.base.system.controller.SysUserController.add()', 'POST', 1, 'admin', '', '/user', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"userId\":null,\"deptId\":null,\"userName\":\"test01\",\"nickName\":\"test01\",\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"0\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":[],\"postIds\":[],\"roleId\":null,\"admin\":false}', '{\"code\":500,\"msg\":\"新增用户\'test01\'失败，登录账号已存在\",\"data\":null}', 0, '', '2022-12-17 19:48:51');
+INSERT INTO `sys_oper_log` VALUES (1604081405018075138, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.edit()', 'PUT', 1, 'admin', '', '/article', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 18:25:43\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 18:25:43\",\"blogArticleId\":\"1604060262542467074\",\"categoryId\":11,\"articleCover\":null,\"articleTitle\":\"11ddd\",\"articleContent\":null,\"isTop\":0,\"isFeatured\":0,\"isDelete\":0,\"status\":1,\"type\":1,\"originalUrl\":\"11\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:49:44');
+INSERT INTO `sys_oper_log` VALUES (1604081429433118722, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.edit()', 'PUT', 1, 'admin', '', '/article', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 18:25:43\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:49:44\",\"blogArticleId\":\"1604060262542467074\",\"categoryId\":11,\"articleCover\":null,\"articleTitle\":\"11ddd\",\"articleContent\":null,\"isTop\":0,\"isFeatured\":0,\"isDelete\":0,\"status\":1,\"type\":2,\"originalUrl\":\"11\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:49:50');
+INSERT INTO `sys_oper_log` VALUES (1604081450249449473, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.edit()', 'PUT', 1, 'admin', '', '/article', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 18:25:43\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:49:50\",\"blogArticleId\":\"1604060262542467074\",\"categoryId\":11,\"articleCover\":null,\"articleTitle\":\"11ddd\",\"articleContent\":null,\"isTop\":0,\"isFeatured\":0,\"isDelete\":0,\"status\":2,\"type\":2,\"originalUrl\":\"11\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:49:55');
+INSERT INTO `sys_oper_log` VALUES (1604081545741168641, '用户管理', 2, 'com.erahub.base.system.controller.SysUserController.resetPwd()', 'PUT', 1, 'admin', '', '/user/resetPwd', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:50:17\",\"userId\":\"1588845214859759618\",\"deptId\":null,\"userName\":null,\"nickName\":null,\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":null,\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":null,\"postIds\":null,\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:50:18');
+INSERT INTO `sys_oper_log` VALUES (1604081741074100226, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.edit()', 'PUT', 1, 'admin', '', '/role', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-11-05 18:44:58\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:51:04\",\"roleId\":\"1588844816627372034\",\"roleName\":\"管理员\",\"roleKey\":\"common\",\"roleSort\":2,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":null,\"flag\":false,\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,105,1026,1027,1028,1029,1030,106,1031,1032,1033,1034,1035,108,500,1040,1041,1042,501,1043,1044,1045,1050,2,109,1046,1047,1048,\"1570009901798481921\",\"1570010319794429953\",\"1570022388644143106\",113,111,110,112,\"1570758202780676098\",\"1572393811995209730\",3,114,115,1055,1056,1058,1057,1059,1060,\"1588077119135821826\",\"1588092486994432002\",\"1588742925398171649\",107,1036,1037,1038,1039,\"1591655291324977153\",118,1600,1601,1602,1603,\"1591655913331871746\",\"1591657525559414786\",1604,1605,\"1591657626285625346\",5,\"1604042195666051072\",\"1604042195666051073\",\"1604042195666051074\",\"1604042195666051075\",\"1604042195666051076\",\"1604042195666051077\"],\"deptIds\":null,\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:51:04');
+INSERT INTO `sys_oper_log` VALUES (1604081807184719873, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.edit()', 'PUT', 1, 'test', '', '/article', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 18:25:43\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:49:55\",\"blogArticleId\":\"1604060262542467074\",\"categoryId\":11,\"articleCover\":null,\"articleTitle\":\"11dddsss\",\"articleContent\":null,\"isTop\":0,\"isFeatured\":0,\"isDelete\":0,\"status\":2,\"type\":2,\"originalUrl\":\"11\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:51:20');
+INSERT INTO `sys_oper_log` VALUES (1604081892513640450, '博客文章', 1, 'com.erahub.blog.controller.BlogArticleController.add()', 'POST', 1, 'test', '', '/article', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"blogArticleId\":\"1604081892463243265\",\"categoryId\":123,\"articleCover\":null,\"articleTitle\":\"sss\",\"articleContent\":null,\"isTop\":0,\"isFeatured\":0,\"isDelete\":0,\"status\":2,\"type\":1,\"originalUrl\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:51:40');
+INSERT INTO `sys_oper_log` VALUES (1604082248429694977, '角色管理', 2, 'com.erahub.base.system.controller.SysRoleController.edit()', 'PUT', 1, 'admin', '', '/role', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-11-05 18:44:58\",\"updateBy\":\"admin\",\"updateTime\":\"2022-12-17 19:53:05\",\"roleId\":\"1588844816627372034\",\"roleName\":\"管理员\",\"roleKey\":\"common\",\"roleSort\":2,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":\"0\",\"remark\":null,\"flag\":false,\"menuIds\":[5,\"1604042195666051072\",1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,105,1026,1027,1028,1029,1030,106,1031,1032,1033,1034,1035,108,500,1040,1041,1042,501,1043,1044,1045,1050,2,109,1046,1047,1048,\"1570009901798481921\",\"1570010319794429953\",\"1570022388644143106\",113,111,110,112,\"1570758202780676098\",\"1572393811995209730\",3,114,115,1055,1056,1058,1057,1059,1060,\"1588077119135821826\",\"1588092486994432002\",\"1588742925398171649\",107,1036,1037,1038,1039,\"1591655291324977153\",118,1600,1601,1602,1603,\"1591655913331871746\",\"1591657525559414786\",1604,1605,\"1591657626285625346\",\"1604042195666051073\",\"1604042195666051074\",\"1604042195666051077\"],\"deptIds\":null,\"permissions\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2022-12-17 19:53:05');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -2211,7 +2236,7 @@ INSERT INTO `sys_role` VALUES (1575826547146485762, 'zzz', 'zzz', 11, '1', 1, 1,
 INSERT INTO `sys_role` VALUES (1575832652555735042, '11', '11', 11, '1', 1, 1, '0', '2', 'admin', '2022-09-30 20:59:17', 'admin', '2022-09-30 20:59:17', NULL);
 INSERT INTO `sys_role` VALUES (1575836920754982913, '111', '11', 11, '1', 1, 1, '0', '2', 'admin', '2022-09-30 21:16:14', 'admin', '2022-09-30 21:16:14', NULL);
 INSERT INTO `sys_role` VALUES (1575838078710042626, '22', '22', 22, '1', 1, 1, '0', '2', 'admin', '2022-09-30 21:20:50', 'admin', '2022-09-30 21:20:50', NULL);
-INSERT INTO `sys_role` VALUES (1588844816627372034, '管理员', 'common', 2, '1', 1, 1, '0', '0', 'admin', '2022-11-05 18:44:58', 'admin', '2022-12-17 16:50:53', NULL);
+INSERT INTO `sys_role` VALUES (1588844816627372034, '管理员', 'common', 2, '1', 1, 1, '0', '0', 'admin', '2022-11-05 18:44:58', 'admin', '2022-12-17 19:53:05', NULL);
 INSERT INTO `sys_role` VALUES (1588845036673142786, 'test01', 'test01', 3, '1', 1, 1, '0', '0', 'admin', '2022-11-05 18:45:51', 'admin', '2022-12-17 08:58:06', NULL);
 
 -- ----------------------------
@@ -2244,6 +2269,7 @@ CREATE TABLE `sys_role_menu`  (
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 2);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 3);
+INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 5);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 100);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 101);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 102);
@@ -2336,6 +2362,10 @@ INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1591655291324977153);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1591655913331871746);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1591657525559414786);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1591657626285625346);
+INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1604042195666051072);
+INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1604042195666051073);
+INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1604042195666051074);
+INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1604042195666051077);
 INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1);
 INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 2);
 INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 3);
@@ -2456,8 +2486,10 @@ INSERT INTO `sys_user` VALUES (6, 101, 'test04', 'test04', 'sys_user', '', '', '
 INSERT INTO `sys_user` VALUES (1569245585432358914, 109, 'test01', 'test01', 'sys_user', '', '', '0', 'http://127.0.0.1:9000/erahub/2022/11/03/f7b4be827e554cb0ac4ac31fb16b0c33.jpg', '$2a$10$dkRxXcQOGg8VviVsdmvzCOOqWNAJWPainhFcGNIcaQ/Sq0WsGC33a', '0', '2', '', NULL, 'admin', '2022-09-12 16:44:37', 'admin', '2022-11-05 18:37:56', NULL);
 INSERT INTO `sys_user` VALUES (1569246527183630337, 100, 'test02', 'test02', 'sys_user', '', '', '0', '', '$2a$10$b23OzYJjt0x7fVMYhHJNDej3R9DWP2MFa83LdcZY9ArhobhfstxWm', '0', '2', '', NULL, 'admin', '2022-09-12 16:48:22', 'admin', '2022-11-05 18:37:53', NULL);
 INSERT INTO `sys_user` VALUES (1569254790117699586, 108, 'test03', 'test03', 'sys_user', '', '', '0', '', '$2a$10$bMaY30XqbcZ3lxc/1OK7eugTJRXFwBQyEni9YQwBKT7fWdz.nKTwe', '0', '2', '', NULL, 'admin', '2022-09-12 17:21:12', 'admin', '2022-09-12 17:21:12', NULL);
-INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'test', '管理员', 'sys_user', '1234@sss.com', '15712344556', '0', 'http://127.0.0.1:9000/erahub/2022/12/02/7029e494212e48a58aefad46e1bb4cc0.jpg', '$2a$10$b7cnRthZNPRdnuslZup7BeUyCMEZKUfe9N6U/5GsYlLq8TBjLVfe6', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:33', 'test', '2022-12-11 13:03:41', NULL);
+INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'test', '管理员', 'sys_user', '1234@sss.com', '15712344556', '0', 'http://127.0.0.1:9000/erahub/2022/12/02/7029e494212e48a58aefad46e1bb4cc0.jpg', '$2a$10$ogPAmGTUQxqyQKnGbL8M8uGYNpSu88sdGcjGxJAFC.Zd8HM239WlS', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:33', 'admin', '2022-12-17 19:50:18', NULL);
 INSERT INTO `sys_user` VALUES (1588845286838210561, 106, 'test01', 'test01', 'sys_user', '', '', '0', 'http://127.0.0.1:9000/erahub/2022/12/14/89eb1fba4cf046f2b190a81d80ea4c8f.jpg', '$2a$10$5xbv8WSwyVvxOspxfXK4QuUKC5Scrv8ZIxvrSOT99EBohYDAVTzGK', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:50', 'admin', '2022-12-14 19:01:05', NULL);
+INSERT INTO `sys_user` VALUES (1604081020035493890, NULL, 'erahub', 'admin', 'sys_user', '', '', '0', '', '$2a$10$oYN9L232rM4vpVZYcdnnY.Sy0U4.fopgrjJ3rMlkzkBgsgezKtPTi', '0', '2', '', NULL, 'admin', '2022-12-17 19:48:12', 'admin', '2022-12-17 19:48:12', NULL);
+INSERT INTO `sys_user` VALUES (1604081128693133313, NULL, 'erahub', 'erahuhb', 'sys_user', '', '', '0', '', '$2a$10$6wfm6Gb0FfajvoBcZhccReH7/PZHdM6y5ROUMwaBzqNYA7s0aEt/i', '0', '2', '', NULL, 'admin', '2022-12-17 19:48:38', 'admin', '2022-12-17 19:48:38', NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_post

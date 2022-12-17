@@ -63,7 +63,7 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
     private LambdaQueryWrapper<BlogArticle> buildQueryWrapper(BlogArticleBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<BlogArticle> lqw = Wrappers.lambdaQuery();
-        lqw.like(bo.getUserId() != null, BlogArticle::getUserId, bo.getUserId());
+        lqw.like(bo.getCreateBy() != null, BlogArticle::getCreateBy, bo.getCreateBy());
         lqw.like(bo.getCategoryId() != null, BlogArticle::getCategoryId, bo.getCategoryId());
         lqw.like(StringUtils.isNotBlank(bo.getArticleTitle()), BlogArticle::getArticleTitle, bo.getArticleTitle());
         lqw.eq(bo.getIsTop() != null, BlogArticle::getIsTop, bo.getIsTop());
@@ -79,7 +79,6 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
     @Override
     public Boolean insertByBo(BlogArticleBo bo) {
         BlogArticle add = BeanUtil.toBean(bo, BlogArticle.class);
-        add.setUserId(LoginHelper.getUserId());
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {

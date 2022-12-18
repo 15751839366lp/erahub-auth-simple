@@ -16,6 +16,10 @@ import directive from './directive' // directive
 import 'virtual:windi.css'
 import 'virtual:windi-devtools' // windicss
 
+//引入编辑器
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 // 注册指令
 import plugins from './plugins' // plugins
 import { download } from '@/utils/request'
@@ -84,6 +88,7 @@ app.use(router)
 app.use(store)
 app.use(plugins)
 app.use(elementIcons)
+app.use(mavonEditor)
 app.component('Iconify', Iconify)
 app.component('SvgIcon', SvgIcon)
 app.component('Highlight', Highlight)

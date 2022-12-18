@@ -102,7 +102,7 @@
           icon="Plus"
           @click="handleAdd"
           v-hasPermi="['blog:article:add']"
-          >新增</el-button
+          >发表</el-button
         >
       </el-col>
       <el-col :span="1.5">
@@ -227,7 +227,7 @@
           <el-input v-model="form.articleTitle" placeholder="请输入标题" />
         </el-form-item>
         <el-form-item label="内容">
-          <!-- <editor v-model="form.articleContent" :min-height="192" /> -->
+          <mavon-editor ref="md" v-model="form.articleContent" style="height: calc(100vh - 260px)" />
         </el-form-item>
         <el-form-item label="置顶">
           <el-radio-group v-model="form.isTop">

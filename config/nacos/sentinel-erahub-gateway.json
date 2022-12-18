@@ -14,5 +14,13 @@
     "limitApp": "default",
     "strategy": 0,
     "controlBehavior": 0
+  },
+  {
+    "resource": "erahub-blog",
+    "count": 1000,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
   }
 ]

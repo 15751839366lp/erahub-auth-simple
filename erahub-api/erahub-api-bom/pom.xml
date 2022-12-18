@@ -8,7 +8,7 @@
     <groupId>com.erahub</groupId>
     <artifactId>erahub-api-bom</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <description>
         erahub-api-bom api依赖项

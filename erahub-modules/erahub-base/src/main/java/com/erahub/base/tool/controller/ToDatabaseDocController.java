@@ -41,7 +41,7 @@ public class ToDatabaseDocController {
     private static final String FILE_OUTPUT_DIR = System.getProperty("java.io.tmpdir") + File.separator
         + "db-doc";
     private static final String DOC_FILE_NAME = "数据库文档";
-    private static final String DOC_VERSION = "1.0.0";
+    private static final String DOC_VERSION = "1.1.0";
     private static final String DOC_DESCRIPTION = "文档描述";
 
     @Log(title = "数据库文档", businessType = BusinessType.EXPORT)

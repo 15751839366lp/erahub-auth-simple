@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <el-card class="main-card">
     <div class="title">{{ this.$route.name }}</div>
     <div class="article-title-container">
@@ -115,7 +115,7 @@
         <el-form-item label="文章类型">
           <el-select v-model="article.type" placeholder="请选择类型">
             <el-option
-              v-for="item in typeList"
+              v-for="item in blog_article_type"
               :key="item.type"
               :label="item.desc"
               :value="item.type"
@@ -143,28 +143,44 @@
           </el-upload>
         </el-form-item>
         <el-form-item label="置顶">
-          <el-switch
-            v-model="article.isTop"
-            active-color="#13ce66"
-            inactive-color="#F4F4F5"
-            :active-value="1"
-            :inactive-value="0"
-          />
+          <el-radio-group v-model="form.isTop">
+            <el-radio
+              v-for="dict in blog_article_top"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+              >{{ dict.label }}</el-radio
+            >
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="推荐">
-          <el-switch
-            v-model="article.isFeatured"
-            active-color="#13ce66"
-            inactive-color="#F4F4F5"
-            :active-value="1"
-            :inactive-value="0"
-          />
-        </el-form-item>
-        <el-form-item label="发布形式">
-          <el-radio-group v-model="article.status">
-            <el-radio :label="1">公开</el-radio>
-            <el-radio :label="2">密码</el-radio>
+          <el-radio-group v-model="form.isFeatured">
+            <el-radio
+              v-for="dict in blog_article_featured"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+              >{{ dict.label }}</el-radio
+            >
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择状态">
+            <el-option
+              v-for="dict in blog_article_status"
+              :key="dict.value"
+              :label="dict.label"
+              :value="parseInt(dict.value)"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="文章类型" prop="type">
+          <el-select v-model="form.type" placeholder="请选择文章类型">
+            <el-option
+              v-for="dict in blog_article_type"
+              :key="dict.value"
+              :label="dict.label"
+              :value="parseInt(dict.value)"
+            ></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="访问密码" v-if="article.status == 2">
           <el-input v-model="article.password" placeholder="请填写文章访问密码" />
@@ -179,52 +195,58 @@
 </template>
 
 <script setup name="ArticleEditor">
-const path = this.$route.path
-const arr = path.split('/')
-const articleId = arr[2]
-if (articleId) {
-  this.axios.get('/api/admin/articles/' + articleId).then(({ data }) => {
-    this.article = data.data
-  })
-} else {
-  const article = sessionStorage.getItem('article')
-  if (article) {
-    this.article = JSON.parse(article)
+import { listArticle, getArticle, delArticle, addArticle, updateArticle } from '@/api/blog/article'
+
+const { proxy } = getCurrentInstance()
+const { blog_article_top, blog_article_featured, blog_article_status, blog_article_type } =
+  proxy.useDict(
+    'blog_article_top',
+    'blog_article_featured',
+    'blog_article_status',
+    'blog_article_type'
+  )
+
+const route = useRoute()
+
+const addOrEdit = ref(false)
+const autoSave = ref(true)
+const categoryName = ref('')
+const tagName = ref('')
+const categorys = ref([])
+const tagList = ref([])
+
+const data = reactive({
+  form: {},
+  queryParams: {
+    blogArticleId: null,
+    articleTitle: null,
+    articleContent: '',
+    articleCover: '',
+    categoryName: null,
+    tagNames: [],
+    isTop: 0,
+    type: 1,
+    status: 1
+  },
+  rules: {}
+})
+
+const { queryParams, form, rules } = toRefs(data)
+
+function getArticleInfo(blogArticleId) {
+  if (blogArticleId) {
+    getArticle(blogArticleId).then((response) => {
+      queryParams.value = response.data
+    })
+  } else {
+    const article = sessionStorage.getItem('article')
+    if (article) {
+      queryParams.value = JSON.parse(article)
+    }
   }
 }
 
-const addOrEdit = false
-const autoSave = true
-const categoryName = ''
-const tagName = ''
-const categorys = []
-const tagList = []
-const typeList = [
-  {
-    type: 1,
-    desc: '原创'
-  },
-  {
-    type: 2,
-    desc: '转载'
-  },
-  {
-    type: 3,
-    desc: '翻译'
-  }
-]
-const article = {
-  id: null,
-  articleTitle: this.$moment(new Date()).format('YYYY-MM-DD'),
-  articleContent: '',
-  articleCover: '',
-  categoryName: null,
-  tagNames: [],
-  isTop: 0,
-  type: 1,
-  status: 1
-}
-const headers = { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+getArticleInfo(route.params && route.params.dictId)
 
 function listCategories() {
   this.axios.get('/api/admin/categories/search').then(({ data }) => {
@@ -509,4 +531,4 @@ function removeTag(item) {
   height: 260px;
   overflow-y: auto;
 }
-</style> -->
+</style>

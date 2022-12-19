@@ -6,7 +6,7 @@ import com.erahub.common.excel.annotation.ExcelDictFormat;
 import com.erahub.common.excel.convert.ExcelDictConvert;
 import lombok.Data;
 import java.util.Date;
-
+import java.util.List;
 
 
 /**
@@ -121,5 +121,16 @@ public class BlogArticleVo {
     @ExcelProperty(value = "更新时间")
     private Date updateTime;
 
+    /**
+     * 类别名称
+     */
+    @ExcelProperty(value = "更新时间")
+    private String categoryName;
+
+    /**
+     * 标签名称
+     */
+    @ExcelProperty(value = "更新时间")
+    private List<String> tagNames;
 
 }

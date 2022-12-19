@@ -68,6 +68,7 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
         lqw.like(StringUtils.isNotBlank(bo.getArticleTitle()), BlogArticle::getArticleTitle, bo.getArticleTitle());
         lqw.eq(bo.getIsTop() != null, BlogArticle::getIsTop, bo.getIsTop());
         lqw.eq(bo.getIsFeatured() != null, BlogArticle::getIsFeatured, bo.getIsFeatured());
+        lqw.eq(bo.getIsDelete() != null, BlogArticle::getIsDelete, bo.getIsDelete());
         lqw.eq(bo.getStatus() != null, BlogArticle::getStatus, bo.getStatus());
         lqw.eq(bo.getType() != null, BlogArticle::getType, bo.getType());
         return lqw;

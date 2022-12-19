@@ -143,6 +143,20 @@ export const dynamicRoutes = [
         meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
       }
     ]
+  },
+  {
+    path: '/blog/article-edit',
+    component: Layout,
+    hidden: true,
+    permissions: ['blog:article:edit'],
+    children: [
+      {
+        path: 'index/:tableId(\\d+)',
+        component: () => import('@/views/blog/article/articleEditor'),
+        name: 'ArticleEditor',
+        meta: { title: '编辑博客文章', activeMenu: '/blog/article' }
+      }
+    ]
   }
 ]
 

@@ -25,7 +25,7 @@ public class BlogArticleVo {
      * 文章ID
      */
     @ExcelProperty(value = "文章ID")
-    private Long blogArticleId;
+    private Long articleId;
 
     /**
      * 文章分类ID
@@ -56,34 +56,34 @@ public class BlogArticleVo {
      */
     @ExcelProperty(value = "是否置顶 0否 1是", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "blog_article_top")
-    private Integer isTop;
+    private String isTop;
 
     /**
      * 是否推荐 0否 1是
      */
     @ExcelProperty(value = "是否推荐 0否 1是", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "blog_article_featured")
-    private Integer isFeatured;
+    private String isFeatured;
 
     /**
      * 是否删除  0否 1是
      */
     @ExcelProperty(value = "是否删除  0否 1是")
-    private Integer isDelete;
+    private String isDelete;
 
     /**
      * 状态值 1公开 2私密 3草稿
      */
     @ExcelProperty(value = "状态值 1公开 2私密 3草稿", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "blog_article_status")
-    private Integer status;
+    private String status;
 
     /**
      * 文章类型 1原创 2转载 3翻译
      */
     @ExcelProperty(value = "文章类型 1原创 2转载 3翻译", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "blog_article_type")
-    private Integer type;
+    private String type;
 
     /**
      * 访问密码

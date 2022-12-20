@@ -26,8 +26,8 @@ public class BlogArticle extends BaseEntity {
     /**
      * 文章ID
      */
-    @TableId(value = "blog_article_id")
-    private Long blogArticleId;
+    @TableId(value = "article_id")
+    private Long articleId;
     /**
      * 文章分类ID
      */
@@ -47,23 +47,23 @@ public class BlogArticle extends BaseEntity {
     /**
      * 是否置顶 0否 1是
      */
-    private Integer isTop;
+    private String isTop;
     /**
      * 是否推荐 0否 1是
      */
-    private Integer isFeatured;
+    private String isFeatured;
     /**
      * 是否删除  0否 1是
      */
-    private Integer isDelete;
+    private String isDelete;
     /**
      * 状态值 1公开 2私密 3草稿
      */
-    private Integer status;
+    private String status;
     /**
      * 文章类型 1原创 2转载 3翻译
      */
-    private Integer type;
+    private String type;
     /**
      * 访问密码
      */

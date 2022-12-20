@@ -83,7 +83,7 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
-            bo.setBlogArticleId(add.getBlogArticleId());
+            bo.setArticleId(add.getArticleId());
         }
         return flag;
     }

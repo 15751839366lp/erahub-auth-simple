@@ -176,7 +176,7 @@
 
     <el-table v-loading="loading" :data="articleList" @selection-change="handleSelectionChange" border >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="文章ID" align="center" prop="blogArticleId" v-if="true" width="130" show-overflow-tooltip/>
+      <el-table-column label="文章ID" align="center" prop="articleId" v-if="true" width="130" show-overflow-tooltip/>
       <el-table-column label="文章缩略图" align="center" prop="articleCover" width="100">
         <template #default="scope">
           <image-preview :src="scope.row.articleCover" :width="50" :height="50" />
@@ -318,7 +318,7 @@ function resetQuery() {
 
 // 多选框选中数据
 function handleSelectionChange(selection) {
-  ids.value = selection.map((item) => item.blogArticleId)
+  ids.value = selection.map((item) => item.articleId)
   single.value = selection.length != 1
   multiple.value = !selection.length
 }
@@ -332,7 +332,7 @@ function handleAdd() {
 
 /** 修改按钮操作 */
 function handleUpdate(row) {
-  const tableId = row.blogArticleId || ids.value[0]
+  const tableId = row.articleId || ids.value[0]
   router.push({
     path: '/blog/article-edit/index/' + tableId
   })
@@ -340,7 +340,7 @@ function handleUpdate(row) {
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const _ids = row.blogArticleId || ids.value
+  const _ids = row.articleId || ids.value
   proxy.$modal
     .confirm('是否确认删除博客文章编号为"' + ids + '"的数据项？')
     .then(function () {

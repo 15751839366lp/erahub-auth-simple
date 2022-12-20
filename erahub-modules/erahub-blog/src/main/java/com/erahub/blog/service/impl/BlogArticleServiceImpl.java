@@ -2,6 +2,7 @@ package com.erahub.blog.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import com.erahub.blog.domain.BlogCategory;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
@@ -71,6 +72,8 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
         lqw.eq(bo.getIsDelete() != null, BlogArticle::getIsDelete, bo.getIsDelete());
         lqw.eq(bo.getStatus() != null, BlogArticle::getStatus, bo.getStatus());
         lqw.eq(bo.getType() != null, BlogArticle::getType, bo.getType());
+        lqw.between(params.get("beginTime") != null && params.get("endTime") != null,
+            BlogArticle::getCreateTime, params.get("beginTime"), params.get("endTime"));
         return lqw;
     }
 

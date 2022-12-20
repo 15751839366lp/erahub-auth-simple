@@ -122,6 +122,16 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="创建时间" style="width: 308px">
+        <el-date-picker
+          v-model="dateRange"
+          value-format="YYYY-MM-DD"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
@@ -208,12 +218,12 @@
       </el-table-column>
       <el-table-column label="发表时间" align="center" prop="createTime" width="180">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="更新时间" align="center" prop="updateTime" width="180">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.updateTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.updateTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200" fixed="right">
@@ -273,6 +283,7 @@ const ids = ref([])
 const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
+const dateRange = ref([])
 
 const data = reactive({
   form: {},
@@ -295,7 +306,7 @@ const { queryParams, form } = toRefs(data)
 /** 查询博客文章列表 */
 function getList() {
   loading.value = true
-  listArticle(queryParams.value).then((response) => {
+  listArticle(proxy.addDateRange(queryParams.value, dateRange.value)).then((response) => {
     articleList.value = response.rows
     total.value = response.total
     loading.value = false
@@ -311,6 +322,7 @@ function handleQuery() {
 
 /** 重置按钮操作 */
 function resetQuery() {
+  dateRange.value = []
   proxy.resetForm('queryRef')
   queryParams.value.isDelete = '0'
   handleQuery()
@@ -342,7 +354,7 @@ function handleUpdate(row) {
 function handleDelete(row) {
   const _ids = row.articleId || ids.value
   proxy.$modal
-    .confirm('是否确认删除博客文章编号为"' + ids + '"的数据项？')
+    .confirm('是否确认删除博客文章编号为"' + _ids + '"的数据项？')
     .then(function () {
       loading.value = true
       return delArticle(_ids)

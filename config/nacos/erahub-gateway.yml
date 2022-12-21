@@ -82,6 +82,13 @@ spring:
             - Path=/blog/**
           filters:
             - StripPrefix=1
+        # 业务服务
+        - id: erahub-business
+          uri: lb://erahub-business
+          predicates:
+            - Path=/business/**
+          filters:
+            - StripPrefix=1
         # 演示服务
         - id: erahub-demo
           uri: lb://erahub-demo

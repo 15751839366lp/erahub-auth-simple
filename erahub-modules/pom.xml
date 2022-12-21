@@ -12,6 +12,7 @@
         <module>erahub-base</module>
         <module>erahub-job</module>
         <module>erahub-blog</module>
+        <module>erahub-business</module>
     </modules>
 
     <artifactId>erahub-modules</artifactId>

@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>erahub-job</artifactId>
+    <artifactId>erahub-business</artifactId>
 
     <description>
-        erahub-job 任务调度模块
+        erahub-business 任务调度模块
     </description>
 
     <dependencies>
@@ -82,11 +82,18 @@
             <artifactId>erahub-api-base</artifactId>
         </dependency>
 
-        <!-- erahub Api Base -->
+        <!-- erahub Api Blog -->
         <dependency>
             <groupId>com.erahub</groupId>
             <artifactId>erahub-api-business</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

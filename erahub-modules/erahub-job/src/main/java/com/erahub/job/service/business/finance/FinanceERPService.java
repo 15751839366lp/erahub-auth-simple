@@ -1,7 +1,7 @@
 package com.erahub.job.service.business.finance;
 
 import com.erahub.base.basicservice.api.RemoteFileService;
-import com.erahub.business.finance.api.RemoteFinanceERPService;
+import com.erahub.biz.finance.api.RemoteFinanceERPService;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;

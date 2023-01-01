@@ -22,7 +22,7 @@ import 'mavon-editor/dist/css/index.css'
 
 // 注册指令
 import plugins from './plugins' // plugins
-import { download } from '@/utils/request'
+import { download, downloadToRes, downloadWithData } from '@/utils/request'
 
 // 图标
 import 'virtual:svg-icons-register'
@@ -68,6 +68,8 @@ app.config.globalProperties.useDict = useDict
 app.config.globalProperties.getConfigKey = getConfigKey
 app.config.globalProperties.updateConfigByKey = updateConfigByKey
 app.config.globalProperties.download = download
+app.config.globalProperties.downloadToRes = downloadToRes
+app.config.globalProperties.downloadWithData = downloadWithData
 app.config.globalProperties.parseTime = parseTime
 app.config.globalProperties.resetForm = resetForm
 app.config.globalProperties.handleTree = handleTree

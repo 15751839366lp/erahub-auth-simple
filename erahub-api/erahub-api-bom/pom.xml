@@ -31,7 +31,7 @@
             <!-- 博客模块接口 -->
             <dependency>
                 <groupId>com.erahub</groupId>
-                <artifactId>erahub-api-business</artifactId>
+                <artifactId>erahub-api-biz</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -19,13 +19,19 @@ import com.erahub.common.excel.core.ExcelListener;
 import com.erahub.common.excel.core.ExcelResult;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -263,4 +269,37 @@ public class ExcelUtil {
         return IdUtil.fastSimpleUUID() + "_" + filename + ".xlsx";
     }
 
+    public static String getCellStringValue(Cell cell){
+        String cellValue = "";
+        if(cell == null){
+            return cellValue;
+        }
+        DecimalFormat format = new DecimalFormat("0");
+        switch (cell.getCellType()){
+            case NUMERIC:
+                cellValue = format.format(cell.getNumericCellValue());
+                break;
+            case STRING:
+                cellValue = cell.getStringCellValue();
+                break;
+        }
+        return cellValue;
+    }
+
+    public static String getCellStringValue(Cell cell,String format){
+        String cellValue = "";
+        if(cell == null){
+            return cellValue;
+        }
+        DecimalFormat df = new DecimalFormat(format);
+        switch (cell.getCellType()){
+            case NUMERIC:
+                cellValue = df.format(cell.getNumericCellValue());
+                break;
+            case STRING:
+                cellValue = cell.getStringCellValue();
+                break;
+        }
+        return cellValue;
+    }
 }

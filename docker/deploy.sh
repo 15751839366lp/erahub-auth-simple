@@ -114,7 +114,7 @@ monitor(){
 
 #启动程序模块
 start(){
-    docker-compose up -d erahub-gateway erahub-auth erahub-job erahub-base
+    docker-compose up -d erahub-gateway erahub-auth erahub-job erahub-base erahub-biz
 }
 
 #启动es模块
@@ -139,7 +139,7 @@ pg(){
 
 #停止程序模块
 stop(){
-    docker-compose stop erahub-gateway erahub-auth erahub-job erahub-base
+    docker-compose stop erahub-gateway erahub-auth erahub-job erahub-base erahub-biz
 }
 
 #停止扩展模块

@@ -35,6 +35,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-sentinel</artifactId>
+        </dependency>
+
         <!-- erahub Common Log -->
         <dependency>
             <groupId>com.erahub</groupId>

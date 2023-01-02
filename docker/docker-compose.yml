@@ -245,6 +245,37 @@ services:
     privileged: true
     network_mode: "host"
 
+  erahub-blog:
+    image: erahub/erahub-blog:1.1.0
+    container_name: erahub-blog
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9201:9201"
+    volumes:
+      # 配置文件
+      - /docker/erahub-blog/logs/:/erahub/blog/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
+    privileged: true
+    network_mode: "host"
+
+  erahub-biz:
+    image: erahub/erahub-biz:1.1.0
+    container_name: erahub-biz
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9201:9201"
+    volumes:
+      # 配置文件
+      - /docker/erahub-biz/logs/:/erahub/biz/logs
+      # skywalking 探针
+      - /docker/skywalking/agent/:/erahub/skywalking/agent
+    privileged: true
+    network_mode: "host"
 #################################################################################################
 #################################### 以下为扩展根据需求搭建 #########################################
 #################################################################################################

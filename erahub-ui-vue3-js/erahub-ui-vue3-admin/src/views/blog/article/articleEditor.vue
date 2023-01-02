@@ -1,18 +1,9 @@
 <template>
   <el-card class="main-card">
-    <div class="title">{{ this.$route.name }}</div>
+    <div class="title">文章编辑</div>
     <div class="article-title-container">
-      <el-input v-model="article.articleTitle" size="medium" placeholder="输入文章标题" />
-      <el-button
-        type="danger"
-        size="medium"
-        class="save-btn"
-        @click="saveArticleDraft"
-        v-if="article.id == null || article.status == 3"
-      >
-        保存草稿
-      </el-button>
-      <el-button type="danger" size="medium" @click="openModel" style="margin-left: 10px">
+      <el-input v-model="article.articleTitle" size="default" placeholder="输入文章标题" />
+      <el-button type="danger" size="default" @click="openModel" style="margin-left: 10px">
         发布文章
       </el-button>
     </div>
@@ -22,104 +13,36 @@
       @imgAdd="uploadImg"
       style="height: calc(100vh - 260px)"
     />
-    <el-dialog :visible.sync="addOrEdit" width="40%" top="3vh">
-      <div class="dialog-title-container" slot="title">发布文章</div>
-      <el-form label-width="80px" size="medium" :model="article">
-        <el-form-item label="文章分类">
-          <el-tag
-            type="success"
-            v-show="article.categoryName"
-            style="margin: 0 1rem 0 0"
-            :closable="true"
-            @close="removeCategory"
-          >
-            {{ article.categoryName }}
-          </el-tag>
-          <el-popover
-            placement="bottom-start"
-            width="460"
-            trigger="click"
-            v-if="!article.categoryName"
-          >
-            <div class="popover-title">分类</div>
-            <el-autocomplete
-              style="width: 100%"
-              v-model="categoryName"
-              :fetch-suggestions="searchCategories"
-              placeholder="请输入分类名搜索，enter可添加自定义分类"
-              :trigger-on-focus="false"
-              @keyup.enter.native="saveCategory"
-              @select="handleSelectCategories"
-            >
-              <template slot-scope="{ item }">
-                <div>{{ item.categoryName }}</div>
-              </template>
-            </el-autocomplete>
-            <div class="popover-container">
-              <div
-                v-for="item of categorys"
-                :key="item.id"
-                class="category-item"
-                @click="addCategory(item)"
-              >
-                {{ item.categoryName }}
-              </div>
-            </div>
-            <el-button type="success" plain slot="reference" size="small"> 添加分类 </el-button>
-          </el-popover>
-        </el-form-item>
-        <el-form-item label="文章标签">
-          <el-tag
-            v-for="(item, index) of article.tagNames"
-            :key="index"
-            style="margin: 0 1rem 0 0"
-            :closable="true"
-            @close="removeTag(item)"
-          >
-            {{ item }}
-          </el-tag>
-          <el-popover
-            placement="bottom-start"
-            width="460"
-            trigger="click"
-            v-if="article.tagNames.length < 3"
-          >
-            <div class="popover-title">标签</div>
-            <el-autocomplete
-              style="width: 100%"
-              v-model="tagName"
-              :fetch-suggestions="searchTags"
-              placeholder="请输入标签名搜索，enter可添加自定义标签"
-              :trigger-on-focus="false"
-              @keyup.enter.native="saveTag"
-              @select="handleSelectTag"
-            >
-              <template slot-scope="{ item }">
-                <div>{{ item.tagName }}</div>
-              </template>
-            </el-autocomplete>
-            <div class="popover-container">
-              <div style="margin-bottom: 1rem">添加标签</div>
-              <el-tag
-                v-for="(item, index) of tagList"
-                :key="index"
-                :class="tagClass(item)"
-                @click="addTag(item)"
-              >
-                {{ item.tagName }}
-              </el-tag>
-            </div>
-            <el-button type="primary" plain slot="reference" size="small"> 添加标签 </el-button>
-          </el-popover>
-        </el-form-item>
-        <el-form-item label="文章类型">
-          <el-select v-model="article.type" placeholder="请选择类型">
+    <el-dialog :title="'发布文章'" v-model="addOrEdit" width="40%" top="3vh">
+      <el-form label-width="80px" size="default" :model="article">
+        <el-form-item label="分类">
+          <el-select v-model="article.categoryId" placeholder="请选择分类">
             <el-option
-              v-for="item in blog_article_type"
-              :key="item.type"
-              :label="item.desc"
-              :value="item.type"
+              v-for="item in categoryList"
+              :key="item.categoryId"
+              :label="item.categoryName"
+              :value="item.categoryId"
             />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="标签">
+          <el-select v-model="article.tagIds" multiple placeholder="请选择标签">
+            <el-option
+              v-for="item in tagList"
+              :key="item.tagId"
+              :label="item.tagName"
+              :value="item.tagId"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="文章类型" prop="type">
+          <el-select v-model="article.type" placeholder="请选择文章类型">
+            <el-option
+              v-for="dict in blog_article_type"
+              :key="dict.value"
+              :label="dict.label"
+              :value="dict.value"
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="原文地址" v-if="article.type != 1">
@@ -131,7 +54,6 @@
             drag
             action="/api/admin/articles/images"
             multiple
-            :headers="headers"
             :before-upload="beforeUpload"
             :on-success="uploadCover"
           >
@@ -143,59 +65,46 @@
           </el-upload>
         </el-form-item>
         <el-form-item label="置顶">
-          <el-radio-group v-model="form.isTop">
-            <el-radio
-              v-for="dict in blog_article_top"
-              :key="dict.value"
-              :label="parseInt(dict.value)"
-              >{{ dict.label }}</el-radio
-            >
+          <el-radio-group v-model="article.isTop">
+            <el-radio v-for="dict in blog_article_top" :key="dict.value" :label="dict.value">{{
+              dict.label
+            }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="推荐">
-          <el-radio-group v-model="form.isFeatured">
-            <el-radio
-              v-for="dict in blog_article_featured"
-              :key="dict.value"
-              :label="parseInt(dict.value)"
-              >{{ dict.label }}</el-radio
-            >
+          <el-radio-group v-model="article.isFeatured">
+            <el-radio v-for="dict in blog_article_featured" :key="dict.value" :label="dict.value">{{
+              dict.label
+            }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择状态">
-            <el-option
-              v-for="dict in blog_article_status"
-              :key="dict.value"
-              :label="dict.label"
-              :value="parseInt(dict.value)"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="文章类型" prop="type">
-          <el-select v-model="form.type" placeholder="请选择文章类型">
-            <el-option
-              v-for="dict in blog_article_type"
-              :key="dict.value"
-              :label="dict.label"
-              :value="parseInt(dict.value)"
-            ></el-option>
-          </el-select>
+          <el-radio-group v-model="article.status">
+            <el-radio v-for="dict in blog_article_status" :key="dict.value" :label="dict.value">{{
+              dict.label
+            }}</el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="访问密码" v-if="article.status == 2">
           <el-input v-model="article.password" placeholder="请填写文章访问密码" />
         </el-form-item>
       </el-form>
-      <div slot="footer">
-        <el-button @click="addOrEdit = false">取 消</el-button>
-        <el-button type="danger" @click="saveOrUpdateArticle"> 发 表 </el-button>
-      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button :loading="buttonLoading" type="primary" @click="saveOrUpdateArticle"
+            >发 表</el-button
+          >
+          <el-button @click="cancel">取 消</el-button>
+        </div>
+      </template>
     </el-dialog>
   </el-card>
 </template>
 
 <script setup name="ArticleEditor">
 import { listArticle, getArticle, delArticle, addArticle, updateArticle } from '@/api/blog/article'
+import { listTag } from '@/api/blog/tag'
+import { listCategory } from '@/api/blog/category'
 
 const { proxy } = getCurrentInstance()
 const { blog_article_top, blog_article_featured, blog_article_status, blog_article_type } =
@@ -207,82 +116,88 @@ const { blog_article_top, blog_article_featured, blog_article_status, blog_artic
   )
 
 const route = useRoute()
-
+const buttonLoading = ref(false)
 const addOrEdit = ref(false)
 const autoSave = ref(true)
 const categoryName = ref('')
 const tagName = ref('')
-const categorys = ref([])
+const categoryList = ref([])
 const tagList = ref([])
 
-const data = reactive({
-  form: {},
-  queryParams: {
-    blogArticleId: null,
-    articleTitle: null,
-    articleContent: '',
-    articleCover: '',
-    categoryName: null,
-    tagNames: [],
-    isTop: 0,
+const typeList = ref([
+  {
     type: 1,
-    status: 1
+    desc: '原创'
   },
-  rules: {}
+  {
+    type: 2,
+    desc: '转载'
+  },
+  {
+    type: 3,
+    desc: '翻译'
+  }
+])
+
+const article = ref({
+  id: null,
+  articleTitle: null,
+  articleContent: '',
+  articleCover: '',
+  categoryId: null,
+  tagIds: [],
+  isTop: '0',
+  isFeatured: '0',
+  type: '1',
+  status: '1'
 })
 
-const { queryParams, form, rules } = toRefs(data)
-
-function getArticleInfo(blogArticleId) {
-  if (blogArticleId) {
-    getArticle(blogArticleId).then((response) => {
-      queryParams.value = response.data
-    })
-  } else {
-    const article = sessionStorage.getItem('article')
-    if (article) {
-      queryParams.value = JSON.parse(article)
-    }
-  }
-}
-
-getArticleInfo(route.params && route.params.dictId)
-
 function listCategories() {
-  this.axios.get('/api/admin/categories/search').then(({ data }) => {
-    this.categorys = data.data
+  listCategory().then((response) => {
+    categoryList.value = response.rows
   })
 }
+
 function listTags() {
-  this.axios.get('/api/admin/tags/search').then(({ data }) => {
-    this.tagList = data.data
+  listTag().then((response) => {
+    tagList.value = response.rows
   })
 }
+
 function openModel() {
-  if (this.article.articleTitle.trim() == '') {
-    this.$message.error('文章标题不能为空')
-    return false
-  }
-  if (this.article.articleContent.trim() == '') {
-    this.$message.error('文章内容不能为空')
-    return false
-  }
-  this.listCategories()
-  this.listTags()
-  this.addOrEdit = true
+  // if (this.article.articleTitle.trim() == '') {
+  //   this.$message.error('文章标题不能为空')
+  //   return false
+  // }
+  // if (this.article.articleContent.trim() == '') {
+  //   this.$message.error('文章内容不能为空')
+  //   return false
+  // }
+  // this.listCategories()
+  // this.listTags()
+  addOrEdit.value = true
 }
+
+function getTempArticle(id) {
+  if (id != 0) {
+    getArticle(id).then((response) => {
+      article.value = response.data
+    })
+  }
+}
+
 function uploadCover(response) {
-  this.article.articleCover = response.data
+  // this.article.articleCover = response.data
 }
 function beforeUpload(file) {
-  return new Promise((resolve) => {
-    if (file.size / 1024 < this.config.UPLOAD_SIZE) {
-      resolve(file)
-    }
-    imageConversion.compressAccurately(file, this.config.UPLOAD_SIZE).then((res) => {
-      resolve(res)
-    })
-  })
+  // return new Promise((resolve) => {
+  //   if (file.size / 1024 < this.config.UPLOAD_SIZE) {
+  //     resolve(file)
+  //   }
+  //   imageConversion.compressAccurately(file, this.config.UPLOAD_SIZE).then((res) => {
+  //     resolve(res)
+  //   })
+  // })
 }
 function uploadImg(pos, file) {
   // var formdata = new FormData()
@@ -300,169 +215,138 @@ function uploadImg(pos, file) {
   //   })
   // }
 }
-function saveArticleDraft() {
-  if (this.article.articleTitle.trim() == '') {
-    this.$message.error('文章标题不能为空')
-    return false
-  }
-  if (this.article.articleContent.trim() == '') {
-    this.$message.error('文章内容不能为空')
-    return false
-  }
-  this.article.status = 3
-  this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-    if (data.flag) {
-      if (this.article.id === null) {
-        this.$store.commit('removeTab', '发布文章')
-      } else {
-        this.$store.commit('removeTab', '修改文章')
-      }
-      sessionStorage.removeItem('article')
-      this.$router.push({ path: '/article-list' })
-      this.$notify.success({
-        title: '成功',
-        message: '保存草稿成功'
-      })
-    } else {
-      this.$notify.error({
-        title: '失败',
-        message: '保存草稿失败'
-      })
-    }
-  })
-  this.autoSave = false
-}
+
 function saveOrUpdateArticle() {
-  if (this.article.articleTitle.trim() == '') {
-    this.$message.error('文章标题不能为空')
-    return false
-  }
-  if (this.article.articleContent.trim() == '') {
-    this.$message.error('文章内容不能为空')
-    return false
-  }
-  if (this.article.categoryName == null) {
-    this.$message.error('文章分类不能为空')
-    return false
-  }
-  if (this.article.tagNames.length == 0) {
-    this.$message.error('文章标签不能为空')
-    return false
-  }
-  if (this.article.articleCover.trim() == '') {
-    this.$message.error('文章封面不能为空')
-    return false
-  }
-  this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-    if (data.flag) {
-      if (this.article.id === null) {
-        this.$store.commit('removeTab', '发布文章')
-      } else {
-        this.$store.commit('removeTab', '修改文章')
-      }
-      sessionStorage.removeItem('article')
-      this.$router.push({ path: '/article-list' })
-      this.$notify.success({
-        title: '成功',
-        message: data.message
-      })
-    } else {
-      this.$notify.error({
-        title: '失败',
-        message: data.message
-      })
-    }
-    this.addOrEdit = false
-  })
-  this.autoSave = false
+  // if (this.article.articleTitle.trim() == '') {
+  //   this.$message.error('文章标题不能为空')
+  //   return false
+  // }
+  // if (this.article.articleContent.trim() == '') {
+  //   this.$message.error('文章内容不能为空')
+  //   return false
+  // }
+  // if (this.article.categoryName == null) {
+  //   this.$message.error('文章分类不能为空')
+  //   return false
+  // }
+  // if (this.article.tagNames.length == 0) {
+  //   this.$message.error('文章标签不能为空')
+  //   return false
+  // }
+  // if (this.article.articleCover.trim() == '') {
+  //   this.$message.error('文章封面不能为空')
+  //   return false
+  // }
+  // this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
+  //   if (data.flag) {
+  //     if (this.article.id === null) {
+  //       this.$store.commit('removeTab', '发布文章')
+  //     } else {
+  //       this.$store.commit('removeTab', '修改文章')
+  //     }
+  //     sessionStorage.removeItem('article')
+  //     this.$router.push({ path: '/article-list' })
+  //     this.$notify.success({
+  //       title: '成功',
+  //       message: data.message
+  //     })
+  //   } else {
+  //     this.$notify.error({
+  //       title: '失败',
+  //       message: data.message
+  //     })
+  //   }
+  //   this.addOrEdit = false
+  // })
+  // this.autoSave = false
 }
 function autoSaveArticle() {
-  if (
-    this.autoSave &&
-    this.article.articleTitle.trim() != '' &&
-    this.article.articleContent.trim() != '' &&
-    this.article.id != null
-  ) {
-    this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-      if (data.flag) {
-        this.$notify.success({
-          title: '成功',
-          message: '自动保存成功'
-        })
-      } else {
-        this.$notify.error({
-          title: '失败',
-          message: '自动保存失败'
-        })
-      }
-    })
-  }
-  if (this.autoSave && this.article.id == null) {
-    sessionStorage.setItem('article', JSON.stringify(this.article))
-  }
+  // if (
+  //   this.autoSave &&
+  //   this.article.articleTitle.trim() != '' &&
+  //   this.article.articleContent.trim() != '' &&
+  //   this.article.id != null
+  // ) {
+  //   this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
+  //     if (data.flag) {
+  //       this.$notify.success({
+  //         title: '成功',
+  //         message: '自动保存成功'
+  //       })
+  //     } else {
+  //       this.$notify.error({
+  //         title: '失败',
+  //         message: '自动保存失败'
+  //       })
+  //     }
+  //   })
+  // }
+  // if (this.autoSave && this.article.id == null) {
+  //   sessionStorage.setItem('article', JSON.stringify(this.article))
+  // }
 }
 function searchCategories(keywords, cb) {
-  this.axios
-    .get('/api/admin/categories/search', {
-      params: {
-        keywords: keywords
-      }
-    })
-    .then(({ data }) => {
-      cb(data.data)
-    })
+  // this.axios
+  //   .get('/api/admin/categories/search', {
+  //     params: {
+  //       keywords: keywords
+  //     }
+  //   })
+  //   .then(({ data }) => {
+  //     cb(data.data)
+  //   })
 }
 function handleSelectCategories(item) {
-  this.addCategory({
-    categoryName: item.categoryName
-  })
+  // this.addCategory({
+  //   categoryName: item.categoryName
+  // })
 }
 function saveCategory() {
-  if (this.categoryName.trim() != '') {
-    this.addCategory({
-      categoryName: this.categoryName
-    })
-    this.categoryName = ''
-  }
+  // if (this.categoryName.trim() != '') {
+  //   this.addCategory({
+  //     categoryName: this.categoryName
+  //   })
+  //   this.categoryName = ''
+  // }
 }
 function addCategory(item) {
-  this.article.categoryName = item.categoryName
+  // this.article.categoryName = item.categoryName
 }
 function removeCategory() {
-  this.article.categoryName = null
+  // this.article.categoryName = null
 }
 function searchTags(keywords, cb) {
-  this.axios
-    .get('/api/admin/tags/search', {
-      params: {
-        keywords: keywords
-      }
-    })
-    .then(({ data }) => {
-      cb(data.data)
-    })
+  // this.axios
+  //   .get('/api/admin/tags/search', {
+  //     params: {
+  //       keywords: keywords
+  //     }
+  //   })
+  //   .then(({ data }) => {
+  //     cb(data.data)
+  //   })
 }
 function handleSelectTag(item) {
-  this.addTag({
-    tagName: item.tagName
-  })
+  // this.addTag({
+  //   tagName: item.tagName
+  // })
 }
 function saveTag() {
-  if (this.tagName.trim() != '') {
-    this.addTag({
-      tagName: this.tagName
-    })
-    this.tagName = ''
-  }
+  // if (this.tagName.trim() != '') {
+  //   this.addTag({
+  //     tagName: this.tagName
+  //   })
+  //   this.tagName = ''
+  // }
 }
 function addTag(item) {
-  if (this.article.tagNames.indexOf(item.tagName) == -1) {
-    this.article.tagNames.push(item.tagName)
-  }
+  // if (this.article.tagNames.indexOf(item.tagName) == -1) {
+  //   this.article.tagNames.push(item.tagName)
+  // }
 }
 function removeTag(item) {
-  const index = this.article.tagNames.indexOf(item)
-  this.article.tagNames.splice(index, 1)
+  // const index = this.article.tagNames.indexOf(item)
+  // this.article.tagNames.splice(index, 1)
 }
 // import * as imageConversion from 'image-conversion'
 // export default {
@@ -489,6 +373,15 @@ function removeTag(item) {
 //     }
 //   }
 // }
+
+// 取消按钮
+function cancel() {
+  addOrEdit.value = false
+}
+
+listCategories()
+listTags()
+getTempArticle(route.params && route.params.articleId)
 </script>
 
 <style scoped>

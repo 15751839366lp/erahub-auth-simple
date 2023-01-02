@@ -151,7 +151,7 @@ export const dynamicRoutes = [
     permissions: ['blog:article:edit'],
     children: [
       {
-        path: 'index/:tableId(\\d+)',
+        path: 'index/:articleId(\\d+)',
         component: () => import('@/views/blog/article/articleEditor'),
         name: 'ArticleEditor',
         meta: { title: '编辑博客文章', activeMenu: '/blog/article' }

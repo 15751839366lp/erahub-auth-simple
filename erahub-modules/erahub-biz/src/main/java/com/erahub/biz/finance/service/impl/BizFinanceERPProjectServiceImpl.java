@@ -220,8 +220,6 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                 ) {
                     projectNumber = ExcelUtil.getCellStringValue(row.getCell(1));
                     bizFinanceERPProjectVo.setProjectNumber(projectNumber);
-                } else {
-                    flag = false;
                 }
 
                 //获取装置名称
@@ -229,8 +227,6 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                     && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(2)))
                 ) {
                     bizFinanceERPProjectVo.setDeviceName(ExcelUtil.getCellStringValue(row.getCell(2)));
-                } else {
-                    flag = false;
                 }
 
                 //获取工程名称
@@ -238,8 +234,6 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                     && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(3)))
                 ) {
                     bizFinanceERPProjectVo.setProjectName(ExcelUtil.getCellStringValue(row.getCell(3)));
-                } else {
-                    flag = false;
                 }
 
                 //获取计划类别
@@ -247,8 +241,6 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                     && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(4)))
                 ) {
                     bizFinanceERPProjectVo.setPlanType(ExcelUtil.getCellStringValue(row.getCell(4)));
-                } else {
-                    flag = false;
                 }
 
                 //获取结算审核额
@@ -257,8 +249,6 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                     && NumberUtil.isNumber(ExcelUtil.getCellStringValue(row.getCell(5), "0.00"))
                 ) {
                     bizFinanceERPProjectVo.setSettlementReviewAmount(new BigDecimal(ExcelUtil.getCellStringValue(row.getCell(5), "0.00")));
-                } else {
-                    flag = false;
                 }
 
                 //获取单位
@@ -266,8 +256,6 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                     && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(6)))
                 ) {
                     bizFinanceERPProjectVo.setDepartment(ExcelUtil.getCellStringValue(row.getCell(6)));
-                } else {
-                    flag = false;
                 }
 
                 //获取请购单号
@@ -277,24 +265,20 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                 ) {
                     requisitionNumber = ExcelUtil.getCellStringValue(row.getCell(7));
                     bizFinanceERPProjectVo.setRequisitionNumber(requisitionNumber);
-                } else {
-                    flag = false;
                 }
 
-                if (flag) {
+                if (StringUtils.isNotEmpty(projectNumber)) {
                     //效验并获取合同编号
                     BizFinanceERPProject bfe = projectMap.get(Long.valueOf(projectNumber));
                     if (bfe != null && bfe.getRequisitionNumber().equals(requisitionNumber)) {
                         bizFinanceERPProjectVo.setContractNumber(bfe.getContractNumber());
                         bizFinanceERPProjectVo.setProjectType(bfe.getProjectType());
-
-                        bizFinanceERPProjectVo.setProjectId(id);
-                        projectList.add(bizFinanceERPProjectVo);
-                        id++;
                     }
-                }
 
-                flag = true;
+                    bizFinanceERPProjectVo.setProjectId(id);
+                    projectList.add(bizFinanceERPProjectVo);
+                    id++;
+                }
             }
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());

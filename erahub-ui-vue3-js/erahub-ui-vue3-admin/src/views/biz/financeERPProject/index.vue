@@ -194,7 +194,7 @@
       </el-upload>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="submitFileForm">确 定</el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitFileForm">确 定</el-button>
           <el-button @click="upload.open = false">取 消</el-button>
         </div>
       </template>
@@ -407,9 +407,6 @@ const handleFileUploadProgress = (event, file, fileList) => {
 }
 /** 文件上传成功处理 */
 const handleFileSuccess = (response, file, fileList) => {
-  upload.open = false
-  upload.isUploading = false
-  proxy.$refs['uploadRef'].handleRemove(file)
   proxy.$alert(
     "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
       response.msg +
@@ -417,10 +414,15 @@ const handleFileSuccess = (response, file, fileList) => {
     '导入结果',
     { dangerouslyUseHTMLString: true }
   )
+  proxy.$refs['uploadRef'].handleRemove(file)
+  buttonLoading.value = false
+  upload.isUploading = false
+  upload.open = false
   financeERPProjectList.value = response.data
 }
 /** 提交上传文件 */
 function submitFileForm() {
+  buttonLoading.value = true
   proxy.$refs['uploadRef'].submit()
 }
 

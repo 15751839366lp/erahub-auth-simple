@@ -57,7 +57,7 @@ public class BizFinanceERPProjectController extends BaseController {
      *
      * @param file 导入文件
      */
-    @Log(title = "用户管理", businessType = BusinessType.IMPORT)
+    @Log(title = "ERP工程", businessType = BusinessType.IMPORT)
     @SaCheckPermission("biz:financeERPProject:import")
     @PostMapping(value = "/importData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public R<List<BizFinanceERPProjectVo>> importData(MultipartFile file) throws Exception {
@@ -68,7 +68,7 @@ public class BizFinanceERPProjectController extends BaseController {
      * 导出ERP工程明细列表
      */
     @SaCheckPermission("biz:financeERPProject:export")
-    @Log(title = "ERP工程明细", businessType = BusinessType.EXPORT)
+    @Log(title = "ERP工程", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(@RequestBody List<BizFinanceERPProjectBo> bos, HttpServletResponse response) {
         iBizFinanceERPProjectService.export(bos, response);
@@ -89,7 +89,7 @@ public class BizFinanceERPProjectController extends BaseController {
      * 新增ERP工程明细
      */
     @SaCheckPermission("biz:financeERPProject:add")
-    @Log(title = "ERP工程明细", businessType = BusinessType.INSERT)
+    @Log(title = "ERP工程", businessType = BusinessType.INSERT)
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody BizFinanceERPProjectBo bo) {
         return toAjax(iBizFinanceERPProjectService.insertByBo(bo));
@@ -99,7 +99,7 @@ public class BizFinanceERPProjectController extends BaseController {
      * 修改ERP工程明细
      */
     @SaCheckPermission("biz:financeERPProject:edit")
-    @Log(title = "ERP工程明细", businessType = BusinessType.UPDATE)
+    @Log(title = "ERP工程", businessType = BusinessType.UPDATE)
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody BizFinanceERPProjectBo bo) {
         return toAjax(iBizFinanceERPProjectService.updateByBo(bo));
@@ -111,7 +111,7 @@ public class BizFinanceERPProjectController extends BaseController {
      * @param projectIds 主键串
      */
     @SaCheckPermission("biz:financeERPProject:remove")
-    @Log(title = "ERP工程明细", businessType = BusinessType.DELETE)
+    @Log(title = "ERP工程", businessType = BusinessType.DELETE)
     @DeleteMapping("/{projectIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] projectIds) {
         return toAjax(iBizFinanceERPProjectService.deleteWithValidByIds(Arrays.asList(projectIds), true));

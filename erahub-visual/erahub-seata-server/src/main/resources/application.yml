@@ -21,8 +21,8 @@ logging:
 
 console:
   user:
-    username: seata
-    password: seata
+    username: erahub
+    password: erahub123
 
 seata:
   config:

@@ -61,7 +61,7 @@
             <div class="el-upload__text" v-if="article.articleCover == ''"
               >将文件拖到此处，或<em>点击上传</em></div
             >
-            <img v-else :src="article.articleCover" width="360px" height="180px" />
+            <img v-else :src="article.articleCover" style="width: 360px; heigth: 180px" />
           </el-upload>
         </el-form-item>
         <el-form-item label="置顶">
@@ -102,6 +102,7 @@
 </template>
 
 <script setup name="ArticleEditor">
+import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
 import { listArticle, getArticle, delArticle, addArticle, updateArticle } from '@/api/blog/article'
 import { listTag } from '@/api/blog/tag'
 import { listCategory } from '@/api/blog/category'
@@ -140,14 +141,14 @@ const typeList = ref([
 ])
 
 const article = ref({
-  id: null,
-  articleTitle: null,
+  articleTitle: undefined,
   articleContent: '',
   articleCover: '',
-  categoryId: null,
+  categoryId: undefined,
   tagIds: [],
   isTop: '0',
   isFeatured: '0',
+  isDelete: '0',
   type: '1',
   status: '1'
 })
@@ -186,6 +187,48 @@ function getTempArticle(id) {
   }
 }
 
+function saveOrUpdateArticle() {
+  if (article.value.articleTitle.trim() == '') {
+    ElMessage.error('文章标题不能为空')
+    return false
+  }
+  if (article.value.articleContent.trim() == '') {
+    ElMessage.error('文章内容不能为空')
+    return false
+  }
+  if (article.value.categoryId == undefined || article.value.categoryId == null) {
+    ElMessage.error('文章分类不能为空')
+    return false
+  }
+  // if (article.value.tagNames.length == 0) {
+  //   this.$message.error('文章标签不能为空')
+  //   return false
+  // }
+  // if (article.value.articleCover.trim() == '') {
+  //   ElMessage.error('文章封面不能为空')
+  //   return false
+  // }
+  if (article.value.articleId == undefined || article.value.articleId == null) {
+    addArticle(article.value).then((response) => {
+      ElNotification.success({
+        title: '成功',
+        message: '发表成功'
+      })
+      handleClose()
+    })
+  } else {
+    updateArticle(article.value).then((response) => {
+      ElNotification.success({
+        title: '成功',
+        message: '修改成功'
+      })
+      handleClose()
+    })
+  }
+
+  autoSave.value = false
+}
+
 function uploadCover(response) {
   // this.article.articleCover = response.data
 }
@@ -216,50 +259,6 @@ function uploadImg(pos, file) {
   // }
 }
 
-function saveOrUpdateArticle() {
-  // if (this.article.articleTitle.trim() == '') {
-  //   this.$message.error('文章标题不能为空')
-  //   return false
-  // }
-  // if (this.article.articleContent.trim() == '') {
-  //   this.$message.error('文章内容不能为空')
-  //   return false
-  // }
-  // if (this.article.categoryName == null) {
-  //   this.$message.error('文章分类不能为空')
-  //   return false
-  // }
-  // if (this.article.tagNames.length == 0) {
-  //   this.$message.error('文章标签不能为空')
-  //   return false
-  // }
-  // if (this.article.articleCover.trim() == '') {
-  //   this.$message.error('文章封面不能为空')
-  //   return false
-  // }
-  // this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-  //   if (data.flag) {
-  //     if (this.article.id === null) {
-  //       this.$store.commit('removeTab', '发布文章')
-  //     } else {
-  //       this.$store.commit('removeTab', '修改文章')
-  //     }
-  //     sessionStorage.removeItem('article')
-  //     this.$router.push({ path: '/article-list' })
-  //     this.$notify.success({
-  //       title: '成功',
-  //       message: data.message
-  //     })
-  //   } else {
-  //     this.$notify.error({
-  //       title: '失败',
-  //       message: data.message
-  //     })
-  //   }
-  //   this.addOrEdit = false
-  // })
-  // this.autoSave = false
-}
 function autoSaveArticle() {
   // if (
   //   this.autoSave &&
@@ -373,6 +372,12 @@ function removeTag(item) {
 //     }
 //   }
 // }
+
+/** 返回操作 */
+function handleClose() {
+  const obj = { path: '/blog/article/article' }
+  proxy.$tab.closeOpenPage(obj)
+}
 
 // 取消按钮
 function cancel() {

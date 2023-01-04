@@ -46,4 +46,6 @@ public interface IBlogArticleService {
      * 校验并批量删除博客文章信息
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
+
+    Boolean removeWithValidByIds(Collection<Long> ids, Boolean isValid);
 }

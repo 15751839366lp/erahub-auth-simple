@@ -116,6 +116,18 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
         if(isValid){
             //TODO 做一些业务上的校验,判断是否需要校验
         }
+        List<BlogArticle> blogArticles = baseMapper.selectBatchIds(ids);
+        for (BlogArticle blogArticle : blogArticles) {
+            blogArticle.setIsDelete("1");
+        }
+        return baseMapper.updateBatchById(blogArticles);
+    }
+
+    @Override
+    public Boolean removeWithValidByIds(Collection<Long> ids, Boolean isValid) {
+        if(isValid){
+            //TODO 做一些业务上的校验,判断是否需要校验
+        }
         return baseMapper.deleteBatchIds(ids) > 0;
     }
 }

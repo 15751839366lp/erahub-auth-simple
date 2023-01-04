@@ -10,19 +10,15 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="文章分类" prop="categoryId">
-        <el-select
-          placeholder="请选择文章分类"
-          clearable
-          style="width: 200px"
-        >
-          <el-option
-            v-for="dict in blog_article_status"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
+      <el-form-item label="文章分类" prop="categoryId" >
+        <el-select v-model="queryParams.categoryId" placeholder="请选择分类" style="width: 200px" clearable>
+            <el-option
+              v-for="item in categoryList"
+              :key="item.categoryId"
+              :label="item.categoryName"
+              :value="item.categoryId"
+            />
+          </el-select>
       </el-form-item>
       <el-form-item label="标题" prop="articleTitle">
         <el-input
@@ -64,18 +60,14 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标签" prop="">
-        <el-select
-          placeholder="请选择标签"
-          clearable
-          style="width: 200px"
-        >
-          <el-option
-            v-for="dict in blog_article_status"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
+        <el-select v-model="queryParams.tagIds" placeholder="请选择标签" style="width: 200px" clearable>
+            <el-option
+              v-for="item in tagList"
+              :key="item.tagId"
+              :label="item.tagName"
+              :value="item.tagId"
+            />
+          </el-select>
       </el-form-item>
       <el-form-item label="文章类型" prop="type">
         <el-select
@@ -111,7 +103,6 @@
         <el-select
           v-model="queryParams.isDelete"
           placeholder="是否删除"
-          clearable
           style="width: 200px"
         >
           <el-option
@@ -221,11 +212,6 @@
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="更新时间" align="center" prop="updateTime" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.updateTime) }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200" fixed="right">
         <template #default="scope">
           <el-button
@@ -260,7 +246,10 @@
 </template>
 
 <script setup name="Article">
-import { listArticle, delArticle } from '@/api/blog/article'
+import { listArticle, delArticle, removeArticle } from '@/api/blog/article'
+import { listTag } from '@/api/blog/tag'
+import { listCategory } from '@/api/blog/category'
+
 import useUserStore from '@/store/modules/user'
 import router from '@/router'
 
@@ -280,10 +269,13 @@ const articleList = ref([])
 const loading = ref(true)
 const showSearch = ref(true)
 const ids = ref([])
+const isDeletes = ref([])
 const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const dateRange = ref([])
+const categoryList = ref([])
+const tagList = ref([])
 
 const data = reactive({
   form: {},
@@ -302,6 +294,18 @@ const data = reactive({
 })
 
 const { queryParams, form } = toRefs(data)
+
+function listCategories() {
+  listCategory().then((response) => {
+    categoryList.value = response.rows
+  })
+}
+
+function listTags() {
+  listTag().then((response) => {
+    tagList.value = response.rows
+  })
+}
 
 /** 查询博客文章列表 */
 function getList() {
@@ -333,6 +337,7 @@ function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.articleId)
   single.value = selection.length != 1
   multiple.value = !selection.length
+  isDeletes.value = selection.map((item) => item.isDelete)
 }
 
 /** 发表按钮操作 */
@@ -353,7 +358,9 @@ function handleUpdate(row) {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _ids = row.articleId || ids.value
-  proxy.$modal
+  const _del = row.isDelete || isDeletes.value[0]
+  if(_del == '0'){
+    proxy.$modal
     .confirm('是否确认删除博客文章编号为"' + _ids + '"的数据项？')
     .then(function () {
       loading.value = true
@@ -368,6 +375,24 @@ function handleDelete(row) {
     .finally(() => {
       loading.value = false
     })
+  }else{
+    proxy.$modal
+    .confirm('是否确认永久删除博客文章编号为"' + _ids + '"的数据项？')
+    .then(function () {
+      loading.value = true
+      return removeArticle(_ids)
+    })
+    .then(() => {
+      loading.value = true
+      getList()
+      proxy.$modal.msgSuccess('删除成功')
+    })
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+  }
+  
 }
 
 /** 导出按钮操作 */
@@ -381,5 +406,7 @@ function handleExport() {
   )
 }
 
+listCategories()
+listTags()
 getList()
 </script>

@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 02/01/2023 10:50:53
+ Date: 03/01/2023 18:53:07
 */
 
 SET NAMES utf8mb4;
@@ -55,10 +55,10 @@ CREATE TABLE `distributed_lock`  (
 -- ----------------------------
 -- Records of distributed_lock
 -- ----------------------------
-INSERT INTO `distributed_lock` VALUES ('AsyncCommitting', '10.0.4.7:8091', 1672627841715);
-INSERT INTO `distributed_lock` VALUES ('RetryCommitting', '10.0.4.7:8091', 1672627841714);
-INSERT INTO `distributed_lock` VALUES ('RetryRollbacking', '10.0.4.7:8091', 1672627841708);
-INSERT INTO `distributed_lock` VALUES ('TxTimeoutCheck', '10.0.4.7:8091', 1672627841715);
+INSERT INTO `distributed_lock` VALUES ('AsyncCommitting', ' ', 0);
+INSERT INTO `distributed_lock` VALUES ('RetryCommitting', ' ', 0);
+INSERT INTO `distributed_lock` VALUES ('RetryRollbacking', ' ', 0);
+INSERT INTO `distributed_lock` VALUES ('TxTimeoutCheck', ' ', 0);
 INSERT INTO `distributed_lock` VALUES ('UndologDelete', ' ', 0);
 
 -- ----------------------------
@@ -229,7 +229,7 @@ CREATE TABLE `t_exception_log`  (
   `ip_source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip来源',
   `create_time` datetime(0) NOT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_exception_log

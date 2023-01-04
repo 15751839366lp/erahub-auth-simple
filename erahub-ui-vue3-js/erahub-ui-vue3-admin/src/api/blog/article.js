@@ -42,3 +42,11 @@ export function delArticle(id) {
     method: 'delete'
   })
 }
+
+// 永久删除博客文章
+export function removeArticle(id) {
+  return request({
+    url: '/blog/article/remove/' + id,
+    method: 'delete'
+  })
+}

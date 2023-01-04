@@ -403,26 +403,26 @@ function handleImport() {
 
 /**文件上传中处理 */
 const handleFileUploadProgress = (event, file, fileList) => {
+  buttonLoading.value = true
   upload.isUploading = true
 }
 /** 文件上传成功处理 */
-const handleFileSuccess = (response, file, fileList) => {
-  proxy.$alert(
+const  handleFileSuccess = async (response, file, fileList) => {
+  buttonLoading.value = false
+  upload.isUploading = false
+  financeERPProjectList.value = response.data
+  await proxy.$alert(
     "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
       response.msg +
       '</div>',
     '导入结果',
     { dangerouslyUseHTMLString: true }
   )
-  proxy.$refs['uploadRef'].handleRemove(file)
-  buttonLoading.value = false
-  upload.isUploading = false
   upload.open = false
-  financeERPProjectList.value = response.data
+  await proxy.$refs['uploadRef'].handleRemove(file)
 }
 /** 提交上传文件 */
 function submitFileForm() {
-  buttonLoading.value = true
   proxy.$refs['uploadRef'].submit()
 }
 

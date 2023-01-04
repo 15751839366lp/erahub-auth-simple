@@ -97,9 +97,21 @@ public class BlogArticleController extends BaseController {
      * @param ids 主键串
      */
     @SaCheckPermission("blog:article:remove")
-    @Log(title = "博客文章", businessType = BusinessType.DELETE)
+    @Log(title = "博客文章", businessType = BusinessType.UPDATE)
     @DeleteMapping("/{ids}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
+    public R<Void> delete(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
         return toAjax(iBlogArticleService.deleteWithValidByIds(Arrays.asList(ids), true));
+    }
+
+    /**
+     * 永久删除博客文章
+     *
+     * @param ids 主键串
+     */
+    @SaCheckPermission("blog:article:remove")
+    @Log(title = "博客文章", businessType = BusinessType.DELETE)
+    @DeleteMapping("/remove/{ids}")
+    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
+        return toAjax(iBlogArticleService.removeWithValidByIds(Arrays.asList(ids), true));
     }
 }

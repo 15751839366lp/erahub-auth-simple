@@ -16,6 +16,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.HttpMethod;
@@ -37,6 +38,8 @@ import java.util.Map;
 @AutoConfiguration
 public class LogAspect {
 
+    long startTime;
+
     /**
      * 排除敏感属性字段
      */
@@ -44,6 +47,16 @@ public class LogAspect {
 
     @Autowired
     private AsyncLogService asyncLogService;
+
+    /**
+     * 处理请求前执行
+     *
+     * @param joinPoint 切点
+     */
+    @Before(value = "@annotation(controllerLog)")
+    public void doBefore(JoinPoint joinPoint, Log controllerLog) {
+        startTime = System.currentTimeMillis();
+    }
 
     /**
      * 处理完请求后执行
@@ -70,6 +83,7 @@ public class LogAspect {
         try {
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
+            operLog.setExecutionTime(System.currentTimeMillis() - startTime);
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
             operLog.setOperIp(ServletUtils.getClientIP());

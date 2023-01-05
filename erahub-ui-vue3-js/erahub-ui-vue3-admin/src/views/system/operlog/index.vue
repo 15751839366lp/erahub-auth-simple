@@ -119,6 +119,15 @@
       <el-table-column label="系统模块" align="center" prop="title" />
       <el-table-column label="用户" align="center" prop="operName" />
       <el-table-column label="IP" align="center" prop="operIp" />
+      <el-table-column label="执行时间" align="center" prop="executionTime">
+        <template #default="scope">
+          <span v-if="scope.row.executionTime == null && scope.row.executionTime == undefined"></span>
+          <el-tag v-else-if="scope.row.executionTime < 100" type="success">{{scope.row.executionTime}} ms</el-tag>
+          <el-tag v-else-if="scope.row.executionTime >= 100 && scope.row.executionTime < 1000" >{{scope.row.executionTime}} ms</el-tag>
+          <el-tag v-else-if="scope.row.executionTime >= 1000 && scope.row.executionTime < 3000" type="warning">{{scope.row.executionTime}} ms</el-tag>
+          <el-tag v-else-if="scope.row.executionTime >= 3000" type="danger">{{scope.row.executionTime}} ms</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="操作类型" align="center" prop="businessType">
         <template #default="scope">
           <dict-tag :options="sys_oper_type" :value="scope.row.businessType" />

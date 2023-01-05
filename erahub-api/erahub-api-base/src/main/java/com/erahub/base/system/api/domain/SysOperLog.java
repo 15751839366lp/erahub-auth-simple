@@ -130,6 +130,12 @@ public class SysOperLog implements Serializable {
     private Date operTime;
 
     /**
+     * 执行时间
+     */
+    @ExcelProperty(value = "执行时间")
+    private Long executionTime;
+
+    /**
      * 请求参数
      */
     @TableField(exist = false)

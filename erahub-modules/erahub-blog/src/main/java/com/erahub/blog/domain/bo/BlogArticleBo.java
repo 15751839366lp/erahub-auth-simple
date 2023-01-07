@@ -1,5 +1,7 @@
 package com.erahub.blog.domain.bo;
 
+import com.erahub.blog.domain.vo.BlogArticleImageVo;
+import com.erahub.blog.domain.vo.BlogTagVo;
 import com.erahub.common.core.validate.AddGroup;
 import com.erahub.common.core.validate.EditGroup;
 import lombok.Data;
@@ -7,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.*;
 
 import java.util.Date;
+import java.util.List;
 
 import com.erahub.common.core.web.domain.BaseEntity;
 
@@ -33,9 +36,19 @@ public class BlogArticleBo extends BaseEntity {
     private Long categoryId;
 
     /**
+     * 文章分类ID
+     */
+    private Long tagId;
+
+    /**
      * 文章缩略图
      */
     private String articleCover;
+
+    /**
+     * 文章缩略对象
+     */
+    private BlogArticleImageBo blogArticleImageBo;
 
     /**
      * 标题
@@ -46,6 +59,7 @@ public class BlogArticleBo extends BaseEntity {
     /**
      * 内容
      */
+    @NotNull(message = "内容不能为空", groups = { AddGroup.class, EditGroup.class })
     private String articleContent;
 
     /**
@@ -88,5 +102,8 @@ public class BlogArticleBo extends BaseEntity {
      */
     private String originalUrl;
 
-
+    /**
+     * 标签
+     */
+    private List<Long> TagIds;
 }

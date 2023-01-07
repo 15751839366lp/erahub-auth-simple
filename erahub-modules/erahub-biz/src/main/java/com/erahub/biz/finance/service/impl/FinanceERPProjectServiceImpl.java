@@ -14,17 +14,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-import com.erahub.biz.finance.domain.bo.BizFinanceERPProjectBo;
-import com.erahub.biz.finance.domain.vo.BizFinanceERPProjectVo;
-import com.erahub.biz.finance.domain.BizFinanceERPProject;
-import com.erahub.biz.finance.mapper.BizFinanceERPProjectMapper;
-import com.erahub.biz.finance.service.IBizFinanceERPProjectService;
+import com.erahub.biz.finance.domain.bo.FinanceERPProjectBo;
+import com.erahub.biz.finance.domain.vo.FinanceERPProjectVo;
+import com.erahub.biz.finance.domain.FinanceERPProject;
+import com.erahub.biz.finance.mapper.FinanceERPProjectMapper;
+import com.erahub.biz.finance.service.IFinanceERPProjectService;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
-
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 /**
  * ERP工程明细Service业务层处理
@@ -43,15 +40,15 @@ import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
  */
 @RequiredArgsConstructor
 @Service
-public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectService {
+public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
 
-    private final BizFinanceERPProjectMapper baseMapper;
+    private final FinanceERPProjectMapper baseMapper;
 
     /**
      * 查询ERP工程明细
      */
     @Override
-    public BizFinanceERPProjectVo queryById(Long projectId) {
+    public FinanceERPProjectVo queryById(Long projectId) {
         return baseMapper.selectVoById(projectId);
     }
 
@@ -59,32 +56,32 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
      * 查询ERP工程明细列表
      */
     @Override
-    public TableDataInfo<BizFinanceERPProjectVo> queryPageList(BizFinanceERPProjectBo bo, PageQuery pageQuery) {
-        LambdaQueryWrapper<BizFinanceERPProject> lqw = buildQueryWrapper(bo);
-        Page<BizFinanceERPProjectVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+    public TableDataInfo<FinanceERPProjectVo> queryPageList(FinanceERPProjectBo bo, PageQuery pageQuery) {
+        LambdaQueryWrapper<FinanceERPProject> lqw = buildQueryWrapper(bo);
+        Page<FinanceERPProjectVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
         return TableDataInfo.build(result);
     }
 
     @Override
-    public void export(List<BizFinanceERPProjectBo> bos, HttpServletResponse response) {
-        List<BizFinanceERPProjectVo> vos = BeanCopyUtils.copyList(bos, BizFinanceERPProjectVo.class);
-        ExcelUtil.exportExcel(vos, "ERP工程明细", BizFinanceERPProjectVo.class, response);
+    public void export(List<FinanceERPProjectBo> bos, HttpServletResponse response) {
+        List<FinanceERPProjectVo> vos = BeanCopyUtils.copyList(bos, FinanceERPProjectVo.class);
+        ExcelUtil.exportExcel(vos, "ERP工程明细", FinanceERPProjectVo.class, response);
     }
 
     /**
      * 查询ERP工程明细列表
      */
     @Override
-    public List<BizFinanceERPProjectVo> queryList(BizFinanceERPProjectBo bo) {
-        LambdaQueryWrapper<BizFinanceERPProject> lqw = buildQueryWrapper(bo);
+    public List<FinanceERPProjectVo> queryList(FinanceERPProjectBo bo) {
+        LambdaQueryWrapper<FinanceERPProject> lqw = buildQueryWrapper(bo);
         return baseMapper.selectVoList(lqw);
     }
 
-    private LambdaQueryWrapper<BizFinanceERPProject> buildQueryWrapper(BizFinanceERPProjectBo bo) {
+    private LambdaQueryWrapper<FinanceERPProject> buildQueryWrapper(FinanceERPProjectBo bo) {
         Map<String, Object> params = bo.getParams();
-        LambdaQueryWrapper<BizFinanceERPProject> lqw = Wrappers.lambdaQuery();
-        lqw.eq(StringUtils.isNotBlank(bo.getProjectNumber()), BizFinanceERPProject::getProjectNumber, bo.getProjectNumber());
-        lqw.eq(StringUtils.isNotBlank(bo.getRequisitionNumber()), BizFinanceERPProject::getRequisitionNumber, bo.getRequisitionNumber());
+        LambdaQueryWrapper<FinanceERPProject> lqw = Wrappers.lambdaQuery();
+        lqw.eq(StringUtils.isNotBlank(bo.getProjectNumber()), FinanceERPProject::getProjectNumber, bo.getProjectNumber());
+        lqw.eq(StringUtils.isNotBlank(bo.getRequisitionNumber()), FinanceERPProject::getRequisitionNumber, bo.getRequisitionNumber());
         return lqw;
     }
 
@@ -92,8 +89,8 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
      * 新增ERP工程明细
      */
     @Override
-    public Boolean insertByBo(BizFinanceERPProjectBo bo) {
-        BizFinanceERPProject add = BeanUtil.toBean(bo, BizFinanceERPProject.class);
+    public Boolean insertByBo(FinanceERPProjectBo bo) {
+        FinanceERPProject add = BeanUtil.toBean(bo, FinanceERPProject.class);
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
@@ -106,8 +103,8 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
      * 修改ERP工程明细
      */
     @Override
-    public Boolean updateByBo(BizFinanceERPProjectBo bo) {
-        BizFinanceERPProject update = BeanUtil.toBean(bo, BizFinanceERPProject.class);
+    public Boolean updateByBo(FinanceERPProjectBo bo) {
+        FinanceERPProject update = BeanUtil.toBean(bo, FinanceERPProject.class);
         validEntityBeforeSave(update);
         return baseMapper.updateById(update) > 0;
     }
@@ -115,7 +112,7 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
     /**
      * 保存前的数据校验
      */
-    private void validEntityBeforeSave(BizFinanceERPProject entity) {
+    private void validEntityBeforeSave(FinanceERPProject entity) {
         //TODO 做一些数据校验,如唯一约束
     }
 
@@ -131,8 +128,8 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
     }
 
     @Override
-    public List<BizFinanceERPProjectVo> importData(MultipartFile file) throws IOException {
-        ArrayList<BizFinanceERPProjectVo> projectList = null;
+    public List<FinanceERPProjectVo> importData(MultipartFile file) throws IOException {
+        ArrayList<FinanceERPProjectVo> projectList = null;
         try {
 
             String fileName = file.getOriginalFilename();
@@ -147,13 +144,13 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
 
             Sheet sheet0 = workbook.getSheetAt(0);
             Boolean flag = true;
-            HashMap<Long, BizFinanceERPProject> projectMap = new HashMap<>();
+            HashMap<Long, FinanceERPProject> projectMap = new HashMap<>();
             for (int i = 0; i < sheet0.getPhysicalNumberOfRows(); i++) {
                 Row row = sheet0.getRow(i);
                 if (ObjectUtil.isEmpty(row)) {
                     continue;
                 }
-                BizFinanceERPProject bizFinanceERPProject = new BizFinanceERPProject();
+                FinanceERPProject bizFinanceERPProject = new FinanceERPProject();
                 //获取工单号
                 if (ObjectUtil.isNotEmpty(row.getCell(1))
                     && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(1)))
@@ -210,7 +207,7 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
                 if (ObjectUtil.isEmpty(row)) {
                     continue;
                 }
-                BizFinanceERPProjectVo bizFinanceERPProjectVo = new BizFinanceERPProjectVo();
+                FinanceERPProjectVo bizFinanceERPProjectVo = new FinanceERPProjectVo();
                 String projectNumber = "";
                 String requisitionNumber = "";
                 //获取工单号
@@ -269,7 +266,7 @@ public class BizFinanceERPProjectServiceImpl implements IBizFinanceERPProjectSer
 
                 if (StringUtils.isNotEmpty(projectNumber)) {
                     //效验并获取合同编号
-                    BizFinanceERPProject bfe = projectMap.get(Long.valueOf(projectNumber));
+                    FinanceERPProject bfe = projectMap.get(Long.valueOf(projectNumber));
                     if (bfe != null && bfe.getRequisitionNumber().equals(requisitionNumber)) {
                         bizFinanceERPProjectVo.setContractNumber(bfe.getContractNumber());
                         bizFinanceERPProjectVo.setProjectType(bfe.getProjectType());

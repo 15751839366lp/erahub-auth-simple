@@ -1,12 +1,15 @@
 package com.erahub.blog.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.erahub.blog.domain.vo.BlogCategoryVo;
+import com.erahub.blog.domain.vo.BlogTagVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.erahub.common.core.web.domain.BaseEntity;
 
@@ -72,5 +75,17 @@ public class BlogArticle extends BaseEntity {
      * 原文链接
      */
     private String originalUrl;
+
+    /**
+     * 分类
+     */
+    @TableField(exist = false)
+    private BlogCategory blogCategory;
+
+    /**
+     * 标签
+     */
+    @TableField(exist = false)
+    private List<BlogTag> blogTagList;
 
 }

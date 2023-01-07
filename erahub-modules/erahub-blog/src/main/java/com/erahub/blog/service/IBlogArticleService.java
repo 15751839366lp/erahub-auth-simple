@@ -1,10 +1,12 @@
 package com.erahub.blog.service;
 
 import com.erahub.blog.domain.BlogArticle;
+import com.erahub.blog.domain.vo.BlogArticleImageVo;
 import com.erahub.blog.domain.vo.BlogArticleVo;
 import com.erahub.blog.domain.bo.BlogArticleBo;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,6 +33,8 @@ public interface IBlogArticleService {
      * 查询博客文章列表
      */
     List<BlogArticleVo> queryList(BlogArticleBo bo);
+
+    BlogArticleImageVo uploadImage(MultipartFile file);
 
     /**
      * 修改博客文章

@@ -82,6 +82,12 @@
             <artifactId>erahub-api-base</artifactId>
         </dependency>
 
+        <!-- erahub Api blog -->
+        <dependency>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-api-blog</artifactId>
+        </dependency>
+
         <!-- erahub Api biz -->
         <dependency>
             <groupId>com.erahub</groupId>

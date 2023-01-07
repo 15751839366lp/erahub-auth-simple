@@ -1,17 +1,8 @@
-package com.erahub.biz.finance.api;
+package com.erahub.blog.api;
 
 import com.erahub.common.core.exception.ServiceException;
 
-import java.util.List;
-
-/**
- * 文件服务
- *
- * @author erahub
- */
-public interface RemoteFinanceERPService {
-
-
+public interface RemoteBlogArticleService {
     /**
      * 清理临时文件
      *

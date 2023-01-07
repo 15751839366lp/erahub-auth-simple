@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询ERP工程明细列表
 export function listFinanceERPProject(query) {
   return request({
-    url: '/biz/financeERPProject/list',
+    url: '/biz/finance/erpproject/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listFinanceERPProject(query) {
 // 查询ERP工程明细详细
 export function getFinanceERPProject(projectId) {
   return request({
-    url: '/biz/financeERPProject/' + projectId,
+    url: '/biz/finance/erpproject/' + projectId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getFinanceERPProject(projectId) {
 // 新增ERP工程明细
 export function addFinanceERPProject(data) {
   return request({
-    url: '/biz/financeERPProject',
+    url: '/biz/finance/erpproject',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addFinanceERPProject(data) {
 // 修改ERP工程明细
 export function updateFinanceERPProject(data) {
   return request({
-    url: '/biz/financeERPProject',
+    url: '/biz/finance/erpproject',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateFinanceERPProject(data) {
 // 删除ERP工程明细
 export function delFinanceERPProject(projectId) {
   return request({
-    url: '/biz/financeERPProject/' + projectId,
+    url: '/biz/finance/erpproject/' + projectId,
     method: 'delete'
   })
 }

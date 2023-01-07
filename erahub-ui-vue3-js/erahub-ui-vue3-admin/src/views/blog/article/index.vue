@@ -59,8 +59,8 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="标签" prop="">
-        <el-select v-model="queryParams.tagIds" placeholder="请选择标签" style="width: 200px" clearable>
+      <el-form-item label="标签" prop="tagId">
+        <el-select v-model="queryParams.tagId" placeholder="请选择标签" style="width: 200px" clearable>
             <el-option
               v-for="item in tagList"
               :key="item.tagId"
@@ -176,7 +176,7 @@
     </el-row>
 
     <el-table v-loading="loading" :data="articleList" @selection-change="handleSelectionChange" border >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column type="selection" width="35" align="center" />
       <el-table-column label="文章ID" align="center" prop="articleId" v-if="true" width="130" show-overflow-tooltip/>
       <el-table-column label="文章缩略图" align="center" prop="articleCover" width="100">
         <template #default="scope">
@@ -185,8 +185,12 @@
       </el-table-column>
       <el-table-column label="标题" align="center" prop="articleTitle" show-overflow-tooltip/>
       <el-table-column label="作者" align="center" prop="createBy" />
-      <el-table-column label="文章分类" align="center" prop="categoryId" />
-      <el-table-column label="文章标签" align="center" prop="categoryId" />
+      <el-table-column label="文章分类" align="center" prop="blogCategory.categoryName" />
+      <el-table-column label="文章标签" align="center" prop="blogTagList"  width="200" >
+        <template #default="scope">
+          <el-tag v-for="(item, index) in scope.row.blogTagList" type="success">{{item.tagName}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="置顶" align="center" prop="isTop">
         <template #default="scope">
           <dict-tag :options="blog_article_top" :value="scope.row.isTop" />
@@ -284,6 +288,7 @@ const data = reactive({
     pageSize: 10,
     createBy: undefined,
     categoryId: undefined,
+    tagId: undefined,
     articleTitle: undefined,
     isTop: undefined,
     isFeatured: undefined,

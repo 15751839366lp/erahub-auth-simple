@@ -122,15 +122,13 @@ public class BlogArticleVo {
     private Date updateTime;
 
     /**
-     * 类别名称
+     * 分类
      */
-    @ExcelProperty(value = "更新时间")
-    private String categoryName;
+    private BlogCategoryVo blogCategory;
 
     /**
-     * 标签名称
+     * 标签
      */
-    @ExcelProperty(value = "更新时间")
-    private List<String> tagNames;
+    private List<BlogTagVo> blogTagList;
 
 }

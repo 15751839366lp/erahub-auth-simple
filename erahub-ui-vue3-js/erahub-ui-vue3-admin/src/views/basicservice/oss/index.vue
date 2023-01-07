@@ -97,7 +97,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['basicservice:oss:edit']"
+          v-hasPermi="['basicservice:oss:query']"
           :type="previewListResource ? 'danger' : 'warning'"
           plain
           @click="handlePreviewListResource(!previewListResource)"

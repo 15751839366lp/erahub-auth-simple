@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.erahub.biz.finance.mapper.BizFinanceERPProjectMapper">
+<mapper namespace="com.erahub.biz.finance.mapper.FinanceERPProjectMapper">
 
-    <resultMap type="com.erahub.biz.finance.domain.BizFinanceERPProject" id="BizFinanceERPProjectResult">
+    <resultMap type="com.erahub.biz.finance.domain.FinanceERPProject" id="FinanceERPProjectResult">
     <result property="projectId" column="project_id"/>
     <result property="projectNumber" column="project_number"/>
     <result property="requisitionNumber" column="requisition_number"/>

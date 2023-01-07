@@ -154,7 +154,7 @@ export const dynamicRoutes = [
         path: 'index/:articleId(\\d+)',
         component: () => import('@/views/blog/article/articleEditor'),
         name: 'ArticleEditor',
-        meta: { title: '编辑博客文章', activeMenu: '/blog/article' }
+        meta: { title: '编辑博客文章', activeMenu: '/blog/article/article' }
       }
     ]
   }

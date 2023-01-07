@@ -74,6 +74,11 @@ const props = defineProps({
   isShowTip: {
     type: Boolean,
     default: true
+  },
+  // 请求地址
+  uploadUrl: {
+    type: String,
+    default: import.meta.env.VITE_APP_BASE_API + '/basicservice/oss/upload'
   }
 })
 
@@ -83,8 +88,7 @@ const number = ref(0)
 const uploadList = ref([])
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
-const baseUrl = import.meta.env.VITE_APP_BASE_API
-const uploadImgUrl = ref(baseUrl + '/basicservice/oss/upload') // 上传的图片服务器地址
+const uploadImgUrl = ref(props.uploadUrl) // 上传的图片服务器地址
 const headers = ref({ Authorization: 'Bearer ' + getToken() })
 const fileList = ref([])
 const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize))
@@ -93,7 +97,6 @@ watch(
   () => props.modelValue,
   async (val) => {
     if (val) {
-
       uploadList.value = val
       // 首先将值转为数组
       let list
@@ -186,7 +189,6 @@ function handleDelete(file) {
 // 上传结束处理
 function uploadedSuccessfully() {
   if (number.value > 0) {
-
     fileList.value = uploadList.value.map((item) => {
       item = { name: item.fileName, url: item.blobUrl }
       return item

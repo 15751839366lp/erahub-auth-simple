@@ -5,9 +5,8 @@
 <mapper namespace="com.erahub.blog.mapper.BlogArticleMapper">
 
     <resultMap type="com.erahub.blog.domain.BlogArticle" id="BlogArticleResult">
-        <result property="id" column="id"/>
+        <result property="articleId" column="article_id"/>
         <result property="userId" column="user_id"/>
-        <result property="categoryId" column="category_id"/>
         <result property="articleCover" column="article_cover"/>
         <result property="articleTitle" column="article_title"/>
         <result property="articleContent" column="article_content"/>
@@ -22,7 +21,64 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
+        <association property="blogCategory"    column="category_id" javaType="com.erahub.blog.domain.BlogCategory" resultMap="BlogCategoryResult" />
+        <collection  property="blogTagList"   javaType="java.util.List"    resultMap="BlogTagResult" />
     </resultMap>
 
+    <resultMap type="com.erahub.blog.domain.BlogCategory" id="BlogCategoryResult">
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="status" column="category_status"/>
+    </resultMap>
 
+    <resultMap type="com.erahub.blog.domain.BlogTag" id="BlogTagResult">
+        <result property="tagId" column="tag_id"/>
+        <result property="tagName" column="tag_name"/>
+        <result property="status" column="tag_status"/>
+    </resultMap>
+
+    <sql id="selectBlogArticleVo">
+        select ba.article_id,
+               ba.article_cover,
+               ba.article_title,
+               ba.article_content,
+               ba.is_top,
+               ba.is_featured,
+               ba.is_delete,
+               ba.status,
+               ba.type,
+               ba.password,
+               ba.original_url,
+               ba.create_by,
+               ba.create_time,
+               ba.update_by,
+               ba.update_time,
+
+               bc.category_id,
+               bc.category_name,
+               bc.status as category_status,
+
+               bt.tag_id,
+               bt.tag_name,
+               bt.status as tag_status
+        from blog_article ba
+                 left join blog_category bc on ba.category_id = bc.category_id
+                 left join blog_article_tag bat on ba.article_id = bat.article_id
+                 left join blog_tag bt on bt.tag_id = bat.tag_id
+    </sql>
+
+    <select id="selectPageBlogArticleList" resultMap="BlogArticleResult">
+        <include refid="selectBlogArticleVo"/>
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="queryList" resultMap="BlogArticleResult">
+        <include refid="selectBlogArticleVo"/>
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="queryById" resultMap="BlogArticleResult">
+        <include refid="selectBlogArticleVo"/>
+        where ba.article_id = #{id}
+    </select>
 </mapper>

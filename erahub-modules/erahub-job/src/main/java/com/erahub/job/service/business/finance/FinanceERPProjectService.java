@@ -1,7 +1,6 @@
 package com.erahub.job.service.business.finance;
 
-import com.erahub.base.basicservice.api.RemoteFileService;
-import com.erahub.biz.finance.api.RemoteFinanceERPService;
+import com.erahub.biz.finance.api.RemoteFinanceERPProjectService;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class FinanceERPService {
+public class FinanceERPProjectService {
 
     @DubboReference
-    private RemoteFinanceERPService remoteFinanceERPService;
+    private RemoteFinanceERPProjectService remoteFinanceERPService;
 
     /**
      * 1、临时文件清理任务

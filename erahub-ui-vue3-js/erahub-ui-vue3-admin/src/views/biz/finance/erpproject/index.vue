@@ -32,7 +32,7 @@
           plain
           icon="Plus"
           @click="handleAdd"
-          v-hasPermi="['biz:financeERPProject:add']"
+          v-hasPermi="['biz:finance:erpproject:add']"
           >新增</el-button
         >
       </el-col>
@@ -43,7 +43,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['biz:financeERPProject:edit']"
+          v-hasPermi="['biz:finance:erpproject:edit']"
           >修改</el-button
         >
       </el-col>
@@ -54,7 +54,7 @@
           icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['biz:financeERPProject:remove']"
+          v-hasPermi="['biz:finance:erpproject:remove']"
           >删除</el-button
         >
       </el-col>
@@ -64,7 +64,7 @@
           plain
           icon="Upload"
           @click="handleImport"
-          v-hasPermi="['biz:financeERPProject:import']"
+          v-hasPermi="['biz:finance:erpproject:import']"
           >导入</el-button
         >
       </el-col>
@@ -74,7 +74,7 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['biz:financeERPProject:export']"
+          v-hasPermi="['biz:finance:erpproject:export']"
           >导出</el-button
         >
       </el-col>
@@ -111,7 +111,7 @@
             type="primary"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['biz:financeERPProject:edit']"
+            v-hasPermi="['biz:finance:erpproject:edit']"
             >修改</el-button
           >
           <el-button
@@ -119,7 +119,7 @@
             type="primary"
             icon="Delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['biz:financeERPProject:remove']"
+            v-hasPermi="['biz:finance:erpproject:remove']"
             >删除</el-button
           >
         </template>
@@ -210,7 +210,7 @@ import {
   delFinanceERPProject,
   addFinanceERPProject,
   updateFinanceERPProject
-} from '@/api/biz/financeERPProject'
+} from '@/api/biz/finance/financeERPProject'
 import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
 import { saveAs } from 'file-saver'
 import { blobValidate } from '@/utils/erahub'
@@ -253,7 +253,7 @@ const upload = reactive({
   // 设置上传的请求头部
   headers: { Authorization: 'Bearer ' + getToken() },
   // 上传的地址
-  url: import.meta.env.VITE_APP_BASE_API + '/biz/financeERPProject/importData'
+  url: import.meta.env.VITE_APP_BASE_API + '/biz/finance/erpproject/importData'
 })
 
 const { queryParams, form, rules } = toRefs(data)
@@ -388,7 +388,7 @@ function handleDelete(row) {
 /** 导出按钮操作 */
 function handleExport() {
   proxy.downloadWithData(
-    '/biz/financeERPProject/export',
+    '/biz/finance/erpproject/export',
     'post',
     financeERPProjectList.value,
     `financeERPProject_${new Date().getTime()}.xlsx`

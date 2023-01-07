@@ -3,11 +3,7 @@ package com.erahub.biz.finance.domain.vo;
 import java.math.BigDecimal;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.erahub.common.excel.annotation.ExcelDictFormat;
-import com.erahub.common.excel.convert.ExcelDictConvert;
 import lombok.Data;
-import java.util.Date;
-
 
 
 /**
@@ -18,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @ExcelIgnoreUnannotated
-public class BizFinanceERPProjectVo {
+public class FinanceERPProjectVo {
 
     private static final long serialVersionUID = 1L;
 

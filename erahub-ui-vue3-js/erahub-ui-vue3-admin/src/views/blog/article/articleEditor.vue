@@ -10,8 +10,8 @@
     <mavon-editor
       ref="md"
       v-model="article.articleContent"
+      style="height: calc(100vh - 260px); z-index: 1"
       @imgAdd="uploadImg"
-      style="height: calc(100vh - 260px)"
     />
     <el-dialog :title="'发布文章'" v-model="addOrEdit" width="40%" top="3vh">
       <el-form label-width="80px" size="default" :model="article">
@@ -49,20 +49,11 @@
           <el-input v-model="article.originalUrl" placeholder="请填写原文链接" />
         </el-form-item>
         <el-form-item label="上传封面">
-          <el-upload
-            class="upload-cover"
-            drag
-            action="/api/admin/articles/images"
-            multiple
-            :before-upload="beforeUpload"
-            :on-success="uploadCover"
-          >
-            <i class="el-icon-upload" v-if="article.articleCover == ''" />
-            <div class="el-upload__text" v-if="article.articleCover == ''"
-              >将文件拖到此处，或<em>点击上传</em></div
-            >
-            <img v-else :src="article.articleCover" style="width: 360px; heigth: 180px" />
-          </el-upload>
+          <imageUpload
+            v-model="article.blogArticleImageBo"
+            :limit="imageLimit"
+            :uploadImageUrl="uploadImageUrl"
+          />
         </el-form-item>
         <el-form-item label="置顶">
           <el-radio-group v-model="article.isTop">
@@ -120,30 +111,16 @@ const route = useRoute()
 const buttonLoading = ref(false)
 const addOrEdit = ref(false)
 const autoSave = ref(true)
-const categoryName = ref('')
-const tagName = ref('')
 const categoryList = ref([])
 const tagList = ref([])
-
-const typeList = ref([
-  {
-    type: 1,
-    desc: '原创'
-  },
-  {
-    type: 2,
-    desc: '转载'
-  },
-  {
-    type: 3,
-    desc: '翻译'
-  }
-])
+const imageLimit = ref(1)
+const uploadImageUrl = import.meta.env.VITE_APP_BASE_API + '/blog/article/uploadImage'
 
 const article = ref({
   articleTitle: undefined,
   articleContent: '',
-  articleCover: '',
+  articleCover: undefined,
+  blogArticleImageBo: undefined,
   categoryId: undefined,
   tagIds: [],
   isTop: '0',
@@ -183,16 +160,28 @@ function getTempArticle(id) {
   if (id != 0) {
     getArticle(id).then((response) => {
       article.value = response.data
+      article.value.categoryId = response.data.blogCategory.categoryId
+      if (
+        response.data.articleCover != null &&
+        response.data.articleCover != undefined &&
+        response.data.articleCover.trim() != ''
+      ) {
+        article.value.blogArticleImageBo = [{ blobUrl: response.data.articleCover }]
+      }
+
+      article.value.tagIds = response.data.blogTagList.map((item) => {
+        return item.tagId
+      })
     })
   }
 }
 
 function saveOrUpdateArticle() {
-  if (article.value.articleTitle.trim() == '') {
+  if (article.value.articleTitle != undefined && article.value.articleTitle.trim() == '') {
     ElMessage.error('文章标题不能为空')
     return false
   }
-  if (article.value.articleContent.trim() == '') {
+  if (article.value.articleTitle != undefined && article.value.articleContent.trim() == '') {
     ElMessage.error('文章内容不能为空')
     return false
   }
@@ -200,14 +189,30 @@ function saveOrUpdateArticle() {
     ElMessage.error('文章分类不能为空')
     return false
   }
-  // if (article.value.tagNames.length == 0) {
-  //   this.$message.error('文章标签不能为空')
-  //   return false
-  // }
-  // if (article.value.articleCover.trim() == '') {
-  //   ElMessage.error('文章封面不能为空')
-  //   return false
-  // }
+  if (article.value.tagIds.length == 0) {
+    ElMessage.error('文章标签不能为空')
+    return false
+  }
+  
+  if (
+    article.value.blogArticleImageBo != undefined &&
+    article.value.blogArticleImageBo[0].fileName == null
+  ) {
+    article.value.blogArticleImageBo = undefined
+    console.log(article.value)
+  } else {
+    if (
+      article.value.blogArticleImageBo == undefined ||
+      article.value.blogArticleImageBo[0].fileName.trim() == '' ||
+      article.value.blogArticleImageBo[0].originalName.trim() == ''
+    ) {
+      ElMessage.error('文章封面不能为空')
+      return false
+    } else {
+      article.value.blogArticleImageBo = article.value.blogArticleImageBo[0]
+    }
+  }
+  console.log(article.value)
   if (article.value.articleId == undefined || article.value.articleId == null) {
     addArticle(article.value).then((response) => {
       ElNotification.success({

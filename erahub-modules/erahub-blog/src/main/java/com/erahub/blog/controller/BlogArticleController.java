@@ -1,6 +1,7 @@
 package com.erahub.blog.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.erahub.blog.domain.vo.BlogArticleImageVo;
 import com.erahub.common.core.domain.R;
 import com.erahub.common.core.validate.AddGroup;
 import com.erahub.common.core.validate.EditGroup;
@@ -18,6 +19,7 @@ import com.erahub.blog.domain.vo.BlogArticleVo;
 import com.erahub.blog.domain.bo.BlogArticleBo;
 import com.erahub.blog.service.IBlogArticleService;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Arrays;
@@ -69,6 +71,16 @@ public class BlogArticleController extends BaseController {
     @GetMapping("/{id}")
     public R<BlogArticleVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable Long id) {
         return R.ok(iBlogArticleService.queryById(id));
+    }
+
+    /**
+     * 新增博客文章
+     */
+    @SaCheckPermission("blog:article:add")
+    @Log(title = "博客文章", businessType = BusinessType.INSERT)
+    @PostMapping("/uploadImage")
+    public R<BlogArticleImageVo> uploadImage(MultipartFile file) {
+        return R.ok(iBlogArticleService.uploadImage(file));
     }
 
     /**

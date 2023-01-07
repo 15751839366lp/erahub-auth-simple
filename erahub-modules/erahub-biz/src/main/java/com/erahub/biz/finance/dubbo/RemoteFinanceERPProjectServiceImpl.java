@@ -1,7 +1,7 @@
 package com.erahub.biz.finance.dubbo;
 
 import cn.hutool.core.io.FileUtil;
-import com.erahub.biz.finance.api.RemoteFinanceERPService;
+import com.erahub.biz.finance.api.RemoteFinanceERPProjectService;
 import com.erahub.common.core.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -17,7 +17,7 @@ import java.io.File;
 @Slf4j
 @Service
 @DubboService
-public class RemoteFinanceERPServiceImpl implements RemoteFinanceERPService {
+public class RemoteFinanceERPProjectServiceImpl implements RemoteFinanceERPProjectService {
 
     @Override
     public void clearTempFiles() throws ServiceException {

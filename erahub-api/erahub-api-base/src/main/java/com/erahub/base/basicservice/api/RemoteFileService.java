@@ -18,7 +18,7 @@ public interface RemoteFileService {
      * @param file 文件信息
      * @return 结果
      */
-    BSFile upload(String name, String originalFilename, String contentType, byte[] file) throws ServiceException;
+    BSFile upload(String name, String originalFilename, String contentType, byte[] file, String useField) throws ServiceException;
 
     /**
      * 删除上传文件

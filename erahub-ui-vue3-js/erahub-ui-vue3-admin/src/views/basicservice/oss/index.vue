@@ -31,15 +31,13 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="创建时间">
-        <el-date-picker
-          v-model="daterangeCreateTime"
-          value-format="YYYY-MM-DD"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
+      <el-form-item label="使用字段" prop="useField">
+        <el-input
+          v-model="queryParams.useField"
+          placeholder="请输入使用字段"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="上传人" prop="createBy">
         <el-input
@@ -56,6 +54,16 @@
           clearable
           @keyup.enter="handleQuery"
         />
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-date-picker
+          v-model="daterangeCreateTime"
+          value-format="YYYY-MM-DD"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="search" @click="handleQuery">搜索</el-button>
@@ -119,6 +127,7 @@
       <el-table-column v-if="false" label="对象存储主键" align="center" prop="ossId" />
       <el-table-column label="文件名" align="center" prop="fileName" />
       <el-table-column label="原名" align="center" prop="originalName" />
+      <el-table-column label="使用字段" align="center" prop="useField" />
       <el-table-column label="文件后缀" align="center" prop="fileSuffix" />
       <el-table-column label="文件展示" align="center" prop="url">
         <template #default="scope">
@@ -226,6 +235,7 @@ const data = reactive({
     pageSize: 10,
     fileName: undefined,
     originalName: undefined,
+    useField: undefined,
     fileSuffix: undefined,
     url: undefined,
     createTime: undefined,

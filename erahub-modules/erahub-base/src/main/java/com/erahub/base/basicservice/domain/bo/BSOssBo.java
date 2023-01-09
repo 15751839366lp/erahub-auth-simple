@@ -26,6 +26,10 @@ public class BSOssBo extends BaseEntity {
      */
     private String originalName;
     /**
+     * 使用的表字段
+     */
+    private String useField;
+    /**
      * 文件后缀名
      */
     private String fileSuffix;

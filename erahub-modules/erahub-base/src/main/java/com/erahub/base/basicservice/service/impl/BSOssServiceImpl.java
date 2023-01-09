@@ -76,6 +76,7 @@ public class BSOssServiceImpl implements IBSOssService {
         LambdaQueryWrapper<BSOss> lqw = Wrappers.lambdaQuery();
         lqw.like(StringUtils.isNotBlank(bo.getFileName()), BSOss::getFileName, bo.getFileName());
         lqw.like(StringUtils.isNotBlank(bo.getOriginalName()), BSOss::getOriginalName, bo.getOriginalName());
+        lqw.like(StringUtils.isNotBlank(bo.getUseField()), BSOss::getUseField, bo.getUseField());
         lqw.eq(StringUtils.isNotBlank(bo.getFileSuffix()), BSOss::getFileSuffix, bo.getFileSuffix());
         lqw.eq(StringUtils.isNotBlank(bo.getUrl()), BSOss::getUrl, bo.getUrl());
         lqw.between(params.get("beginCreateTime") != null && params.get("endCreateTime") != null,
@@ -152,6 +153,7 @@ public class BSOssServiceImpl implements IBSOssService {
             UploadResult uploadResult = storage.uploadSuffix(FileUtil.readBytes(file), suffix, bsOssBo.getContentType());
 
             BSOss oss = new BSOss();
+            oss.setUseField("erahub-cloud:bs_oss:url");
             oss.setUrl(uploadResult.getUrl());
             oss.setFileSuffix(suffix);
             oss.setFileName(uploadResult.getFilename());

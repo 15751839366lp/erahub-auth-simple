@@ -128,7 +128,10 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
         String path = System.getProperty("user.dir") + File.separator + "temp_files" + File.separator;
         File file = new File(path + bo.getBlogArticleImageBo().getFileName());
         BSFile upload = remoteFileService.upload(bo.getBlogArticleImageBo().getFileName(),
-            bo.getBlogArticleImageBo().getOriginalName(), bo.getBlogArticleImageBo().getContentType(), FileUtil.readBytes(file));
+            bo.getBlogArticleImageBo().getOriginalName(),
+            bo.getBlogArticleImageBo().getContentType(),
+            FileUtil.readBytes(file),
+            "erahub-cloud:blog_article:article_cover");
         file.delete();
 
         add.setArticleCover(upload.getUrl());
@@ -166,7 +169,10 @@ public class BlogArticleServiceImpl implements IBlogArticleService {
             String path = System.getProperty("user.dir") + File.separator + "temp_files" + File.separator;
             File file = new File(path + bo.getBlogArticleImageBo().getFileName());
             BSFile upload = remoteFileService.upload(bo.getBlogArticleImageBo().getFileName(),
-                bo.getBlogArticleImageBo().getOriginalName(), bo.getBlogArticleImageBo().getContentType(), FileUtil.readBytes(file));
+                bo.getBlogArticleImageBo().getOriginalName(),
+                bo.getBlogArticleImageBo().getContentType(),
+                FileUtil.readBytes(file),
+                "erahub-cloud:blog_article:article_cover");
             file.delete();
             update.setArticleCover(upload.getUrl());
         }

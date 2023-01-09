@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 1.117.176.57
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
- Source Server Version : 80031
- Source Host           : 1.117.176.57:3306
+ Source Server Version : 80026
+ Source Host           : localhost:3306
  Source Schema         : erahub-cloud
 
  Target Server Type    : MySQL
- Target Server Version : 80031
+ Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 08/01/2023 10:26:51
+ Date: 09/01/2023 17:51:44
 */
 
 SET NAMES utf8mb4;
@@ -32,11 +32,11 @@ CREATE TABLE `biz_finance_erp_project`  (
   `settlement_review_amount` decimal(60, 0) NULL DEFAULT NULL COMMENT '结算审核额',
   `contract_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '合同编号',
   `project_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '工程类别',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`project_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'ERP工程明细表' ROW_FORMAT = Dynamic;
 
@@ -66,12 +66,12 @@ CREATE TABLE `blog_article`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`article_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1610946193346084867 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客文章表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1611627133785382914 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_article
 -- ----------------------------
-INSERT INTO `blog_article` VALUES (1604060262542467074, 1605159324440162305, 'http://127.0.0.1:9000/erahub/2022/12/02/4cc68162eeff43d88b1b751adde1bb95.jpg', 'docker入门', '#  1.docker概述\n\n## 1.1 基本介绍\n\nDocker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。\n\nDocker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。\n\n容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。\n\nDocker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE（Enterprise Edition: 企业版），我们用社区版就可以了。[官网](https://docs.docker.com/)\n\n##  1.2 应用场景\n\n1. Web 应用的自动化打包和发布。\n\n2. 自动化测试和持续集成、发布。\n\n3. 在服务型环境中部署和调整数据库或其他的后台应用。\n\n4. 从头编译或者扩展现有的 Openshellift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。\n\n## 1.3 docker 的优势\n\nDocker 是一个用于开发，交付和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，从而可以快速交付软件。借助 Docker，您可以与管理应用程序相同的方式来管理基础架构。通过利用 Docker 的方法来快速交付，测试和部署代码，您可以大大减少编写代码和在生产环境中运行代码之间的延迟。\n\n1. 快速，一致地交付您的应用程序。Docker 允许开发人员使用您提供的应用程序或服务的本地容器在标准化环境中工作，从而简化了开发的生命周期。\n\n容器非常适合持续集成和持续交付（CI / CD）工作流程，请考虑以下示例方案：\n\n您的开发人员在本地编写代码，并使用 Docker 容器与同事共享他们的工作。\n他们使用 Docker 将其应用程序推送到测试环境中，并执行自动或手动测试。\n当开发人员发现错误时，他们可以在开发环境中对其进行修复，然后将其重新部署到测试环境中，以进行测试和验证。\n测试完成后，将修补程序推送给生产环境，就像将更新的镜像推送到生产环境一样简单。\n\n2. 响应式部署和扩展\n   Docker 是基于容器的平台，允许高度可移植的工作负载。Docker 容器可以在开发人员的本机上，数据中心的物理或虚拟机上，云服务上或混合环境中运行。\n\nDocker 的可移植性和轻量级的特性，还可以使您轻松地完成动态管理的工作负担，并根据业务需求指示，实时扩展或拆除应用程序和服务。\n\n3. 在同一硬件上运行更多工作负载\n   Docker 轻巧快速。它为基于虚拟机管理程序的虚拟机提供了可行、经济、高效的替代方案，因此您可以利用更多的计算能力来实现业务目标。Docker 非常适合于高密度环境以及中小型部署，而您可以用更少的资源做更多的事情。\n\n# 2.虚拟化技术和容器化技术\n\n虚拟化技术特点：\n\n1. 资源占用多\n2. 冗余步骤多 \n3. 启动很慢\n\n容器化技术：容器化技术不是模拟的一个完整的操作系统\n\n比较Docker和虚拟机的不同：\n\n1. 传统虚拟机，虚拟出硬件，运行一个完整的操作系统，然后在这个系统上安装和运行软件。\n2. Docker容器内的应用直接运行在宿主机的内容，容器是没有自己的内核的，也没有虚拟硬件。\n3. 每个容器都是相互隔离的，每个容器都有属于自己的文件系统，互不影响。\n\n![20210717124434988.png](https://static.linhaojun.top/articles/c7ae4abaa3a228f0344dd4b480ff7445.png)\n\n# 3.docker的基本组成\n\nDocker的基本组成图如下：\n![20210717120256284.png](https://static.linhaojun.top/articles/8939ae04db634d407f5dec94ba82ec0f.png)\n\n说明：\n\n![20210717120343817.png](https://static.linhaojun.top/articles/323aef7768be3f055eb34b893202933d.png)\n\n# 4.Docker的安装\n\n查看系统的内核：\n\nuname -r\n\n系统内核版本为3.10.0\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# uname -r\n3.10.0-957.21.3.el7.x86_64\n```\n\n查看系统配置\n\ncat /etc/os-release\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# cat /etc/os-release\nNAME=\"CentOS Linux\"\nVERSION=\"7 (Core)\"\nID=\"centos\"\nID_LIKE=\"rhel fedora\"\nVERSION_ID=\"7\"\nPRETTY_NAME=\"CentOS Linux 7 (Core)\"\nANSI_COLOR=\"0;31\"\nCPE_NAME=\"cpe:/o:centos:centos:7\"\nHOME_URL=\"https://www.centos.org/\"\nBUG_REPORT_URL=\"https://bugs.centos.org/\"\n\nCENTOS_MANTISBT_PROJECT=\"CentOS-7\"\nCENTOS_MANTISBT_PROJECT_VERSION=\"7\"\nREDHAT_SUPPORT_PRODUCT=\"centos\"\nREDHAT_SUPPORT_PRODUCT_VERSION=\"7\"\n```\n\nDocker的安装步骤：\n\n## 4.1 卸载旧的版本\n\n```shell\nyum remove docker \\\n                  docker-client \\\n                  docker-client-latest \\\n                  docker-common \\\n                  docker-latest \\\n                  docker-latest-logrotate \\\n                  docker-logrotate \\\n                  docker-engine\n```\n\n## 4.2 下载需要的安装包\n\n```shell\nyum install -y yum-utils\n```\n\n## 4.3 设置镜像的仓库\n\n```shell\nyum-config-manager \\\n    --add-repo \\\n    https://download.docker.com/linux/centos/docker-ce.repo  #国外的地址\n    \n    # 设置阿里云的Docker镜像仓库\nyum-config-manager \\\n    --add-repo \\\n    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo  #国内的地址\n```\n\n## 4.4 更新yum软件包索引\n\n```shell\nyum makecache fast\n```\n\n## 4.5 安装docker相关配置\n\ndocker-ce 是社区版，docker-ee 企业版\n\n```shell\nyum install docker-ce docker-ce-cli containerd.io\n```\n\n出现了completed即安装成功。\n\n## 4.6启动docker\n\n```shell\nsystemctl start docker\n# 查看当前版本号，是否启动成功\ndocker version\n# 设置开机自启动\nsystemctl enable docker\n```\n\n结果：\n\n![2021071712515566.png](https://static.linhaojun.top/articles/386d662b1e8bdd3ffb4aa73dd0d52880.png)\n\n下载hello-world镜像进行测试\n\n![20210717125227931.png](https://static.linhaojun.top/articles/e7ed7744b2020bfa9c023f38cec17882.png)\n\n查看下载的hello world镜像\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z lib]# docker images\nREPOSITORY    TAG       IMAGE ID       CREATED         SIZE\nhello-world   latest    bf756fb1ae65   11 months ago   13.3kB\n```\n\n# 5.docker的卸载\n\n```shell\n# 1. 卸载依赖\nyum remove docker-ce docker-ce-cli containerd.io\n# 2. 删除资源  . /var/lib/docker是docker的默认工作路径\nrm -rf /var/lib/docker\n```\n\n# 6.配置阿里云镜像加速\n\n## 6.1 进入阿里云官网，搜索容器镜像服务\n\n![20210717125337690.png](https://static.linhaojun.top/articles/a6fe14af8199d829fec92b3fd9d50744.png)\n\n## 6.2 依次执行官方的这四条命令\n\n```shell\nsudo mkdir -p /etc/docker\nsudo tee /etc/docker/daemon.json 9000/tcp   quirky_sinoussi\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it 2a3bf3eaa2e4 /bin/bashell\nroot@2a3bf3eaa2e4:/usr/local/tomcat# cd webapps\nroot@2a3bf3eaa2e4:/usr/local/tomcat/webapps# ls\nROOT  docs  examples  host-manager  manager\nroot@2a3bf3eaa2e4:/usr/local/tomcat/webapps# cd ../\nroot@2a3bf3eaa2e4:/usr/local/tomcat# read escape sequence\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker ps\nCONTAINER ID   IMAGE                 COMMAND        CREATED         STATUS         PORTS                    NAMES\n2a3bf3eaa2e4   tomcat                \"/bin/bashell\"    8 minutes ago   Up 8 minutes   8080/tcp                 competent_torvalds\n7789d4505a00   portainer/portainer   \"/portainer\"   24 hours ago    Up 24 hours    0.0.0.0:8088->9000/tcp   quirky_sinoussi\n#2.提交镜像作为一个新的镜像\n\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker commit -m=\"add webapps\" -a=\"Ethan\" 2a3bf3eaa2e4 mytomcat:1.0\nshella256:f189aac861de51087af5bc88a5f1de02d9574e7ee2d163c647dd7503a2d3982b\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker images\nREPOSITORY            TAG       IMAGE ID       CREATED         SIZE\nmytomcat              1.0       f189aac861de   7 seconds ago   653MB\nmysql                 5.7       f07dfa83b528   6 days ago      448MB\ntomcat                latest    feba8d001e3f   10 days ago     649MB\nnginx                 latest    ae2feff98a0c   12 days ago     133MB\ncentos                latest    300e315adb2f   2 weeks ago     209MB\nportainer/portainer   latest    62771b0b9b09   5 months ago    79.1MB\nelasticsearch         7.6.2     f29a1ee41030   9 months ago    791MB\n\n#3.运行容器\n\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker run -it mytomcat:1.0 /bin/bashell\nroot@1645774d4605:/usr/local/tomcat# cd webapps\nroot@1645774d4605:/usr/local/tomcat/webapps# ls\nROOT  docs  examples  host-manager  manager\nwz99sm8v95sckz8bd2c4Z ~]# docker images\nREPOSITORY            TAG       IMAGE ID       CREATED         SIZE\nmytomcat              1.0       f189aac861de   7 seconds ago   653MB\nmysql                 5.7       f07dfa83b528   6 days ago      448MB\ntomcat                latest    feba8d001e3f   10 days ago     649MB\nnginx                 latest    ae2feff98a0c   12 days ago     133MB\ncentos                latest    300e315adb2f   2 weeks ago     209MB\nportainer/portainer   latest    62771b0b9b09   5 months ago    79.1MB\nelasticsearch         7.6.2     f29a1ee41030   9 months ago    791MB\n```\n\n# 12.常用容器部署\n\n## 12.1 Nginx部署\n\n1. 搜索并下载镜像\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker search nginx\nNAME                               DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED\nnginx                              Official build of Nginx.                        14207     [OK]       \njwilder/nginx-proxy                Automated Nginx reverse proxy for docker con…   1932                 [OK]\nricharvey/nginx-php-fpm            Container running Nginx + PHP-FPM capable of…   797                  [OK]\nlinuxserver/nginx                  An Nginx container, brought to you by LinuxS…   137                  \njc21/nginx-proxy-manager           Docker container for managing Nginx proxy ho…   123                  \ntiangolo/nginx-rtmp                Docker image with Nginx using the nginx-rtmp…   107                  [OK]\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker pull nginx\nUsing default tag: latest\nlatest: Pulling from library/nginx\n6ec7b7d162b2: Already exists \ncb420a90068e: Pull complete \n2766c0bf2b07: Pull complete \ne05167b6a99d: Pull complete \n70ac9d795e79: Pull complete \nDigest: shella256:4cf620a5c81390ee209398ecc18e5fb9dd0f5155cd82adcbae532fec94006fb9\nStatus: Downloaded newer image for nginx:latest\ndocker.io/library/nginx:latest\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker images;\nREPOSITORY   TAG       IMAGE ID       CREATED       SIZE\nmysql        5.7       f07dfa83b528   5 days ago    448MB\nnginx        latest    ae2feff98a0c   11 days ago   133MB\ncentos       latest    300e315adb2f   2 weeks ago   209MB\n```\n\n可以到[dockerhub官网](https://hub.docker.com/_/nginx)查看Nginx的详细版本信息\n\n2. 运行测试\n\n```shell\ndocker run -d --name nginx01 -p 3334:80 nginx\n\n-d 后台运行\n--name 给容器命名\n-p 3334:80 将宿主机的端口3334映射到该容器的80端口\n```\n\n运行结果：\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it nginx01 /bin/bashell\nError: No such container: nginx01\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker run -d --name nginx01 -p 3334:80 nginx\n20c896637ff5de8be835797109d62ee2465e28d9d716be5a8d550ef7d547fcf5\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker ps\nCONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                  NAMES\n20c896637ff5   nginx     \"/docker-entrypoint.…\"   7 seconds ago   Up 5 seconds   0.0.0.0:3334->80/tcp   nginx01\n```\n\n端口暴露的概念\n\n![20210718124656411.png](https://static.linhaojun.top/articles/fc0d205dbe5278bbcbbc63b15949f587.png)\n\n3. 配置文件\n   进入容器，自定义配置文件\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it nginx01 /bin/bashell\n   root@20c896637ff5:/# whereis nginx\n   nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/shellare/nginx\n   root@20c896637ff5:/# cd /etc/nginx\n   root@20c896637ff5:/etc/nginx# ls\n   conf.d	fastcgi_params	koi-utf  koi-win  mime.types  modules  nginx.conf  scgi_params	uwsgi_params  win-utf\n   root@20c896637ff5:/# cd /etc/nginx\n   root@20c896637ff5:/etc/nginx# ls\n   conf.d	fastcgi_params	koi-utf  koi-win  mime.types  modules  nginx.conf  scgi_params	uwsgi_params  win-utf\n   ```\n\n4. 访问测试\n   本地主机访问测试，curl命令发起请求，如果使用阿里云服务器需要设置安全组。\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker ps\n   CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                  NAMES\n   20c896637ff5   nginx     \"/docker-entrypoint.…\"   7 minutes ago   Up 7 minutes   0.0.0.0:3334->80/tcp   nginx01\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# curl localhost:3334\n   \n   \n   \n   Welcome to nginx!\n   \n       body {\n           width: 35em;\n           margin: 0 auto;\n           font-family: Tahoma, Verdana, Arial, sans-serif;\n       }\n   \n   \n   \n   Welcome to nginx!\n   If you see this page, the nginx web server is successfully installed and\n   working. Further configuration is required.\n   \n   For online documentation and support please refer to\n   nginx.org.\n   Commercial support is available at\n   nginx.com.\n   \n   Thank you for using nginx.\n   \n   \n   ```\n\n5. 安装vim\n\n   我们使用Nginx往往需要编写配置文件，但是Nginx官方镜像没有安装vim，需要我们手动进行安装。使用以下命令进行安装：\n\n   ```shell\n   #检查是否已安装\n   rpm -qa|grep vim\n   #如果已安装，会显示：\n   [root@localhost usr]# rpm -qa|grep vim\n   vim-minimal-7.4.629-6.el7.x86_64\n   vim-filesystem-7.4.629-6.el7.x86_64\n   vim-enhanced-7.4.629-6.el7.x86_64\n   vim-common-7.4.629-6.el7.x86_64\n   vim-X11-7.4.629-6.el7.x86_64\n   #安装\n   #如果缺少了其中某个，比如说： vim-enhanced这个包少了，则执行：\n   yum -y install vim-enhanced\n   #它会自动下载安装。如果上面三个包一个都没有显示，则直接输入命令：\n   yum -y install vim*\n   #配置\n   vim /etc/vimrc\n   #打开文件后，按 i 进入编辑模式，然后找一个位置添加如下代码\n   set nu          \" 设置显示行号\n   set shellowmode    \" 设置在命令行界面最下面显示当前模式等\n   set ruler       \" 在右下角显示光标所在的行数等信息\n   set autoindent  \" 设置每次单击Enter键后，光标移动到下一行时与上一行的起始字符对齐\n   syntax on       \" 即设置语法检测，当编辑C或者shellell脚本时，关键字会用特殊颜色显示\n   ```\n\n   ps: **由于到目前为止还没学到数据卷，具体的设置以及编写配置文件，你可以先到后面了解一下数据卷，再来编写配置文件**\n\n## 12.2 Tomcat的部署\n\n1. 下载并运行\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker pull tomcat\n   Using default tag: latest\n   latest: Pulling from library/tomcat\n   6c33745f49b4: Pull complete \n   ef072fc32a84: Pull complete \n   c0afb8e68e0b: Pull complete \n   d599c07d28e6: Pull complete \n   e8a829023b97: Pull complete \n   d04be46a31d1: Pull complete \n   db6007c69c35: Pull complete \n   e4ad4c894bce: Pull complete \n   248895fda357: Pull complete \n   277059b4cba2: Pull complete \n   Digest: shella256:57dae7dfb9b62a413cde65334c8a18893795cac70afc3be589c8336d8244655d\n   Status: Downloaded newer image for tomcat:latest\n   docker.io/library/tomcat:latest\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker run -d -p 3335:8080 --name tomcat01 tomcat\n   7136295a6082cb0f805b025a1471bde02ead4864be3e2c9dcd337b1dde0a3113\n   ```\n\n2. 进入容器\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it tomcat01 /bin/bashell\n   root@7136295a6082:/usr/local/tomcat# ls\n   BUILDING.txt  CONTRIBUTING.md  LICENSE	NOTICE	README.md  RELEASE-NOTES  RUNNING.txt  bin  conf  lib  logs  native-jni-lib  temp  webapps  webapps.dist  work\n   root@7136295a6082:/usr/local/tomcat# cd webapps.dist\n   root@7136295a6082:/usr/local/tomcat/webapps.dist# ls\n   ROOT  docs  examples  host-manager  manager\n   root@7136295a6082:/usr/local/tomcat/webapps.dist# cd ROOT\n   root@7136295a6082:/usr/local/tomcat/webapps.dist/ROOT# ls\n   RELEASE-NOTES.txt  WEB-INF  asf-logo-wide.svg  bg-button.png  bg-middle.png  bg-nav.png  bg-upper.png  favicon.ico  index.jsp  tomcat.css  tomcat.svg\n   root@7136295a6082:/usr/local/tomcat/webapps.dist/ROOT# cd ../../\n   root@7136295a6082:/usr/local/tomcat# cd webapps\n   root@7136295a6082:/usr/local/tomcat/webapps# ls\n   root@7136295a6082:/usr/local/tomcat/webapps# cp -r /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps/\n   root@7136295a6082:/usr/local/tomcat/webapps# ls\n   ROOT  docs  examples  host-manager  manager\n   root@7136295a6082:/usr/local/tomcat/webapps# exit\n   exit\n   ```\n\n3. 访问测试\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# curl localhost:3335\n   \n   \n   \n       \n           \n           Apache Tomcat/9.0.41\n           \n           \n       \n   \n       \n           \n               \n                   Home\n                   Documentation\n                   Configuration\n                   Examples\n                   Wiki\n                   Mailing Lists\n                   Find Help\n                   \n               \n   ```\n\n   \n\n## 12.3ElasticSearch部署\n\n### 安装elasticsearch并部署\n\n1. 拉取Elasticsearch镜像\n\n   ```shell\n   docker pull elasticsearch:7.7.0\n   ```\n\n![21782a576ca644869ba50165184f056e.png](https://static.linhaojun.top/articles/c196fe08e838e2a0423b754d3dc684dc.png)\n\n查看镜像命令：docker images\n删除镜像命令：`docker rmi ` or docker rmi \n![77d67f2c1f404c4286eefca7e5c8c5cd.png](https://static.linhaojun.top/articles/19ad83720725e1fa05abf01b81b50286.png)\n\n2. 启动前准备\n   创建存放数据及配置文件的文件夹，启动时挂载。\n\n   ```shell\n   mkdir -p  /home/elasticsearch/data/ \n   mkdir -p  /home/elasticsearch/config/\n   ```\n\n![962ad3c43cd24b75bdec7a75e971efdb.png](https://static.linhaojun.top/articles/b4bb3cc9d1071e8a8ea49d97bf842821.png)\n\n**解释**：\n\n- -p： 参数来创建多级文件夹\n- tree：以树形结构展示文件目录\n\n**编写配置文件**\n\n```shell\necho \'http.host: 0.0.0.0\nhttp.cors.enabled: true\nhttp.cors.allow-origin: \"*\" \'>>/home/elasticsearch/config/elasticsearch.yml\n```\n\n![c0bc056bc3764c0a8689691c25889aa5.png](https://static.linhaojun.top/articles/e7882a6612dedd91167a1a534c5c99e8.png)\n\n解释：\n\n- echo >> ：是利用了shellell编程语法，使用echo >>指令向文件追加内容，原内容将保存\n  - 使用 > 指令的话就是覆盖文件原内容并重新输入内容，若文件不存在则创建文件。\n\n- cat：展示文件内容。\n- `http.cors.enabled: true` 和`http.cors.allow-origin: \"*\"`配置是为了解决跨域问题，因为等下还要下载可视化工具查看。\n\n修改文件夹权限\n\n```shell\nchmod -R 777 /home/elasticsearch/\nls -l # 查看文件权限\n```\n\n![789f7ed4c5134540994ce1bfabcfd7b5.png](https://static.linhaojun.top/articles/3510ab8132ab856ec4d63a1dcdbd57a0.png)\n\n3. 启动elasticseach镜像\n\n   ```shell\n   docker run --name elasticsearch -p 9200:9200 \\\n    -p 9300:9300 \\\n    -e \"discovery.type=single-node\" \\\n    -e ES_JAVA_OPTS=\"-Xms64m -Xmx128m\" \\\n     -v /home/elasticsearch/config/elasticsearch.yml:/usr/shellare/elasticsearch/config/elasticsearch.yml \\\n    -v /home/elasticsearch/data:/usr/shellare/elasticsearch/data \\\n    -v /home/elasticsearch/plugins:/usr/shellare/elasticsearch/plugins \\\n    -d elasticsearch:7.7.0\n   ```\n\n   参数解释：\n\n   ```shell\n   --name elasticsearch：将容器命名为 elasticsearch\n   -p 9200:9200：将容器的9200端口映射到宿主机9200端口\n   -p 9300:9300：将容器的9300端口映射到宿主机9300端口，目的是集群互相通信\n   -e \"discovery.type=single-node\"：单例模式\n   -e ES_JAVA_OPTS=\"-Xms64m -Xmx128m\"：配置内存大小\n   -v /mydata/elasticsearch/config/elasticsearch.yml:/usr/shellare/elasticsearch/config/elasticsearch.yml：将配置文件挂载到宿主机\n   -v /mydata/elasticsearch/data:/usr/shellare/elasticsearch/data：将数据文件夹挂载到宿主机\n   -v /mydata/elasticsearch/plugins:/usr/shellare/elasticsearch/plugins：将插件目录挂载到宿主机(需重启)\n   -d elasticsearch:7.7.0：后台运行容器，并返回容器ID\n   ```\n\n   执行结果：\n\n![0051149a31544ce9bcc6dd0c609f951c.png](https://static.linhaojun.top/articles/f728bfec12bd9f2e239415169216a417.png)\n\n接下来我们就是拿浏览器访问啦。\n\n在浏览器上输入：`服务器IP地址:9200`\n\n4. 可能出现的问题\n\n   - 启动成功，但是访问失败的话，查看一下安全组中映射端口是否已经打开。如果是本地虚拟机，可能与防火墙相关（我用的云服务器，没有测试，如果有问题，还是需要大家自行去百度||谷歌一下）。\n\n   - -e ES_JAVA_OPTS=\"-Xms64m -Xmx128m\"：配置内存大小出现了问题。（可试着调一下，docker玩不坏的，莫慌）\n\n   - 最后就还有可能是配置文件中出现了问题。\n\n```shell\necho \'http.host: 0.0.0.0\nhttp.cors.enabled: true\nhttp.cors.allow-origin: \"*\" \'>>/home/elasticsearch/config/elasticsearch.yml\n```\n\n`http.host: 0.0.0.0` 在冒号后面有一个空格的，这里的配置文件是`yml`格式,所以一定要严格按照`yml`格式来书写。\n\n5. 为Elasticsearch安装ik分词器\n\n   分词:即把一段中文或者别的划分成一个个的关键字,我们在搜索时候会把自己的信息进行分词,会把数据库中或者索引库中的数据进行分词,然后进行一个匹配操作,默认的中文分词器是将每个字看成一个词,比如\"我爱技术\"会被分为\"我\",“爱”,“技”,“术”。\n\n![77f584371974494aa1cd13d571f4a814.png](https://static.linhaojun.top/articles/40aa7b6cb700eea549b5462705fec705.png)\n\n结果：\n\n```json\n{\n    \"tokens\": [\n        {\n            \"token\": \"我\",\n            \"start_offset\": 0,\n            \"end_offset\": 1,\n            \"type\": \"\",\n            \"position\": 0\n        },\n        {\n            \"token\": \"爱\",\n            \"start_offset\": 1,\n            \"end_offset\": 2,\n            \"type\": \"\",\n            \"position\": 1\n        },\n        {\n            \"token\": \"技\",\n            \"start_offset\": 2,\n            \"end_offset\": 3,\n            \"type\": \"\",\n            \"position\": 2\n        },\n        {\n            \"token\": \"术\",\n            \"start_offset\": 3,\n            \"end_offset\": 4,\n            \"type\": \"\",\n            \"position\": 3\n        }\n    ]\n}\n```\n\n这显然不符合要求,所以我们需要安装中文分词器IK来解决这个问题\n\nIK提供了两个分词算法:`ik_smart`和`ik_max_word`\n\n其中`ik_smart`为最少切分,`ik_max_word`为最细粒度划分\n\n### 安装ik分词器\n\n进入已经启动成功的elasticsearch容器。\n\n```shell\ndocker exec -it elasticsearch /bin/bashell\n```\n\n![6bb212d2660941619b6b47902d2fb3b5.png](https://static.linhaojun.top/articles/fdddc3ad8ddea2eb89591d714ee2389c.png)\n\n```shell\n./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.7.0/elasticsearch-analysis-ik-7.7.0.zip\n```\n\nps: **安装的ik分词器的版本一定要与elasticsearch的版本保持一致**\n\n![57a832d36b07437098afc687112f8540.png](https://static.linhaojun.top/articles/8ecde9759a2191ce2b2511b2da79b6e8.png)\n\n下载过程中会出现这个问题，直接输入 y回车就可以了。\n![57ec3132e7084cc89d32d4a784fc9405.png](https://static.linhaojun.top/articles/8dc9db8717dec1c42ded2d5e0a497458.png)\n\n下载完成之后，退出去，重新启动elasticsearch容器。\n\n```shell\ndocker restart elasticsearch #     重启容器命令\n```\n\n![89c033d3379b4fbfb8191fc0385a8534.png](https://static.linhaojun.top/articles/72f7d9f1c437609e95d35bbd6e951357.png)\n\n测试ik分词器是否安装成功\n\n安装完成后，我们再来进行测试遍，看看有什么样的变化。\n\npostman post请求分词测试：`http://服务器IP地址:9200/_analyze`\n\n```json\n{\n	\"tokenizer\":\"ik_smart\",// 分词器不同，这个地方也会有变化 具体的可能还需要去学习。\n	\"text\":\"我爱技术\"\n}\n```\n\n![0e2bda8bee7440fe9911b786c9a29363.png](https://static.linhaojun.top/articles/aac3ae4c600f401b4ce1a25e733e4534.png)\n\n```json\n{\n    \"tokens\": [\n        {\n            \"token\": \"我\",\n            \"start_offset\": 0,\n            \"end_offset\": 1,\n            \"type\": \"CN_CHAR\",\n            \"position\": 0\n        },\n        {\n            \"token\": \"爱\",\n            \"start_offset\": 1,\n            \"end_offset\": 2,\n            \"type\": \"CN_CHAR\",\n            \"position\": 1\n        },\n        {\n            \"token\": \"技术\",\n            \"start_offset\": 2,\n            \"end_offset\": 4,\n            \"type\": \"CN_WORD\",\n            \"position\": 2\n        }\n    ]\n}\n```\n\n### 安装Elasticsearch可视化工具 | mobz/elasticsearch-head:5\n\n`Elasticsearch`可视化工具有多种，可以根据自己的喜好进行选择，我这里使用的是`mobz/elasticsearch-head:5`而已。\n\n1. 拉取镜像\n\n```shell\ndocker pull mobz/elasticsearch-head:5\n```\n![533b907f8094484e94e7ede928bc80d2.png](https://static.linhaojun.top/articles/303d9cc8fe674a831b4fcfc56748ee0a.png)\n\n2. 启动镜像\n\n   ```shell\n   docker run -d --name elasticsearch-head -p 9100:9100 mobz/elasticsearch-head:5\n   ```\n\n![3576fd4f048b46c5bdc241d09facd478.png](https://static.linhaojun.top/articles/1c03e5ca92c146fbc100b87a0db04745.png)\n\n3. 测试\n\n   我们在浏览器访问：http://服务器IP:9100/\n![746009504f2a4c9fb2c18e15095eec32.png](https://static.linhaojun.top/articles/59db93ca961f475d7478a84406ac6a6e.png)\n   \n   \n\n4. 可能出现的问题\n\n   elasticsearch配置文件elasticsearch.yml中 缺少了下列跨域配置\n\n   ```shell\n   http.cors.enabled: true \n   http.cors.allow-origin: \"*\"\n   ```\n\n   \n\n## 12.4MySQL的部署\n\n1. 下载并运行\n\n   ```shell\n   #拉取并运行容器\n   docker run -d --name mysql-5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7\n   ```\n\n   参数说明：\n\n   ```shell\n   -p 3306:3306 ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。\n   MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 默认账号root 用户的密码。\n   ```\n\n2. 进入容器查看mysql服务\n\n   进入容器，并通过账号root查看MySQL服务能否正常连接\n\n   ```shell\n   docker exec -it 9b3aad6819ff /bin/bashell\n   mysql -h localhost -u root -p\n   ```\n\n![1063e7abc3b9453e8962e2c80de648d1.png](https://static.linhaojun.top/articles/889d00a12113ff244fd97022cc05959b.png)\n', '1', '0', '0', '1', '2', '11', '', 'admin', '2022-12-17 18:25:43', 'test', '2023-01-07 12:16:43');
+INSERT INTO `blog_article` VALUES (1604060262542467074, 1605159324440162305, 'http://127.0.0.1:9000/erahub/2023/01/09/1102e05c22cd41d1840517ae99e91f2d.png', 'docker入门', '#  1.docker概述\n\n## 1.1 基本介绍\n\nDocker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。\n\nDocker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。\n\n容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。\n\nDocker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE（Enterprise Edition: 企业版），我们用社区版就可以了。[官网](https://docs.docker.com/)\n\n##  1.2 应用场景\n\n1. Web 应用的自动化打包和发布。\n\n2. 自动化测试和持续集成、发布。\n\n3. 在服务型环境中部署和调整数据库或其他的后台应用。\n\n4. 从头编译或者扩展现有的 Openshellift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。\n\n## 1.3 docker 的优势\n\nDocker 是一个用于开发，交付和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，从而可以快速交付软件。借助 Docker，您可以与管理应用程序相同的方式来管理基础架构。通过利用 Docker 的方法来快速交付，测试和部署代码，您可以大大减少编写代码和在生产环境中运行代码之间的延迟。\n\n1. 快速，一致地交付您的应用程序。Docker 允许开发人员使用您提供的应用程序或服务的本地容器在标准化环境中工作，从而简化了开发的生命周期。\n\n容器非常适合持续集成和持续交付（CI / CD）工作流程，请考虑以下示例方案：\n\n您的开发人员在本地编写代码，并使用 Docker 容器与同事共享他们的工作。\n他们使用 Docker 将其应用程序推送到测试环境中，并执行自动或手动测试。\n当开发人员发现错误时，他们可以在开发环境中对其进行修复，然后将其重新部署到测试环境中，以进行测试和验证。\n测试完成后，将修补程序推送给生产环境，就像将更新的镜像推送到生产环境一样简单。\n\n2. 响应式部署和扩展\n   Docker 是基于容器的平台，允许高度可移植的工作负载。Docker 容器可以在开发人员的本机上，数据中心的物理或虚拟机上，云服务上或混合环境中运行。\n\nDocker 的可移植性和轻量级的特性，还可以使您轻松地完成动态管理的工作负担，并根据业务需求指示，实时扩展或拆除应用程序和服务。\n\n3. 在同一硬件上运行更多工作负载\n   Docker 轻巧快速。它为基于虚拟机管理程序的虚拟机提供了可行、经济、高效的替代方案，因此您可以利用更多的计算能力来实现业务目标。Docker 非常适合于高密度环境以及中小型部署，而您可以用更少的资源做更多的事情。\n\n# 2.虚拟化技术和容器化技术\n\n虚拟化技术特点：\n\n1. 资源占用多\n2. 冗余步骤多 \n3. 启动很慢\n\n容器化技术：容器化技术不是模拟的一个完整的操作系统\n\n比较Docker和虚拟机的不同：\n\n1. 传统虚拟机，虚拟出硬件，运行一个完整的操作系统，然后在这个系统上安装和运行软件。\n2. Docker容器内的应用直接运行在宿主机的内容，容器是没有自己的内核的，也没有虚拟硬件。\n3. 每个容器都是相互隔离的，每个容器都有属于自己的文件系统，互不影响。\n\n![20210717124434988.png](https://static.linhaojun.top/articles/c7ae4abaa3a228f0344dd4b480ff7445.png)\n\n# 3.docker的基本组成\n\nDocker的基本组成图如下：\n![20210717120256284.png](https://static.linhaojun.top/articles/8939ae04db634d407f5dec94ba82ec0f.png)\n\n说明：\n\n![20210717120343817.png](https://static.linhaojun.top/articles/323aef7768be3f055eb34b893202933d.png)\n\n# 4.Docker的安装\n\n查看系统的内核：\n\nuname -r\n\n系统内核版本为3.10.0\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# uname -r\n3.10.0-957.21.3.el7.x86_64\n```\n\n查看系统配置\n\ncat /etc/os-release\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# cat /etc/os-release\nNAME=\"CentOS Linux\"\nVERSION=\"7 (Core)\"\nID=\"centos\"\nID_LIKE=\"rhel fedora\"\nVERSION_ID=\"7\"\nPRETTY_NAME=\"CentOS Linux 7 (Core)\"\nANSI_COLOR=\"0;31\"\nCPE_NAME=\"cpe:/o:centos:centos:7\"\nHOME_URL=\"https://www.centos.org/\"\nBUG_REPORT_URL=\"https://bugs.centos.org/\"\n\nCENTOS_MANTISBT_PROJECT=\"CentOS-7\"\nCENTOS_MANTISBT_PROJECT_VERSION=\"7\"\nREDHAT_SUPPORT_PRODUCT=\"centos\"\nREDHAT_SUPPORT_PRODUCT_VERSION=\"7\"\n```\n\nDocker的安装步骤：\n\n## 4.1 卸载旧的版本\n\n```shell\nyum remove docker \\\n                  docker-client \\\n                  docker-client-latest \\\n                  docker-common \\\n                  docker-latest \\\n                  docker-latest-logrotate \\\n                  docker-logrotate \\\n                  docker-engine\n```\n\n## 4.2 下载需要的安装包\n\n```shell\nyum install -y yum-utils\n```\n\n## 4.3 设置镜像的仓库\n\n```shell\nyum-config-manager \\\n    --add-repo \\\n    https://download.docker.com/linux/centos/docker-ce.repo  #国外的地址\n    \n    # 设置阿里云的Docker镜像仓库\nyum-config-manager \\\n    --add-repo \\\n    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo  #国内的地址\n```\n\n## 4.4 更新yum软件包索引\n\n```shell\nyum makecache fast\n```\n\n## 4.5 安装docker相关配置\n\ndocker-ce 是社区版，docker-ee 企业版\n\n```shell\nyum install docker-ce docker-ce-cli containerd.io\n```\n\n出现了completed即安装成功。\n\n## 4.6启动docker\n\n```shell\nsystemctl start docker\n# 查看当前版本号，是否启动成功\ndocker version\n# 设置开机自启动\nsystemctl enable docker\n```\n\n结果：\n\n![2021071712515566.png](https://static.linhaojun.top/articles/386d662b1e8bdd3ffb4aa73dd0d52880.png)\n\n下载hello-world镜像进行测试\n\n![20210717125227931.png](https://static.linhaojun.top/articles/e7ed7744b2020bfa9c023f38cec17882.png)\n\n查看下载的hello world镜像\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z lib]# docker images\nREPOSITORY    TAG       IMAGE ID       CREATED         SIZE\nhello-world   latest    bf756fb1ae65   11 months ago   13.3kB\n```\n\n# 5.docker的卸载\n\n```shell\n# 1. 卸载依赖\nyum remove docker-ce docker-ce-cli containerd.io\n# 2. 删除资源  . /var/lib/docker是docker的默认工作路径\nrm -rf /var/lib/docker\n```\n\n# 6.配置阿里云镜像加速\n\n## 6.1 进入阿里云官网，搜索容器镜像服务\n\n![20210717125337690.png](https://static.linhaojun.top/articles/a6fe14af8199d829fec92b3fd9d50744.png)\n\n## 6.2 依次执行官方的这四条命令\n\n```shell\nsudo mkdir -p /etc/docker\nsudo tee /etc/docker/daemon.json 9000/tcp   quirky_sinoussi\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it 2a3bf3eaa2e4 /bin/bashell\nroot@2a3bf3eaa2e4:/usr/local/tomcat# cd webapps\nroot@2a3bf3eaa2e4:/usr/local/tomcat/webapps# ls\nROOT  docs  examples  host-manager  manager\nroot@2a3bf3eaa2e4:/usr/local/tomcat/webapps# cd ../\nroot@2a3bf3eaa2e4:/usr/local/tomcat# read escape sequence\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker ps\nCONTAINER ID   IMAGE                 COMMAND        CREATED         STATUS         PORTS                    NAMES\n2a3bf3eaa2e4   tomcat                \"/bin/bashell\"    8 minutes ago   Up 8 minutes   8080/tcp                 competent_torvalds\n7789d4505a00   portainer/portainer   \"/portainer\"   24 hours ago    Up 24 hours    0.0.0.0:8088->9000/tcp   quirky_sinoussi\n#2.提交镜像作为一个新的镜像\n\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker commit -m=\"add webapps\" -a=\"Ethan\" 2a3bf3eaa2e4 mytomcat:1.0\nshella256:f189aac861de51087af5bc88a5f1de02d9574e7ee2d163c647dd7503a2d3982b\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker images\nREPOSITORY            TAG       IMAGE ID       CREATED         SIZE\nmytomcat              1.0       f189aac861de   7 seconds ago   653MB\nmysql                 5.7       f07dfa83b528   6 days ago      448MB\ntomcat                latest    feba8d001e3f   10 days ago     649MB\nnginx                 latest    ae2feff98a0c   12 days ago     133MB\ncentos                latest    300e315adb2f   2 weeks ago     209MB\nportainer/portainer   latest    62771b0b9b09   5 months ago    79.1MB\nelasticsearch         7.6.2     f29a1ee41030   9 months ago    791MB\n\n#3.运行容器\n\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker run -it mytomcat:1.0 /bin/bashell\nroot@1645774d4605:/usr/local/tomcat# cd webapps\nroot@1645774d4605:/usr/local/tomcat/webapps# ls\nROOT  docs  examples  host-manager  manager\nwz99sm8v95sckz8bd2c4Z ~]# docker images\nREPOSITORY            TAG       IMAGE ID       CREATED         SIZE\nmytomcat              1.0       f189aac861de   7 seconds ago   653MB\nmysql                 5.7       f07dfa83b528   6 days ago      448MB\ntomcat                latest    feba8d001e3f   10 days ago     649MB\nnginx                 latest    ae2feff98a0c   12 days ago     133MB\ncentos                latest    300e315adb2f   2 weeks ago     209MB\nportainer/portainer   latest    62771b0b9b09   5 months ago    79.1MB\nelasticsearch         7.6.2     f29a1ee41030   9 months ago    791MB\n```\n\n# 12.常用容器部署\n\n## 12.1 Nginx部署\n\n1. 搜索并下载镜像\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker search nginx\nNAME                               DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED\nnginx                              Official build of Nginx.                        14207     [OK]       \njwilder/nginx-proxy                Automated Nginx reverse proxy for docker con…   1932                 [OK]\nricharvey/nginx-php-fpm            Container running Nginx + PHP-FPM capable of…   797                  [OK]\nlinuxserver/nginx                  An Nginx container, brought to you by LinuxS…   137                  \njc21/nginx-proxy-manager           Docker container for managing Nginx proxy ho…   123                  \ntiangolo/nginx-rtmp                Docker image with Nginx using the nginx-rtmp…   107                  [OK]\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker pull nginx\nUsing default tag: latest\nlatest: Pulling from library/nginx\n6ec7b7d162b2: Already exists \ncb420a90068e: Pull complete \n2766c0bf2b07: Pull complete \ne05167b6a99d: Pull complete \n70ac9d795e79: Pull complete \nDigest: shella256:4cf620a5c81390ee209398ecc18e5fb9dd0f5155cd82adcbae532fec94006fb9\nStatus: Downloaded newer image for nginx:latest\ndocker.io/library/nginx:latest\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker images;\nREPOSITORY   TAG       IMAGE ID       CREATED       SIZE\nmysql        5.7       f07dfa83b528   5 days ago    448MB\nnginx        latest    ae2feff98a0c   11 days ago   133MB\ncentos       latest    300e315adb2f   2 weeks ago   209MB\n```\n\n可以到[dockerhub官网](https://hub.docker.com/_/nginx)查看Nginx的详细版本信息\n\n2. 运行测试\n\n```shell\ndocker run -d --name nginx01 -p 3334:80 nginx\n\n-d 后台运行\n--name 给容器命名\n-p 3334:80 将宿主机的端口3334映射到该容器的80端口\n```\n\n运行结果：\n\n```shell\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it nginx01 /bin/bashell\nError: No such container: nginx01\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker run -d --name nginx01 -p 3334:80 nginx\n20c896637ff5de8be835797109d62ee2465e28d9d716be5a8d550ef7d547fcf5\n[root@iZwz99sm8v95sckz8bd2c4Z ~]# docker ps\nCONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                  NAMES\n20c896637ff5   nginx     \"/docker-entrypoint.…\"   7 seconds ago   Up 5 seconds   0.0.0.0:3334->80/tcp   nginx01\n```\n\n端口暴露的概念\n\n![20210718124656411.png](https://static.linhaojun.top/articles/fc0d205dbe5278bbcbbc63b15949f587.png)\n\n3. 配置文件\n   进入容器，自定义配置文件\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it nginx01 /bin/bashell\n   root@20c896637ff5:/# whereis nginx\n   nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/shellare/nginx\n   root@20c896637ff5:/# cd /etc/nginx\n   root@20c896637ff5:/etc/nginx# ls\n   conf.d	fastcgi_params	koi-utf  koi-win  mime.types  modules  nginx.conf  scgi_params	uwsgi_params  win-utf\n   root@20c896637ff5:/# cd /etc/nginx\n   root@20c896637ff5:/etc/nginx# ls\n   conf.d	fastcgi_params	koi-utf  koi-win  mime.types  modules  nginx.conf  scgi_params	uwsgi_params  win-utf\n   ```\n\n4. 访问测试\n   本地主机访问测试，curl命令发起请求，如果使用阿里云服务器需要设置安全组。\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker ps\n   CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                  NAMES\n   20c896637ff5   nginx     \"/docker-entrypoint.…\"   7 minutes ago   Up 7 minutes   0.0.0.0:3334->80/tcp   nginx01\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# curl localhost:3334\n   \n   \n   \n   Welcome to nginx!\n   \n       body {\n           width: 35em;\n           margin: 0 auto;\n           font-family: Tahoma, Verdana, Arial, sans-serif;\n       }\n   \n   \n   \n   Welcome to nginx!\n   If you see this page, the nginx web server is successfully installed and\n   working. Further configuration is required.\n   \n   For online documentation and support please refer to\n   nginx.org.\n   Commercial support is available at\n   nginx.com.\n   \n   Thank you for using nginx.\n   \n   \n   ```\n\n5. 安装vim\n\n   我们使用Nginx往往需要编写配置文件，但是Nginx官方镜像没有安装vim，需要我们手动进行安装。使用以下命令进行安装：\n\n   ```shell\n   #检查是否已安装\n   rpm -qa|grep vim\n   #如果已安装，会显示：\n   [root@localhost usr]# rpm -qa|grep vim\n   vim-minimal-7.4.629-6.el7.x86_64\n   vim-filesystem-7.4.629-6.el7.x86_64\n   vim-enhanced-7.4.629-6.el7.x86_64\n   vim-common-7.4.629-6.el7.x86_64\n   vim-X11-7.4.629-6.el7.x86_64\n   #安装\n   #如果缺少了其中某个，比如说： vim-enhanced这个包少了，则执行：\n   yum -y install vim-enhanced\n   #它会自动下载安装。如果上面三个包一个都没有显示，则直接输入命令：\n   yum -y install vim*\n   #配置\n   vim /etc/vimrc\n   #打开文件后，按 i 进入编辑模式，然后找一个位置添加如下代码\n   set nu          \" 设置显示行号\n   set shellowmode    \" 设置在命令行界面最下面显示当前模式等\n   set ruler       \" 在右下角显示光标所在的行数等信息\n   set autoindent  \" 设置每次单击Enter键后，光标移动到下一行时与上一行的起始字符对齐\n   syntax on       \" 即设置语法检测，当编辑C或者shellell脚本时，关键字会用特殊颜色显示\n   ```\n\n   ps: **由于到目前为止还没学到数据卷，具体的设置以及编写配置文件，你可以先到后面了解一下数据卷，再来编写配置文件**\n\n## 12.2 Tomcat的部署\n\n1. 下载并运行\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker pull tomcat\n   Using default tag: latest\n   latest: Pulling from library/tomcat\n   6c33745f49b4: Pull complete \n   ef072fc32a84: Pull complete \n   c0afb8e68e0b: Pull complete \n   d599c07d28e6: Pull complete \n   e8a829023b97: Pull complete \n   d04be46a31d1: Pull complete \n   db6007c69c35: Pull complete \n   e4ad4c894bce: Pull complete \n   248895fda357: Pull complete \n   277059b4cba2: Pull complete \n   Digest: shella256:57dae7dfb9b62a413cde65334c8a18893795cac70afc3be589c8336d8244655d\n   Status: Downloaded newer image for tomcat:latest\n   docker.io/library/tomcat:latest\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker run -d -p 3335:8080 --name tomcat01 tomcat\n   7136295a6082cb0f805b025a1471bde02ead4864be3e2c9dcd337b1dde0a3113\n   ```\n\n2. 进入容器\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# docker exec -it tomcat01 /bin/bashell\n   root@7136295a6082:/usr/local/tomcat# ls\n   BUILDING.txt  CONTRIBUTING.md  LICENSE	NOTICE	README.md  RELEASE-NOTES  RUNNING.txt  bin  conf  lib  logs  native-jni-lib  temp  webapps  webapps.dist  work\n   root@7136295a6082:/usr/local/tomcat# cd webapps.dist\n   root@7136295a6082:/usr/local/tomcat/webapps.dist# ls\n   ROOT  docs  examples  host-manager  manager\n   root@7136295a6082:/usr/local/tomcat/webapps.dist# cd ROOT\n   root@7136295a6082:/usr/local/tomcat/webapps.dist/ROOT# ls\n   RELEASE-NOTES.txt  WEB-INF  asf-logo-wide.svg  bg-button.png  bg-middle.png  bg-nav.png  bg-upper.png  favicon.ico  index.jsp  tomcat.css  tomcat.svg\n   root@7136295a6082:/usr/local/tomcat/webapps.dist/ROOT# cd ../../\n   root@7136295a6082:/usr/local/tomcat# cd webapps\n   root@7136295a6082:/usr/local/tomcat/webapps# ls\n   root@7136295a6082:/usr/local/tomcat/webapps# cp -r /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps/\n   root@7136295a6082:/usr/local/tomcat/webapps# ls\n   ROOT  docs  examples  host-manager  manager\n   root@7136295a6082:/usr/local/tomcat/webapps# exit\n   exit\n   ```\n\n3. 访问测试\n\n   ```shell\n   [root@iZwz99sm8v95sckz8bd2c4Z ~]# curl localhost:3335\n   \n   \n   \n       \n           \n           Apache Tomcat/9.0.41\n           \n           \n       \n   \n       \n           \n               \n                   Home\n                   Documentation\n                   Configuration\n                   Examples\n                   Wiki\n                   Mailing Lists\n                   Find Help\n                   \n               \n   ```\n\n   \n\n## 12.3ElasticSearch部署\n\n### 安装elasticsearch并部署\n\n1. 拉取Elasticsearch镜像\n\n   ```shell\n   docker pull elasticsearch:7.7.0\n   ```\n\n![21782a576ca644869ba50165184f056e.png](https://static.linhaojun.top/articles/c196fe08e838e2a0423b754d3dc684dc.png)\n\n查看镜像命令：docker images\n删除镜像命令：`docker rmi ` or docker rmi \n![77d67f2c1f404c4286eefca7e5c8c5cd.png](https://static.linhaojun.top/articles/19ad83720725e1fa05abf01b81b50286.png)\n\n2. 启动前准备\n   创建存放数据及配置文件的文件夹，启动时挂载。\n\n   ```shell\n   mkdir -p  /home/elasticsearch/data/ \n   mkdir -p  /home/elasticsearch/config/\n   ```\n\n![962ad3c43cd24b75bdec7a75e971efdb.png](https://static.linhaojun.top/articles/b4bb3cc9d1071e8a8ea49d97bf842821.png)\n\n**解释**：\n\n- -p： 参数来创建多级文件夹\n- tree：以树形结构展示文件目录\n\n**编写配置文件**\n\n```shell\necho \'http.host: 0.0.0.0\nhttp.cors.enabled: true\nhttp.cors.allow-origin: \"*\" \'>>/home/elasticsearch/config/elasticsearch.yml\n```\n\n![c0bc056bc3764c0a8689691c25889aa5.png](https://static.linhaojun.top/articles/e7882a6612dedd91167a1a534c5c99e8.png)\n\n解释：\n\n- echo >> ：是利用了shellell编程语法，使用echo >>指令向文件追加内容，原内容将保存\n  - 使用 > 指令的话就是覆盖文件原内容并重新输入内容，若文件不存在则创建文件。\n\n- cat：展示文件内容。\n- `http.cors.enabled: true` 和`http.cors.allow-origin: \"*\"`配置是为了解决跨域问题，因为等下还要下载可视化工具查看。\n\n修改文件夹权限\n\n```shell\nchmod -R 777 /home/elasticsearch/\nls -l # 查看文件权限\n```\n\n![789f7ed4c5134540994ce1bfabcfd7b5.png](https://static.linhaojun.top/articles/3510ab8132ab856ec4d63a1dcdbd57a0.png)\n\n3. 启动elasticseach镜像\n\n   ```shell\n   docker run --name elasticsearch -p 9200:9200 \\\n    -p 9300:9300 \\\n    -e \"discovery.type=single-node\" \\\n    -e ES_JAVA_OPTS=\"-Xms64m -Xmx128m\" \\\n     -v /home/elasticsearch/config/elasticsearch.yml:/usr/shellare/elasticsearch/config/elasticsearch.yml \\\n    -v /home/elasticsearch/data:/usr/shellare/elasticsearch/data \\\n    -v /home/elasticsearch/plugins:/usr/shellare/elasticsearch/plugins \\\n    -d elasticsearch:7.7.0\n   ```\n\n   参数解释：\n\n   ```shell\n   --name elasticsearch：将容器命名为 elasticsearch\n   -p 9200:9200：将容器的9200端口映射到宿主机9200端口\n   -p 9300:9300：将容器的9300端口映射到宿主机9300端口，目的是集群互相通信\n   -e \"discovery.type=single-node\"：单例模式\n   -e ES_JAVA_OPTS=\"-Xms64m -Xmx128m\"：配置内存大小\n   -v /mydata/elasticsearch/config/elasticsearch.yml:/usr/shellare/elasticsearch/config/elasticsearch.yml：将配置文件挂载到宿主机\n   -v /mydata/elasticsearch/data:/usr/shellare/elasticsearch/data：将数据文件夹挂载到宿主机\n   -v /mydata/elasticsearch/plugins:/usr/shellare/elasticsearch/plugins：将插件目录挂载到宿主机(需重启)\n   -d elasticsearch:7.7.0：后台运行容器，并返回容器ID\n   ```\n\n   执行结果：\n\n![0051149a31544ce9bcc6dd0c609f951c.png](https://static.linhaojun.top/articles/f728bfec12bd9f2e239415169216a417.png)\n\n接下来我们就是拿浏览器访问啦。\n\n在浏览器上输入：`服务器IP地址:9200`\n\n4. 可能出现的问题\n\n   - 启动成功，但是访问失败的话，查看一下安全组中映射端口是否已经打开。如果是本地虚拟机，可能与防火墙相关（我用的云服务器，没有测试，如果有问题，还是需要大家自行去百度||谷歌一下）。\n\n   - -e ES_JAVA_OPTS=\"-Xms64m -Xmx128m\"：配置内存大小出现了问题。（可试着调一下，docker玩不坏的，莫慌）\n\n   - 最后就还有可能是配置文件中出现了问题。\n\n```shell\necho \'http.host: 0.0.0.0\nhttp.cors.enabled: true\nhttp.cors.allow-origin: \"*\" \'>>/home/elasticsearch/config/elasticsearch.yml\n```\n\n`http.host: 0.0.0.0` 在冒号后面有一个空格的，这里的配置文件是`yml`格式,所以一定要严格按照`yml`格式来书写。\n\n5. 为Elasticsearch安装ik分词器\n\n   分词:即把一段中文或者别的划分成一个个的关键字,我们在搜索时候会把自己的信息进行分词,会把数据库中或者索引库中的数据进行分词,然后进行一个匹配操作,默认的中文分词器是将每个字看成一个词,比如\"我爱技术\"会被分为\"我\",“爱”,“技”,“术”。\n\n![77f584371974494aa1cd13d571f4a814.png](https://static.linhaojun.top/articles/40aa7b6cb700eea549b5462705fec705.png)\n\n结果：\n\n```json\n{\n    \"tokens\": [\n        {\n            \"token\": \"我\",\n            \"start_offset\": 0,\n            \"end_offset\": 1,\n            \"type\": \"\",\n            \"position\": 0\n        },\n        {\n            \"token\": \"爱\",\n            \"start_offset\": 1,\n            \"end_offset\": 2,\n            \"type\": \"\",\n            \"position\": 1\n        },\n        {\n            \"token\": \"技\",\n            \"start_offset\": 2,\n            \"end_offset\": 3,\n            \"type\": \"\",\n            \"position\": 2\n        },\n        {\n            \"token\": \"术\",\n            \"start_offset\": 3,\n            \"end_offset\": 4,\n            \"type\": \"\",\n            \"position\": 3\n        }\n    ]\n}\n```\n\n这显然不符合要求,所以我们需要安装中文分词器IK来解决这个问题\n\nIK提供了两个分词算法:`ik_smart`和`ik_max_word`\n\n其中`ik_smart`为最少切分,`ik_max_word`为最细粒度划分\n\n### 安装ik分词器\n\n进入已经启动成功的elasticsearch容器。\n\n```shell\ndocker exec -it elasticsearch /bin/bashell\n```\n\n![6bb212d2660941619b6b47902d2fb3b5.png](https://static.linhaojun.top/articles/fdddc3ad8ddea2eb89591d714ee2389c.png)\n\n```shell\n./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.7.0/elasticsearch-analysis-ik-7.7.0.zip\n```\n\nps: **安装的ik分词器的版本一定要与elasticsearch的版本保持一致**\n\n![57a832d36b07437098afc687112f8540.png](https://static.linhaojun.top/articles/8ecde9759a2191ce2b2511b2da79b6e8.png)\n\n下载过程中会出现这个问题，直接输入 y回车就可以了。\n![57ec3132e7084cc89d32d4a784fc9405.png](https://static.linhaojun.top/articles/8dc9db8717dec1c42ded2d5e0a497458.png)\n\n下载完成之后，退出去，重新启动elasticsearch容器。\n\n```shell\ndocker restart elasticsearch #     重启容器命令\n```\n\n![89c033d3379b4fbfb8191fc0385a8534.png](https://static.linhaojun.top/articles/72f7d9f1c437609e95d35bbd6e951357.png)\n\n测试ik分词器是否安装成功\n\n安装完成后，我们再来进行测试遍，看看有什么样的变化。\n\npostman post请求分词测试：`http://服务器IP地址:9200/_analyze`\n\n```json\n{\n	\"tokenizer\":\"ik_smart\",// 分词器不同，这个地方也会有变化 具体的可能还需要去学习。\n	\"text\":\"我爱技术\"\n}\n```\n\n![0e2bda8bee7440fe9911b786c9a29363.png](https://static.linhaojun.top/articles/aac3ae4c600f401b4ce1a25e733e4534.png)\n\n```json\n{\n    \"tokens\": [\n        {\n            \"token\": \"我\",\n            \"start_offset\": 0,\n            \"end_offset\": 1,\n            \"type\": \"CN_CHAR\",\n            \"position\": 0\n        },\n        {\n            \"token\": \"爱\",\n            \"start_offset\": 1,\n            \"end_offset\": 2,\n            \"type\": \"CN_CHAR\",\n            \"position\": 1\n        },\n        {\n            \"token\": \"技术\",\n            \"start_offset\": 2,\n            \"end_offset\": 4,\n            \"type\": \"CN_WORD\",\n            \"position\": 2\n        }\n    ]\n}\n```\n\n### 安装Elasticsearch可视化工具 | mobz/elasticsearch-head:5\n\n`Elasticsearch`可视化工具有多种，可以根据自己的喜好进行选择，我这里使用的是`mobz/elasticsearch-head:5`而已。\n\n1. 拉取镜像\n\n```shell\ndocker pull mobz/elasticsearch-head:5\n```\n![533b907f8094484e94e7ede928bc80d2.png](https://static.linhaojun.top/articles/303d9cc8fe674a831b4fcfc56748ee0a.png)\n\n2. 启动镜像\n\n   ```shell\n   docker run -d --name elasticsearch-head -p 9100:9100 mobz/elasticsearch-head:5\n   ```\n\n![3576fd4f048b46c5bdc241d09facd478.png](https://static.linhaojun.top/articles/1c03e5ca92c146fbc100b87a0db04745.png)\n\n3. 测试\n\n   我们在浏览器访问：http://服务器IP:9100/\n![746009504f2a4c9fb2c18e15095eec32.png](https://static.linhaojun.top/articles/59db93ca961f475d7478a84406ac6a6e.png)\n   \n   \n\n4. 可能出现的问题\n\n   elasticsearch配置文件elasticsearch.yml中 缺少了下列跨域配置\n\n   ```shell\n   http.cors.enabled: true \n   http.cors.allow-origin: \"*\"\n   ```\n\n   \n\n## 12.4MySQL的部署\n\n1. 下载并运行\n\n   ```shell\n   #拉取并运行容器\n   docker run -d --name mysql-5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7\n   ```\n\n   参数说明：\n\n   ```shell\n   -p 3306:3306 ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。\n   MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 默认账号root 用户的密码。\n   ```\n\n2. 进入容器查看mysql服务\n\n   进入容器，并通过账号root查看MySQL服务能否正常连接\n\n   ```shell\n   docker exec -it 9b3aad6819ff /bin/bashell\n   mysql -h localhost -u root -p\n   ```\n\n![1063e7abc3b9453e8962e2c80de648d1.png](https://static.linhaojun.top/articles/889d00a12113ff244fd97022cc05959b.png)\n', '1', '0', '0', '1', '2', '11', '', 'admin', '2022-12-17 18:25:43', 'test', '2023-01-09 17:41:57');
 INSERT INTO `blog_article` VALUES (1604081892463243265, 1605166598017581057, 'http://127.0.0.1:9000/erahub/2022/12/11/49b8cc3fe7d0461f8c44f02d3ef830c7.jpg', 'MySQL 覆盖索引', '## 1.什么是索引\n索引（在 MySQL 中也叫“键key”）是存储引擎快速找到记录的一种数据结构，通俗来说类似书本的目录，这个比方虽然被用的最多但是也是最恰如其当的，在查询书本中的某个知识点不借助目录的情况下，往往都找的够呛，那么索引相较于数据库的重要性也可见一斑。\n## 2.索引的有哪些种类？\n索引的种类这里只罗列出InnoDB支持的索引：主键索引(PRIMARY)，普通索引(INDEX)，唯一索引(UNIQUE)，组合索引，总体划分为两类，主键索引也被称为聚簇索引（clustered index），其余都称呼为非主键索引也被称为二级索引（secondary index）。\n## 3.InnoDB的不同的索引组织结构是怎样的呢？\n众所周知在InnoDB引用的是B+树索引模型，这里对B+树结构暂时不做过多阐述，很多文章都有描述，在第二问中我们对索引的种类划分为两大类主键索引和非主键索引，那么问题就在于比较两种索引的区别了，我们这里建立一张学生表，其中包含字段id设置主键索引、name设置普通索引、age(无处理)，并向数据库中插入4条数据：（\"小赵\", 10）（\"小王\", 11）（\"小李\", 12）（\"小陈\", 13）\n```sql\nCREATE TABLE `student` (\n  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT \'自增主键\',\n  `name` varchar(32) COLLATE utf8_bin NOT NULL COMMENT \'名称\',\n  `age` int(3) unsigned NOT NULL DEFAULT \'1\' COMMENT \'年龄\',\n  PRIMARY KEY (`id`),\n  KEY `I_name` (`name`)\n) ENGINE=InnoDB;\n\nINSERT INTO student (name, age) VALUES(\"小赵\", 10),(\"小王\", 11),(\"小李\", 12),(\"小陈\", 13);\n```\n这里我们设置了主键为自增，那么此时数据库里数据为\n![image.png](https://static.linhaojun.top/articles/9f480278926cf7780795ac1d9a1b19f8.png)\n每一个索引在 InnoDB 里面对应一棵B+树，那么此时就存着两棵B+树。\n![image.png](https://static.linhaojun.top/articles/72e270f3bf165ce9f71a2585a43fb0fa.png)\n可以发现区别在与叶子节点中，主键索引存储了整行数据，而非主键索引中存储的值为主键id, 在我们执行如下sql后\n```sql\nSELECT age FROM student WHERE name = \'小李\'；\n```\n流程为：\n\n1. 在name索引树上找到名称为小李的节点 id为03\n2. 从id索引树上找到id为03的节点 获取所有数据\n3. 从数据中获取字段命为age的值返回 12\n``在流程中从非主键索引树搜索回到主键索引树搜索的过程称为：回表``，在本次查询中因为查询结果只存在主键索引树中，我们必须回表才能查询到结果，那么如何优化这个过程呢？引入正文覆盖索引\n## 4.什么是覆盖索引\n覆盖索引（covering index ，或称为索引覆盖）即从非主键索引中就能查到的记录，而不需要查询主键索引中的记录，避免了回表的产生减少了树的搜索次数，显著提升性能。\n## 5.如何使用是覆盖索引？\n之前我们已经建立了表student，那么现在出现的业务需求中要求根据名称获取学生的年龄，并且该搜索场景非常频繁，那么先在我们删除掉之前以字段name建立的普通索引，以name和age两个字段建立联合索引，sql命令与建立后的索引树结构如下\n```sql\nALTER TABLE student DROP INDEX I_name;\nALTER TABLE student ADD INDEX I_name_age(name, age);\n```\n![image.png](https://static.linhaojun.top/articles/dcb1b7d52b648cf285841868772d1766.png)\n那在我们再次执行如下sql后\n```sql\nSELECT age FROM student WHERE name = \'小李\'；\n```\n流程为：\n\n1. 在name,age联合索引树上找到名称为小李的节点\n2. 此时节点索引里包含信息age 直接返回 12\n## 6.如何确定数据库成功使用了覆盖索引呢？\n当发起一个索引覆盖查询时，在explain的extra列可以看到using index的信息\n![image.png](https://static.linhaojun.top/articles/9bea8f5a5442b750c0dfef126e29741f.png)\n这里我们很清楚的看到Extra中Using index表明我们成功使用了覆盖索引\n> 总结：覆盖索引避免了回表现象的产生，从而减少树的搜索次数，显著提升查询性能，所以使用覆盖索引是性能优化的一种手段，文章有不当之处，欢迎指正~', '0', '0', '0', '2', '2', NULL, NULL, 'test', '2022-12-17 19:51:40', 'test', '2023-01-07 12:49:37');
 
 -- ----------------------------
@@ -103,7 +103,7 @@ CREATE TABLE `blog_category`  (
   `create_time` datetime(0) NOT NULL COMMENT '发表时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`category_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客分类表' ROW_FORMAT = Dynamic;
 
@@ -120,12 +120,12 @@ DROP TABLE IF EXISTS `blog_tag`;
 CREATE TABLE `blog_tag`  (
   `tag_id` bigint(0) NOT NULL COMMENT '标签ID',
   `tag_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签名',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '标签状态（0正常 1停用）',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '标签状态（0正常 1停用）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建者',
   `create_time` datetime(0) NOT NULL COMMENT '发表时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`tag_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
 
@@ -141,26 +141,26 @@ INSERT INTO `blog_tag` VALUES (1605166617282019330, 'Docker', '0', 'admin', '202
 DROP TABLE IF EXISTS `blog_user`;
 CREATE TABLE `blog_user`  (
   `blog_user_id` bigint(0) NOT NULL COMMENT '博客用户ID',
-  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '邮箱号',
-  `blog_user_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '博客用户名称',
-  `nick_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '博客用户昵称',
-  `avatar` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '头像地址',
-  `phonenumber` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '手机号码',
-  `sex` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '2' COMMENT '用户性别（0男 1女 2未知）',
-  `intro` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户简介',
-  `website` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '个人网站',
-  `password` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '密码',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `login_ip` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '最后登录IP',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱号',
+  `blog_user_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '博客用户名称',
+  `nick_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '博客用户昵称',
+  `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '头像地址',
+  `phonenumber` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '手机号码',
+  `sex` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '2' COMMENT '用户性别（0男 1女 2未知）',
+  `intro` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户简介',
+  `website` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '个人网站',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '密码',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `login_ip` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '最后登录IP',
   `login_date` datetime(0) NULL DEFAULT NULL COMMENT '最后登录时间',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`blog_user_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '博客用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '博客用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_user
@@ -172,17 +172,17 @@ CREATE TABLE `blog_user`  (
 DROP TABLE IF EXISTS `bs_notice`;
 CREATE TABLE `bs_notice`  (
   `notice_id` bigint(0) NOT NULL COMMENT '公告ID',
-  `notice_title` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公告标题',
-  `notice_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
+  `notice_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告标题',
+  `notice_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` longblob NULL COMMENT '公告内容',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bs_notice
@@ -194,21 +194,25 @@ CREATE TABLE `bs_notice`  (
 DROP TABLE IF EXISTS `bs_oss`;
 CREATE TABLE `bs_oss`  (
   `oss_id` bigint(0) NOT NULL COMMENT '对象存储主键',
-  `file_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
-  `original_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '原名',
-  `file_suffix` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '文件后缀名',
-  `url` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'URL地址',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `original_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '原名',
+  `use_field` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '使用的表字段',
+  `file_suffix` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件后缀名',
+  `url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'URL地址',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '上传人',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '上传人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新人',
-  `service` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'minio' COMMENT '服务商',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新人',
+  `service` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'minio' COMMENT '服务商',
   PRIMARY KEY (`oss_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = 'OSS对象存储表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'OSS对象存储表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bs_oss
 -- ----------------------------
+INSERT INTO `bs_oss` VALUES (1601798378332225537, '2022/12/11/49b8cc3fe7d0461f8c44f02d3ef830c7.jpg', '2be4264be9b35a5755298952340d31556167e027_raw.jpg', 'erahub-cloud:sys_user:avatar', '.jpg', 'http://127.0.0.1:9000/erahub/2022/12/11/49b8cc3fe7d0461f8c44f02d3ef830c7.jpg', '2022-12-11 12:37:48', 'admin', '2022-12-11 12:37:48', 'admin', 'minio');
+INSERT INTO `bs_oss` VALUES (1612384169976508418, '2023/01/09/1102e05c22cd41d1840517ae99e91f2d.png', '1ea5cd776a448528.png', 'erahub-cloud:blog_article:article_cover', '.png', 'http://127.0.0.1:9000/erahub/2023/01/09/1102e05c22cd41d1840517ae99e91f2d.png', '2023-01-09 17:41:57', 'test', '2023-01-09 17:41:57', 'test', 'minio');
+INSERT INTO `bs_oss` VALUES (1612384976062951425, '2023/01/09/506011f10c874091a3884850352a8b6a.jpg', '049a864a4b300a02f63557fc55e181c655464029.jpg', 'erahub-cloud:sys_user:avatar', '.jpg', 'http://127.0.0.1:9000/erahub/2023/01/09/506011f10c874091a3884850352a8b6a.jpg', '2023-01-09 17:45:10', 'test', '2023-01-09 17:45:10', 'test', 'minio');
 
 -- ----------------------------
 -- Table structure for bs_oss_config
@@ -216,25 +220,25 @@ CREATE TABLE `bs_oss`  (
 DROP TABLE IF EXISTS `bs_oss_config`;
 CREATE TABLE `bs_oss_config`  (
   `oss_config_id` bigint(0) NOT NULL COMMENT '主建',
-  `config_key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '配置key',
-  `access_key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT 'accessKey',
-  `secret_key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '秘钥',
-  `bucket_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '桶名称',
-  `prefix` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '前缀',
-  `endpoint` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '访问站点',
-  `domain` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '自定义域名',
-  `is_https` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'N' COMMENT '是否https（Y=是,N=否）',
-  `region` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '域',
-  `access_policy` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '1' COMMENT '桶权限类型(0=private 1=public 2=custom)',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '1' COMMENT '状态（0=正常,1=停用）',
-  `ext1` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '扩展字段',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `config_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '配置key',
+  `access_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT 'accessKey',
+  `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '秘钥',
+  `bucket_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '桶名称',
+  `prefix` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '前缀',
+  `endpoint` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '访问站点',
+  `domain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '自定义域名',
+  `is_https` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否https（Y=是,N=否）',
+  `region` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '域',
+  `access_policy` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '桶权限类型(0=private 1=public 2=custom)',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '状态（0=正常,1=停用）',
+  `ext1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '扩展字段',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`oss_config_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '对象存储配置表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '对象存储配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bs_oss_config
@@ -251,17 +255,17 @@ INSERT INTO `bs_oss_config` VALUES (5, 'minio-lp', 'minioadmin', 'minioadmin', '
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config`  (
   `config_id` bigint(0) NOT NULL COMMENT '参数主键',
-  `config_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '参数名称',
-  `config_key` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '参数键名',
-  `config_value` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '参数键值',
-  `config_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `config_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '参数名称',
+  `config_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '参数键名',
+  `config_value` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '参数键值',
+  `config_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_config
@@ -279,20 +283,20 @@ DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`  (
   `dept_id` bigint(0) NOT NULL COMMENT '部门id',
   `parent_id` bigint(0) NULL DEFAULT 0 COMMENT '父部门id',
-  `ancestors` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '祖级列表',
-  `dept_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '部门名称',
+  `ancestors` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '祖级列表',
+  `dept_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '部门名称',
   `order_num` int(0) NULL DEFAULT 0 COMMENT '显示顺序',
-  `leader` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '负责人',
-  `phone` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `leader` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '负责人',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -329,20 +333,20 @@ DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data`  (
   `dict_code` bigint(0) NOT NULL COMMENT '字典编码',
   `dict_sort` int(0) NULL DEFAULT 0 COMMENT '字典排序',
-  `dict_label` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '字典标签',
-  `dict_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '字典键值',
-  `dict_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '字典类型',
-  `css_class` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
-  `list_class` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表格回显样式',
-  `is_default` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `dict_label` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典标签',
+  `dict_value` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典键值',
+  `dict_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典类型',
+  `css_class` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
+  `list_class` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表格回显样式',
+  `is_default` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -398,17 +402,17 @@ INSERT INTO `sys_dict_data` VALUES (1605148230401232897, 2, '停用', '1', 'blog
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type`  (
   `dict_id` bigint(0) NOT NULL COMMENT '字典主键',
-  `dict_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '字典名称',
-  `dict_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '字典类型',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `dict_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典名称',
+  `dict_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典类型',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE INDEX `dict_type`(`dict_type`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '字典类型表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典类型表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -437,16 +441,16 @@ INSERT INTO `sys_dict_type` VALUES (1605147784060178434, '博客标签状态', '
 DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE `sys_logininfor`  (
   `info_id` bigint(0) NOT NULL COMMENT '访问ID',
-  `user_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '用户账号',
-  `ipaddr` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '登录IP地址',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
-  `msg` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '提示信息',
+  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户账号',
+  `ipaddr` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录IP地址',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
+  `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '提示信息',
   `access_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
-  `login_location` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '登录地址',
-  `browser` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '浏览器类型',
-  `os` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '操作系统',
+  `login_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录地址',
+  `browser` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '浏览器类型',
+  `os` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作系统',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -1027,8 +1031,7 @@ INSERT INTO `sys_logininfor` VALUES (1611620574766379010, 'test', '127.0.0.1', '
 INSERT INTO `sys_logininfor` VALUES (1611620588964098050, 'test', '127.0.0.1', '0', '登录成功', '2023-01-07 15:07:46', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1611626463816658945, 'test', '127.0.0.1', '0', '退出成功', '2023-01-07 15:31:06', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1611626477339095042, 'test', '127.0.0.1', '0', '登录成功', '2023-01-07 15:31:09', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
-INSERT INTO `sys_logininfor` VALUES (1611912040191860737, 'admin', '223.65.103.1', '0', '登录成功', '2023-01-08 10:25:53', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
-INSERT INTO `sys_logininfor` VALUES (1611912069229027329, 'admin', '223.65.103.1', '0', '退出成功', '2023-01-08 10:26:00', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1612380063564152833, 'test', '127.0.0.1', '0', '登录成功', '2023-01-09 17:25:38', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1036,26 +1039,26 @@ INSERT INTO `sys_logininfor` VALUES (1611912069229027329, 'admin', '223.65.103.1
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
   `menu_id` bigint(0) NOT NULL COMMENT '菜单ID',
-  `menu_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '菜单名称',
+  `menu_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称',
   `parent_id` bigint(0) NULL DEFAULT 0 COMMENT '父菜单ID',
   `order_num` int(0) NULL DEFAULT 0 COMMENT '显示顺序',
-  `path` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '路由地址',
-  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件路径',
-  `query_param` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '路由参数',
+  `path` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '路由地址',
+  `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件路径',
+  `query_param` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路由参数',
   `is_frame` int(0) NULL DEFAULT 1 COMMENT '是否为外链（0是 1否）',
   `is_cache` int(0) NULL DEFAULT 0 COMMENT '是否缓存（0缓存 1不缓存）',
-  `menu_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
-  `visible` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
-  `perms` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限标识',
-  `icon` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '#' COMMENT '菜单图标',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `menu_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
+  `visible` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
+  `perms` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限标识',
+  `icon` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '#' COMMENT '菜单图标',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1195,24 +1198,24 @@ INSERT INTO `sys_menu` VALUES (1609739421833207810, 'Prometheus', 2, 14, 'http:/
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log`  (
   `oper_id` bigint(0) NOT NULL COMMENT '日志主键',
-  `title` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '模块标题',
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '模块标题',
   `business_type` int(0) NULL DEFAULT 0 COMMENT '业务类型（0其它 1新增 2修改 3删除）',
-  `method` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '方法名称',
-  `request_method` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '请求方式',
+  `method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '方法名称',
+  `request_method` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求方式',
   `operator_type` int(0) NULL DEFAULT 0 COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
-  `oper_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '操作人员',
-  `dept_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '部门名称',
-  `oper_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '请求URL',
-  `oper_ip` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '主机地址',
-  `oper_location` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '操作地点',
-  `oper_param` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '请求参数',
-  `json_result` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '返回参数',
+  `oper_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作人员',
+  `dept_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '部门名称',
+  `oper_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求URL',
+  `oper_ip` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '主机地址',
+  `oper_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作地点',
+  `oper_param` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求参数',
+  `json_result` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '返回参数',
   `status` int(0) NULL DEFAULT 0 COMMENT '操作状态（0正常 1异常）',
-  `error_msg` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '错误消息',
+  `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
   `execution_time` bigint(0) NULL DEFAULT NULL COMMENT '执行时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -1422,6 +1425,21 @@ INSERT INTO `sys_oper_log` VALUES (1611627175162228738, '博客文章', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1611627187673837570, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.delete()', 'DELETE', 1, 'test', '', '/article/1611627133785382913', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-07 15:33:59', 18);
 INSERT INTO `sys_oper_log` VALUES (1611627196502847489, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.delete()', 'DELETE', 1, 'test', '', '/article/1611618575421370369', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-07 15:34:01', 5);
 INSERT INTO `sys_oper_log` VALUES (1611627233815375874, '博客文章', 3, 'com.erahub.blog.controller.BlogArticleController.remove()', 'DELETE', 1, 'test', '', '/article/remove/1611618575421370369,1611627133785382913', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-07 15:34:10', 56);
+INSERT INTO `sys_oper_log` VALUES (1612380175392686082, 'ERP工程', 1, 'com.erahub.biz.finance.controller.FinanceERPProjectController.add()', 'POST', 1, 'test', '', '/finance/erpproject', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"projectId\":\"1612380175036071937\",\"projectNumber\":\"5\",\"requisitionNumber\":\"5\",\"deviceName\":null,\"projectName\":null,\"planType\":null,\"department\":null,\"settlementReviewAmount\":null,\"contractNumber\":null,\"projectType\":null,\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:26:05', 42);
+INSERT INTO `sys_oper_log` VALUES (1612380185362546689, 'ERP工程', 3, 'com.erahub.biz.finance.controller.FinanceERPProjectController.remove()', 'DELETE', 1, 'test', '', '/finance/erpproject/1612380175036071937', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:26:07', 58);
+INSERT INTO `sys_oper_log` VALUES (1612384148421980161, 'OSS对象存储', 3, 'com.erahub.base.basicservice.controller.BSOssController.removeTempFiles()', 'DELETE', 1, 'test', '', '/oss/removeTempFiles/undefined', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:41:52', 44);
+INSERT INTO `sys_oper_log` VALUES (1612384161323659265, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'test', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"59935b87a9ec45a08d4d460f21ef5f11.png\",\"originalName\":\"1ea5cd776a448528.png\",\"fileSuffix\":\".png\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"image/png\"}}', 0, '', '2023-01-09 17:41:55', 33);
+INSERT INTO `sys_oper_log` VALUES (1612384170379161602, '博客文章', 2, 'com.erahub.blog.controller.BlogArticleController.edit()', 'PUT', 1, 'test', '', '/article', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-12-17 18:25:43\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-07 12:16:43\",\"articleId\":\"1604060262542467074\",\"categoryId\":\"1605159324440162305\",\"tagId\":null,\"articleCover\":\"http://127.0.0.1:9000/erahub/2022/12/02/4cc68162eeff43d88b1b751adde1bb95.jpg\",\"blogArticleImageBo\":{\"fileName\":\"59935b87a9ec45a08d4d460f21ef5f11.png\",\"originalName\":\"1ea5cd776a448528.png\",\"fileSuffix\":\".png\",\"contentType\":\"image/png\"},\"articleTitle\":\"docker入门\",\"articleContent\":\"#  1.docker概述\\n\\n## 1.1 基本介绍\\n\\nDocker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。\\n\\nDocker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。\\n\\n容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。\\n\\nDocker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE（Enterprise Edition: 企业版），我们用社区版就可以了。[官网](https://docs.docker.com/)\\n\\n##  1.2 应用场景\\n\\n1. Web 应用的自动化打包和发布。\\n\\n2. 自动化测试和持续集成、发布。\\n\\n3. 在服务型环境中部署和调整数据库或其他的后台应用。\\n\\n4. 从头编译或者扩展现有的 Openshellift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。\\n\\n## 1.3 docker 的优势\\n\\nDocker 是一个用于开发，交付和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，从而可以快速交付软件。借助 Docker，您可以与管理应用程序相同的方式来管理基础架构。通过利用 Docker 的方法来快速交付，测试和部署代码，您可以大大减少编写代码和在生产环境中运行代码之间的延迟。\\n\\n1. 快速，一致地交付您的应用程序。Docker 允许开发人员使用您提供的应用程序或服务的本地容器在标准化环境中工作，从而简化了开发的生命周期。\\n\\n容器非常适合持续集成和持续交付（CI / CD）工作流程，请考虑以下示例方案：\\n\\n您的开发人员在本地编写代码，并使用 Docker 容器与同事共享他们的工作。\\n他们使用 Docker 将其应用程序推送到测试环境中，并执行自动或手动测试。\\n当开发人员发现错误时，他们可以在开发环境中对其进行修复，然后将其重新部署到测试环境中，以进行测试和验证。\\n测试完成后，将修补程序推送给生产环境，就像将更新的镜像推送到生产环境一样简单。\\n\\n2. 响应式部署和扩展\\n   Docker 是基于容器的平台，允许高度可移植的工作负载。Docker 容器可以在开发人员的本机上，数据中心的物理或虚拟机上，云服务上或混合环境中运行。\\n\\nDocker 的可移植性和轻量级的特性，还可以使您轻松地完成动态管理的工作负担，并根据业务需求指示，实时扩展或拆除应用程序和服务。\\n\\n3. 在同一硬件上运行更多工作负载\\n   Docker 轻巧快速。它为基于虚拟机管理程序的虚拟机提供了可行、经济、高效的替代方案，因此您可以利用更多的计算能力来实现业务目标。Docker 非常适合于高密度环境以及中小型部署，而您可以用更少的资源做更多的事情。\\n\\n# 2.虚拟化技术和容器化技术\\n\\n虚拟化技术特点：\\n\\n1. 资源占用多\\n2. 冗余步骤多 \\n3. 启动很慢\\n\\n容器化技术：容器化技术不是模拟的一个完整的操作系统\\n\\n比较Docker和虚拟机的不同：\\n\\n1. 传统虚拟机，虚拟出硬件，运行一个完整的操作系统，然后在这个系统上安装和运行软件。\\n2. Docker容器内的应用直接运行在宿主机的内容，容器是没有自己的内核的，也没有虚拟硬件。\\n3. 每个容器都是相互隔离的，每个容器都有属于自己的文件系统，互不影响。\\n\\n![202107171244', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:41:58', 820);
+INSERT INTO `sys_oper_log` VALUES (1612384199143698434, '数据库文档', 5, 'com.erahub.base.tool.controller.ToDatabaseDocController.exportHtml()', 'GET', 1, 'test', '', '/db-doc/export-html', '127.0.0.1', '', '{}', '', 0, '', '2023-01-09 17:42:04', 269);
+INSERT INTO `sys_oper_log` VALUES (1612384977665175553, '用户头像', 2, 'com.erahub.base.system.controller.SysProfileController.avatar()', 'POST', 1, 'test', '', '/user/profile/avatar', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"imgUrl\":\"http://127.0.0.1:9000/erahub/2023/01/09/506011f10c874091a3884850352a8b6a.jpg\"}}', 0, '', '2023-01-09 17:45:10', 577);
+INSERT INTO `sys_oper_log` VALUES (1612385035005505538, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'test', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"00c51419068148739f0989bb559e2a52.jpg\",\"originalName\":\"-1b1a7260f5581b4e.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"image/jpeg\"}}', 0, '', '2023-01-09 17:45:24', 23);
+INSERT INTO `sys_oper_log` VALUES (1612385039703126018, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'test', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"d16d60050edd427582566a85f909ca40.jpg\",\"originalName\":\"-1de35f61cb2a15bf.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"image/jpeg\"}}', 0, '', '2023-01-09 17:45:25', 7);
+INSERT INTO `sys_oper_log` VALUES (1612385048330809345, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'test', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"6bb3334c08374f17b990b53da606ba8c.jpg\",\"originalName\":\"-1de35f61cb2a15bf.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"image/jpeg\"}}', 0, '', '2023-01-09 17:45:27', 2);
+INSERT INTO `sys_oper_log` VALUES (1612385054882312193, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.insertBatch()', 'POST', 1, 'test', '', '/oss/addOssBatch', '127.0.0.1', '', '[{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"00c51419068148739f0989bb559e2a52.jpg\",\"originalName\":\"-1b1a7260f5581b4e.jpg\",\"fileSuffix\":\".jpg\",\"url\":null,\"service\":null,\"contentType\":\"image/jpeg\"},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"d16d60050edd427582566a85f909ca40.jpg\",\"originalName\":\"-1de35f61cb2a15bf.jpg\",\"fileSuffix\":\".jpg\",\"url\":null,\"service\":null,\"contentType\":\"image/jpeg\"},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"6bb3334c08374f17b990b53da606ba8c.jpg\",\"originalName\":\"-1de35f61cb2a15bf.jpg\",\"fileSuffix\":\".jpg\",\"url\":null,\"service\":null,\"contentType\":\"image/jpeg\"}]', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:45:28', 66);
+INSERT INTO `sys_oper_log` VALUES (1612385091993513986, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'test', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"ba088373092046a2ada1254de7f4373e.xls\",\"originalName\":\"1.xls\",\"useField\":null,\"fileSuffix\":\".xls\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"application/vnd.ms-excel\"}}', 0, '', '2023-01-09 17:45:37', 2);
+INSERT INTO `sys_oper_log` VALUES (1612385103355883522, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'test', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"9d86181a9fb44c138f1d978060580533.xls\",\"originalName\":\"2.xls\",\"useField\":null,\"fileSuffix\":\".xls\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"application/vnd.ms-excel\"}}', 0, '', '2023-01-09 17:45:40', 0);
+INSERT INTO `sys_oper_log` VALUES (1612385106732298242, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.insertBatch()', 'POST', 1, 'test', '', '/oss/addOssBatch', '127.0.0.1', '', '[{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"ba088373092046a2ada1254de7f4373e.xls\",\"originalName\":\"1.xls\",\"fileSuffix\":\".xls\",\"url\":null,\"service\":null,\"contentType\":\"application/vnd.ms-excel\"},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"9d86181a9fb44c138f1d978060580533.xls\",\"originalName\":\"2.xls\",\"fileSuffix\":\".xls\",\"url\":null,\"service\":null,\"contentType\":\"application/vnd.ms-excel\"}]', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:45:41', 77);
+INSERT INTO `sys_oper_log` VALUES (1612386255896162306, 'OSS对象存储', 3, 'com.erahub.base.basicservice.controller.BSOssController.remove()', 'DELETE', 1, 'test', '', '/oss/1612385106656800769,1612385106656800770,1612385054811009026,1612385054811009027,1612385054811009028', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-09 17:50:15', 103);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1429,17 +1447,17 @@ INSERT INTO `sys_oper_log` VALUES (1611627233815375874, '博客文章', 3, 'com.
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post`  (
   `post_id` bigint(0) NOT NULL COMMENT '岗位ID',
-  `post_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '岗位编码',
-  `post_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '岗位名称',
+  `post_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位编码',
+  `post_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位名称',
   `post_sort` int(0) NOT NULL COMMENT '显示顺序',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_post
@@ -1455,21 +1473,21 @@ INSERT INTO `sys_post` VALUES (4, 'user', '普通员工', 4, '0', 'admin', '2022
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
   `role_id` bigint(0) NOT NULL COMMENT '角色ID',
-  `role_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '角色名称',
-  `role_key` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '角色权限字符串',
+  `role_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名称',
+  `role_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色权限字符串',
   `role_sort` int(0) NOT NULL COMMENT '显示顺序',
-  `data_scope` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
+  `data_scope` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `menu_check_strictly` tinyint(1) NULL DEFAULT 1 COMMENT '菜单树选择项是否关联显示',
   `dept_check_strictly` tinyint(1) NULL DEFAULT 1 COMMENT '部门树选择项是否关联显示',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -1497,7 +1515,7 @@ CREATE TABLE `sys_role_dept`  (
   `role_id` bigint(0) NOT NULL COMMENT '角色ID',
   `dept_id` bigint(0) NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`, `dept_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色和部门关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和部门关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_dept
@@ -1511,7 +1529,7 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` bigint(0) NOT NULL COMMENT '角色ID',
   `menu_id` bigint(0) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -1732,31 +1750,32 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
   `user_id` bigint(0) NOT NULL COMMENT '用户ID',
   `dept_id` bigint(0) NULL DEFAULT NULL COMMENT '部门ID',
-  `user_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户账号',
-  `nick_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户昵称',
-  `user_type` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'sys_user' COMMENT '用户类型（sys_user系统用户）',
-  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '用户邮箱',
-  `phonenumber` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '手机号码',
-  `sex` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
-  `avatar` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '头像地址',
-  `password` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '密码',
-  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `login_ip` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '最后登录IP',
+  `user_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户账号',
+  `nick_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户昵称',
+  `user_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'sys_user' COMMENT '用户类型（sys_user系统用户）',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户邮箱',
+  `phonenumber` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '手机号码',
+  `sex` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
+  `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '头像地址',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '密码',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `login_ip` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '最后登录IP',
   `login_date` datetime(0) NULL DEFAULT NULL COMMENT '最后登录时间',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'erahub', 'sys_user', '123456@163.com', '13912345678', '0', '', '$2a$10$AzrC.0tmwFX.ML5E1KfcoOz.4o3zii06W/52Gwvic/G..jU3dUwS6', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', 'admin', '2023-01-05 18:33:32', '管理员');
-INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'test', '管理员', 'sys_user', '1234@sss.com', '15712344556', '0', '', '$2a$10$8m9WcC1OBtip3nMPrT7lpOgP0kGGrd2VGj5ErKWMQxua/jJlpymyK', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:33', 'admin', '2023-01-07 10:02:40', NULL);
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'erahub', 'sys_user', '123456@163.com', '13912345678', '0', 'http://127.0.0.1:9000/erahub/2022/12/11/49b8cc3fe7d0461f8c44f02d3ef830c7.jpg', '$2a$10$AzrC.0tmwFX.ML5E1KfcoOz.4o3zii06W/52Gwvic/G..jU3dUwS6', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', 'admin', '2023-01-05 18:33:32', '管理员');
+INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'test', '管理员', 'sys_user', '1234@sss.com', '15712344556', '0', 'http://127.0.0.1:9000/erahub/2023/01/09/506011f10c874091a3884850352a8b6a.jpg', '$2a$10$8m9WcC1OBtip3nMPrT7lpOgP0kGGrd2VGj5ErKWMQxua/jJlpymyK', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:33', 'admin', '2023-01-07 10:02:40', NULL);
+INSERT INTO `sys_user` VALUES (1588845286838210561, 106, 'test01', 'test01', 'sys_user', '', '', '0', 'http://127.0.0.1:9000/erahub/2022/12/14/89eb1fba4cf046f2b190a81d80ea4c8f.jpg', '$2a$10$5xbv8WSwyVvxOspxfXK4QuUKC5Scrv8ZIxvrSOT99EBohYDAVTzGK', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:50', 'admin', '2022-12-14 19:01:05', NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -1766,7 +1785,7 @@ CREATE TABLE `sys_user_post`  (
   `user_id` bigint(0) NOT NULL COMMENT '用户ID',
   `post_id` bigint(0) NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`, `post_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户与岗位关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户与岗位关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_post
@@ -1783,7 +1802,7 @@ CREATE TABLE `sys_user_role`  (
   `user_id` bigint(0) NOT NULL COMMENT '用户ID',
   `role_id` bigint(0) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -1801,16 +1820,16 @@ CREATE TABLE `test_demo`  (
   `dept_id` bigint(0) NULL DEFAULT NULL COMMENT '部门id',
   `user_id` bigint(0) NULL DEFAULT NULL COMMENT '用户id',
   `order_num` int(0) NULL DEFAULT 0 COMMENT '排序号',
-  `test_key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'key键',
-  `value` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '值',
+  `test_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'key键',
+  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '值',
   `version` int(0) NULL DEFAULT 0 COMMENT '版本',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `del_flag` int(0) NULL DEFAULT 0 COMMENT '删除标志',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '测试单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '测试单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of test_demo
@@ -1838,15 +1857,15 @@ CREATE TABLE `test_tree`  (
   `parent_id` bigint(0) NULL DEFAULT 0 COMMENT '父id',
   `dept_id` bigint(0) NULL DEFAULT NULL COMMENT '部门id',
   `user_id` bigint(0) NULL DEFAULT NULL COMMENT '用户id',
-  `tree_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '值',
+  `tree_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '值',
   `version` int(0) NULL DEFAULT 0 COMMENT '版本',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `del_flag` int(0) NULL DEFAULT 0 COMMENT '删除标志',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '测试树表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '测试树表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of test_tree
@@ -1871,27 +1890,27 @@ INSERT INTO `test_tree` VALUES (13, 10, 108, 3, '子节点99', 0, '2022-09-10 17
 DROP TABLE IF EXISTS `to_gen_table`;
 CREATE TABLE `to_gen_table`  (
   `table_id` bigint(0) NOT NULL COMMENT '编号',
-  `table_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '表名称',
-  `table_comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '表描述',
-  `sub_table_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '关联子表的表名',
-  `sub_table_fk_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '子表关联的外键名',
-  `class_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '实体类名称',
-  `tpl_category` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作）',
-  `package_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '生成包路径',
-  `module_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '生成模块名',
-  `business_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '生成业务名',
-  `function_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '生成功能名',
-  `function_author` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '生成功能作者',
-  `gen_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
-  `gen_path` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
-  `options` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '其它生成选项',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `table_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '表名称',
+  `table_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '表描述',
+  `sub_table_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联子表的表名',
+  `sub_table_fk_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子表关联的外键名',
+  `class_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '实体类名称',
+  `tpl_category` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作）',
+  `package_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成包路径',
+  `module_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成模块名',
+  `business_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成业务名',
+  `function_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成功能名',
+  `function_author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生成功能作者',
+  `gen_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
+  `gen_path` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
+  `options` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其它生成选项',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of to_gen_table
@@ -1909,28 +1928,28 @@ DROP TABLE IF EXISTS `to_gen_table_column`;
 CREATE TABLE `to_gen_table_column`  (
   `column_id` bigint(0) NOT NULL COMMENT '编号',
   `table_id` bigint(0) NULL DEFAULT NULL COMMENT '归属表编号',
-  `column_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '列名称',
-  `column_comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '列描述',
-  `column_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '列类型',
-  `java_type` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'JAVA类型',
-  `java_field` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'JAVA字段名',
-  `is_pk` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否主键（1是）',
-  `is_increment` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否自增（1是）',
-  `is_required` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否必填（1是）',
-  `is_insert` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否为插入字段（1是）',
-  `is_edit` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否编辑字段（1是）',
-  `is_list` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否列表字段（1是）',
-  `is_query` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否查询字段（1是）',
-  `query_type` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
-  `html_type` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
-  `dict_type` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '字典类型',
+  `column_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列名称',
+  `column_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列描述',
+  `column_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列类型',
+  `java_type` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'JAVA类型',
+  `java_field` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'JAVA字段名',
+  `is_pk` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否主键（1是）',
+  `is_increment` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否自增（1是）',
+  `is_required` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否必填（1是）',
+  `is_insert` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否为插入字段（1是）',
+  `is_edit` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否编辑字段（1是）',
+  `is_list` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否列表字段（1是）',
+  `is_query` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否查询字段（1是）',
+  `query_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
+  `html_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
+  `dict_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '字典类型',
   `sort` int(0) NULL DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of to_gen_table_column
@@ -2001,14 +2020,14 @@ INSERT INTO `to_gen_table_column` VALUES (1609381755430207496, 16093817553295441
 DROP TABLE IF EXISTS `undo_log`;
 CREATE TABLE `undo_log`  (
   `branch_id` bigint(0) NOT NULL COMMENT 'branch transaction id',
-  `xid` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'global transaction id',
-  `context` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'undo_log context,such as serialization',
+  `xid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'global transaction id',
+  `context` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'undo_log context,such as serialization',
   `rollback_info` longblob NOT NULL COMMENT 'rollback info',
   `log_status` int(0) NOT NULL COMMENT '0:normal status,1:defense status',
   `log_created` datetime(6) NOT NULL COMMENT 'create datetime',
   `log_modified` datetime(6) NOT NULL COMMENT 'modify datetime',
   UNIQUE INDEX `ux_undo_log`(`xid`, `branch_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = 'AT transaction mode undo table' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'AT transaction mode undo table' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of undo_log

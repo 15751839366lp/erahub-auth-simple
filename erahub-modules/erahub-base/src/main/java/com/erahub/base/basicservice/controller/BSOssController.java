@@ -44,8 +44,6 @@ import java.util.Map;
 @RequestMapping("/oss")
 public class BSOssController extends BaseController {
 
-    // todo 文件和图片各自区分并分类，先创建分类，之后上传时根据类别的后缀要求研判
-    // 整合druid监控
     private final IBSOssService iBSOssService;
 
     /**
@@ -75,7 +73,7 @@ public class BSOssController extends BaseController {
      * @param file 文件
      */
     @SaCheckPermission("basicservice:oss:upload")
-    @Log(title = "OSS对象存储", businessType = BusinessType.INSERT)
+    @Log(title = "OSS对象存储", businessType = BusinessType.IMPORT)
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public R<BSOssVo> upload(@RequestPart("file") MultipartFile file) throws IOException {
         if (ObjectUtil.isNull(file)) {
@@ -91,7 +89,7 @@ public class BSOssController extends BaseController {
      * @param bsOssBos 文件数据
      */
     @SaCheckPermission("basicservice:oss:upload")
-    @Log(title = "OSS对象存储", businessType = BusinessType.INSERT)
+    @Log(title = "OSS对象存储", businessType = BusinessType.IMPORT)
     @PostMapping("/addOssBatch")
     public R<Void> insertBatch(@Validated @RequestBody List<BSOssBo> bsOssBos) {
         return toAjax(iBSOssService.insertByBo(bsOssBos));
@@ -119,8 +117,6 @@ public class BSOssController extends BaseController {
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
         return toAjax(iBSOssService.deleteWithValidByIds(Arrays.asList(ossIds), true));
     }
-
-    // todo 前端上传minio,删除临时文件， 后端删除临时文件
 
     /**
      * 删除临时文件

@@ -41,13 +41,17 @@ public class RemoteFileServiceImpl implements RemoteFileService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public BSFile upload(String name, String originalFilename, String contentType, byte[] file) throws ServiceException {
+    public BSFile upload(String name, String originalFilename, String contentType, byte[] file, String useField) throws ServiceException {
         try {
+            if(StringUtils.isEmpty(useField)){
+                throw new ServiceException("请传入使用的表字段");
+            }
             String suffix = StringUtils.substring(originalFilename, originalFilename.lastIndexOf("."), originalFilename.length());
             OssClient storage = OssFactory.instance();
             UploadResult uploadResult = storage.uploadSuffix(file, suffix, contentType);
             // 保存文件信息
             BSOss oss = new BSOss();
+            oss.setUseField(useField);
             oss.setUrl(uploadResult.getUrl());
             oss.setFileSuffix(suffix);
             oss.setFileName(uploadResult.getFilename());

@@ -13,7 +13,6 @@ import '@/styles/index.less'
 import App from './App'
 import store from './store'
 import router from './router'
-import directive from './directive' // directive
 
 import 'virtual:windi.css'
 import 'virtual:windi-devtools' // windicss
@@ -54,8 +53,6 @@ app.use(router)
 app.use(store)
 app.use(plugins)
 app.use(elementIcons)
-
-directive(app)
 
 // 使用element-plus 并且设置全局的大小
 app.use(ElementPlus, {

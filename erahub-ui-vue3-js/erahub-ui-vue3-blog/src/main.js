@@ -5,11 +5,6 @@ import Cookies from 'js-cookie'
 import ElementPlus from 'element-plus'
 import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
 
-import '@/assets/styles/index.scss' // global css
-
-// 引入全局样式
-import '@/styles/index.less'
-
 import App from './App'
 import store from './store'
 import router from './router'
@@ -24,30 +19,10 @@ import { download } from '@/utils/request'
 // 图标
 import 'virtual:svg-icons-register'
 
-import './permission' // permission control
-
-import { useDict } from '@/utils/dict'
-
-import {
-  parseTime,
-  resetForm,
-  addDateRange,
-  handleTree,
-  selectDictLabel,
-  selectDictLabels
-} from '@/utils/erahub'
-
 const app = createApp(App)
 
 // 全局方法挂载
-app.config.globalProperties.useDict = useDict
 app.config.globalProperties.download = download
-app.config.globalProperties.parseTime = parseTime
-app.config.globalProperties.resetForm = resetForm
-app.config.globalProperties.handleTree = handleTree
-app.config.globalProperties.addDateRange = addDateRange
-app.config.globalProperties.selectDictLabel = selectDictLabel
-app.config.globalProperties.selectDictLabels = selectDictLabels
 
 app.use(router)
 app.use(store)

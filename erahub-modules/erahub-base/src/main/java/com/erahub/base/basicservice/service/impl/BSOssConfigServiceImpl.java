@@ -14,6 +14,7 @@ import com.erahub.common.core.constant.CacheNames;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.JsonUtils;
+import com.erahub.common.core.utils.SpringUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
@@ -27,6 +28,7 @@ import com.erahub.base.basicservice.domain.vo.BSOssConfigVo;
 import com.erahub.base.basicservice.mapper.BSOssConfigMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +63,7 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
             if ("0".equals(config.getStatus())) {
                 RedisUtils.setCacheObject(OssConstant.DEFAULT_CONFIG_KEY, configKey);
             }
-            setConfigCache(true, config);
+            SpringUtils.context().publishEvent(config);
         }
         // 初始化OSS工厂
         OssFactory.init();
@@ -92,7 +94,11 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
     public Boolean insertByBo(BSOssConfigBo bo) {
         BSOssConfig config = BeanUtil.toBean(bo, BSOssConfig.class);
         validEntityBeforeSave(config);
-        return setConfigCache(bsOssConfigMapper.insert(config) > 0, config);
+        boolean flag = bsOssConfigMapper.insert(config) > 0;
+        if (flag) {
+            SpringUtils.context().publishEvent(config);
+        }
+        return flag;
     }
 
     @Override
@@ -101,15 +107,17 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
         BSOssConfig config = BeanUtil.toBean(bo, BSOssConfig.class);
         validEntityBeforeSave(config);
 
-        // todo oss的service应该存config_id,修改时判断是否有文件，是否有同名，删除同理，取消长度限制，
-        // todo 修改ossconfig表结构，设置服务商和桶名称分离，oss利用连表查询，为后续配置oss分类，取消默认服务商 提供基础
         LambdaUpdateWrapper<BSOssConfig> luw = new LambdaUpdateWrapper<>();
         luw.set(ObjectUtil.isNull(config.getPrefix()), BSOssConfig::getPrefix, "");
         luw.set(ObjectUtil.isNull(config.getRegion()), BSOssConfig::getRegion, "");
         luw.set(ObjectUtil.isNull(config.getExt1()), BSOssConfig::getExt1, "");
         luw.set(ObjectUtil.isNull(config.getRemark()), BSOssConfig::getRemark, "");
         luw.eq(BSOssConfig::getOssConfigId, config.getOssConfigId());
-        return setConfigCache(bsOssConfigMapper.update(config, luw) > 0, config);
+        boolean flag = bsOssConfigMapper.update(config, luw) > 0;
+        if (flag) {
+            SpringUtils.context().publishEvent(config);
+        }
+        return flag;
     }
 
     /**
@@ -175,19 +183,15 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
     }
 
     /**
-     * 如果操作成功 则更新缓存
-     *
-     * @param flag   操作状态
+     * 更新配置缓存
      * @param config 配置
      * @return 返回操作状态
      */
-    private boolean setConfigCache(boolean flag, BSOssConfig config) {
-        if (flag) {
-            CacheUtils.put(CacheNames.SYS_OSS_CONFIG, config.getConfigKey(), JsonUtils.toJsonString(config));
-            RedisUtils.publish(OssConstant.DEFAULT_CONFIG_KEY, config.getConfigKey(), msg -> {
-                log.info("发布刷新OSS配置 => " + msg);
-            });
-        }
-        return flag;
+    @EventListener
+    public void updateConfigCache(BSOssConfig config) {
+        CacheUtils.put(CacheNames.SYS_OSS_CONFIG, config.getConfigKey(), JsonUtils.toJsonString(config));
+        RedisUtils.publish(OssConstant.DEFAULT_CONFIG_KEY, config.getConfigKey(), msg -> {
+            log.info("发布刷新OSS配置 => " + msg);
+        });
     }
 }

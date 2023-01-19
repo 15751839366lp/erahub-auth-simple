@@ -18,13 +18,14 @@ import com.erahub.common.core.exception.user.CaptchaExpireException;
 import com.erahub.common.core.exception.user.UserException;
 import com.erahub.common.core.utils.MessageUtils;
 import com.erahub.common.core.utils.ServletUtils;
+import com.erahub.common.core.utils.SpringUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.utils.ip.AddressUtils;
+import com.erahub.common.log.event.LogininforEvent;
 import com.erahub.common.redis.utils.RedisUtils;
 import com.erahub.common.satoken.utils.LoginHelper;
 import com.erahub.base.system.api.RemoteLogService;
 import com.erahub.base.system.api.RemoteUserService;
-import com.erahub.base.system.api.domain.SysLogininfor;
 import com.erahub.base.system.api.domain.SysUser;
 import com.erahub.base.system.api.model.LoginUser;
 import com.erahub.base.system.api.model.XcxLoginUser;
@@ -138,7 +139,7 @@ public class SysLoginServiceImpl implements LoginService {
      */
     public void recordLogininfor(String username, String status, String message) {
         UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
-        SysLogininfor logininfor = new SysLogininfor();
+        LogininforEvent logininfor = new LogininforEvent();
         logininfor.setUserName(username);
         logininfor.setIpaddr(ServletUtils.getClientIP());
         logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ServletUtils.getClientIP()));
@@ -151,7 +152,7 @@ public class SysLoginServiceImpl implements LoginService {
         } else if (Constants.LOGIN_FAIL.equals(status)) {
             logininfor.setStatus(Constants.LOGIN_FAIL_STATUS);
         }
-        remoteLogService.saveLogininfor(logininfor);
+        SpringUtils.context().publishEvent(logininfor);
     }
 
     /**

@@ -28,22 +28,6 @@ public interface IToGenTableService {
     TableDataInfo<ToGenTable> selectPageDbTableList(ToGenTable toGenTable, PageQuery pageQuery);
 
     /**
-     * 查询业务列表
-     *
-     * @param toGenTable 业务信息
-     * @return 业务集合
-     */
-    List<ToGenTable> selectGenTableList(ToGenTable toGenTable);
-
-    /**
-     * 查询据库列表
-     *
-     * @param toGenTable 业务信息
-     * @return 数据库表集合
-     */
-    List<ToGenTable> selectDbTableList(ToGenTable toGenTable);
-
-    /**
      * 查询据库列表
      *
      * @param tableNames 表名称组

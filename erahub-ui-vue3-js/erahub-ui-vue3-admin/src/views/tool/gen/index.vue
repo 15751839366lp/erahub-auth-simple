@@ -1,6 +1,15 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
+      <el-form-item label="数据源" prop="dataName">
+        <el-input
+          v-model="queryParams.dataName"
+          placeholder="请输入数据源名称"
+          clearable
+          style="width: 200px"
+          @keyup.enter="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="表名称" prop="tableName">
         <el-input
           v-model="queryParams.tableName"
@@ -234,6 +243,8 @@ const data = reactive({
 
 const { queryParams, preview } = toRefs(data)
 
+localStorage.setItem('dataName', queryParams.value.dataName)
+
 onActivated(() => {
   const time = route.query.t
   if (time != null && time != uniqueId.value) {
@@ -256,6 +267,7 @@ function getList() {
 }
 /** 搜索按钮操作 */
 function handleQuery() {
+  localStorage.setItem('dataName', queryParams.value.dataName)
   queryParams.value.pageNum = 1
   getList()
 }

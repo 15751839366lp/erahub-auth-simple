@@ -18,16 +18,7 @@ import java.util.List;
 @InterceptorIgnore(dataPermission = "true")
 public interface ToGenTableMapper extends BaseMapperPlus<ToGenTableMapper, ToGenTable, ToGenTable> {
 
-    Page<ToGenTable> selectPageDbTableList(@Param("page") Page<ToGenTable> page, @Param(Constants.WRAPPER) Wrapper<Object> queryWrapper);
-
-    /**
-     * 查询据库列表
-     *
-     * @param queryWrapper 查询条件
-     * @return 数据库表集合
-     */
-    List<ToGenTable> selectDbTableList(@Param(Constants.WRAPPER) Wrapper<Object> queryWrapper);
-
+    Page<ToGenTable> selectPageDbTableList(@Param("page") Page<ToGenTable> page, @Param("toGenTable") ToGenTable toGenTable);
 
     /**
      * 查询据库列表

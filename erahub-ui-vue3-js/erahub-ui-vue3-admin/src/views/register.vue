@@ -92,7 +92,7 @@ const registerForm = ref({
   confirmPassword: '',
   code: '',
   uuid: '',
-  user_type: 'sys_user'
+  userType: 'sys_user'
 })
 
 const equalToPassword = (rule, value, callback) => {
@@ -158,7 +158,7 @@ function getCode() {
     captchaEnabled.value = res.data.captchaEnabled === undefined ? true : res.data.captchaEnabled
     if (captchaEnabled.value) {
       codeUrl.value = 'data:image/gif;base64,' + res.data.img
-      loginForm.value.uuid = res.data.uuid
+      registerForm.value.uuid = res.data.uuid
     }
   })
 }

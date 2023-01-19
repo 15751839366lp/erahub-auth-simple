@@ -199,7 +199,6 @@ function saveOrUpdateArticle() {
     article.value.blogArticleImageBo[0].fileName == null
   ) {
     article.value.blogArticleImageBo = undefined
-    console.log(article.value)
   } else {
     if (
       article.value.blogArticleImageBo == undefined ||
@@ -212,7 +211,6 @@ function saveOrUpdateArticle() {
       article.value.blogArticleImageBo = article.value.blogArticleImageBo[0]
     }
   }
-  console.log(article.value)
   if (article.value.articleId == undefined || article.value.articleId == null) {
     addArticle(article.value).then((response) => {
       ElNotification.success({

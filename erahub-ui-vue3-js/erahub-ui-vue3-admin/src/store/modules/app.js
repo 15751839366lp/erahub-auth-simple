@@ -23,7 +23,7 @@ const useAppStore = defineStore('app', {
         Cookies.set('sidebarStatus', 0)
       }
     },
-    closeSideBar(withoutAnimation) {
+    closeSideBar({ withoutAnimation }) {
       Cookies.set('sidebarStatus', 0)
       this.sidebar.opened = false
       this.sidebar.withoutAnimation = withoutAnimation

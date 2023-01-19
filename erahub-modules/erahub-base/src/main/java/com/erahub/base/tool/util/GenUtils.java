@@ -92,11 +92,6 @@ public class GenUtils {
             column.setIsQuery(GenConstants.REQUIRE);
         }
 
-        // 查询字段
-        if (!arraysContains(GenConstants.COLUMNNAME_NOT_QUERY, columnName) && !column.isPk()) {
-            column.setIsQuery(GenConstants.REQUIRE);
-        }
-
         // 查询字段类型
         if (StringUtils.endsWithIgnoreCase(columnName, "name")) {
             column.setQueryType(GenConstants.QUERY_LIKE);
@@ -154,9 +149,11 @@ public class GenUtils {
      * @return 业务名
      */
     public static String getBusinessName(String tableName) {
-        int lastIndex = tableName.lastIndexOf("_");
+        int firstIndex = tableName.indexOf("_");
         int nameLength = tableName.length();
-        return StringUtils.substring(tableName, lastIndex + 1, nameLength);
+        String businessName = StringUtils.substring(tableName, firstIndex + 1, nameLength);
+        businessName = StringUtils.toCamelCase(businessName);
+        return businessName;
     }
 
     /**

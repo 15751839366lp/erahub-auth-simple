@@ -9,6 +9,7 @@ import com.erahub.common.core.constant.GenConstants;
 import com.erahub.common.core.utils.DateUtils;
 import com.erahub.common.core.utils.JsonUtils;
 import com.erahub.common.core.utils.StringUtils;
+import com.erahub.common.mybatis.helper.DataBaseHelper;
 import com.erahub.base.tool.domain.ToGenTableColumn;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -138,7 +139,13 @@ public class VelocityUtils {
         templates.add("vm/java/serviceImpl.java.vm");
         templates.add("vm/java/controller.java.vm");
         templates.add("vm/xml/mapper.xml.vm");
-        templates.add("vm/sql/sql.vm");
+        if (DataBaseHelper.isOracle()) {
+            templates.add("vm/sql/oracle/sql.vm");
+        } else if (DataBaseHelper.isPostgerSql()) {
+            templates.add("vm/sql/postgres/sql.vm");
+        } else {
+            templates.add("vm/sql/sql.vm");
+        }
         templates.add("vm/js/api.js.vm");
         if (GenConstants.TPL_CRUD.equals(tplCategory)) {
             templates.add("vm/vue/index.vue.vm");
@@ -264,7 +271,7 @@ public class VelocityUtils {
         for (ToGenTableColumn column : columns) {
             if (!column.isSuperColumn() && StringUtils.isNotEmpty(column.getDictType()) && StringUtils.equalsAny(
                 column.getHtmlType(),
-                new String[]{GenConstants.HTML_SELECT, GenConstants.HTML_RADIO, GenConstants.HTML_CHECKBOX})) {
+                new String[] { GenConstants.HTML_SELECT, GenConstants.HTML_RADIO, GenConstants.HTML_CHECKBOX })) {
                 dicts.add("'" + column.getDictType() + "'");
             }
         }

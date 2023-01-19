@@ -5,19 +5,18 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.erahub.common.core.utils.JsonUtils;
 import com.erahub.common.core.utils.ServletUtils;
+import com.erahub.common.core.utils.SpringUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessStatus;
-import com.erahub.common.log.service.AsyncLogService;
+import com.erahub.common.log.event.OperLogEvent;
 import com.erahub.common.satoken.utils.LoginHelper;
-import com.erahub.base.system.api.domain.SysOperLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.HttpMethod;
 import org.springframework.validation.BindingResult;
@@ -44,9 +43,6 @@ public class LogAspect {
      * 排除敏感属性字段
      */
     public static final String[] EXCLUDE_PROPERTIES = { "password", "oldPassword", "newPassword", "confirmPassword" };
-
-    @Autowired
-    private AsyncLogService asyncLogService;
 
     /**
      * 处理请求前执行
@@ -82,7 +78,7 @@ public class LogAspect {
     protected void handleLog(final JoinPoint joinPoint, Log controllerLog, final Exception e, Object jsonResult) {
         try {
             // *========数据库日志=========*//
-            SysOperLog operLog = new SysOperLog();
+            OperLogEvent operLog = new OperLogEvent();
             operLog.setExecutionTime(System.currentTimeMillis() - startTime);
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
@@ -105,8 +101,8 @@ public class LogAspect {
             operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
             // 处理设置注解上的参数
             getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
-            // 保存数据库
-            asyncLogService.saveSysLog(operLog);
+            // 发布事件保存数据库
+            SpringUtils.context().publishEvent(operLog);
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("异常信息:{}", exp.getMessage());
@@ -121,7 +117,7 @@ public class LogAspect {
      * @param operLog 操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperLog operLog, Object jsonResult) throws Exception {
+    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, OperLogEvent operLog, Object jsonResult) throws Exception {
         // 设置action动作
         operLog.setBusinessType(log.businessType().ordinal());
         // 设置标题
@@ -145,7 +141,7 @@ public class LogAspect {
      * @param operLog 操作日志
      * @throws Exception 异常
      */
-    private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception {
+    private void setRequestValue(JoinPoint joinPoint, OperLogEvent operLog) throws Exception {
         String requestMethod = operLog.getRequestMethod();
         if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod)) {
             String params = argsArrayToString(joinPoint.getArgs());

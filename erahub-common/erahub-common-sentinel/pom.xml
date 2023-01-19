@@ -20,6 +20,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
+
         <!-- Sentinel Datasource Nacos -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>

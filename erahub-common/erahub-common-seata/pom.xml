@@ -16,18 +16,36 @@
     </description>
 
 	<dependencies>
-
         <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
-            <optional>true</optional>
+            <groupId>org.apache.dubbo.extensions</groupId>
+            <artifactId>dubbo-filter-seata</artifactId>
+            <version>1.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- SpringBoot Seata -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.dubbo.extensions</groupId>
+                    <artifactId>dubbo-filter-seata</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
     </dependencies>
 </project>

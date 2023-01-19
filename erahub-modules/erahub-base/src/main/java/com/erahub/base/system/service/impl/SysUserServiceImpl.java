@@ -17,6 +17,7 @@ import com.erahub.common.core.utils.StreamUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
+import com.erahub.common.mybatis.helper.DataBaseHelper;
 import com.erahub.common.oss.core.OssClient;
 import com.erahub.common.oss.factory.OssFactory;
 import com.erahub.common.satoken.utils.LoginHelper;
@@ -87,7 +88,7 @@ public class SysUserServiceImpl implements ISysUserService {
             .and(ObjectUtil.isNotNull(user.getDeptId()), w -> {
                 List<SysDept> deptList = deptMapper.selectList(new LambdaQueryWrapper<SysDept>()
                     .select(SysDept::getDeptId)
-                    .apply("find_in_set({0},ancestors) <> 0", user.getDeptId()));
+                    .apply(DataBaseHelper.findInSet(user.getDeptId(), "ancestors")));
                 List<Long> ids = StreamUtils.toList(deptList, SysDept::getDeptId);
                 ids.add(user.getDeptId());
                 w.in("u.dept_id", ids);

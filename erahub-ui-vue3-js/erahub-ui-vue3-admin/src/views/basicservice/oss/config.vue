@@ -23,14 +23,10 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="状态" prop="status">
+      <el-form-item label="是否默认" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable>
-          <el-option
-            v-for="dict in sys_normal_disable"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+          <el-option key="0" label="是" value="0" />
+          <el-option key="1" label="否" value="1" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -118,7 +114,7 @@
           <el-tag type="info" v-if="scope.row.accessPolicy === '2'">custom</el-tag>
         </template>
       </el-table-column>
-      <el-table-column v-if="columns[8].visible" label="状态" align="center" prop="status">
+      <el-table-column v-if="columns[8].visible" label="是否默认" align="center" prop="status">
         <template #default="scope">
           <el-switch
             v-model="scope.row.status"
@@ -230,7 +226,7 @@ import {
 } from '@/api/basicservice/ossConfig'
 
 const { proxy } = getCurrentInstance()
-const { sys_yes_no, sys_normal_disable } = proxy.useDict('sys_yes_no', 'sys_normal_disable')
+const { sys_yes_no } = proxy.useDict('sys_yes_no')
 
 const ossConfigList = ref([])
 const open = ref(false)
@@ -253,7 +249,7 @@ const columns = ref([
   { key: 5, label: `前缀`, visible: true },
   { key: 6, label: `域`, visible: true },
   { key: 7, label: `桶权限类型`, visible: true },
-  { key: 8, label: `状态`, visible: true }
+  { key: 8, label: `是否默认`, visible: true }
 ])
 
 const data = reactive({
@@ -406,7 +402,7 @@ function submitForm() {
     }
   })
 }
-/** 用户状态修改  */
+/** 是否默认修改  */
 function handleStatusChange(row) {
   let text = row.status === '0' ? '启用' : '停用'
   proxy.$modal

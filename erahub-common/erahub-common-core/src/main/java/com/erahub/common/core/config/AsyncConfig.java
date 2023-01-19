@@ -20,7 +20,7 @@ import java.util.concurrent.*;
  * @author erahub
  */
 @Slf4j
-@EnableAsync
+@EnableAsync(proxyTargetClass = true)
 @AutoConfiguration
 public class AsyncConfig extends AsyncConfigurerSupport {
 

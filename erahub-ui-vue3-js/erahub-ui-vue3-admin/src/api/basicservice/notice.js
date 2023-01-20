@@ -9,6 +9,14 @@ export function listNotice(query) {
   })
 }
 
+// 获取最新通知公告列表
+export function getLatestNotice(latestNoticeNumber) {
+  return request({
+    url: '/basicservice/notice/getLatestNotice/' + latestNoticeNumber,
+    method: 'get'
+  })
+}
+
 // 查询公告详细
 export function getNotice(noticeId) {
   return request({

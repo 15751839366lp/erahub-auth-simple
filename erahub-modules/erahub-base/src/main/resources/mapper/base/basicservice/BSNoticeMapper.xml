@@ -10,11 +10,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="noticeType"     column="notice_type"     />
         <result property="noticeContent"  column="notice_content"  />
         <result property="status"         column="status"          />
-        <result property="createBy"       column="create_by"       />
         <result property="createTime"     column="create_time"     />
         <result property="updateBy"       column="update_by"       />
         <result property="updateTime"     column="update_time"     />
         <result property="remark"         column="remark"          />
+        <association property="noticeCreator"    column="create_by" javaType="com.erahub.base.system.api.domain.SysUser" resultMap="SysUserResult" />
     </resultMap>
 
+    <resultMap type="SysUser" id="SysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="avatar"       column="avatar"       />
+    </resultMap>
+
+    <select id="getLatestNotice" parameterType="Integer" resultMap="BSNoticeResult">
+        SELECT bn.notice_id,
+               bn.notice_title,
+               bn.notice_type,
+               bn.notice_content,
+               bn.status,
+               bn.remark,
+               bn.create_by,
+               bn.create_time,
+               bn.update_by,
+               bn.update_time,
+               su.user_id,
+               su.user_name,
+               su.avatar
+        FROM bs_notice bn
+        left join sys_user su on bn.create_by = su.user_name
+        order by create_time desc
+        LIMIT #{latestNoticeNumber}
+    </select>
 </mapper>

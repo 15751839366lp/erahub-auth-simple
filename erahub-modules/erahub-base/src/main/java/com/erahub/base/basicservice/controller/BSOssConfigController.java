@@ -102,7 +102,7 @@ public class BSOssConfigController extends BaseController {
     /**
      * 状态修改
      */
-    @SaCheckPermission("basicservice:oss:edit")
+    @SaCheckPermission("basicservice:oss:config:edit")
     @Log(title = "对象存储状态修改", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public R<Void> changeStatus(@RequestBody BSOssConfigBo bo) {

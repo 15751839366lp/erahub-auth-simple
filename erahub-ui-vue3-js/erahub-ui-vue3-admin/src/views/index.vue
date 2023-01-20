@@ -138,7 +138,7 @@
             </el-row>
           </el-skeleton>
         </el-card>
-        <el-card shadow="never" class="mt-10px">
+        <el-card shadow="never" class="mt-10px h-500px" style="overflow-y: auto">
           <template #header>
             <div class="flex justify-between">
               <span>{{ '通知公告' }}</span>
@@ -147,19 +147,24 @@
           </template>
           <el-skeleton :loading="loading" animated>
             <div v-for="(item, index) in notice" :key="`dynamics-${index}`">
-              <div class="flex items-center">
-                <img :src="avatar" alt="" class="w-35px h-35px rounded-[50%] mr-20px" />
+              <div class="flex items-center" @click="getNoticeInfo(item)" style="cursor: pointer">
+                <img
+                  :src="item.noticeCreator.avatar"
+                  alt=""
+                  class="w-35px h-35px rounded-[50%] mr-20px"
+                />
                 <div>
                   <div class="text-14px">
                     <Highlight :keys="item.keys.map((v) => v)">
-                      {{ item.type }} : {{ item.title }}
+                      {{ item.noticeTypeShow }} : {{ item.noticeTitle }}
                     </Highlight>
                   </div>
                   <div class="mt-15px text-12px text-gray-400">
-                    {{ formatTime(item.date, 'yyyy-MM-dd') }}
+                    {{ item.createTime }}
                   </div>
                 </div>
               </div>
+
               <el-divider />
             </div>
           </el-skeleton>
@@ -174,16 +179,60 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 通知公告详情 -->
+    <el-dialog title="通知公告详情" v-model="noticeInfoOpen" width="700px" append-to-body>
+      <el-form :model="noticeInfoForm" label-width="100px">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="标题：">{{ noticeInfoForm.noticeTitle }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="发布者：">{{
+              noticeInfoForm.noticeCreator.userName
+            }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="类别：">
+              <div v-if="noticeInfoForm.noticeType === '1'">通知</div>
+              <div v-else-if="noticeInfoForm.noticeType === '2'">公告</div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="发布时间：">{{ noticeInfoForm.createTime }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="内容：">{{ noticeInfoForm.noticeContent }}</el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="noticeInfoOpen = false">关 闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup name="Index">
+import { getLatestNotice } from '@/api/basicservice/notice'
+
 import { ElRow, ElCol, ElSkeleton, ElCard, ElDivider } from 'element-plus'
 import Echart from '@/components/Echart'
 import { set } from 'lodash-es'
 import { pieOptions, barOptions, lineOptions, radarOption } from '@/data/echarts-data'
 import useUserStore from '@/store/modules/user'
 import { formatTime } from '@/utils'
+import defAva from '@/assets/images/profile.jpg'
 
 const userStore = useUserStore()
 const loading = ref(true)
@@ -254,38 +303,6 @@ const getProject = async () => {
     }
   ]
   projects = Object.assign(projects, data)
-}
-
-// 获取通知公告
-let notice = reactive([])
-const getNotice = async () => {
-  const data = [
-    {
-      title: '系统升级版本',
-      type: '通知',
-      keys: ['通知', '升级'],
-      date: new Date()
-    },
-    {
-      title: '系统凌晨维护',
-      type: '公告',
-      keys: ['公告', '维护'],
-      date: new Date()
-    },
-    {
-      title: '系统升级版本',
-      type: '通知',
-      keys: ['通知', '升级'],
-      date: new Date()
-    },
-    {
-      title: '系统凌晨维护',
-      type: '公告',
-      keys: ['公告', '维护'],
-      date: new Date()
-    }
-  ]
-  notice = Object.assign(notice, data)
 }
 
 // 获取快捷入口
@@ -420,7 +437,6 @@ const getWeeklyUserActivity = async () => {
 }
 
 const lineOptionsData = reactive(lineOptions)
-
 // 每月销售总额
 const getMonthlySales = async () => {
   const data = [
@@ -461,6 +477,40 @@ const getMonthlySales = async () => {
       animationEasing: 'quadraticOut'
     }
   ])
+}
+
+// 获取通知公告
+const notice = ref([])
+const latestNoticeNumber = 5
+const noticeInfoOpen = ref(false)
+const noticeInfoForm = ref({})
+
+const getNotice = async () => {
+  getLatestNotice(latestNoticeNumber).then((response) => {
+    if (!response) {
+      return
+    }
+    notice.value =
+      response &&
+      response.map((item) => {
+        if (item.noticeType == '1') {
+          item.noticeTypeShow = '通知'
+        } else if (item.noticeType == '2') {
+          item.noticeTypeShow = '公告'
+        }
+
+        if (!item.noticeCreator.avatar) {
+          item.noticeCreator.avatar = defAva
+        }
+        item.keys = []
+        return item
+      })
+  })
+}
+//查看公告详情
+const getNoticeInfo = (notice) => {
+  noticeInfoForm.value = notice
+  noticeInfoOpen.value = true
 }
 
 const getAllApi = async () => {

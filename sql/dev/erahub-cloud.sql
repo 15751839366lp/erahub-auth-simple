@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 19/01/2023 18:24:08
+ Date: 20/01/2023 13:15:12
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,7 @@ CREATE TABLE `blog_article`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`article_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1611627133785382913 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客文章表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1616012326130536450 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_article
@@ -190,6 +190,14 @@ CREATE TABLE `bs_notice`  (
 -- ----------------------------
 -- Records of bs_notice
 -- ----------------------------
+INSERT INTO `bs_notice` VALUES (1616263667646038017, '公告1', '2', 0xE591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E591B1E58FA4E58FA4E680AAE680AA, '0', 'test', '2023-01-20 10:37:42', 'test', '2023-01-20 10:37:42', NULL);
+INSERT INTO `bs_notice` VALUES (1616263720687206401, '通知1', '1', 0xE4BB96E5909EE5909EE59090E59090E6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69BE6B69B, '0', 'test', '2023-01-20 10:37:54', 'test', '2023-01-20 10:37:54', NULL);
+INSERT INTO `bs_notice` VALUES (1616265779671040002, '公告2', '2', 0x31313131, '0', 'test', '2023-01-20 10:46:05', 'test', '2023-01-20 10:46:05', NULL);
+INSERT INTO `bs_notice` VALUES (1616265810260099074, '公告3', '2', 0xE6B0B4E6B0B4E6B0B4E6B0B4E6B0B4, '0', 'test', '2023-01-20 10:46:13', 'test', '2023-01-20 10:46:13', NULL);
+INSERT INTO `bs_notice` VALUES (1616265847140614145, '公告4', '2', 0xE69292E693A6E693A6E69292E693A6, '0', 'test', '2023-01-20 10:46:21', 'test', '2023-01-20 10:46:21', NULL);
+INSERT INTO `bs_notice` VALUES (1616265887175245825, '公告5', '2', 0xE69292E5958A76E5958A76E5958AE5A4A7E5A4A7, '0', 'test', '2023-01-20 10:46:31', 'test', '2023-01-20 10:46:31', NULL);
+INSERT INTO `bs_notice` VALUES (1616275834063634433, '通知2', '1', 0xE9809AE79FA532E9809AE79FA532E9809AE79FA532, '0', 'admin', '2023-01-20 11:26:02', 'admin', '2023-01-20 11:26:02', NULL);
+INSERT INTO `bs_notice` VALUES (1616275863604117506, '通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3', '1', 0xE9809AE79FA532E9809AE79FA532E9809AE79FA532E9809AE79FA532, '0', 'admin', '2023-01-20 11:26:09', 'admin', '2023-01-20 12:22:18', NULL);
 
 -- ----------------------------
 -- Table structure for bs_oss
@@ -247,11 +255,11 @@ CREATE TABLE `bs_oss_config`  (
 -- ----------------------------
 -- Records of bs_oss_config
 -- ----------------------------
-INSERT INTO `bs_oss_config` VALUES (1, 'minio', 'minioadmin', 'minioadmin', 'erahub', '', '127.0.0.1:9000', '', 'N', '', '1', '0', '', 'admin', '2022-09-10 17:10:48', 'admin', '2023-01-19 18:05:30', '');
+INSERT INTO `bs_oss_config` VALUES (1, 'minio', 'minioadmin', 'minioadmin', 'erahub', '', '127.0.0.1:9000', '', 'N', '', '1', '0', '', 'admin', '2022-09-10 17:10:48', 'test', '2023-01-20 09:23:21', '');
 INSERT INTO `bs_oss_config` VALUES (2, 'qiniu', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub147258369', '', 's3-cn-north-1.qiniucs.com', '', 'N', '', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-12 18:34:29', '');
 INSERT INTO `bs_oss_config` VALUES (3, 'aliyun', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub', '', 'oss-cn-beijing.aliyuncs.com', '', 'N', '', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:29', '');
 INSERT INTO `bs_oss_config` VALUES (4, 'qcloud', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'erahub-1250000000', '', 'cos.ap-beijing.myqcloud.com', '', 'N', 'ap-beijing', '1', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-12 10:29:33', '');
-INSERT INTO `bs_oss_config` VALUES (5, 'minio-lp', 'minioadmin', 'minioadmin', 'priv-lp', '', '127.0.0.1:9000', '', 'N', '', '0', '1', '', 'admin', '2022-09-10 17:10:48', 'admin', '2023-01-19 18:05:16', '');
+INSERT INTO `bs_oss_config` VALUES (5, 'minio-lp', 'minioadmin', 'minioadmin', 'priv-lp', '', '127.0.0.1:9000', '', 'N', '', '0', '1', '', 'admin', '2022-09-10 17:10:48', 'test', '2023-01-20 09:23:18', '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -277,7 +285,7 @@ CREATE TABLE `sys_config`  (
 INSERT INTO `sys_config` VALUES (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-red', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-12-03 18:22:21', '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
 INSERT INTO `sys_config` VALUES (2, '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-20 14:39:07', '初始化密码 123456');
 INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-20 15:14:48', '深色主题theme-dark，浅色主题theme-light');
-INSERT INTO `sys_config` VALUES (4, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', '2022-09-10 17:10:48', 'admin', '2022-09-19 10:28:31', '是否开启注册用户功能（true开启，false关闭）');
+INSERT INTO `sys_config` VALUES (4, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'true', 'Y', 'admin', '2022-09-10 17:10:48', 'test', '2023-01-20 09:32:01', '是否开启注册用户功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES (11, 'OSS预览列表资源开关', 'sys.oss.previewListResource', 'true', 'Y', 'admin', '2022-09-10 17:10:48', 'test', '2023-01-19 17:58:17', 'true:开启, false:关闭');
 
 -- ----------------------------
@@ -1032,6 +1040,25 @@ INSERT INTO `sys_logininfor` VALUES (1611626477339095042, 'test', '127.0.0.1', '
 INSERT INTO `sys_logininfor` VALUES (1612380063564152833, 'test', '127.0.0.1', '0', '登录成功', '2023-01-09 17:25:38', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1616008874423857153, 'test', '127.0.0.1', '0', '登录成功', '2023-01-19 17:45:14', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1616013667057868801, 'admin', '127.0.0.1', '0', '登录成功', '2023-01-19 18:04:17', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616244915818815489, 'test', '127.0.0.1', '0', '登录成功', '2023-01-20 09:23:11', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616246940409356289, 'test', '127.0.0.1', '0', '退出成功', '2023-01-20 09:31:14', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247077303050242, 'test', '127.0.0.1', '0', '登录成功', '2023-01-20 09:31:46', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247157661720578, 'test', '127.0.0.1', '0', '退出成功', '2023-01-20 09:32:05', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247219552870401, 'test02', '127.0.0.1', '0', '注册成功', '2023-01-20 09:32:20', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247273378373634, 'test02', '127.0.0.1', '0', '登录成功', '2023-01-20 09:32:33', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247351530840065, 'test02', '127.0.0.1', '0', '退出成功', '2023-01-20 09:32:52', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247388541378561, 'test', '127.0.0.1', '0', '登录成功', '2023-01-20 09:33:01', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247468199600129, 'test', '127.0.0.1', '0', '退出成功', '2023-01-20 09:33:20', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247628401041410, 'test', '127.0.0.1', '0', '登录成功', '2023-01-20 09:33:58', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247720596037634, 'test', '127.0.0.1', '0', '退出成功', '2023-01-20 09:34:20', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616247772404080641, 'test', '127.0.0.1', '0', '登录成功', '2023-01-20 09:34:32', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616258185652953090, 'test', '127.0.0.1', '0', '登录成功', '2023-01-20 10:15:55', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616274945785495553, 'test', '127.0.0.1', '0', '退出成功', '2023-01-20 11:22:31', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616274973258186754, 'admin', '127.0.0.1', '0', '登录成功', '2023-01-20 11:22:37', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616289825196425217, 'admin', '127.0.0.1', '0', '退出成功', '2023-01-20 12:21:38', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616289861112250370, 'admin', '127.0.0.1', '0', '登录成功', '2023-01-20 12:21:47', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616302846899716098, 'admin', '127.0.0.1', '0', '退出成功', '2023-01-20 13:13:23', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1616302861235847169, 'admin', '127.0.0.1', '0', '登录成功', '2023-01-20 13:13:26', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1496,6 +1523,19 @@ INSERT INTO `sys_oper_log` VALUES (1616015326756544513, '菜单管理', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1616015394330976257, '菜单管理', 2, 'com.erahub.base.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '', '/menu', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":\"admin\",\"updateTime\":\"2023-01-19 18:11:08\",\"parentName\":null,\"parentId\":2,\"children\":[],\"menuId\":111,\"menuName\":\"Sentinel\",\"orderNum\":6,\"path\":\"http://127.0.0.1:8718\",\"component\":\"\",\"queryParam\":\"\",\"isFrame\":\"0\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"monitor:sentinel:list\",\"icon\":\"sentinel\",\"remark\":\"流量控制菜单\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-19 18:11:09', 12);
 INSERT INTO `sys_oper_log` VALUES (1616015485548699649, '菜单管理', 2, 'com.erahub.base.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '', '/menu', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":\"admin\",\"updateTime\":\"2023-01-19 18:11:30\",\"parentName\":null,\"parentId\":2,\"children\":[],\"menuId\":110,\"menuName\":\"XxlJob\",\"orderNum\":7,\"path\":\"http://127.0.0.1:9900\",\"component\":\"\",\"queryParam\":\"\",\"isFrame\":\"0\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"monitor:xxljob:list\",\"icon\":\"job\",\"remark\":\"定时任务菜单\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-19 18:11:31', 7);
 INSERT INTO `sys_oper_log` VALUES (1616018517204213762, '数据库文档', 5, 'com.erahub.base.tool.controller.ToDatabaseDocController.exportHtml()', 'GET', 1, 'admin', '', '/db-doc/export-html', '127.0.0.1', '', '{}', '', 0, '', '2023-01-19 18:23:33', 76);
+INSERT INTO `sys_oper_log` VALUES (1616244945204109314, '对象存储状态修改', 2, 'com.erahub.base.basicservice.controller.BSOssConfigController.changeStatus()', 'PUT', 1, 'test', '', '/oss/config/changeStatus', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossConfigId\":5,\"configKey\":\"minio-lp\",\"accessKey\":null,\"secretKey\":null,\"bucketName\":null,\"prefix\":null,\"endpoint\":null,\"domain\":null,\"isHttps\":null,\"status\":\"0\",\"region\":null,\"ext1\":null,\"remark\":null,\"accessPolicy\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 09:23:18', 47);
+INSERT INTO `sys_oper_log` VALUES (1616244957912850433, '对象存储状态修改', 2, 'com.erahub.base.basicservice.controller.BSOssConfigController.changeStatus()', 'PUT', 1, 'test', '', '/oss/config/changeStatus', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossConfigId\":1,\"configKey\":\"minio\",\"accessKey\":null,\"secretKey\":null,\"bucketName\":null,\"prefix\":null,\"endpoint\":null,\"domain\":null,\"isHttps\":null,\"status\":\"0\",\"region\":null,\"ext1\":null,\"remark\":null,\"accessPolicy\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 09:23:21', 7);
+INSERT INTO `sys_oper_log` VALUES (1616244966406316033, '对象存储配置', 9, 'com.erahub.base.basicservice.controller.BSOssConfigController.init()', 'DELETE', 1, 'test', '', '/oss/config/init', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 09:23:23', 8);
+INSERT INTO `sys_oper_log` VALUES (1616247138795741185, '参数管理', 2, 'com.erahub.base.system.controller.SysConfigController.edit()', 'PUT', 1, 'test', '', '/config', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2022-09-10 17:10:48\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 09:32:00\",\"configId\":4,\"configName\":\"账号自助-是否开启用户注册功能\",\"configKey\":\"sys.account.registerUser\",\"configValue\":\"true\",\"configType\":\"Y\",\"remark\":\"是否开启注册用户功能（true开启，false关闭）\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 09:32:01', 11);
+INSERT INTO `sys_oper_log` VALUES (1616263668036108290, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'test', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"test\",\"createTime\":\"2023-01-20 10:37:41\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 10:37:41\",\"noticeId\":\"1616263667646038017\",\"noticeTitle\":\"公告1\",\"noticeType\":\"2\",\"noticeContent\":\"呱呱呱呱呱呱呱呱呱呱呱呱呱呱呱古古怪怪\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 10:37:42', 13);
+INSERT INTO `sys_oper_log` VALUES (1616263720691400706, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'test', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"test\",\"createTime\":\"2023-01-20 10:37:54\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 10:37:54\",\"noticeId\":\"1616263720687206401\",\"noticeTitle\":\"通知1\",\"noticeType\":\"1\",\"noticeContent\":\"他吞吞吐吐涛涛涛涛涛涛涛涛涛涛涛涛涛涛\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 10:37:54', 6);
+INSERT INTO `sys_oper_log` VALUES (1616265779671040003, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'test', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"test\",\"createTime\":\"2023-01-20 10:46:05\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 10:46:05\",\"noticeId\":\"1616265779671040002\",\"noticeTitle\":\"公告2\",\"noticeType\":\"2\",\"noticeContent\":\"1111\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 10:46:05', 4);
+INSERT INTO `sys_oper_log` VALUES (1616265810260099075, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'test', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"test\",\"createTime\":\"2023-01-20 10:46:12\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 10:46:12\",\"noticeId\":\"1616265810260099074\",\"noticeTitle\":\"公告3\",\"noticeType\":\"2\",\"noticeContent\":\"水水水水水\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 10:46:13', 2);
+INSERT INTO `sys_oper_log` VALUES (1616265847211917313, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'test', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"test\",\"createTime\":\"2023-01-20 10:46:21\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 10:46:21\",\"noticeId\":\"1616265847140614145\",\"noticeTitle\":\"公告4\",\"noticeType\":\"2\",\"noticeContent\":\"撒擦擦撒擦\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 10:46:21', 10);
+INSERT INTO `sys_oper_log` VALUES (1616265887238160386, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'test', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"test\",\"createTime\":\"2023-01-20 10:46:30\",\"updateBy\":\"test\",\"updateTime\":\"2023-01-20 10:46:30\",\"noticeId\":\"1616265887175245825\",\"noticeTitle\":\"公告5\",\"noticeType\":\"2\",\"noticeContent\":\"撒啊v啊v啊大大\",\"status\":\"0\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 10:46:31', 3);
+INSERT INTO `sys_oper_log` VALUES (1616275834650836994, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'admin', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2023-01-20 11:26:02\",\"updateBy\":\"admin\",\"updateTime\":\"2023-01-20 11:26:02\",\"noticeId\":\"1616275834063634433\",\"noticeTitle\":\"通知2\",\"noticeType\":\"1\",\"noticeContent\":\"通知2通知2通知2\",\"status\":\"0\",\"remark\":null,\"noticeCreator\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 11:26:03', 13);
+INSERT INTO `sys_oper_log` VALUES (1616275863625089026, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'admin', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2023-01-20 11:26:09\",\"updateBy\":\"admin\",\"updateTime\":\"2023-01-20 11:26:09\",\"noticeId\":\"1616275863604117506\",\"noticeTitle\":\"通知3\",\"noticeType\":\"1\",\"noticeContent\":\"通知2通知2通知2通知2\",\"status\":\"0\",\"remark\":null,\"noticeCreator\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 11:26:09', 4);
+INSERT INTO `sys_oper_log` VALUES (1616289993417375745, '通知公告', 2, 'com.erahub.base.basicservice.controller.BSNoticeController.edit()', 'PUT', 1, 'admin', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2023-01-20 11:26:09\",\"updateBy\":\"admin\",\"updateTime\":\"2023-01-20 12:22:18\",\"noticeId\":\"1616275863604117506\",\"noticeTitle\":\"通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3通知3\",\"noticeType\":\"1\",\"noticeContent\":\"通知2通知2通知2通知2\",\"status\":\"0\",\"remark\":null,\"noticeCreator\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-01-20 12:22:18', 10);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1832,6 +1872,7 @@ CREATE TABLE `sys_user`  (
 INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'erahub', 'sys_user', '123456@163.com', '13912345678', '0', 'http://127.0.0.1:9000/erahub/2022/12/11/49b8cc3fe7d0461f8c44f02d3ef830c7.jpg', '$2a$10$AzrC.0tmwFX.ML5E1KfcoOz.4o3zii06W/52Gwvic/G..jU3dUwS6', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', 'admin', '2023-01-05 18:33:32', '管理员');
 INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'test', '管理员', 'sys_user', '1***@sss.com', '15712324556', '0', 'http://127.0.0.1:9000/erahub/2023/01/19/98556d46c14b457c992552094a22520d.jpg', '$2a$10$8m9WcC1OBtip3nMPrT7lpOgP0kGGrd2VGj5ErKWMQxua/jJlpymyK', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:33', 'test', '2023-01-19 17:46:25', NULL);
 INSERT INTO `sys_user` VALUES (1588845286838210561, 106, 'test01', 'test01', 'sys_user', '', '', '0', 'http://127.0.0.1:9000/erahub/2022/12/14/89eb1fba4cf046f2b190a81d80ea4c8f.jpg', '$2a$10$uBR3LiPmzLwYrsmRkVFxjuBw8R6PELEDRH/1k.MU8pFDJhcOgGjeG', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:50', 'test', '2023-01-19 17:46:38', NULL);
+INSERT INTO `sys_user` VALUES (1616247219489955841, NULL, 'test02', 'test02', 'sys_user', '', '', '0', '', '$2a$10$4/32tXdP9VBAJ/cwOAFCEO1Fostx4Hgxfz/KlVPl1xsl9rIiqgw/u', '0', '0', '', NULL, 'test02', '2023-01-20 09:32:20', 'test02', '2023-01-20 09:32:20', NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_post

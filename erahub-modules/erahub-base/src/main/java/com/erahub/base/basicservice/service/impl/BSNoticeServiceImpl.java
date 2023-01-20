@@ -1,7 +1,12 @@
 package com.erahub.base.basicservice.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.erahub.base.basicservice.domain.bo.BSNoticeBo;
+import com.erahub.base.basicservice.domain.vo.BSNoticeVo;
 import com.erahub.base.basicservice.mapper.BSNoticeMapper;
 import com.erahub.base.basicservice.service.IBSNoticeService;
 import com.erahub.common.core.utils.StringUtils;
@@ -33,6 +38,14 @@ public class BSNoticeServiceImpl implements IBSNoticeService {
             .like(StringUtils.isNotBlank(notice.getCreateBy()), BSNotice::getCreateBy, notice.getCreateBy());
         Page<BSNotice> page = baseMapper.selectPage(pageQuery.build(), lqw);
         return TableDataInfo.build(page);
+    }
+
+    @Override
+    public List<BSNoticeVo> getLatestNotice(Integer latestNoticeNumber) {
+        if(latestNoticeNumber == null){
+            latestNoticeNumber = 0;
+        }
+        return BeanUtil.copyToList(baseMapper.getLatestNotice(latestNoticeNumber),BSNoticeVo.class);
     }
 
     /**

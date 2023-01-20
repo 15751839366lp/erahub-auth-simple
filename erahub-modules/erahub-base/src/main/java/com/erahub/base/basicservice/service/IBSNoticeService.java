@@ -1,5 +1,7 @@
 package com.erahub.base.basicservice.service;
 
+import com.erahub.base.basicservice.domain.bo.BSNoticeBo;
+import com.erahub.base.basicservice.domain.vo.BSNoticeVo;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.erahub.base.basicservice.domain.BSNotice;
@@ -13,6 +15,8 @@ import java.util.List;
  */
 public interface IBSNoticeService {
     TableDataInfo<BSNotice> selectPageNoticeList(BSNotice notice, PageQuery pageQuery);
+
+    List<BSNoticeVo> getLatestNotice(Integer latestNoticeNumber);
 
     /**
      * 查询公告信息
@@ -61,4 +65,5 @@ public interface IBSNoticeService {
      * @return 结果
      */
     int deleteNoticeByIds(Long[] noticeIds);
+
 }

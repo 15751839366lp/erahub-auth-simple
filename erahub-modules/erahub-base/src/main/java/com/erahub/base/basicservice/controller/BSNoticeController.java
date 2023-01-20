@@ -1,6 +1,8 @@
 package com.erahub.base.basicservice.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.erahub.base.basicservice.domain.bo.BSNoticeBo;
+import com.erahub.base.basicservice.domain.vo.BSNoticeVo;
 import com.erahub.common.core.domain.R;
 import com.erahub.common.core.web.controller.BaseController;
 import com.erahub.common.log.annotation.Log;
@@ -12,6 +14,8 @@ import com.erahub.base.basicservice.service.IBSNoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 公告 信息操作处理
@@ -33,6 +37,14 @@ public class BSNoticeController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<BSNotice> list(BSNotice notice, PageQuery pageQuery) {
         return noticeService.selectPageNoticeList(notice, pageQuery);
+    }
+
+    /**
+     * 获取最新通知公告列表
+     */
+    @GetMapping("/getLatestNotice/{latestNoticeNumber}")
+    public List<BSNoticeVo> getLatestNotice(@PathVariable Integer latestNoticeNumber) {
+        return noticeService.getLatestNotice(latestNoticeNumber);
     }
 
     /**

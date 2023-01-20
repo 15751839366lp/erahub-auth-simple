@@ -1,7 +1,9 @@
 package com.erahub.base.basicservice.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.erahub.base.system.api.domain.SysUser;
 import com.erahub.common.core.web.domain.BaseEntity;
 import com.erahub.common.core.xss.Xss;
 import lombok.Data;
@@ -57,4 +59,9 @@ public class BSNotice extends BaseEntity {
      */
     private String remark;
 
+    /**
+     * 创建人
+     */
+    @TableField(exist = false)
+    private SysUser noticeCreator;
 }

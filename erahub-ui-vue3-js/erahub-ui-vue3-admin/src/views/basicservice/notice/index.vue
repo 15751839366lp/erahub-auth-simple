@@ -76,7 +76,13 @@
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="noticeList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="noticeList"
+      @selection-change="handleSelectionChange"
+      :header-cell-class-name="handleHeaderClass"
+      @header-click="handleHeaderCLick"
+    >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" prop="noticeId" width="100" />
       <el-table-column
@@ -96,9 +102,16 @@
         </template>
       </el-table-column>
       <el-table-column label="创建者" align="center" prop="createBy" width="100" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="100">
+      <el-table-column
+        label="创建时间"
+        align="center"
+        prop="createTime"
+        sortable="custom"
+        width="180"
+        :show-overflow-tooltip="true"
+      >
         <template #default="scope">
-          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -204,6 +217,7 @@ const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const title = ref('')
+const defaultSort = ref({ prop: 'createTime', order: 'descending' })
 
 const data = reactive({
   form: {},
@@ -212,6 +226,7 @@ const data = reactive({
     pageSize: 10,
     noticeTitle: undefined,
     createBy: undefined,
+    createTime: undefined,
     status: undefined
   },
   rules: {
@@ -255,6 +270,9 @@ function handleQuery() {
 /** 重置按钮操作 */
 function resetQuery() {
   proxy.resetForm('queryRef')
+  defaultSort.value = {}
+  queryParams.value.orderByColumn = defaultSort.value.prop
+  queryParams.value.isAsc = defaultSort.value.order
   handleQuery()
 }
 /** 多选框选中数据 */
@@ -312,6 +330,52 @@ function handleDelete(row) {
       proxy.$modal.msgSuccess('删除成功')
     })
     .catch(() => {})
+}
+
+// 设置列的排序为我们自定义的排序
+function handleHeaderClass({ column }) {
+  column.order = column.multiOrder
+}
+// 点击表头进行排序
+function handleHeaderCLick(column) {
+  if (column.sortable !== 'custom') {
+    return
+  }
+  switch (column.multiOrder) {
+    case 'descending':
+      column.multiOrder = 'ascending'
+      break
+    case 'ascending':
+      column.multiOrder = ''
+      break
+    default:
+      column.multiOrder = 'descending'
+      break
+  }
+  handleOrderChange(column.property, column.multiOrder)
+}
+function handleOrderChange(prop, order) {
+  let orderByArr = queryParams.value.orderByColumn ? queryParams.value.orderByColumn.split(',') : []
+  let isAscArr = queryParams.value.isAsc ? queryParams.value.isAsc.split(',') : []
+  let propIndex = orderByArr.indexOf(prop)
+  if (propIndex !== -1) {
+    if (order) {
+      //排序里已存在 只修改排序
+      isAscArr[propIndex] = order
+    } else {
+      //如果order为null 则删除排序字段和属性
+      isAscArr.splice(propIndex, 1) //删除排序
+      orderByArr.splice(propIndex, 1) //删除属性
+    }
+  } else {
+    //排序里不存在则新增排序
+    orderByArr.push(prop)
+    isAscArr.push(order)
+  }
+  //合并排序
+  queryParams.value.orderByColumn = orderByArr.join(',')
+  queryParams.value.isAsc = isAscArr.join(',')
+  getList()
 }
 
 getList()

@@ -9,6 +9,15 @@ export function listNotice(query) {
   })
 }
 
+// 获取通知公告列表（index展示）
+export function selectPageNoticeListByIndex(query) {
+  return request({
+    url: '/basicservice/notice/selectPageNoticeListByIndex',
+    method: 'get',
+    params: query
+  })
+}
+
 // 获取最新通知公告列表
 export function getLatestNotice(latestNoticeNumber) {
   return request({

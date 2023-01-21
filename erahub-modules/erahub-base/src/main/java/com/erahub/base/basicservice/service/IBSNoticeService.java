@@ -16,6 +16,8 @@ import java.util.List;
 public interface IBSNoticeService {
     TableDataInfo<BSNotice> selectPageNoticeList(BSNotice notice, PageQuery pageQuery);
 
+    TableDataInfo<BSNotice> selectPageNoticeListByIndex(BSNoticeBo bo, PageQuery pageQuery);
+
     List<BSNoticeVo> getLatestNotice(Integer latestNoticeNumber);
 
     /**
@@ -65,5 +67,4 @@ public interface IBSNoticeService {
      * @return 结果
      */
     int deleteNoticeByIds(Long[] noticeIds);
-
 }

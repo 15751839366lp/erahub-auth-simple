@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.erahub.base.basicservice.domain.bo.BSNoticeBo;
 import com.erahub.base.basicservice.domain.vo.BSNoticeVo;
@@ -37,6 +39,16 @@ public class BSNoticeServiceImpl implements IBSNoticeService {
             .eq(StringUtils.isNotBlank(notice.getNoticeType()), BSNotice::getNoticeType, notice.getNoticeType())
             .like(StringUtils.isNotBlank(notice.getCreateBy()), BSNotice::getCreateBy, notice.getCreateBy());
         Page<BSNotice> page = baseMapper.selectPage(pageQuery.build(), lqw);
+        return TableDataInfo.build(page);
+    }
+
+    @Override
+    public TableDataInfo<BSNotice> selectPageNoticeListByIndex(BSNoticeBo bo, PageQuery pageQuery) {
+        QueryWrapper<BSNotice> wrapper = Wrappers.query();
+        wrapper.eq(bo.getNoticeType() != null, "bn.notice_type", bo.getNoticeType());
+        wrapper.eq("bn.status","0");
+        wrapper.orderByDesc("bn.create_time");
+        Page<BSNotice> page = baseMapper.selectPageNoticeListByIndex(pageQuery.build(), wrapper);
         return TableDataInfo.build(page);
     }
 

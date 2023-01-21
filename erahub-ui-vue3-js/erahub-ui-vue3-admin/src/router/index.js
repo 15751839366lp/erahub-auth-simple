@@ -83,6 +83,19 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
+  },
+  {
+    path: '/basicservice/notice-more',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'index/',
+        component: () => import('@/views/basicservice/notice/noticeList'),
+        name: 'NoticeList',
+        meta: { title: '通知公告列表', activeMenu: '/index' }
+      }
+    ]
   }
 ]
 

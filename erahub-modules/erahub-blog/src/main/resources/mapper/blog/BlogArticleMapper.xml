@@ -37,7 +37,7 @@
         <result property="status" column="tag_status"/>
     </resultMap>
 
-    <sql id="selectBlogArticleVo">
+    <sql id="selectBlogArticle">
         select ba.article_id,
                ba.article_cover,
                ba.article_title,
@@ -68,17 +68,17 @@
     </sql>
 
     <select id="selectPageBlogArticleList" resultMap="BlogArticleResult">
-        <include refid="selectBlogArticleVo"/>
+        <include refid="selectBlogArticle"/>
         ${ew.getCustomSqlSegment}
     </select>
 
     <select id="queryList" resultMap="BlogArticleResult">
-        <include refid="selectBlogArticleVo"/>
+        <include refid="selectBlogArticle"/>
         ${ew.getCustomSqlSegment}
     </select>
 
     <select id="queryById" resultMap="BlogArticleResult">
-        <include refid="selectBlogArticleVo"/>
+        <include refid="selectBlogArticle"/>
         where ba.article_id = #{id}
     </select>
 </mapper>

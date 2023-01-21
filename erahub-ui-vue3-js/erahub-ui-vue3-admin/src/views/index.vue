@@ -142,9 +142,12 @@
           <template #header>
             <div class="flex justify-between">
               <span>{{ '通知公告' }}</span>
-              <el-link type="primary" :underline="false">{{ '更多' }}</el-link>
+              <el-link type="primary" :underline="false" @click="getMoreNotice()">{{
+                '更多'
+              }}</el-link>
             </div>
           </template>
+          <el-empty v-if="!notice || notice.length == 0" description="暂无通知公告" />
           <el-skeleton :loading="loading" animated>
             <div v-for="(item, index) in notice" :key="`dynamics-${index}`">
               <div class="flex items-center" @click="getNoticeInfo(item)" style="cursor: pointer">
@@ -164,7 +167,6 @@
                   </div>
                 </div>
               </div>
-
               <el-divider />
             </div>
           </el-skeleton>
@@ -191,7 +193,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="发布者：">{{
-              noticeInfoForm.noticeCreator.userName
+              noticeInfoForm.noticeCreator.nickName
             }}</el-form-item>
           </el-col>
         </el-row>
@@ -234,6 +236,7 @@ import useUserStore from '@/store/modules/user'
 import { formatTime } from '@/utils'
 import defAva from '@/assets/images/profile.jpg'
 
+const router = useRouter()
 const userStore = useUserStore()
 const loading = ref(true)
 const avatar = userStore.avatar
@@ -511,6 +514,10 @@ const getNotice = async () => {
 const getNoticeInfo = (notice) => {
   noticeInfoForm.value = notice
   noticeInfoOpen.value = true
+}
+//跳转更多通知公告
+function getMoreNotice() {
+  router.push('/basicservice/notice-more/index')
 }
 
 const getAllApi = async () => {

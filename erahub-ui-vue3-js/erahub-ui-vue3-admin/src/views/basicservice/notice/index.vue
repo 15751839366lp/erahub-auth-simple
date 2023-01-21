@@ -227,7 +227,9 @@ const data = reactive({
     noticeTitle: undefined,
     createBy: undefined,
     createTime: undefined,
-    status: undefined
+    status: undefined,
+    orderByColumn: defaultSort.value.prop,
+    isAsc: defaultSort.value.order
   },
   rules: {
     noticeTitle: [{ required: true, message: '公告标题不能为空', trigger: 'blur' }],
@@ -270,7 +272,7 @@ function handleQuery() {
 /** 重置按钮操作 */
 function resetQuery() {
   proxy.resetForm('queryRef')
-  defaultSort.value = {}
+  defaultSort.value = { prop: 'createTime', order: 'descending' }
   queryParams.value.orderByColumn = defaultSort.value.prop
   queryParams.value.isAsc = defaultSort.value.order
   handleQuery()

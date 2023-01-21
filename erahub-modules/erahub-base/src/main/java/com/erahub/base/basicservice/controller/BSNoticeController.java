@@ -40,6 +40,14 @@ public class BSNoticeController extends BaseController {
     }
 
     /**
+     * 获取通知公告列表（index展示）
+     */
+    @GetMapping("/selectPageNoticeListByIndex")
+    public TableDataInfo<BSNotice> selectPageNoticeListByIndex(BSNoticeBo bo, PageQuery pageQuery) {
+        return noticeService.selectPageNoticeListByIndex(bo, pageQuery);
+    }
+
+    /**
      * 获取最新通知公告列表
      */
     @GetMapping("/getLatestNotice/{latestNoticeNumber}")

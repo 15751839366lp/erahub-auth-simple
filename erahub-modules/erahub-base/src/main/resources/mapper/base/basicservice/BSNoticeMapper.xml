@@ -20,10 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="SysUser" id="SysUserResult">
         <id     property="userId"       column="user_id"      />
         <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
         <result property="avatar"       column="avatar"       />
     </resultMap>
 
-    <select id="getLatestNotice" parameterType="Integer" resultMap="BSNoticeResult">
+    <sql id="selectNotice">
         SELECT bn.notice_id,
                bn.notice_title,
                bn.notice_type,
@@ -34,12 +35,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                bn.create_time,
                bn.update_by,
                bn.update_time,
+
                su.user_id,
                su.user_name,
+               su.nick_name,
                su.avatar
         FROM bs_notice bn
-        left join sys_user su on bn.create_by = su.user_name
+                 left join sys_user su on bn.create_by = su.user_name
+    </sql>
+
+    <select id="getLatestNotice" parameterType="Integer" resultMap="BSNoticeResult">
+        <include refid="selectNotice"/>
+        where bn.status = '0'
         order by create_time desc
         LIMIT #{latestNoticeNumber}
+    </select>
+
+    <select id="selectPageNoticeListByIndex" resultMap="BSNoticeResult">
+        <include refid="selectNotice"/>
+        ${ew.getCustomSqlSegment}
     </select>
 </mapper>

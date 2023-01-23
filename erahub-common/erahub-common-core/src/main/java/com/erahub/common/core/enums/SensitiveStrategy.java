@@ -19,6 +19,11 @@ public enum SensitiveStrategy {
     ID_CARD(s -> DesensitizedUtil.idCardNum(s, 3, 4)),
 
     /**
+     * 密码脱敏
+     */
+    PASSWORD(DesensitizedUtil::password),
+
+    /**
      * 手机号脱敏
      */
     PHONE(DesensitizedUtil::mobilePhone),

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erahub.base.basicservice.mapper.BSMailAccountMapper">
+
+    <resultMap type="com.erahub.base.basicservice.domain.BSMailAccount" id="BSMailAccountResult">
+    <result property="mailAccountId" column="mail_account_id"/>
+    <result property="mailFrom" column="mail_from"/>
+    <result property="user" column="user"/>
+    <result property="pass" column="pass"/>
+    <result property="auth" column="auth"/>
+    <result property="host" column="host"/>
+    <result property="port" column="port"/>
+    <result property="socketFactoryPort" column="socket_factory_port"/>
+    <result property="starttlsEnable" column="starttls_enable"/>
+    <result property="sslEnable" column="ssl_enable"/>
+    <result property="timeout" column="timeout"/>
+    <result property="connectionTimeout" column="connection_timeout"/>
+    <result property="createBy" column="create_by"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateBy" column="update_by"/>
+    <result property="updateTime" column="update_time"/>
+    <result property="remark" column="remark"/>
+    </resultMap>
+
+
+</mapper>

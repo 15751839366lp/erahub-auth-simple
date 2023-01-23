@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
@@ -43,10 +44,29 @@ public class MailUtils {
      * @param user 发送人
      * @param pass 授权码
      */
-    public static MailAccount getMailAccount(String from, String user, String pass) {
+    public static MailAccount getMailAccount(String from,
+                                             String user,
+                                             String pass,
+                                             Boolean auth,
+                                             String host,
+                                             Integer port,
+                                             Integer socketFactoryPort,
+                                             Boolean starttlsEnable,
+                                             Boolean sslEnable,
+                                             Long timeout,
+                                             Long ConnectionTimeout) {
         ACCOUNT.setFrom(StringUtils.blankToDefault(from, ACCOUNT.getFrom()));
         ACCOUNT.setUser(StringUtils.blankToDefault(user, ACCOUNT.getUser()));
         ACCOUNT.setPass(StringUtils.blankToDefault(pass, ACCOUNT.getPass()));
+        ACCOUNT.setAuth(ObjectUtil.defaultIfNull(auth,ACCOUNT.isAuth()));
+        ACCOUNT.setHost(StringUtils.blankToDefault(host,ACCOUNT.getHost()));
+        ACCOUNT.setPort(ObjectUtil.defaultIfNull(port,ACCOUNT.getPort()));
+        ACCOUNT.setSocketFactoryPort(ObjectUtil.defaultIfNull(socketFactoryPort,ACCOUNT.getSocketFactoryPort()));
+        ACCOUNT.setStarttlsEnable(ObjectUtil.defaultIfNull(starttlsEnable,ACCOUNT.isStarttlsEnable()));
+        ACCOUNT.setSslEnable(ObjectUtil.defaultIfNull(sslEnable,ACCOUNT.isSslEnable()));
+        ACCOUNT.setTimeout(ObjectUtil.defaultIfNull(timeout,0L));
+        ACCOUNT.setConnectionTimeout(ObjectUtil.defaultIfNull(ConnectionTimeout,0L));
+
         return ACCOUNT;
     }
 

@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="avatar"       column="avatar"       />
     </resultMap>
 
-    <sql id="selectNotice">
+    <sql id="selectBSNotice">
         SELECT bn.notice_id,
                bn.notice_title,
                bn.notice_type,
@@ -45,14 +45,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <select id="getLatestNotice" parameterType="Integer" resultMap="BSNoticeResult">
-        <include refid="selectNotice"/>
+        <include refid="selectBSNotice"/>
         where bn.status = '0'
         order by create_time desc
         LIMIT #{latestNoticeNumber}
     </select>
 
     <select id="selectPageNoticeListByIndex" resultMap="BSNoticeResult">
-        <include refid="selectNotice"/>
+        <include refid="selectBSNotice"/>
         ${ew.getCustomSqlSegment}
     </select>
 </mapper>

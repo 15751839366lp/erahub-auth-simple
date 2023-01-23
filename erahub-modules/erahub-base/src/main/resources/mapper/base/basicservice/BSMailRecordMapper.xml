@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erahub.base.basicservice.mapper.BSMailRecordMapper">
+
+    <resultMap type="com.erahub.base.basicservice.domain.BSMailRecord" id="BSMailRecordResult">
+        <result property="mailRecordId" column="mail_record_id"/>
+        <result property="messageId" column="message_id"/>
+        <result property="mailAccountId" column="mail_account_id"/>
+        <result property="mailTo" column="mail_to"/>
+        <result property="subject" column="subject"/>
+        <result property="text" column="text"/>
+        <result property="files" column="files"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <association property="bsMailAccount" column="mail_account_id"
+                     javaType="com.erahub.base.basicservice.domain.BSMailAccount" resultMap="BSMailAccountResult"/>
+    </resultMap>
+
+    <resultMap type="BSMailAccount" id="BSMailAccountResult">
+        <result property="mailAccountId" column="mail_account_id"/>
+        <result property="mailFrom" column="mail_from"/>
+        <result property="user" column="user"/>
+        <result property="auth" column="auth"/>
+        <result property="host" column="host"/>
+        <result property="port" column="port"/>
+        <result property="socketFactoryPort" column="socket_factory_port"/>
+        <result property="starttlsEnable" column="starttls_enable"/>
+        <result property="sslEnable" column="ssl_enable"/>
+        <result property="timeout" column="timeout"/>
+        <result property="connectionTimeout" column="connection_timeout"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectBSMailRecord">
+        SELECT bmr.mail_record_id,
+               bmr.message_id,
+               bmr.mail_account_id,
+               bmr.mail_to,
+               bmr.subject,
+               bmr.text,
+               bmr.files,
+               bmr.create_by,
+               bmr.create_time,
+               bmr.update_by,
+               bmr.update_time,
+
+               bma.mail_account_id,
+               bma.mail_from,
+               bma.user,
+               bma.host,
+               bma.port,
+               bma.socket_factory_port,
+               bma.starttls_enable,
+               bma.ssl_enable,
+               bma.timeout,
+               bma.connection_timeout,
+               bma.remark
+        FROM bs_mail_record bmr
+                 left join bs_mail_account bma on bmr.mail_account_id = bma.mail_account_id
+    </sql>
+
+    <select id="selectPageBSMailRecordList" resultMap="BSMailRecordResult">
+        <include refid="selectBSMailRecord"/>
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="queryList" resultMap="BSMailRecordResult">
+        <include refid="selectBSMailRecord"/>
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="queryById" resultMap="BSMailRecordResult">
+        <include refid="selectBSMailRecord"/>
+        where bmr.mail_record_id = #{id}
+    </select>
+
+</mapper>

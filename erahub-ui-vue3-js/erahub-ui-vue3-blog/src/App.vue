@@ -34,7 +34,7 @@
   </teleport>
 </template>
 
-<script lang="ts">
+<script setup  name="app">
 import { computed, defineComponent, onBeforeMount, onUnmounted, ref } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { useCommonStore } from '@/stores/common'
@@ -154,11 +154,10 @@ const cssVariables = computed(() => {
           --main-gradient: ${appStore.themeConfig.header_gradient_css};
         `
 })
-appWrapperClass
-loadingBarClass
+
 </script>
 
-<style lang="less">
+<style lang="scss">
 .arrow-left > .icon,
 .arrow-right > .icon {
   display: inline !important;

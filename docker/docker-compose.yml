@@ -29,7 +29,7 @@ services:
     network_mode: "host"
 
   nacos:
-    image: erahub/erahub-nacos:1.1.0
+    image: erahub/erahub-nacos:1.2.0
     container_name: nacos
     ports:
       - "8848:8848"
@@ -96,7 +96,7 @@ services:
     network_mode: "host"
 
   seata-server:
-    image: erahub/erahub-seata-server:1.1.0
+    image: erahub/erahub-seata-server:1.2.0
     container_name: seata-server
     ports:
       - "7091:7091"
@@ -135,7 +135,7 @@ services:
     network_mode: "host"
 
   sentinel:
-    image: erahub/erahub-sentinel-dashboard:1.1.0
+    image: erahub/erahub-sentinel-dashboard:1.2.0
     container_name: sentinel
     environment:
       TZ: Asia/Shanghai
@@ -150,7 +150,7 @@ services:
     network_mode: "host"
 
   erahub-monitor:
-    image: erahub/erahub-monitor:1.1.0
+    image: erahub/erahub-monitor:1.2.0
     container_name: erahub-monitor
     environment:
       # 时区上海
@@ -166,7 +166,7 @@ services:
     network_mode: "host"
 
   erahub-xxl-job-admin:
-    image: erahub/erahub-xxl-job-admin:1.1.0
+    image: erahub/erahub-xxl-job-admin:1.2.0
     container_name: erahub-xxl-job-admin
     environment:
       # 时区上海
@@ -182,7 +182,7 @@ services:
     network_mode: "host"
 
   erahub-gateway:
-    image: erahub/erahub-gateway:1.1.0
+    image: erahub/erahub-gateway:1.2.0
     container_name: erahub-gateway
     environment:
       # 时区上海
@@ -198,7 +198,7 @@ services:
     network_mode: "host"
 
   erahub-auth:
-    image: erahub/erahub-auth:1.1.0
+    image: erahub/erahub-auth:1.2.0
     container_name: erahub-auth
     environment:
       # 时区上海
@@ -214,7 +214,7 @@ services:
     network_mode: "host"
 
   erahub-base:
-    image: erahub/erahub-base:1.1.0
+    image: erahub/erahub-base:1.2.0
     container_name: erahub-base
     environment:
       # 时区上海
@@ -230,7 +230,7 @@ services:
     network_mode: "host"
 
   erahub-job:
-    image: erahub/erahub-job:1.1.0
+    image: erahub/erahub-job:1.2.0
     container_name: erahub-job
     environment:
       # 时区上海
@@ -246,7 +246,7 @@ services:
     network_mode: "host"
 
   erahub-blog:
-    image: erahub/erahub-blog:1.1.0
+    image: erahub/erahub-blog:1.2.0
     container_name: erahub-blog
     environment:
       # 时区上海
@@ -262,7 +262,7 @@ services:
     network_mode: "host"
 
   erahub-biz:
-    image: erahub/erahub-biz:1.1.0
+    image: erahub/erahub-biz:1.2.0
     container_name: erahub-biz
     environment:
       # 时区上海

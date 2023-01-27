@@ -3,10 +3,12 @@ package com.erahub.base.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.ArrayUtil;
+import com.erahub.base.system.api.domain.SysDictData;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.domain.R;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.core.web.controller.BaseController;
+import com.erahub.common.excel.utils.ExcelUtil;
 import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessType;
 import com.erahub.base.system.api.domain.SysDept;
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +43,17 @@ public class SysDeptController extends BaseController {
     public R<List<SysDept>> list(SysDept dept) {
         List<SysDept> depts = deptService.selectDeptList(dept);
         return R.ok(depts);
+    }
+
+    /**
+     * 导出部门列表
+     */
+    @Log(title = "部门管理", businessType = BusinessType.EXPORT)
+    @SaCheckPermission("system:dept:export")
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, SysDept dept) {
+        List<SysDept> list = deptService.selectDeptList(new SysDept());
+        ExcelUtil.exportExcel(list, "部门管理", SysDept.class, response);
     }
 
     /**

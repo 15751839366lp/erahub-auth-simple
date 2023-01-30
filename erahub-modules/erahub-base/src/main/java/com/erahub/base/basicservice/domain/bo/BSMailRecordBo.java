@@ -1,13 +1,11 @@
 package com.erahub.base.basicservice.domain.bo;
 
-import com.erahub.base.basicservice.domain.BSMailAccount;
+import com.erahub.base.basicservice.api.domain.BSMailAccount;
 import com.erahub.common.core.validate.AddGroup;
 import com.erahub.common.core.validate.EditGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.validation.constraints.*;
-
-import java.util.Date;
 
 import com.erahub.common.core.web.domain.BaseEntity;
 

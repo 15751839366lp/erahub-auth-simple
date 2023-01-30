@@ -13,6 +13,7 @@ import com.erahub.common.oss.entity.UploadResult;
 import com.erahub.common.oss.factory.OssFactory;
 import com.erahub.base.basicservice.api.RemoteFileService;
 import com.erahub.base.basicservice.api.domain.BSFile;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ import java.util.stream.Collectors;
  * @author erahub
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 @DubboService
 public class RemoteFileServiceImpl implements RemoteFileService {
 
-    @Autowired
-    private BSOssMapper bSOssMapper;
+    private final BSOssMapper bSOssMapper;
 
     /**
      * 文件上传请求

@@ -1,4 +1,4 @@
-package com.erahub.base.basicservice.domain;
+package com.erahub.base.basicservice.api.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.erahub.common.core.annotation.Sensitive;

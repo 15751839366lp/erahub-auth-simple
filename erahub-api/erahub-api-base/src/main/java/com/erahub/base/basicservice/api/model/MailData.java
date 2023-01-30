@@ -1,29 +1,17 @@
-package com.erahub.base.basicservice.domain;
+package com.erahub.base.basicservice.api.model;
 
-import com.baomidou.mybatisplus.annotation.*;
 import com.erahub.base.basicservice.api.domain.BSMailAccount;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import com.erahub.common.core.web.domain.BaseEntity;
+import java.io.Serializable;
 
-/**
- * 邮件记录对象 bs_mail_record
- *
- * @author erahub
- * @date 2023-01-23
- */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("bs_mail_record")
-public class BSMailRecord extends BaseEntity {
-
-    private static final long serialVersionUID=1L;
+public class MailData implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * 邮件ID
      */
-    @TableId(value = "mail_record_id")
     private Long mailRecordId;
     /**
      * 消息ID
@@ -56,6 +44,5 @@ public class BSMailRecord extends BaseEntity {
     /**
      * 邮件账号
      */
-    @TableField(exist = false)
     private BSMailAccount bsMailAccount;
 }

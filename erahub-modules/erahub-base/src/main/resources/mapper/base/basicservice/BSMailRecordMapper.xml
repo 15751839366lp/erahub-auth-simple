@@ -18,7 +18,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
         <association property="bsMailAccount" column="mail_account_id"
-                     javaType="com.erahub.base.basicservice.domain.BSMailAccount" resultMap="BSMailAccountResult"/>
+                     javaType="com.erahub.base.basicservice.api.domain.BSMailAccount" resultMap="BSMailAccountResult"/>
     </resultMap>
 
     <resultMap type="BSMailAccount" id="BSMailAccountResult">

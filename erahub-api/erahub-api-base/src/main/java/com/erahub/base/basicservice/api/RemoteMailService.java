@@ -1,5 +1,6 @@
 package com.erahub.base.basicservice.api;
 
+import com.erahub.base.basicservice.api.model.MailData;
 import com.erahub.common.core.exception.ServiceException;
 
 import java.io.File;
@@ -31,4 +32,18 @@ public interface RemoteMailService {
      */
     void sendWithAttachment(String to, String subject, String text, List<File> fileList) throws ServiceException;
 
+    /**
+     * 发送邮件
+     *
+     * @param mailData      邮件信息
+     */
+    public MailData send(MailData mailData) throws ServiceException;
+
+    /**
+     * 发送邮件
+     *
+     * @param mailAccountId   发件账号ID
+     * @param mailData        邮件信息
+     */
+    public MailData send(Long mailAccountId, MailData mailData) throws ServiceException;
 }

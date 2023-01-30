@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.erahub.base.basicservice.mapper.BSMailAccountMapper">
 
-    <resultMap type="com.erahub.base.basicservice.domain.BSMailAccount" id="BSMailAccountResult">
+    <resultMap type="com.erahub.base.basicservice.api.domain.BSMailAccount" id="BSMailAccountResult">
     <result property="mailAccountId" column="mail_account_id"/>
     <result property="mailFrom" column="mail_from"/>
     <result property="user" column="user"/>

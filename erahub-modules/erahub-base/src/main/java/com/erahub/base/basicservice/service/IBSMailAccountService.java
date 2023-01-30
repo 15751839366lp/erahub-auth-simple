@@ -1,6 +1,5 @@
 package com.erahub.base.basicservice.service;
 
-import com.erahub.base.basicservice.domain.BSMailAccount;
 import com.erahub.base.basicservice.domain.vo.BSMailAccountVo;
 import com.erahub.base.basicservice.domain.bo.BSMailAccountBo;
 import com.erahub.common.mybatis.core.page.PageQuery;

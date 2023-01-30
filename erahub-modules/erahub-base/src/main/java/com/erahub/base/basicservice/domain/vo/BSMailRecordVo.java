@@ -1,11 +1,8 @@
 package com.erahub.base.basicservice.domain.vo;
 
-import cn.hutool.extra.mail.MailAccount;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.erahub.base.basicservice.domain.BSMailAccount;
-import com.erahub.common.excel.annotation.ExcelDictFormat;
-import com.erahub.common.excel.convert.ExcelDictConvert;
+import com.erahub.base.basicservice.api.domain.BSMailAccount;
 import lombok.Data;
 import java.util.Date;
 

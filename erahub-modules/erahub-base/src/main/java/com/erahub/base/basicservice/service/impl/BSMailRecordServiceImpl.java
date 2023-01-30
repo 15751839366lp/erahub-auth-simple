@@ -1,11 +1,8 @@
 package com.erahub.base.basicservice.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.extra.mail.MailAccount;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.erahub.base.basicservice.domain.BSMailAccount;
-import com.erahub.base.basicservice.domain.vo.BSMailAccountVo;
+import com.erahub.base.basicservice.api.domain.BSMailAccount;
 import com.erahub.base.basicservice.mapper.BSMailAccountMapper;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
@@ -13,7 +10,6 @@ import com.erahub.common.mail.utils.MailUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

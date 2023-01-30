@@ -1,7 +1,7 @@
 package com.erahub.base.basicservice.mapper;
 
 import com.erahub.common.mybatis.core.mapper.BaseMapperPlus;
-import com.erahub.base.basicservice.domain.BSMailAccount;
+import com.erahub.base.basicservice.api.domain.BSMailAccount;
 import com.erahub.base.basicservice.domain.vo.BSMailAccountVo;
 
 /**

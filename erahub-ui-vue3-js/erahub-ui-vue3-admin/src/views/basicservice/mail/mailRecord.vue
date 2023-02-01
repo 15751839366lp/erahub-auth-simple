@@ -186,22 +186,22 @@
     <el-dialog title="邮件记录详情" v-model="infoOpen" width="700px" append-to-body>
       <el-form :model="info" label-width="100px">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="消息ID：">{{ info.messageId }}</el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="发件人：">{{ info.createBy }}</el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="发件邮箱：">{{ info.bsMailAccount.mailFrom }}</el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="接收邮箱：">
               {{ info.mailTo }}
             </el-form-item>
@@ -213,7 +213,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="标题：">{{ info.subject }}</el-form-item>
           </el-col>
         </el-row>

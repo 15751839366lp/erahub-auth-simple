@@ -136,6 +136,11 @@
               />
             </el-form-item>
           </el-col>
+          <el-col :span="12" v-if="formType == 0">
+            <el-form-item label="部门ID" prop="deptId">
+              <el-input v-model="form.deptId" placeholder="请输入部门ID" />
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="部门名称" prop="deptName">
               <el-input v-model="form.deptName" placeholder="请输入部门名称" />
@@ -206,6 +211,8 @@ const title = ref('')
 const deptOptions = ref([])
 const isExpandAll = ref(true)
 const refreshTable = ref(true)
+// 表单类型 0添加 1修改
+const formType = ref(undefined)
 
 const data = reactive({
   form: {},
@@ -215,6 +222,9 @@ const data = reactive({
   },
   rules: {
     parentId: [{ required: true, message: '上级部门不能为空', trigger: 'blur' }],
+    deptId: [
+      { required: true, pattern: /^[0-9]*$/, message: '请输入正确的部门ID', trigger: 'blur' }
+    ],
     deptName: [{ required: true, message: '部门名称不能为空', trigger: 'blur' }],
     orderNum: [{ required: true, message: '显示排序不能为空', trigger: 'blur' }],
     email: [{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }],
@@ -272,6 +282,7 @@ function handleAdd(row) {
     form.value.parentId = row.deptId
   }
   open.value = true
+  formType.value = 0
   title.value = '添加部门'
 }
 /** 展开/折叠操作 */
@@ -288,6 +299,7 @@ function handleUpdate(row) {
   getDept(row.deptId).then((response) => {
     form.value = response.data
     open.value = true
+    formType.value = 1
     title.value = '修改部门'
     listDeptExcludeChild(row.deptId).then((response) => {
       deptOptions.value = proxy.handleTree(response.data, 'deptId')
@@ -306,15 +318,15 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs['deptRef'].validate((valid) => {
     if (valid) {
-      if (form.value.deptId != undefined) {
-        updateDept(form.value).then((response) => {
-          proxy.$modal.msgSuccess('修改成功')
+      if (formType.value == 0) {
+        addDept(form.value).then((response) => {
+          proxy.$modal.msgSuccess('新增成功')
           open.value = false
           getList()
         })
-      } else {
-        addDept(form.value).then((response) => {
-          proxy.$modal.msgSuccess('新增成功')
+      } else if (formType.value == 1) {
+        updateDept(form.value).then((response) => {
+          proxy.$modal.msgSuccess('修改成功')
           open.value = false
           getList()
         })

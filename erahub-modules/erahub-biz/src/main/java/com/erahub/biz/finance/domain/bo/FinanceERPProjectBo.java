@@ -1,5 +1,6 @@
 package com.erahub.biz.finance.domain.bo;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.erahub.common.core.validate.AddGroup;
 import com.erahub.common.core.validate.EditGroup;
 import lombok.Data;
@@ -7,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
 import com.erahub.common.core.web.domain.BaseEntity;
 
 /**
@@ -77,5 +80,13 @@ public class FinanceERPProjectBo extends BaseEntity {
      */
     private String remark;
 
+    /**
+     * 下达时间
+     */
+    private Date releaseTime;
 
+    /**
+     * ERP工单号（查询用）
+     */
+    private String prefixProjectNumber;
 }

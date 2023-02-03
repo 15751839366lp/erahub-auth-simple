@@ -1,6 +1,8 @@
 package com.erahub.biz.finance.domain.vo;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
@@ -84,5 +86,22 @@ public class FinanceERPProjectVo {
 //    @ExcelProperty(value = "备注")
     private String remark;
 
+    /**
+     * 下达时间
+     */
+    @ExcelProperty(value = "下达时间", index = 15)
+    private Date releaseTime;
+
+    /**
+     * 合同类别
+     */
+    @ExcelProperty(value = "合同类别", index = 17)
+    private String contractType;
+
+    /**
+     * ERP工单号（查询用）
+     */
+    @ExcelProperty(value = "工单号", index = 16)
+    private String prefixProjectNumber;
 
 }

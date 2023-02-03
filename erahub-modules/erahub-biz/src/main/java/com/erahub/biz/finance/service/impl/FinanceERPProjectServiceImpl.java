@@ -1,6 +1,8 @@
 package com.erahub.biz.finance.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.erahub.common.core.exception.ServiceException;
@@ -31,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * ERP工程明细Service业务层处理
@@ -144,19 +147,30 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
 
             Sheet sheet0 = workbook.getSheetAt(0);
             Boolean flag = true;
-            HashMap<Long, FinanceERPProject> projectMap = new HashMap<>();
+            HashMap<Long, FinanceERPProjectVo> projectMap = new HashMap<>();
             for (int i = 0; i < sheet0.getPhysicalNumberOfRows(); i++) {
                 Row row = sheet0.getRow(i);
                 if (ObjectUtil.isEmpty(row)) {
                     continue;
                 }
-                FinanceERPProject bizFinanceERPProject = new FinanceERPProject();
+                FinanceERPProjectVo bizFinanceERPProject = new FinanceERPProjectVo();
                 //获取工单号
-                if (ObjectUtil.isNotEmpty(row.getCell(1))
-                    && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(1)))
-                    && NumberUtil.isNumber(ExcelUtil.getCellStringValue(row.getCell(1)))
+                if (ObjectUtil.isNotEmpty(row.getCell(2))
+                    && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(2)))
+                    && NumberUtil.isNumber(ExcelUtil.getCellStringValue(row.getCell(2)))
                 ) {
-                    bizFinanceERPProject.setProjectNumber(ExcelUtil.getCellStringValue(row.getCell(1)));
+                    bizFinanceERPProject.setProjectNumber(ExcelUtil.getCellStringValue(row.getCell(2)));
+                    bizFinanceERPProject.setPrefixProjectNumber(ExcelUtil.getCellStringValue(row.getCell(2)));
+                } else {
+                    flag = false;
+                }
+
+                //获取下达时间
+                if (ObjectUtil.isNotEmpty(row.getCell(3))
+                    && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(3)))
+                    && Pattern.matches("^[1-9]\\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$", ExcelUtil.getCellStringValue(row.getCell(3)))
+                ) {
+                    bizFinanceERPProject.setReleaseTime(DateUtil.parse(ExcelUtil.getCellStringValue(row.getCell(3)),"yyyy-MM-dd"));
                 } else {
                     flag = false;
                 }
@@ -266,10 +280,13 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
 
                 if (StringUtils.isNotEmpty(projectNumber)) {
                     //效验并获取合同编号
-                    FinanceERPProject bfe = projectMap.get(Long.valueOf(projectNumber));
+                    FinanceERPProjectVo bfe = projectMap.get(Long.valueOf(projectNumber));
                     if (bfe != null && bfe.getRequisitionNumber().equals(requisitionNumber)) {
                         bizFinanceERPProjectVo.setContractNumber(bfe.getContractNumber());
                         bizFinanceERPProjectVo.setProjectType(bfe.getProjectType());
+                        bizFinanceERPProjectVo.setReleaseTime(bfe.getReleaseTime());
+                        bizFinanceERPProjectVo.setPrefixProjectNumber(bfe.getPrefixProjectNumber());
+                        bizFinanceERPProjectVo.setContractType(bfe.getContractType());
                     }
 
                     bizFinanceERPProjectVo.setProjectId(id);

@@ -89,8 +89,8 @@
     >
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="工程ID" align="center" prop="projectId" v-if="true" fixed />
-      <el-table-column label="工单号" align="center" prop="projectNumber" fixed/>
-      <el-table-column label="请购单号" align="center" prop="requisitionNumber" fixed/>
+      <el-table-column label="工单号" width="120" align="center" prop="projectNumber" fixed/>
+      <el-table-column label="请购单号" width="120" align="center" prop="requisitionNumber" fixed/>
       <el-table-column label="装置名称" align="center" prop="deviceName" show-overflow-tooltip/>
       <el-table-column label="工程名称" align="center" prop="projectName" show-overflow-tooltip/>
       <el-table-column label="计划类别" align="center" prop="planType" />
@@ -98,6 +98,8 @@
       <el-table-column label="结算审核额" align="center" prop="settlementReviewAmount" />
       <el-table-column label="合同编号" align="center" prop="contractNumber" show-overflow-tooltip/>
       <el-table-column label="工程类别" align="center" prop="projectType" />
+      <el-table-column label="工单号" align="center" prop="prefixProjectNumber" />
+      <el-table-column label="下达时间" align="center" prop="releaseTime" />
       <el-table-column
         label="操作"
         align="center"

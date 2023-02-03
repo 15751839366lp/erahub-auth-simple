@@ -1,10 +1,12 @@
 package com.erahub.biz.finance.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.erahub.common.core.web.domain.BaseEntity;
 
@@ -66,5 +68,8 @@ public class FinanceERPProject extends BaseEntity {
      * 备注
      */
     private String remark;
-
+    /**
+     * 下达时间
+     */
+    private Date releaseTime;
 }

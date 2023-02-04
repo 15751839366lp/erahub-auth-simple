@@ -5,6 +5,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.erahub.biz.finance.domain.FinanceERPContract;
+import com.erahub.biz.finance.mapper.FinanceERPContractMapper;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.BeanCopyUtils;
 import com.erahub.common.core.utils.StringUtils;
@@ -34,6 +36,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * ERP工程明细Service业务层处理
@@ -45,14 +48,15 @@ import java.util.regex.Pattern;
 @Service
 public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
 
-    private final FinanceERPProjectMapper baseMapper;
+    private final FinanceERPProjectMapper financeERPProjectMapper;
+    private final FinanceERPContractMapper financeERPContractMapper;
 
     /**
      * 查询ERP工程明细
      */
     @Override
     public FinanceERPProjectVo queryById(Long projectId) {
-        return baseMapper.selectVoById(projectId);
+        return financeERPProjectMapper.selectVoById(projectId);
     }
 
     /**
@@ -61,7 +65,7 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
     @Override
     public TableDataInfo<FinanceERPProjectVo> queryPageList(FinanceERPProjectBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<FinanceERPProject> lqw = buildQueryWrapper(bo);
-        Page<FinanceERPProjectVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        Page<FinanceERPProjectVo> result = financeERPProjectMapper.selectVoPage(pageQuery.build(), lqw);
         return TableDataInfo.build(result);
     }
 
@@ -77,7 +81,7 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
     @Override
     public List<FinanceERPProjectVo> queryList(FinanceERPProjectBo bo) {
         LambdaQueryWrapper<FinanceERPProject> lqw = buildQueryWrapper(bo);
-        return baseMapper.selectVoList(lqw);
+        return financeERPProjectMapper.selectVoList(lqw);
     }
 
     private LambdaQueryWrapper<FinanceERPProject> buildQueryWrapper(FinanceERPProjectBo bo) {
@@ -95,7 +99,7 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
     public Boolean insertByBo(FinanceERPProjectBo bo) {
         FinanceERPProject add = BeanUtil.toBean(bo, FinanceERPProject.class);
         validEntityBeforeSave(add);
-        boolean flag = baseMapper.insert(add) > 0;
+        boolean flag = financeERPProjectMapper.insert(add) > 0;
         if (flag) {
             bo.setProjectId(add.getProjectId());
         }
@@ -109,7 +113,7 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
     public Boolean updateByBo(FinanceERPProjectBo bo) {
         FinanceERPProject update = BeanUtil.toBean(bo, FinanceERPProject.class);
         validEntityBeforeSave(update);
-        return baseMapper.updateById(update) > 0;
+        return financeERPProjectMapper.updateById(update) > 0;
     }
 
     /**
@@ -127,7 +131,7 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
         if (isValid) {
             //TODO 做一些业务上的校验,判断是否需要校验
         }
-        return baseMapper.deleteBatchIds(ids) > 0;
+        return financeERPProjectMapper.deleteBatchIds(ids) > 0;
     }
 
     @Override
@@ -145,6 +149,10 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
                 workbook = new XSSFWorkbook(inputStream);
             }
 
+            Map<String, String> contractTypeMap = financeERPContractMapper.selectList().stream()
+                .collect(Collectors.toMap(
+                    FinanceERPContract::getContractNumber, FinanceERPContract::getContratcTypeName)
+                );
             Sheet sheet0 = workbook.getSheetAt(0);
             Boolean flag = true;
             HashMap<Long, FinanceERPProjectVo> projectMap = new HashMap<>();
@@ -179,6 +187,12 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
                 if (ObjectUtil.isNotEmpty(row.getCell(8))
                     && StringUtils.isNotEmpty(ExcelUtil.getCellStringValue(row.getCell(8)))
                 ) {
+                    String contractNumber = ExcelUtil.getCellStringValue(row.getCell(8));
+                    if(contractTypeMap.containsKey(contractNumber)){
+                        bizFinanceERPProject.setContractType(contractTypeMap.get(contractNumber));
+                    }else{
+                        bizFinanceERPProject.setContractType("单签合同");
+                    }
                     bizFinanceERPProject.setContractNumber(ExcelUtil.getCellStringValue(row.getCell(8)));
                 } else {
                     flag = false;
@@ -287,6 +301,7 @@ public class FinanceERPProjectServiceImpl implements IFinanceERPProjectService {
                         bizFinanceERPProjectVo.setReleaseTime(bfe.getReleaseTime());
                         bizFinanceERPProjectVo.setPrefixProjectNumber(bfe.getPrefixProjectNumber());
                         bizFinanceERPProjectVo.setContractType(bfe.getContractType());
+                        bizFinanceERPProjectVo.setProjectType(bfe.getProjectType());
                     }
 
                     bizFinanceERPProjectVo.setProjectId(id);

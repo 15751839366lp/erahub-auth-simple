@@ -52,7 +52,7 @@ public interface BaseMapperPlus<M, T, V> extends BaseMapper<T> {
      * 批量插入
      */
     default boolean insertBatch(Collection<T> entityList) {
-        return Db.updateBatchById(entityList);
+        return Db.saveBatch(entityList);
     }
 
     /**

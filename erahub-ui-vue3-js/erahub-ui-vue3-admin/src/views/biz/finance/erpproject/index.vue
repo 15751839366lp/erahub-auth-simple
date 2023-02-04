@@ -78,7 +78,16 @@
           >导出</el-button
         >
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" gutter="30"></right-toolbar>
+      <el-col :span="1.5">
+        <el-button
+          type="info"
+          plain
+          icon="Operation"
+          @click="handleERPContract"
+          v-hasPermi="['biz:finance:erpcontract:list']"
+        >合同管理</el-button>
+      </el-col>
     </el-row>
 
     <el-table
@@ -94,7 +103,8 @@
       <el-table-column label="装置名称" align="center" prop="deviceName" show-overflow-tooltip/>
       <el-table-column label="工程名称" align="center" prop="projectName" show-overflow-tooltip/>
       <el-table-column label="计划类别" align="center" prop="planType" />
-      <el-table-column label="单位" align="center" prop="department" />
+      <el-table-column label="合同类别" align="center" prop="contractType" />
+      <el-table-column label="部门" align="center" prop="department" />
       <el-table-column label="结算审核额" align="center" prop="settlementReviewAmount" />
       <el-table-column label="合同编号" align="center" prop="contractNumber" show-overflow-tooltip/>
       <el-table-column label="工程类别" align="center" prop="projectType" />
@@ -151,8 +161,11 @@
         <el-form-item label="工程名称" prop="projectName">
           <el-input v-model="form.projectName" placeholder="请输入ERP工程名称" />
         </el-form-item>
-        <el-form-item label="单位" prop="department">
-          <el-input v-model="form.department" placeholder="请输入单位" />
+        <el-form-item label="工程类别" prop="projectType">
+          <el-input v-model="form.projectType" placeholder="请输入工程类别" />
+        </el-form-item>
+        <el-form-item label="部门" prop="department">
+          <el-input v-model="form.department" placeholder="请输入部门" />
         </el-form-item>
         <el-form-item label="结算审核额" prop="settlementReviewAmount">
           <el-input v-model="form.settlementReviewAmount" placeholder="请输入结算审核额" />
@@ -218,6 +231,7 @@ import { saveAs } from 'file-saver'
 import { blobValidate } from '@/utils/erahub'
 
 const { proxy } = getCurrentInstance()
+const router = useRouter()
 
 const financeERPProjectList = ref([])
 const open = ref(false)
@@ -286,6 +300,7 @@ function reset() {
     projectName: null,
     planType: null,
     department: null,
+    projectType: null,
     settlementReviewAmount: null,
     contractNumber: null,
     projectType: null,
@@ -427,6 +442,11 @@ const  handleFileSuccess = async (response, file, fileList) => {
 function submitFileForm() {
   proxy.$refs['uploadRef'].submit()
 }
+/** 跳转合同管理 */
+function handleERPContract() {
+  router.push('/biz/finance/erpcontract')
+}
+
 
 getList()
 </script>

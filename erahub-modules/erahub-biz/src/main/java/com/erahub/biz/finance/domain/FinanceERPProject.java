@@ -49,7 +49,7 @@ public class FinanceERPProject extends BaseEntity {
      */
     private String planType;
     /**
-     * 单位
+     * 部门
      */
     private String department;
     /**
@@ -72,4 +72,8 @@ public class FinanceERPProject extends BaseEntity {
      * 下达时间
      */
     private Date releaseTime;
+    /**
+     * 公司
+     */
+    private String company;
 }

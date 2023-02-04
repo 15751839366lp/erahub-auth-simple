@@ -57,9 +57,9 @@ public class FinanceERPProjectVo {
     private String planType;
 
     /**
-     * 单位
+     * 部门
      */
-    @ExcelProperty(value = "单位", index = 13)
+    @ExcelProperty(value = "部门", index = 13)
     private String department;
 
     /**
@@ -77,7 +77,7 @@ public class FinanceERPProjectVo {
     /**
      * 工程类别
      */
-//    @ExcelProperty(value = "工程类别")
+    @ExcelProperty(value = "工程类别", index = 18)
     private String projectType;
 
     /**
@@ -104,4 +104,9 @@ public class FinanceERPProjectVo {
     @ExcelProperty(value = "工单号", index = 16)
     private String prefixProjectNumber;
 
+    /**
+     * 公司
+     */
+    @ExcelProperty(value = "公司", index = 19)
+    private String company;
 }

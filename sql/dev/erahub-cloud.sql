@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 04/02/2023 13:27:11
+ Date: 05/02/2023 09:28:21
 */
 
 SET NAMES utf8mb4;
@@ -2401,11 +2401,8 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'erahub', 'sys_user', '123456@163.com', '13912345678', '0', 'http://127.0.0.1:9000/erahub/2023/01/30/69ab4708a08b46a399c6fa92cdf0bbd5.jpg', '$2a$10$AzrC.0tmwFX.ML5E1KfcoOz.4o3zii06W/52Gwvic/G..jU3dUwS6', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'admin', '2022-09-10 17:10:48', 'admin', '2023-01-05 18:33:32', '管理员');
-INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'test', '管理员', 'sys_user', '1***@sss.com', '15712324556', '0', 'http://127.0.0.1:9000/erahub/2023/01/19/98556d46c14b457c992552094a22520d.jpg', '$2a$10$8m9WcC1OBtip3nMPrT7lpOgP0kGGrd2VGj5ErKWMQxua/jJlpymyK', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:33', 'test', '2023-01-19 17:46:25', NULL);
-INSERT INTO `sys_user` VALUES (1588845286838210561, 106, 'test01', 'test01', 'sys_user', '', '', '0', 'http://127.0.0.1:9000/erahub/2023/01/27/b3a51d5d361f4648b313b9a272739d2e.jpg', '$2a$10$Uzi9Rnx62HMY7uTXU5AtMOLuO3N8WvGm7pJZVaKkyQWy6r8Td4lZS', '0', '0', '', NULL, 'admin', '2022-11-05 18:46:50', 'test', '2023-01-27 09:54:35', NULL);
-INSERT INTO `sys_user` VALUES (1616247219489955841, NULL, 'test02', 'test02', 'sys_user', '', '', '0', '', '$2a$10$4/32tXdP9VBAJ/cwOAFCEO1Fostx4Hgxfz/KlVPl1xsl9rIiqgw/u', '0', '0', '', NULL, 'test02', '2023-01-20 09:32:20', 'test02', '2023-01-20 09:32:20', NULL);
-INSERT INTO `sys_user` VALUES (1618925664946692097, NULL, 'test03', 'test03😁', 'sys_user', '', '', '0', '', '$2a$10$kwOlSE0u6/UGQ.l.tpniPumh9G89jfyVXDVP6desjSH1NnehAJihe', '0', '0', '', NULL, 'admin', '2023-01-27 18:55:31', 'admin', '2023-01-27 18:55:40', NULL);
+INSERT INTO `sys_user` VALUES (1, 103, 'supervisor', 'erahub', 'sys_user', '123456@163.com', '13912345678', '0', 'http://127.0.0.1:9000/erahub/2023/01/30/69ab4708a08b46a399c6fa92cdf0bbd5.jpg', '$2a$10$AzrC.0tmwFX.ML5E1KfcoOz.4o3zii06W/52Gwvic/G..jU3dUwS6', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'supervisor', '2022-09-10 17:10:48', 'supervisor', '2023-01-05 18:33:32', '超级管理员');
+INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'supermanager', '管理员', 'sys_user', '1***@sss.com', '15712324556', '0', 'http://127.0.0.1:9000/erahub/2023/01/19/98556d46c14b457c992552094a22520d.jpg', '$2a$10$8m9WcC1OBtip3nMPrT7lpOgP0kGGrd2VGj5ErKWMQxua/jJlpymyK', '0', '0', '', NULL, 'supervisor', '2022-11-05 18:46:33', 'supervisor', '2023-01-19 17:46:25', NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_post

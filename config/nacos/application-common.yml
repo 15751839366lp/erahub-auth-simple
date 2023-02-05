@@ -172,7 +172,7 @@ sa-token:
   # token有效期 设为一天 (必定过期) 单位: 秒
   timeout: 86400
   # token临时有效期 (指定时间无操作就过期) 单位: 秒
-  activity-timeout: 1800
+  activity-timeout: 3600
   # 开启内网服务调用鉴权
   check-same-token: true
   # Same-Token的有效期 (单位: 秒)

@@ -70,6 +70,7 @@
 </template>
 <script setup name="NoticeList">
 import { selectPageNoticeListByIndex } from '@/api/basicservice/notice'
+import defAva from '@/assets/images/profile.jpg'
 
 const noticeInfoOpen = ref(false)
 const noticeInfoForm = ref({})

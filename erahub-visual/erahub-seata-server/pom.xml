@@ -54,8 +54,8 @@
     <dependencies>
         <!-- springboot web -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-web</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>log4j-to-slf4j</artifactId>

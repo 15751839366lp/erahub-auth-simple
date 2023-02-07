@@ -30,8 +30,8 @@
 
         <!-- starter-web：spring-webmvc + autoconfigure + logback + yaml + tomcat -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-web</artifactId>
         </dependency>
         <!-- starter-test：junit + spring-test + mockito -->
         <dependency>
@@ -72,8 +72,8 @@
 
         <!-- xxl-job-core -->
         <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-job</artifactId>
         </dependency>
 
     </dependencies>

@@ -12,8 +12,10 @@ import java.lang.annotation.Target;
 /**
  * 字典数据映射注解
  *
+ * @deprecated 建议使用通用翻译注解
  * @author itino
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @JacksonAnnotationsInside

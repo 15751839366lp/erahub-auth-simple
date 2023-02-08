@@ -78,7 +78,7 @@
           >导出</el-button
         >
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" gutter="30"></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :gutter="30"></right-toolbar>
       <el-col :span="1.5">
         <el-button
           type="info"

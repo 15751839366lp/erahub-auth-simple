@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 05/02/2023 09:28:21
+ Date: 09/02/2023 18:18:33
 */
 
 SET NAMES utf8mb4;
@@ -1234,6 +1234,10 @@ INSERT INTO `sys_logininfor` VALUES (1621697312351358977, 'admin', '127.0.0.1', 
 INSERT INTO `sys_logininfor` VALUES (1621700730189025281, 'admin', '127.0.0.1', '0', '退出成功', '2023-02-04 10:42:38', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1621700744986529794, 'admin', '127.0.0.1', '0', '登录成功', '2023-02-04 10:42:42', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1621728586390605825, 'admin', '127.0.0.1', '0', '登录成功', '2023-02-04 12:33:20', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1623261405617160193, 'supermanager', '127.0.0.1', '1', '密码输入错误1次', '2023-02-08 18:04:12', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1623261466715586562, 'supermanager', '127.0.0.1', '1', '密码输入错误2次', '2023-02-08 18:04:27', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1623261584042852354, 'supermanager', '127.0.0.1', '1', '密码输入错误3次', '2023-02-08 18:04:55', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1623261609942679553, 'supermanager', '127.0.0.1', '0', '登录成功', '2023-02-08 18:05:01', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -2034,6 +2038,8 @@ INSERT INTO `sys_oper_log` VALUES (1621740392949518338, 'ERP工程', 6, 'com.era
 INSERT INTO `sys_oper_log` VALUES (1621741152420532226, '字典类型', 9, 'com.erahub.base.system.controller.SysDictTypeController.refreshCache()', 'DELETE', 1, 'admin', '', '/dict/type/refreshCache', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-04 13:23:16', 15);
 INSERT INTO `sys_oper_log` VALUES (1621741544558596097, 'ERP工程', 6, 'com.erahub.biz.finance.controller.FinanceERPProjectController.importData()', 'POST', 1, 'admin', '', '/finance/erpproject/importData', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"projectId\":1,\"projectNumber\":\"8301306397\",\"requisitionNumber\":\"5500926332\",\"deviceName\":\"Ⅱ柴油加氢装置\",\"projectName\":\"外委：II柴加2021年大修换热器检维修项目\",\"planType\":\"大修\",\"department\":\"交换\",\"settlementReviewAmount\":\"446104.44\",\"contractNumber\":\"31700000-20-FW1703-0073-BG01\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-02-20 00:00:00\",\"contractType\":\"单签合同\",\"prefixProjectNumber\":\"008301306397\",\"company\":null},{\"projectId\":2,\"projectNumber\":\"8301559568\",\"requisitionNumber\":\"5501085980\",\"deviceName\":\"异丁烷装置\",\"projectName\":\"外委：C4异构化大修V1401等7台容器常规检修\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"2932.54\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-02-16 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301559568\",\"company\":null},{\"projectId\":3,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"管焊\",\"settlementReviewAmount\":\"1808.53\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":4,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"10774.30\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":5,\"projectNumber\":\"8301667243\",\"requisitionNumber\":\"5501150412\",\"deviceName\":\"四空站\",\"projectName\":\"外委：公用工程气体工区三空站3#离心机电机维修\",\"planType\":\"月度\",\"department\":\"机修\",\"settlementReviewAmount\":\"1319.15\",\"contractNumber\":\"31700000-21-FW1703-0092\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-08-08 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008', 0, '', '2023-02-04 13:24:49', 16);
 INSERT INTO `sys_oper_log` VALUES (1621741714524377090, 'ERP工程', 6, 'com.erahub.biz.finance.controller.FinanceERPProjectController.importData()', 'POST', 1, 'admin', '', '/finance/erpproject/importData', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"projectId\":1,\"projectNumber\":\"8301306397\",\"requisitionNumber\":\"5500926332\",\"deviceName\":\"Ⅱ柴油加氢装置\",\"projectName\":\"外委：II柴加2021年大修换热器检维修项目\",\"planType\":\"大修\",\"department\":\"交换\",\"settlementReviewAmount\":\"446104.44\",\"contractNumber\":\"31700000-20-FW1703-0073-BG01\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-02-20 00:00:00\",\"contractType\":\"单签合同\",\"prefixProjectNumber\":\"008301306397\",\"company\":null},{\"projectId\":2,\"projectNumber\":\"8301559568\",\"requisitionNumber\":\"5501085980\",\"deviceName\":\"异丁烷装置\",\"projectName\":\"外委：C4异构化大修V1401等7台容器常规检修\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"2932.54\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-02-16 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301559568\",\"company\":null},{\"projectId\":3,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"管焊\",\"settlementReviewAmount\":\"1808.53\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":4,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"10774.30\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":5,\"projectNumber\":\"8301667243\",\"requisitionNumber\":\"5501150412\",\"deviceName\":\"四空站\",\"projectName\":\"外委：公用工程气体工区三空站3#离心机电机维修\",\"planType\":\"月度\",\"department\":\"机修\",\"settlementReviewAmount\":\"1319.15\",\"contractNumber\":\"31700000-21-FW1703-0092\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-08-08 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008', 0, '', '2023-02-04 13:25:30', 12);
+INSERT INTO `sys_oper_log` VALUES (1623261734236684289, '个人信息', 2, 'com.erahub.base.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'supermanager', '', '/user/profile/updatePwd', '127.0.0.1', '', '\"test123\" \"supermanager123\"', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-08 18:05:31', 222);
+INSERT INTO `sys_oper_log` VALUES (1623263107950936066, '数据库文档', 5, 'com.erahub.base.tool.controller.ToDatabaseDocController.exportHtml()', 'GET', 1, 'supermanager', '', '/db-doc/export-html', '127.0.0.1', '', '{}', '', 0, '', '2023-02-08 18:10:58', 240);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -2087,17 +2093,6 @@ CREATE TABLE `sys_role`  (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '超级管理员');
-INSERT INTO `sys_role` VALUES (2, '管理员', 'common', 2, '2', 1, 1, '0', '2', 'admin', '2022-09-10 17:10:48', 'admin', '2022-11-05 18:39:04', '管理员');
-INSERT INTO `sys_role` VALUES (3, '本部门及以下', 'test1', 3, '4', 1, 1, '0', '2', 'admin', '2022-09-10 17:10:57', 'admin', NULL, NULL);
-INSERT INTO `sys_role` VALUES (4, '仅本人', 'test2', 4, '5', 1, 1, '0', '2', 'admin', '2022-09-10 17:10:57', 'admin', NULL, NULL);
-INSERT INTO `sys_role` VALUES (1569245300584591362, 'test01', 'test01', 3, '1', 1, 1, '0', '2', 'admin', '2022-09-12 16:43:29', 'admin', '2022-11-05 18:39:07', NULL);
-INSERT INTO `sys_role` VALUES (1575818848019136513, '11111', '1111', 11, '1', 1, 1, '0', '2', 'admin', '2022-09-30 20:04:25', 'admin', '2022-09-30 20:04:25', NULL);
-INSERT INTO `sys_role` VALUES (1575820925898309634, '111', '111', 111, '1', 1, 1, '0', '2', 'admin', '2022-09-30 20:12:41', 'admin', '2022-09-30 20:12:41', NULL);
-INSERT INTO `sys_role` VALUES (1575821813400453122, '222', '222', 222, '1', 1, 1, '0', '2', 'admin', '2022-09-30 20:16:12', 'admin', '2022-09-30 20:16:12', NULL);
-INSERT INTO `sys_role` VALUES (1575826547146485762, 'zzz', 'zzz', 11, '1', 1, 1, '0', '2', 'admin', '2022-09-30 20:35:01', 'admin', '2022-09-30 20:35:01', NULL);
-INSERT INTO `sys_role` VALUES (1575832652555735042, '11', '11', 11, '1', 1, 1, '0', '2', 'admin', '2022-09-30 20:59:17', 'admin', '2022-09-30 20:59:17', NULL);
-INSERT INTO `sys_role` VALUES (1575836920754982913, '111', '11', 11, '1', 1, 1, '0', '2', 'admin', '2022-09-30 21:16:14', 'admin', '2022-09-30 21:16:14', NULL);
-INSERT INTO `sys_role` VALUES (1575838078710042626, '22', '22', 22, '1', 1, 1, '0', '2', 'admin', '2022-09-30 21:20:50', 'admin', '2022-09-30 21:20:50', NULL);
 INSERT INTO `sys_role` VALUES (1588844816627372034, '管理员', 'common', 2, '1', 1, 1, '0', '0', 'admin', '2022-11-05 18:44:58', 'admin', '2023-02-04 12:33:30', NULL);
 INSERT INTO `sys_role` VALUES (1588845036673142786, 'test01', 'test01', 3, '3', 1, 1, '0', '0', 'admin', '2022-11-05 18:45:51', 'test01', '2023-01-27 10:13:05', NULL);
 INSERT INTO `sys_role` VALUES (1618925821415202818, 'test02😂', 'test02', 4, '1', 1, 1, '0', '0', 'admin', '2023-01-27 18:56:09', 'admin', '2023-01-27 18:56:17', NULL);
@@ -2402,7 +2397,7 @@ CREATE TABLE `sys_user`  (
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (1, 103, 'supervisor', 'erahub', 'sys_user', '123456@163.com', '13912345678', '0', 'http://127.0.0.1:9000/erahub/2023/01/30/69ab4708a08b46a399c6fa92cdf0bbd5.jpg', '$2a$10$AzrC.0tmwFX.ML5E1KfcoOz.4o3zii06W/52Gwvic/G..jU3dUwS6', '0', '0', '127.0.0.1', '2022-09-10 17:10:48', 'supervisor', '2022-09-10 17:10:48', 'supervisor', '2023-01-05 18:33:32', '超级管理员');
-INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'supermanager', '管理员', 'sys_user', '1***@sss.com', '15712324556', '0', 'http://127.0.0.1:9000/erahub/2023/01/19/98556d46c14b457c992552094a22520d.jpg', '$2a$10$8m9WcC1OBtip3nMPrT7lpOgP0kGGrd2VGj5ErKWMQxua/jJlpymyK', '0', '0', '', NULL, 'supervisor', '2022-11-05 18:46:33', 'supervisor', '2023-01-19 17:46:25', NULL);
+INSERT INTO `sys_user` VALUES (1588845214859759618, 104, 'supermanager', '管理员', 'sys_user', '1***@sss.com', '15712324556', '0', 'http://127.0.0.1:9000/erahub/2023/01/19/98556d46c14b457c992552094a22520d.jpg', '$2a$10$QX6Zj4y/5Eso41G1mjUSoettyBr90uUx3qworGanDoqwTfKTL6JKu', '0', '0', '', NULL, 'supervisor', '2022-11-05 18:46:33', 'supervisor', '2023-01-19 17:46:25', NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -2419,7 +2414,6 @@ CREATE TABLE `sys_user_post`  (
 -- ----------------------------
 INSERT INTO `sys_user_post` VALUES (1, 1);
 INSERT INTO `sys_user_post` VALUES (1588845214859759618, 4);
-INSERT INTO `sys_user_post` VALUES (1588845286838210561, 4);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -2436,8 +2430,6 @@ CREATE TABLE `sys_user_role`  (
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1);
 INSERT INTO `sys_user_role` VALUES (1588845214859759618, 1588844816627372034);
-INSERT INTO `sys_user_role` VALUES (1588845214859759618, 1588845036673142786);
-INSERT INTO `sys_user_role` VALUES (1588845286838210561, 1588845036673142786);
 
 -- ----------------------------
 -- Table structure for to_gen_table

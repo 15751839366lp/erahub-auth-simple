@@ -41,6 +41,16 @@ public interface CacheNames {
     String SYS_OSS_CONFIG = "sys_oss_config";
 
     /**
+     * 用户账户
+     */
+    String SYS_USER_NAME = "sys_user_name#30d";
+
+    /**
+     * 部门
+     */
+    String SYS_DEPT = "sys_dept#30d";
+
+    /**
      * 在线用户
      */
     String ONLINE_TOKEN = "online_tokens";

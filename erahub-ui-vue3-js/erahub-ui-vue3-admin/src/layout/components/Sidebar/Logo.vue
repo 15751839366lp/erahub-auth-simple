@@ -47,7 +47,7 @@ defineProps({
   }
 })
 
-const title = ref('Erahub-Auth-Simple')
+const title = ref('EH-web')
 const settingsStore = useSettingsStore()
 const sideTheme = computed(() => settingsStore.sideTheme)
 </script>

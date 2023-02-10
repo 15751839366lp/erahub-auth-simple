@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 09/02/2023 18:18:08
+ Date: 10/02/2023 20:19:53
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://10.0.4.7:9901/', '2023-02-09 18:17:56');
+INSERT INTO `xxl_job_group` VALUES (1, 'erahub-job-executor', '示例执行器', 0, 'http://10.0.4.7:9901/', '2023-02-10 20:19:36');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
@@ -92,8 +92,8 @@ CREATE TABLE `xxl_job_info`  (
 -- ----------------------------
 INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2018-11-03 22:21:31', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 0, 0, 0);
 INSERT INTO `xxl_job_info` VALUES (2, 1, '多服务任务', '2022-02-17 12:21:31', '2022-02-17 12:21:31', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'multiServiceHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-02-17 12:21:31', '', 0, 0, 0);
-INSERT INTO `xxl_job_info` VALUES (3, 1, '临时文件清理任务', '2022-12-02 11:33:55', '2022-12-02 11:39:57', 'admin', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'clearTempFileJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-12-02 11:33:55', '', 1, 1675872000000, 1675958400000);
-INSERT INTO `xxl_job_info` VALUES (4, 1, 'ERP临时文件清理任务', '2022-12-21 18:02:03', '2022-12-21 18:02:26', 'admin', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'clearFinanceERPTempFileJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-12-21 18:02:03', '', 1, 1675872000000, 1675958400000);
+INSERT INTO `xxl_job_info` VALUES (3, 1, '临时文件清理任务', '2022-12-02 11:33:55', '2022-12-02 11:39:57', 'admin', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'clearTempFileJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-12-02 11:33:55', '', 1, 1675958400000, 1676044800000);
+INSERT INTO `xxl_job_info` VALUES (4, 1, 'ERP临时文件清理任务', '2022-12-21 18:02:03', '2022-12-21 18:02:26', 'admin', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'clearFinanceERPTempFileJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2022-12-21 18:02:03', '', 1, 1675958400000, 1676044800000);
 INSERT INTO `xxl_job_info` VALUES (5, 1, '临时博客文件清理任务', '2023-01-07 15:02:06', '2023-01-07 15:02:06', 'admin', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'clearBlogTempFileJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2023-01-07 15:02:06', '', 0, 0, 0);
 
 -- ----------------------------
@@ -133,7 +133,7 @@ CREATE TABLE `xxl_job_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `I_trigger_time`(`trigger_time`) USING BTREE,
   INDEX `I_handle_code`(`handle_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log
@@ -148,6 +148,8 @@ INSERT INTO `xxl_job_log` VALUES (18, 1, 3, 'http://10.0.4.7:9901/', 'clearTempF
 INSERT INTO `xxl_job_log` VALUES (19, 1, 4, 'http://10.0.4.7:9901/', 'clearFinanceERPTempFileJobHandler', '', NULL, 0, '2023-02-08 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2023-02-08 00:00:00', 200, '', 0);
 INSERT INTO `xxl_job_log` VALUES (20, 1, 4, 'http://10.0.4.7:9901/', 'clearFinanceERPTempFileJobHandler', '', NULL, 0, '2023-02-09 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2023-02-09 00:00:00', 200, '', 0);
 INSERT INTO `xxl_job_log` VALUES (21, 1, 3, 'http://10.0.4.7:9901/', 'clearTempFileJobHandler', '', NULL, 0, '2023-02-09 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2023-02-09 00:00:00', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (22, 1, 3, 'http://10.0.4.7:9901/', 'clearTempFileJobHandler', '', NULL, 0, '2023-02-10 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2023-02-10 00:00:00', 200, '', 0);
+INSERT INTO `xxl_job_log` VALUES (23, 1, 4, 'http://10.0.4.7:9901/', 'clearFinanceERPTempFileJobHandler', '', NULL, 0, '2023-02-10 00:00:00', 200, '任务触发类型：Cron触发<br>调度机器：10.0.4.7<br>执行器-注册方式：自动注册<br>执行器-地址列表：[http://10.0.4.7:9901/]<br>路由策略：第一个<br>阻塞处理策略：单机串行<br>任务超时时间：0<br>失败重试次数：0<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>触发调度<<<<<<<<<<< </span><br>触发调度：<br>address：http://10.0.4.7:9901/<br>code：200<br>msg：null', '2023-02-10 00:00:00', 200, '', 0);
 
 -- ----------------------------
 -- Table structure for xxl_job_log_report
@@ -162,7 +164,7 @@ CREATE TABLE `xxl_job_log_report`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_trigger_day`(`trigger_day`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 74 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log_report
@@ -239,6 +241,7 @@ INSERT INTO `xxl_job_log_report` VALUES (69, '2023-02-06 00:00:00', 0, 1, 1, NUL
 INSERT INTO `xxl_job_log_report` VALUES (70, '2023-02-07 00:00:00', 0, 1, 1, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (71, '2023-02-08 00:00:00', 0, 2, 0, NULL);
 INSERT INTO `xxl_job_log_report` VALUES (72, '2023-02-09 00:00:00', 0, 2, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (73, '2023-02-10 00:00:00', 0, 2, 0, NULL);
 
 -- ----------------------------
 -- Table structure for xxl_job_logglue
@@ -276,7 +279,7 @@ CREATE TABLE `xxl_job_registry`  (
 -- ----------------------------
 -- Records of xxl_job_registry
 -- ----------------------------
-INSERT INTO `xxl_job_registry` VALUES (54, 'EXECUTOR', 'erahub-job-executor', 'http://10.0.4.7:9901/', '2023-02-09 18:18:06');
+INSERT INTO `xxl_job_registry` VALUES (54, 'EXECUTOR', 'erahub-job-executor', 'http://10.0.4.7:9901/', '2023-02-10 20:19:44');
 
 -- ----------------------------
 -- Table structure for xxl_job_user

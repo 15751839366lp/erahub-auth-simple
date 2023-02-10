@@ -1,5 +1,7 @@
 package com.erahub.common.core.utils.ip;
 
+import cn.hutool.core.util.ByteUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.erahub.common.core.utils.StringUtils;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -70,7 +72,7 @@ public class IpUtils
      */
     private static boolean internalIp(byte[] addr)
     {
-        if (StringUtils.isNull(addr) || addr.length < 2)
+        if (ObjectUtil.isNull(addr) || addr.length < 2)
         {
             return true;
         }

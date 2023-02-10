@@ -95,6 +95,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.erahub</groupId>
+            <artifactId>erahub-common-encrypt</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

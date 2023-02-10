@@ -418,7 +418,7 @@
       </el-upload>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="submitFileForm">确 定</el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitFileForm">确 定</el-button>
           <el-button @click="upload.open = false">取 消</el-button>
         </div>
       </template>
@@ -446,6 +446,7 @@ const { sys_normal_disable, sys_user_sex } = proxy.useDict('sys_normal_disable',
 const userList = ref([])
 const open = ref(false)
 const loading = ref(true)
+const buttonLoading = ref(false)
 const showSearch = ref(true)
 const ids = ref([])
 const single = ref(true)
@@ -652,6 +653,7 @@ const handleFileUploadProgress = (event, file, fileList) => {
 const handleFileSuccess = (response, file, fileList) => {
   upload.open = false
   upload.isUploading = false
+  buttonLoading.value = false
   proxy.$refs['uploadRef'].handleRemove(file)
   proxy.$alert(
     "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
@@ -665,6 +667,7 @@ const handleFileSuccess = (response, file, fileList) => {
 /** 提交上传文件 */
 function submitFileForm() {
   proxy.$refs['uploadRef'].submit()
+  buttonLoading.value = true
 }
 /** 重置操作表单 */
 function reset() {

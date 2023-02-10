@@ -5,7 +5,9 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.erahub.base.basicservice.domain.BSOss;
+import com.erahub.base.basicservice.domain.bo.BSOssBo;
 import com.erahub.base.basicservice.mapper.BSOssMapper;
+import com.erahub.base.basicservice.service.IBSOssService;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.oss.core.OssClient;
@@ -35,7 +37,8 @@ import java.util.stream.Collectors;
 @DubboService
 public class RemoteFileServiceImpl implements RemoteFileService {
 
-    private final BSOssMapper bSOssMapper;
+    private final IBSOssService bsOssService;
+    private final BSOssMapper bsOssMapper;
 
     /**
      * 文件上传请求
@@ -51,14 +54,14 @@ public class RemoteFileServiceImpl implements RemoteFileService {
             OssClient storage = OssFactory.instance();
             UploadResult uploadResult = storage.uploadSuffix(file, suffix, contentType);
             // 保存文件信息
-            BSOss oss = new BSOss();
+            BSOssBo oss = new BSOssBo();
             oss.setUseField(useField);
             oss.setUrl(uploadResult.getUrl());
             oss.setFileSuffix(suffix);
             oss.setFileName(uploadResult.getFilename());
             oss.setOriginalName(originalFilename);
             oss.setService(storage.getConfigKey());
-            bSOssMapper.insert(oss);
+            bsOssService.insertByBo(oss);
             BSFile BSFile = new BSFile();
             BSFile.setOssId(oss.getOssId());
             BSFile.setName(uploadResult.getFilename());
@@ -81,7 +84,7 @@ public class RemoteFileServiceImpl implements RemoteFileService {
                 return true;
             }
 
-            List<BSOss> list = bSOssMapper.selectList(new LambdaQueryWrapper<BSOss>()
+            List<BSOss> list = bsOssMapper.selectList(new LambdaQueryWrapper<BSOss>()
                 .in(BSOss::getUrl, urls));
 
             if(CollUtil.isEmpty(list)){
@@ -93,7 +96,7 @@ public class RemoteFileServiceImpl implements RemoteFileService {
                 storage.delete(bSOss.getUrl());
             }
 
-            return bSOssMapper.deleteBatchIds(list.stream()
+            return bsOssMapper.deleteBatchIds(list.stream()
                 .map(BSOss::getOssId)
                 .collect(Collectors.toList())) > 0;
         } catch (Exception e) {
@@ -109,12 +112,12 @@ public class RemoteFileServiceImpl implements RemoteFileService {
     @Override
     public Boolean deleteByIds(List<Long> ids) throws ServiceException {
         try {
-            List<BSOss> list = bSOssMapper.selectBatchIds(ids);
+            List<BSOss> list = bsOssMapper.selectBatchIds(ids);
             for (BSOss bSOss : list) {
                 OssClient storage = OssFactory.instance(bSOss.getService());
                 storage.delete(bSOss.getUrl());
             }
-            return bSOssMapper.deleteBatchIds(ids) > 0;
+            return bsOssMapper.deleteBatchIds(ids) > 0;
         } catch (Exception e) {
             log.error("删除上传文件", e);
             throw new ServiceException("删除上传文件");
@@ -133,4 +136,16 @@ public class RemoteFileServiceImpl implements RemoteFileService {
             throw new ServiceException("临时文件清理失败");
         }
     }
+
+    /**
+     * 通过ossId查询对应的url
+     *
+     * @param ossIds ossId串逗号分隔
+     * @return url串逗号分隔
+     */
+    @Override
+    public String selectUrlByIds(String ossIds) {
+        return bsOssService.selectUrlByIds(ossIds);
+    }
+
 }

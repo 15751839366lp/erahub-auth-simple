@@ -162,6 +162,18 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-translation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.erahub</groupId>
+                <artifactId>erahub-common-encrypt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

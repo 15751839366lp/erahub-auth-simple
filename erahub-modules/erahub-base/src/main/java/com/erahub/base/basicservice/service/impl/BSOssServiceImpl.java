@@ -1,5 +1,7 @@
 package com.erahub.base.basicservice.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -71,6 +73,18 @@ public class BSOssServiceImpl implements IBSOssService {
         return list;
     }
 
+    @Override
+    public String selectUrlByIds(String ossIds) {
+        List<String> list = new ArrayList<>();
+        for (Long id : StringUtils.splitTo(ossIds, Convert::toLong)) {
+            BSOssVo vo = SpringUtils.getAopProxy(this).getById(id);
+            if (ObjectUtil.isNotNull(vo)) {
+                list.add(this.matchingUrl(vo).getUrl());
+            }
+        }
+        return String.join(StringUtils.SEPARATOR, list);
+    }
+
     private LambdaQueryWrapper<BSOss> buildQueryWrapper(BSOssBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<BSOss> lqw = Wrappers.lambdaQuery();
@@ -132,6 +146,17 @@ public class BSOssServiceImpl implements IBSOssService {
 
         return bsOssVo;
     }
+
+    @Override
+    public Boolean insertByBo(BSOssBo bo) {
+        BSOss oss = BeanUtil.toBean(bo, BSOss.class);
+        boolean flag = baseMapper.insert(oss) > 0;
+        if (flag) {
+            bo.setOssId(oss.getOssId());
+        }
+        return flag;
+    }
+
 
     // todo
 //    @CachePut(cacheNames = CacheNames.SYS_OSS, key = "")

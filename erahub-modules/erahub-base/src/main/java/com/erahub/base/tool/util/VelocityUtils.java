@@ -230,7 +230,7 @@ public class VelocityUtils {
     public static HashSet<String> getImportList(ToGenTable toGenTable) {
         List<ToGenTableColumn> columns = toGenTable.getColumns();
         ToGenTable subToGenTable = toGenTable.getSubTable();
-        HashSet<String> importList = new HashSet<String>();
+        HashSet<String> importList = new HashSet<>();
         if (ObjectUtil.isNotNull(subToGenTable)) {
             importList.add("java.util.List");
         }
@@ -252,7 +252,7 @@ public class VelocityUtils {
      */
     public static String getDicts(ToGenTable toGenTable) {
         List<ToGenTableColumn> columns = toGenTable.getColumns();
-        Set<String> dicts = new HashSet<String>();
+        Set<String> dicts = new HashSet<>();
         addDicts(dicts, columns);
         if (ObjectUtil.isNotNull(toGenTable.getSubTable())) {
             List<ToGenTableColumn> subColumns = toGenTable.getSubTable().getColumns();

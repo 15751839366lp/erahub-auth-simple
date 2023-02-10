@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 09/02/2023 18:18:33
+ Date: 10/02/2023 20:19:24
 */
 
 SET NAMES utf8mb4;
@@ -42,7 +42,7 @@ CREATE TABLE `biz_finance_erp_contract`  (
 -- ----------------------------
 -- Records of biz_finance_erp_contract
 -- ----------------------------
-INSERT INTO `biz_finance_erp_contract` VALUES (1621701780358897666, '31700000-21-FW1703-0085', '1', '股份', NULL, NULL, NULL, NULL, NULL, 'admin', '2023-02-04 10:46:49', 'admin', '2023-02-04 11:37:08', NULL);
+INSERT INTO `biz_finance_erp_contract` VALUES (1621701780358897666, '31700000-21-FW1703-0085', '1', '股份', '', NULL, NULL, NULL, NULL, 'admin', '2023-02-04 10:46:49', 'supermanager', '2023-02-10 20:13:20', NULL);
 INSERT INTO `biz_finance_erp_contract` VALUES (1621705052108959746, '31700000-21-FW1703-0083', '1', '股份', NULL, NULL, NULL, NULL, NULL, 'admin', '2023-02-04 10:59:49', 'admin', '2023-02-04 11:37:05', NULL);
 INSERT INTO `biz_finance_erp_contract` VALUES (1621706670481113089, '31700000-21-FW1703-0092', '1', '股份', NULL, NULL, NULL, NULL, NULL, 'admin', '2023-02-04 11:06:15', 'admin', '2023-02-04 11:37:02', NULL);
 INSERT INTO `biz_finance_erp_contract` VALUES (1621706694040518657, '31700000-21-FW1703-0093', '1', '股份', NULL, NULL, NULL, NULL, NULL, 'admin', '2023-02-04 11:06:20', 'admin', '2023-02-04 11:36:58', NULL);
@@ -286,15 +286,16 @@ CREATE TABLE `bs_notice`  (
 -- ----------------------------
 -- Records of bs_notice
 -- ----------------------------
-INSERT INTO `bs_notice` VALUES (1616625465167527938, '111111111', '1', 0x313131313131313131, '0', 'test', '2023-01-21 10:35:21', 'test', '2023-01-21 10:35:21', NULL);
-INSERT INTO `bs_notice` VALUES (1616625546314727425, '2222222222', '2', 0x323232323232323232, '0', 'test', '2023-01-21 10:35:40', 'test', '2023-01-21 10:35:40', NULL);
-INSERT INTO `bs_notice` VALUES (1616625572315217921, '33333333333', '1', 0x3333333333333333333333, '0', 'test', '2023-01-21 10:35:47', 'test', '2023-01-21 10:35:47', NULL);
-INSERT INTO `bs_notice` VALUES (1616625597875306498, '44444444444444', '2', 0x3434343434343434343434, '0', 'test', '2023-01-21 10:35:53', 'test', '2023-01-21 10:35:53', NULL);
-INSERT INTO `bs_notice` VALUES (1616625619010404353, '5555555555555', '1', 0x35353535353535353535353535, '0', 'test', '2023-01-21 10:35:58', 'test', '2023-01-21 10:35:58', NULL);
-INSERT INTO `bs_notice` VALUES (1616647742974115842, '77777777', '1', 0x37373737373737373737373737, '0', 'admin', '2023-01-21 12:03:52', 'admin', '2023-01-21 12:03:52', NULL);
-INSERT INTO `bs_notice` VALUES (1616647803770552322, '66666666', '2', 0x363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636, '0', 'admin', '2023-01-21 12:04:07', 'admin', '2023-01-21 12:07:22', NULL);
-INSERT INTO `bs_notice` VALUES (1617382280062898178, '8888888888888', '1', 0x383838383838383838383838, '0', 'test', '2023-01-23 12:42:40', 'test', '2023-01-23 12:42:40', NULL);
-INSERT INTO `bs_notice` VALUES (1618926151125245954, '🎶🎶999999', '2', 0xF09F918DF09F918DF09F918DF09F918DF09F918DF09F918DF09F918DF09F918DF09F918D393939393939393939393939F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295, '0', 'admin', '2023-01-27 18:57:27', 'admin', '2023-01-27 18:58:13', NULL);
+INSERT INTO `bs_notice` VALUES (1616625465167527938, '111111111', '1', 0x313131313131313131, '0', 'supervisor', '2023-01-21 10:35:21', 'supervisor', '2023-01-21 10:35:21', NULL);
+INSERT INTO `bs_notice` VALUES (1616625546314727425, '2222222222', '2', 0x323232323232323232, '0', 'supervisor', '2023-01-21 10:35:40', 'supervisor', '2023-01-21 10:35:40', NULL);
+INSERT INTO `bs_notice` VALUES (1616625572315217921, '33333333333', '1', 0x3333333333333333333333, '0', 'supervisor', '2023-01-21 10:35:47', 'supermanager', '2023-01-21 10:35:47', NULL);
+INSERT INTO `bs_notice` VALUES (1616625597875306498, '44444444444444', '2', 0x3434343434343434343434, '0', 'supervisor', '2023-01-21 10:35:53', 'supervisor', '2023-01-21 10:35:53', NULL);
+INSERT INTO `bs_notice` VALUES (1616625619010404353, '5555555555555', '1', 0x35353535353535353535353535, '0', 'supermanager', '2023-01-21 10:35:58', 'supermanager', '2023-01-21 10:35:58', NULL);
+INSERT INTO `bs_notice` VALUES (1616647742974115842, '77777777', '1', 0x37373737373737373737373737, '0', 'supervisor', '2023-01-21 12:03:52', 'supervisor', '2023-01-21 12:03:52', NULL);
+INSERT INTO `bs_notice` VALUES (1616647803770552322, '66666666', '2', 0x363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636363636, '0', 'supermanager', '2023-01-21 12:04:07', 'supermanager', '2023-01-21 12:07:22', NULL);
+INSERT INTO `bs_notice` VALUES (1617382280062898178, '8888888888888', '1', 0x383838383838383838383838, '0', 'supervisor', '2023-01-23 12:42:40', 'supervisor', '2023-01-23 12:42:40', NULL);
+INSERT INTO `bs_notice` VALUES (1618926151125245954, '🎶🎶999999', '2', 0xF09F918DF09F918DF09F918DF09F918DF09F918DF09F918DF09F918DF09F918DF09F918D393939393939393939393939F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295F09F9295, '0', 'supermanager', '2023-01-27 18:57:27', 'supermanager', '2023-01-27 18:58:13', NULL);
+INSERT INTO `bs_notice` VALUES (1624018289181683714, '101010101', '2', 0x313031303130313031, '0', 'supermanager', '2023-02-10 20:11:48', 'supermanager', '2023-02-10 20:11:48', NULL);
 
 -- ----------------------------
 -- Table structure for bs_oss
@@ -323,6 +324,9 @@ INSERT INTO `bs_oss` VALUES (1616012326034022402, '2023/01/19/7bd720e07bbc4d5bbc
 INSERT INTO `bs_oss` VALUES (1618793379425476610, '2023/01/27/b3a51d5d361f4648b313b9a272739d2e.jpg', '8A7EB40C5585965397E8C2CB4F452AD1.jpg', 'erahub-cloud:sys_user:avatar', '.jpg', 'http://127.0.0.1:9000/erahub/2023/01/27/b3a51d5d361f4648b313b9a272739d2e.jpg', '2023-01-27 10:09:52', 'test01', '2023-01-27 10:09:52', 'test01', 'minio');
 INSERT INTO `bs_oss` VALUES (1619998297184399362, '2023/01/30/321c49be8e5b4319a7345c59daf035b5.jpg', '2d7c491fcdaa38d82818d61085a3bdc4e841ffcf.jpg', 'erahub-cloud:blog_article:article_cover', '.jpg', 'http://127.0.0.1:9000/erahub/2023/01/30/321c49be8e5b4319a7345c59daf035b5.jpg', '2023-01-30 17:57:47', 'admin', '2023-01-30 17:57:47', 'admin', 'minio');
 INSERT INTO `bs_oss` VALUES (1620006225412964353, '2023/01/30/69ab4708a08b46a399c6fa92cdf0bbd5.jpg', '2de0c14df3d299d82b166a6400b9e80108c4c885.jpg', 'erahub-cloud:sys_user:avatar', '.jpg', 'http://127.0.0.1:9000/erahub/2023/01/30/69ab4708a08b46a399c6fa92cdf0bbd5.jpg', '2023-01-30 18:29:17', 'admin', '2023-01-30 18:29:17', 'admin', 'minio');
+INSERT INTO `bs_oss` VALUES (1624018392621608961, '2023/02/10/ff4ab7debc1a400485eaf8fbe002183f.jpg', '-1c1009017f8b7159.jpg', 'erahub-cloud:bs_oss:url', '.jpg', 'http://127.0.0.1:9000/erahub/2023/02/10/ff4ab7debc1a400485eaf8fbe002183f.jpg', '2023-02-10 20:12:12', 'supermanager', '2023-02-10 20:12:12', 'supermanager', 'minio');
+INSERT INTO `bs_oss` VALUES (1624018392621608962, '2023/02/10/8d1220a171334b3082ada8cbac312d0e.jpg', '-1de35f61cb2a15bf.jpg', 'erahub-cloud:bs_oss:url', '.jpg', 'http://127.0.0.1:9000/erahub/2023/02/10/8d1220a171334b3082ada8cbac312d0e.jpg', '2023-02-10 20:12:12', 'supermanager', '2023-02-10 20:12:12', 'supermanager', 'minio');
+INSERT INTO `bs_oss` VALUES (1624018428688429057, '2023/02/10/a94b9bdac3834e55851c3206f4e2d4ea.xls', '1.xls', 'erahub-cloud:bs_oss:url', '.xls', 'http://127.0.0.1:9000/erahub/2023/02/10/a94b9bdac3834e55851c3206f4e2d4ea.xls', '2023-02-10 20:12:21', 'supermanager', '2023-02-10 20:12:21', 'supermanager', 'minio');
 
 -- ----------------------------
 -- Table structure for bs_oss_config
@@ -1238,6 +1242,7 @@ INSERT INTO `sys_logininfor` VALUES (1623261405617160193, 'supermanager', '127.0
 INSERT INTO `sys_logininfor` VALUES (1623261466715586562, 'supermanager', '127.0.0.1', '1', '密码输入错误2次', '2023-02-08 18:04:27', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1623261584042852354, 'supermanager', '127.0.0.1', '1', '密码输入错误3次', '2023-02-08 18:04:55', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1623261609942679553, 'supermanager', '127.0.0.1', '0', '登录成功', '2023-02-08 18:05:01', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1624013312430272513, 'supermanager', '127.0.0.1', '0', '登录成功', '2023-02-10 19:52:01', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -2040,6 +2045,23 @@ INSERT INTO `sys_oper_log` VALUES (1621741544558596097, 'ERP工程', 6, 'com.era
 INSERT INTO `sys_oper_log` VALUES (1621741714524377090, 'ERP工程', 6, 'com.erahub.biz.finance.controller.FinanceERPProjectController.importData()', 'POST', 1, 'admin', '', '/finance/erpproject/importData', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"projectId\":1,\"projectNumber\":\"8301306397\",\"requisitionNumber\":\"5500926332\",\"deviceName\":\"Ⅱ柴油加氢装置\",\"projectName\":\"外委：II柴加2021年大修换热器检维修项目\",\"planType\":\"大修\",\"department\":\"交换\",\"settlementReviewAmount\":\"446104.44\",\"contractNumber\":\"31700000-20-FW1703-0073-BG01\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-02-20 00:00:00\",\"contractType\":\"单签合同\",\"prefixProjectNumber\":\"008301306397\",\"company\":null},{\"projectId\":2,\"projectNumber\":\"8301559568\",\"requisitionNumber\":\"5501085980\",\"deviceName\":\"异丁烷装置\",\"projectName\":\"外委：C4异构化大修V1401等7台容器常规检修\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"2932.54\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-02-16 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301559568\",\"company\":null},{\"projectId\":3,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"管焊\",\"settlementReviewAmount\":\"1808.53\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":4,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"10774.30\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":5,\"projectNumber\":\"8301667243\",\"requisitionNumber\":\"5501150412\",\"deviceName\":\"四空站\",\"projectName\":\"外委：公用工程气体工区三空站3#离心机电机维修\",\"planType\":\"月度\",\"department\":\"机修\",\"settlementReviewAmount\":\"1319.15\",\"contractNumber\":\"31700000-21-FW1703-0092\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-08-08 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008', 0, '', '2023-02-04 13:25:30', 12);
 INSERT INTO `sys_oper_log` VALUES (1623261734236684289, '个人信息', 2, 'com.erahub.base.system.controller.SysProfileController.updatePwd()', 'PUT', 1, 'supermanager', '', '/user/profile/updatePwd', '127.0.0.1', '', '\"test123\" \"supermanager123\"', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-08 18:05:31', 222);
 INSERT INTO `sys_oper_log` VALUES (1623263107950936066, '数据库文档', 5, 'com.erahub.base.tool.controller.ToDatabaseDocController.exportHtml()', 'GET', 1, 'supermanager', '', '/db-doc/export-html', '127.0.0.1', '', '{}', '', 0, '', '2023-02-08 18:10:58', 240);
+INSERT INTO `sys_oper_log` VALUES (1624017599197704193, '用户管理', 6, 'com.erahub.base.system.controller.SysUserController.importData()', 'POST', 1, 'supermanager', '', '/user/importData', '127.0.0.1', '', 'false', '', 1, '很抱歉，导入失败！共 38 条数据格式不正确，错误如下：<br/>1、账号 null 导入失败：参数校验异常<br/>2、账号 null 导入失败：参数校验异常<br/>3、账号 null 导入失败：参数校验异常<br/>4、账号 null 导入失败：参数校验异常<br/>5、账号 null 导入失败：参数校验异常<br/>6、账号 null 导入失败：参数校验异常<br/>7、账号 null 导入失败：参数校验异常<br/>8、账号 null 导入失败：参数校验异常<br/>9、账号 null 导入失败：参数校验异常<br/>10、账号 null 导入失败：参数校验异常<br/>11、账号 null 导入失败：参数校验异常<br/>12、账号 null 导入失败：参数校验异常<br/>13、账号 null 导入失败：参数校验异常<br/>14、账号 null 导入失败：参数校验异常<br/>15、账号 null 导入失败：参数校验异常<br/>16、账号 null 导入失败：参数校验异常<br/>17、账号 null 导入失败：参数校验异常<br/>18、账号 null 导入失败：参数校验异常<br/>19、账号 null 导入失败：参数校验异常<br/>20、账号 null 导入失败：参数校验异常<br/>21、账号 null 导入失败：参数校验异常<br/>22、账号 null 导入失败：参数校验异常<br/>23、账号 null 导入失败：参数校验异常<br/>24、账号 null 导入失败：参数校验异常<br/>25、账号 null 导入失败：参数校验异常<br/>26、账号 null 导入失败：参数校验异常<br/>27、账号 null 导入失败：参数校验异常<br/>28、账号 null 导入失败：参数校验异常<br/>29、账号 null 导入失败：参数校验异常<br/>30、账号 null 导入失败：参数校验异常<br/>31、账号 null 导入失败：参数校验异常<br/>32、账号 null 导入失败：参数校验异常<br/>33、账号 null 导入失败：参数校验异常<br/>34、账号 null 导入失败：参数校验异常<br/>35、账号 null 导入失败：参数校验异常<br/>36、账号 null 导入失败：参数校验异常<br/>37、账号 null 导入失败：参数校验异常<br/>38、账号 null 导入失败：参数校验异常', '2023-02-10 20:09:03', 698);
+INSERT INTO `sys_oper_log` VALUES (1624017631024082946, '用户管理', 5, 'com.erahub.base.system.controller.SysUserController.export()', 'POST', 1, 'supermanager', '', '/user/export', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"userId\":null,\"deptId\":null,\"userName\":null,\"nickName\":null,\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":null,\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":null,\"postIds\":null,\"roleId\":null,\"admin\":false}', '', 0, '', '2023-02-10 20:09:11', 843);
+INSERT INTO `sys_oper_log` VALUES (1624017754324037634, '角色管理', 3, 'com.erahub.base.system.controller.SysRoleController.remove()', 'DELETE', 1, 'supermanager', '', '/role/1588845036673142786,1618925821415202818', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:09:40', 84);
+INSERT INTO `sys_oper_log` VALUES (1624018163654553602, '数据库文档', 5, 'com.erahub.base.tool.controller.ToDatabaseDocController.exportHtml()', 'GET', 1, 'supermanager', '', '/db-doc/export-html', '127.0.0.1', '', '{}', '', 0, '', '2023-02-10 20:11:18', 208);
+INSERT INTO `sys_oper_log` VALUES (1624018169136508929, '数据库文档', 5, 'com.erahub.base.tool.controller.ToDatabaseDocController.exportMarkdown()', 'GET', 1, 'supermanager', '', '/db-doc/export-markdown', '127.0.0.1', '', '{}', '', 0, '', '2023-02-10 20:11:19', 63);
+INSERT INTO `sys_oper_log` VALUES (1624018204842618882, '代码生成', 6, 'com.erahub.base.tool.controller.ToGenController.importTableSave()', 'POST', 1, 'supermanager', '', '/gen/importTable', '127.0.0.1', '', '\"undo_log\"', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:11:27', 43);
+INSERT INTO `sys_oper_log` VALUES (1624018247108620290, '代码生成', 3, 'com.erahub.base.tool.controller.ToGenController.remove()', 'DELETE', 1, 'supermanager', '', '/gen/1624018204716789762', '127.0.0.1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:11:38', 8);
+INSERT INTO `sys_oper_log` VALUES (1624018289211043841, '通知公告', 1, 'com.erahub.base.basicservice.controller.BSNoticeController.add()', 'POST', 1, 'supermanager', '', '/notice', '127.0.0.1', '', '{\"createBy\":\"supermanager\",\"createTime\":\"2023-02-10 20:11:47\",\"updateBy\":\"supermanager\",\"updateTime\":\"2023-02-10 20:11:47\",\"noticeId\":\"1624018289181683714\",\"noticeTitle\":\"101010101\",\"noticeType\":\"2\",\"noticeContent\":\"101010101\",\"status\":\"0\",\"remark\":null,\"noticeCreator\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:11:48', 4);
+INSERT INTO `sys_oper_log` VALUES (1624018381619949569, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'supermanager', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"e9115e2b3ade4b2da1be2eacbc2a2fae.jpg\",\"originalName\":\"-1c1009017f8b7159.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"image/jpeg\"}}', 0, '', '2023-02-10 20:12:10', 4);
+INSERT INTO `sys_oper_log` VALUES (1624018387290648577, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'supermanager', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"fed181ad693948a0b99d5a976491d147.jpg\",\"originalName\":\"-1de35f61cb2a15bf.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"image/jpeg\"}}', 0, '', '2023-02-10 20:12:11', 3);
+INSERT INTO `sys_oper_log` VALUES (1624018392621608963, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.insertBatch()', 'POST', 1, 'supermanager', '', '/oss/addOssBatch', '127.0.0.1', '', '[{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"e9115e2b3ade4b2da1be2eacbc2a2fae.jpg\",\"originalName\":\"-1c1009017f8b7159.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"service\":null,\"contentType\":\"image/jpeg\"},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"fed181ad693948a0b99d5a976491d147.jpg\",\"originalName\":\"-1de35f61cb2a15bf.jpg\",\"useField\":null,\"fileSuffix\":\".jpg\",\"url\":null,\"service\":null,\"contentType\":\"image/jpeg\"}]', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:12:12', 165);
+INSERT INTO `sys_oper_log` VALUES (1624018424536068097, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'supermanager', '', '/oss/upload', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"5ef16690d1c74f38bbc42e7a828ade85.xls\",\"originalName\":\"1.xls\",\"useField\":null,\"fileSuffix\":\".xls\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"application/vnd.ms-excel\"}}', 0, '', '2023-02-10 20:12:20', 1);
+INSERT INTO `sys_oper_log` VALUES (1624018428755537922, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.insertBatch()', 'POST', 1, 'supermanager', '', '/oss/addOssBatch', '127.0.0.1', '', '[{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"5ef16690d1c74f38bbc42e7a828ade85.xls\",\"originalName\":\"1.xls\",\"useField\":null,\"fileSuffix\":\".xls\",\"url\":null,\"service\":null,\"contentType\":\"application/vnd.ms-excel\"}]', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:12:21', 30);
+INSERT INTO `sys_oper_log` VALUES (1624018547437563905, 'ERP工程', 6, 'com.erahub.biz.finance.controller.FinanceERPProjectController.importData()', 'POST', 1, 'supermanager', '', '/finance/erpproject/importData', '127.0.0.1', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"projectId\":1,\"projectNumber\":\"8301306397\",\"requisitionNumber\":\"5500926332\",\"deviceName\":\"Ⅱ柴油加氢装置\",\"projectName\":\"外委：II柴加2021年大修换热器检维修项目\",\"planType\":\"大修\",\"department\":\"交换\",\"settlementReviewAmount\":\"446104.44\",\"contractNumber\":\"31700000-20-FW1703-0073-BG01\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-02-20 00:00:00\",\"contractType\":\"单签合同\",\"prefixProjectNumber\":\"008301306397\",\"company\":null},{\"projectId\":2,\"projectNumber\":\"8301559568\",\"requisitionNumber\":\"5501085980\",\"deviceName\":\"异丁烷装置\",\"projectName\":\"外委：C4异构化大修V1401等7台容器常规检修\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"2932.54\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-02-16 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301559568\",\"company\":null},{\"projectId\":3,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"管焊\",\"settlementReviewAmount\":\"1808.53\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":4,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"10774.30\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"projectId\":5,\"projectNumber\":\"8301667243\",\"requisitionNumber\":\"5501150412\",\"deviceName\":\"四空站\",\"projectName\":\"外委：公用工程气体工区三空站3#离心机电机维修\",\"planType\":\"月度\",\"department\":\"机修\",\"settlementReviewAmount\":\"1319.15\",\"contractNumber\":\"31700000-21-FW1703-0092\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-08-08 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008', 0, '', '2023-02-10 20:12:49', 334);
+INSERT INTO `sys_oper_log` VALUES (1624018583701516290, 'ERP工程', 5, 'com.erahub.biz.finance.controller.FinanceERPProjectController.export()', 'POST', 1, 'supermanager', '', '/finance/erpproject/export', '127.0.0.1', '', '[{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"projectId\":1,\"projectNumber\":\"8301306397\",\"requisitionNumber\":\"5500926332\",\"deviceName\":\"Ⅱ柴油加氢装置\",\"projectName\":\"外委：II柴加2021年大修换热器检维修项目\",\"planType\":\"大修\",\"department\":\"交换\",\"settlementReviewAmount\":\"446104.44\",\"contractNumber\":\"31700000-20-FW1703-0073-BG01\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-02-20 00:00:00\",\"contractType\":\"单签合同\",\"prefixProjectNumber\":\"008301306397\",\"company\":null},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"projectId\":2,\"projectNumber\":\"8301559568\",\"requisitionNumber\":\"5501085980\",\"deviceName\":\"异丁烷装置\",\"projectName\":\"外委：C4异构化大修V1401等7台容器常规检修\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"2932.54\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2022-02-16 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301559568\",\"company\":null},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"projectId\":3,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"管焊\",\"settlementReviewAmount\":\"1808.53\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"projectId\":4,\"projectNumber\":\"8301442420\",\"requisitionNumber\":\"5501000120\",\"deviceName\":\"Ⅱ催化裂化装置\",\"projectName\":\"外委：II催化2021年大修分馏塔底搅拌蒸汽线拆复（追二）\",\"planType\":\"大修\",\"department\":\"铆焊\",\"settlementReviewAmount\":\"10774.30\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"projectType\":\"股份\",\"remark\":null,\"releaseTime\":\"2021-08-12 00:00:00\",\"contractType\":\"框架协议\",\"prefixProjectNumber\":\"008301442420\",\"company\":null},{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"projectId\":5,\"projectNumber\":\"8301667243\",\"requisitionN', '', 0, '', '2023-02-10 20:12:58', 929);
+INSERT INTO `sys_oper_log` VALUES (1624018666346082306, 'ERP合同', 2, 'com.erahub.biz.finance.controller.FinanceERPContractController.edit()', 'PUT', 1, 'supermanager', '', '/finance/erpcontract', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"contractId\":\"1621701780358897666\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"contractType\":\"1\",\"company\":\"股份\",\"contractRange\":\"1111\",\"contractAmount\":null,\"contractDuration\":null,\"profitAbalienation\":null,\"warranty\":null,\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:13:18', 25);
+INSERT INTO `sys_oper_log` VALUES (1624018677276438530, 'ERP合同', 2, 'com.erahub.biz.finance.controller.FinanceERPContractController.edit()', 'PUT', 1, 'supermanager', '', '/finance/erpcontract', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"contractId\":\"1621701780358897666\",\"contractNumber\":\"31700000-21-FW1703-0085\",\"contractType\":\"1\",\"company\":\"股份\",\"contractRange\":\"\",\"contractAmount\":null,\"contractDuration\":null,\"profitAbalienation\":null,\"warranty\":null,\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 20:13:20', 11);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -2094,8 +2116,8 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '超级管理员');
 INSERT INTO `sys_role` VALUES (1588844816627372034, '管理员', 'common', 2, '1', 1, 1, '0', '0', 'admin', '2022-11-05 18:44:58', 'admin', '2023-02-04 12:33:30', NULL);
-INSERT INTO `sys_role` VALUES (1588845036673142786, 'test01', 'test01', 3, '3', 1, 1, '0', '0', 'admin', '2022-11-05 18:45:51', 'test01', '2023-01-27 10:13:05', NULL);
-INSERT INTO `sys_role` VALUES (1618925821415202818, 'test02😂', 'test02', 4, '1', 1, 1, '0', '0', 'admin', '2023-01-27 18:56:09', 'admin', '2023-01-27 18:56:17', NULL);
+INSERT INTO `sys_role` VALUES (1588845036673142786, 'test01', 'test01', 3, '3', 1, 1, '0', '2', 'admin', '2022-11-05 18:45:51', 'test01', '2023-01-27 10:13:05', NULL);
+INSERT INTO `sys_role` VALUES (1618925821415202818, 'test02😂', 'test02', 4, '1', 1, 1, '0', '2', 'admin', '2023-01-27 18:56:09', 'admin', '2023-01-27 18:56:17', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -2272,99 +2294,6 @@ INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1621696535054553091);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1621696535054553092);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1621696535054553093);
 INSERT INTO `sys_role_menu` VALUES (1588844816627372034, 1621696535054553094);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 2);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 3);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 100);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 101);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 102);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 103);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 104);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 105);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 106);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 107);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 108);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 109);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 110);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 111);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 112);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 113);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 115);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 118);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 500);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 501);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1001);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1002);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1003);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1004);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1005);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1006);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1007);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1008);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1009);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1010);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1011);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1012);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1013);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1014);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1015);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1016);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1017);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1018);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1019);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1020);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1021);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1022);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1023);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1024);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1025);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1026);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1027);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1028);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1029);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1030);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1031);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1032);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1033);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1034);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1035);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1036);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1038);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1040);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1041);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1042);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1043);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1044);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1045);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1046);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1047);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1048);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1050);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1055);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1600);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1601);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1570009901798481921);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1570010319794429953);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1570022388644143106);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1570758202780676098);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1572393811995209730);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1588742925398171649);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1591655291324977153);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1591655913331871746);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1591657525559414786);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1618789840997388290);
-INSERT INTO `sys_role_menu` VALUES (1588845036673142786, 1618789928595427330);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 3);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 114);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 115);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1055);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1056);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1057);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1058);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1059);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1060);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1588077119135821826);
-INSERT INTO `sys_role_menu` VALUES (1618925821415202818, 1588092486994432002);
 
 -- ----------------------------
 -- Table structure for sys_user

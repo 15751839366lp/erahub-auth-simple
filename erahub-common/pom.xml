@@ -34,6 +34,8 @@
         <module>erahub-common-sentinel</module>
         <module>erahub-common-skylog</module>
         <module>erahub-common-prometheus</module>
+        <module>erahub-common-translation</module>
+        <module>erahub-common-encrypt</module>
     </modules>
 
     <artifactId>erahub-common</artifactId>

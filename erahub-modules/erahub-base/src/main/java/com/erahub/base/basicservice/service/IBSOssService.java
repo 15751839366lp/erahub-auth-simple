@@ -22,9 +22,13 @@ public interface IBSOssService {
 
     List<BSOssVo> listByIds(Collection<Long> ossIds);
 
+    String selectUrlByIds(String ossIds);
+
     BSOssVo getById(Long ossId);
 
     BSOssVo upload(MultipartFile file) throws IOException;
+
+    Boolean insertByBo(BSOssBo bo);
 
     Boolean insertByBo(List<BSOssBo> bsOssBos);
 

@@ -1,6 +1,7 @@
 package com.erahub.common.core.utils;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import lombok.AccessLevel;
@@ -8,20 +9,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 字符串工具类
  *
- * @author erahub
+ * @author Lion Li
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
-    /** 空字符串 */
-    private static final String NULLSTR = "";
-
-    /** 下划线 */
-    private static final char SEPARATOR = '_';
+    public static final String SEPARATOR = ",";
 
     /**
      * 获取参数不为空值
@@ -34,91 +33,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * 获取参数不为空值
-     *
-     * @param value defaultValue 要判断的value
-     * @return value 返回值
-     */
-    public static <T> T nvl(T value, T defaultValue)
-    {
-        return value != null ? value : defaultValue;
-    }
-
-    /**
-     * * 判断一个Collection是否为空， 包含List，Set，Queue
-     *
-     * @param coll 要判断的Collection
-     * @return true：为空 false：非空
-     */
-    public static boolean isEmpty(Collection<?> coll)
-    {
-        return isNull(coll) || coll.isEmpty();
-    }
-
-    /**
-     * * 判断一个Collection是否非空，包含List，Set，Queue
-     *
-     * @param coll 要判断的Collection
-     * @return true：非空 false：空
-     */
-    public static boolean isNotEmpty(Collection<?> coll)
-    {
-        return !isEmpty(coll);
-    }
-
-    /**
-     * * 判断一个对象数组是否为空
-     *
-     * @param objects 要判断的对象数组
-     ** @return true：为空 false：非空
-     */
-    public static boolean isEmpty(Object[] objects)
-    {
-        return isNull(objects) || (objects.length == 0);
-    }
-
-    /**
-     * * 判断一个对象数组是否非空
-     *
-     * @param objects 要判断的对象数组
-     * @return true：非空 false：空
-     */
-    public static boolean isNotEmpty(Object[] objects)
-    {
-        return !isEmpty(objects);
-    }
-
-    /**
-     * * 判断一个Map是否为空
-     *
-     * @param map 要判断的Map
-     * @return true：为空 false：非空
-     */
-    public static boolean isEmpty(Map<?, ?> map)
-    {
-        return isNull(map) || map.isEmpty();
-    }
-
-    /**
-     * * 判断一个Map是否为空
-     *
-     * @param map 要判断的Map
-     * @return true：非空 false：空
-     */
-    public static boolean isNotEmpty(Map<?, ?> map)
-    {
-        return !isEmpty(map);
-    }
-
-    /**
      * * 判断一个字符串是否为空串
      *
      * @param str String
      * @return true：为空 false：非空
      */
-    public static boolean isEmpty(String str)
-    {
-        return isNull(str) || NULLSTR.equals(str.trim());
+    public static boolean isEmpty(String str) {
+        return StrUtil.isEmpty(str);
     }
 
     /**
@@ -127,31 +48,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str String
      * @return true：非空串 false：空串
      */
-    public static boolean isNotEmpty(String str)
-    {
+    public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
-    }
-
-    /**
-     * * 判断一个对象是否为空
-     *
-     * @param object Object
-     * @return true：为空 false：非空
-     */
-    public static boolean isNull(Object object)
-    {
-        return object == null;
-    }
-
-    /**
-     * * 判断一个对象是否非空
-     *
-     * @param object Object
-     * @return true：非空 false：空
-     */
-    public static boolean isNotNull(Object object)
-    {
-        return !isNull(object);
     }
 
     /**
@@ -190,7 +88,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br>
      * 例：<br>
      * 通常使用：format("this is {} for {}", "a", "b") -> this is a for b<br>
-     * 转义{}： format("this is \\{} for {}", "a", "b") -> this is \{} for a<br>
+     * 转义{}： format("this is \\{} for {}", "a", "b") -> this is {} for a<br>
      * 转义\： format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
      *
      * @param template 文本模板，被替换的部分用 {} 表示
@@ -328,7 +226,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param pattern 匹配规则
      * @param url     需要匹配的url
-     * @return
      */
     public static boolean isMatch(String pattern, String url) {
         AntPathMatcher matcher = new AntPathMatcher();
@@ -338,23 +235,23 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 数字左边补齐0，使之达到指定长度。注意，如果数字转换为字符串后，长度大于size，则只保留 最后size个字符。
      *
-     * @param num 数字对象
+     * @param num  数字对象
      * @param size 字符串指定长度
      * @return 返回数字的字符串格式，该字符串为指定长度。
      */
-    public static final String padl(final Number num, final int size) {
+    public static String padl(final Number num, final int size) {
         return padl(num.toString(), size, '0');
     }
 
     /**
      * 字符串左补齐。如果原始字符串s长度大于size，则只保留最后size个字符。
      *
-     * @param s 原始字符串
+     * @param s    原始字符串
      * @param size 字符串指定长度
-     * @param c 用于补齐的字符
+     * @param c    用于补齐的字符
      * @return 返回指定长度的字符串，由原字符串左补齐或截取得到。
      */
-    public static final String padl(final String s, final int size, final char c) {
+    public static String padl(final String s, final int size, final char c) {
         final StringBuilder sb = new StringBuilder(size);
         if (s != null) {
             final int len = s.length();
@@ -372,6 +269,57 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 切分字符串(分隔符默认逗号)
+     *
+     * @param str 被切分的字符串
+     * @return 分割后的数据列表
+     */
+    public static List<String> splitList(String str) {
+        return splitTo(str, Convert::toStr);
+    }
+
+    /**
+     * 切分字符串
+     *
+     * @param str       被切分的字符串
+     * @param separator 分隔符
+     * @return 分割后的数据列表
+     */
+    public static List<String> splitList(String str, String separator) {
+        return splitTo(str, separator, Convert::toStr);
+    }
+
+    /**
+     * 切分字符串自定义转换(分隔符默认逗号)
+     *
+     * @param str    被切分的字符串
+     * @param mapper 自定义转换
+     * @return 分割后的数据列表
+     */
+    public static <T> List<T> splitTo(String str, Function<? super Object, T> mapper) {
+        return splitTo(str, SEPARATOR, mapper);
+    }
+
+    /**
+     * 切分字符串自定义转换
+     *
+     * @param str       被切分的字符串
+     * @param separator 分隔符
+     * @param mapper    自定义转换
+     * @return 分割后的数据列表
+     */
+    public static <T> List<T> splitTo(String str, String separator, Function<? super Object, T> mapper) {
+        if (isBlank(str)) {
+            return new ArrayList<>(0);
+        }
+        return StrUtil.split(str, separator)
+            .stream()
+            .filter(Objects::nonNull)
+            .map(mapper)
+            .collect(Collectors.toList());
     }
 
 }

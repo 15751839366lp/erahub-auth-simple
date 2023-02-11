@@ -34,6 +34,10 @@ public class FinanceReceivable extends BaseEntity {
      */
     private Date invoicingDate;
     /**
+     * 单位ID
+     */
+    private Long companyId;
+    /**
      * 工程编号
      */
     private String projectNumber;

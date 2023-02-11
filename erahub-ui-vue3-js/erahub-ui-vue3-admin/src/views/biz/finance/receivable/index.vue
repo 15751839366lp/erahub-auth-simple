@@ -38,13 +38,19 @@
         />
       </el-form-item>
       <el-form-item label="开票税率" prop="taxRate">
-        <el-input
+        <el-select
           v-model="queryParams.taxRate"
-          placeholder="请输入税率"
+          placeholder="请选择开票税率"
           clearable
           style="width: 200px"
-          @keyup.enter="handleQuery"
-        />
+        >
+          <el-option
+            v-for="taxRate in taxRateList"
+            :key="taxRate"
+            :label="taxRate"
+            :value="taxRate"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="上传编号" prop="uploadId">
         <el-input
@@ -56,22 +62,34 @@
         />
       </el-form-item>
       <el-form-item label="财务负责" prop="financeProjectResponsiblePerson">
-        <el-input
+        <el-select
           v-model="queryParams.financeProjectResponsiblePerson"
-          placeholder="请输入财务部项目负责人"
+          placeholder="请选择财务部项目负责人"
           clearable
           style="width: 200px"
-          @keyup.enter="handleQuery"
-        />
+        >
+          <el-option
+            v-for="financeProjectResponsiblePerson in financeProjectResponsiblePersonList"
+            :key="financeProjectResponsiblePerson"
+            :label="financeProjectResponsiblePerson"
+            :value="financeProjectResponsiblePerson"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="经营负责" prop="operationProjectResponsiblePerson">
-        <el-input
+        <el-select
           v-model="queryParams.operationProjectResponsiblePerson"
-          placeholder="请输入经营部项目负责人"
+          placeholder="请选择经营部项目负责人"
           clearable
           style="width: 200px"
-          @keyup.enter="handleQuery"
-        />
+        >
+          <el-option
+            v-for="operationProjectResponsiblePerson in operationProjectResponsiblePersonList"
+            :key="operationProjectResponsiblePerson"
+            :label="operationProjectResponsiblePerson"
+            :value="operationProjectResponsiblePerson"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="开票日期" style="width: 308px">
         <el-date-picker
@@ -81,6 +99,7 @@
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
+          :shortcuts="invoicingDateShortcuts"
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -132,7 +151,11 @@
           >导出</el-button
         >
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"  :columns="columns"></right-toolbar>
+      <right-toolbar
+        v-model:showSearch="showSearch"
+        @queryTable="getList"
+        :columns="columns"
+      ></right-toolbar>
     </el-row>
 
     <el-table
@@ -142,15 +165,43 @@
       border
     >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="应收账款ID" align="center" prop="receivableId"  v-if="false"/>
-      <el-table-column label="开票日期" align="center" prop="invoicingDate" width="110" v-if="columns[0].visible" fixed>
+      <el-table-column label="应收账款ID" align="center" prop="receivableId" v-if="false" />
+      <el-table-column
+        label="开票日期"
+        align="center"
+        prop="invoicingDate"
+        width="110"
+        v-if="columns[0].visible"
+        fixed
+      >
         <template #default="scope">
           <span>{{ parseTime(scope.row.invoicingDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="单位编号" align="center" prop="company.companyNumber" width="120" v-if="columns[1].visible" fixed/>
-      <el-table-column label="单位名称" align="center" prop="company.companyName" width="120" v-if="columns[2].visible" fixed/>
-      <el-table-column label="工程编号" align="center" prop="projectNumber" width="120" v-if="columns[3].visible" fixed/>
+      <el-table-column
+        label="单位编号"
+        align="center"
+        prop="company.companyNumber"
+        width="120"
+        v-if="columns[1].visible"
+        fixed
+      />
+      <el-table-column
+        label="单位名称"
+        align="center"
+        prop="company.companyName"
+        width="120"
+        v-if="columns[2].visible"
+        fixed
+      />
+      <el-table-column
+        label="工程编号"
+        align="center"
+        prop="projectNumber"
+        width="120"
+        v-if="columns[3].visible"
+        fixed
+      />
       <el-table-column
         label="工程名称"
         align="center"
@@ -167,12 +218,53 @@
         v-if="columns[5].visible"
         show-overflow-tooltip
       />
-      <el-table-column label="税率" align="center" prop="taxRate" width="80" v-if="columns[6].visible"  show-overflow-tooltip/>
-      <el-table-column label="不含税金额" align="center" prop="excludingTaxPrice" width="120" v-if="columns[7].visible"  show-overflow-tooltip/>
-      <el-table-column label="收款金额" align="center" prop="accountPaid" width="120" v-if="columns[8].visible"  show-overflow-tooltip/>
-      <el-table-column label="应收余额" align="center" prop="arrearage" width="120" v-if="columns[9].visible"  show-overflow-tooltip/>
-      <el-table-column label="质保金" align="center" prop="warrantyDeposit" width="120" v-if="columns[10].visible"  show-overflow-tooltip/>
-      <el-table-column label="项目经理" align="center" prop="projectManager" width="120" v-if="columns[11].visible" />
+      <el-table-column
+        label="税率"
+        align="center"
+        prop="taxRate"
+        width="80"
+        v-if="columns[6].visible"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        label="不含税金额"
+        align="center"
+        prop="excludingTaxPrice"
+        width="120"
+        v-if="columns[7].visible"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        label="收款金额"
+        align="center"
+        prop="accountPaid"
+        width="120"
+        v-if="columns[8].visible"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        label="应收余额"
+        align="center"
+        prop="arrearage"
+        width="120"
+        v-if="columns[9].visible"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        label="质保金"
+        align="center"
+        prop="warrantyDeposit"
+        width="120"
+        v-if="columns[10].visible"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        label="项目经理"
+        align="center"
+        prop="projectManager"
+        width="120"
+        v-if="columns[11].visible"
+      />
       <el-table-column
         label="财务部项目负责人"
         align="center"
@@ -187,7 +279,13 @@
         width="80"
         v-if="columns[13].visible"
       />
-      <el-table-column label="上传编号" align="center" prop="uploadId" width="120" v-if="columns[14].visible" />
+      <el-table-column
+        label="上传编号"
+        align="center"
+        prop="uploadId"
+        width="120"
+        v-if="columns[14].visible"
+      />
       <el-table-column
         label="创建者"
         align="center"
@@ -334,10 +432,17 @@ import {
   getFinanceReceivable,
   delFinanceReceivable,
   addFinanceReceivable,
-  updateFinanceReceivable
+  updateFinanceReceivable,
+  listAllTaxRate,
+  listAllFinanceProjectResponsiblePerson,
+  listAllOperationProjectResponsiblePerson 
 } from '@/api/biz/finance/financeReceivable'
 
 const { proxy } = getCurrentInstance()
+
+const taxRateList = ref([])
+const financeProjectResponsiblePersonList = ref([])
+const operationProjectResponsiblePersonList = ref([])
 
 const financeReceivableList = ref([])
 const open = ref(false)
@@ -349,7 +454,48 @@ const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const title = ref('')
+
 const dateRange = ref([])
+const invoicingDateShortcuts = ref([
+{
+    text: '近1周',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      return [start, end]
+    },
+  },
+  {
+    text: '近1个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      return [start, end]
+    },
+  },
+  {
+    text: '1-3个月之间',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      end.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      return [start, end]
+    },
+  },
+  {
+    text: '3-12个月之间',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      end.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 365)
+      return [start, end]
+    },
+  },
+])
 
 // 列显隐信息
 const columns = ref([
@@ -486,7 +632,7 @@ function handleUpdate(row) {
   getFinanceReceivable(_receivableId).then((response) => {
     loading.value = false
     form.value = response.data
-    if(response.data.company != null && response.data.company != undefined){
+    if (response.data.company != null && response.data.company != undefined) {
       form.value.companyNumber = response.data.company.companyNumber
       form.value.companyName = response.data.company.companyName
     }
@@ -505,6 +651,7 @@ function submitForm() {
           .then((response) => {
             proxy.$modal.msgSuccess('修改成功')
             open.value = false
+            getAllListData()
             getList()
           })
           .finally(() => {
@@ -515,6 +662,7 @@ function submitForm() {
           .then((response) => {
             proxy.$modal.msgSuccess('新增成功')
             open.value = false
+            getAllListData()
             getList()
           })
           .finally(() => {
@@ -536,6 +684,7 @@ function handleDelete(row) {
     })
     .then(() => {
       loading.value = true
+      getAllListData()
       getList()
       proxy.$modal.msgSuccess('删除成功')
     })
@@ -556,5 +705,34 @@ function handleExport() {
   )
 }
 
+/** 获取所有初始数据 */
+function getAllListData() {
+  getAllTaxRate()
+  getAllFinanceProjectResponsiblePerson()
+  getAllOperationProjectResponsiblePerson()
+}
+
+/** 获取所有税率 */
+function getAllTaxRate() {
+  listAllTaxRate().then((response) => {
+    taxRateList.value = response.data
+  })
+}
+
+/** 获取所有财务部项目负责人 */
+function getAllFinanceProjectResponsiblePerson() {
+  listAllFinanceProjectResponsiblePerson().then((response) => {
+    financeProjectResponsiblePersonList.value = response.data
+  })
+}
+
+/** 获取所有经营部项目负责人 */
+function getAllOperationProjectResponsiblePerson() {
+  listAllOperationProjectResponsiblePerson().then((response) => {
+    operationProjectResponsiblePersonList.value = response.data
+  })
+}
+
+getAllListData()
 getList()
 </script>

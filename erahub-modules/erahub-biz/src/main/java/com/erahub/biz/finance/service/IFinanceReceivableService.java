@@ -7,6 +7,7 @@ import com.erahub.biz.finance.domain.bo.FinanceReceivableBo;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -47,4 +48,19 @@ public interface IFinanceReceivableService {
      * 校验并批量删除应收管理信息
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
+
+    /**
+     * 获取所有税率
+     */
+    List<BigDecimal> selectAllTaxRate();
+
+    /**
+     * 获取所有财务部项目负责人
+     */
+    List<String> selectAllFinanceProjectResponsiblePerson();
+
+    /**
+     * 获取所有经营部项目负责人
+     */
+    List<String> selectAllOperationProjectResponsiblePerson();
 }

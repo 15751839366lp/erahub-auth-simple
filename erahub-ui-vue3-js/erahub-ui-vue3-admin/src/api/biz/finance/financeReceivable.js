@@ -42,3 +42,27 @@ export function delFinanceReceivable(receivableId) {
     method: 'delete'
   })
 }
+
+// 获取所有税率
+export function listAllTaxRate() {
+  return request({
+    url: '/biz/finance/receivable/selectAllTaxRate',
+    method: 'get'
+  })
+}
+
+// 获取所有财务部项目负责人
+export function listAllFinanceProjectResponsiblePerson() {
+  return request({
+    url: '/biz/finance/receivable/selectAllFinanceProjectResponsiblePerson',
+    method: 'get'
+  })
+}
+
+// 获取所有经营部项目负责人
+export function listAllOperationProjectResponsiblePerson() {
+  return request({
+    url: '/biz/finance/receivable/selectAllOperationProjectResponsiblePerson',
+    method: 'get'
+  })
+}

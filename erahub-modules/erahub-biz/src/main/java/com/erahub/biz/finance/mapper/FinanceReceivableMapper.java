@@ -9,6 +9,7 @@ import com.erahub.biz.finance.domain.FinanceReceivable;
 import com.erahub.biz.finance.domain.vo.FinanceReceivableVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,4 +25,10 @@ public interface FinanceReceivableMapper extends BaseMapperPlus<FinanceReceivabl
     List<FinanceReceivable> queryList(@Param(Constants.WRAPPER) QueryWrapper<FinanceReceivable> wrapper);
 
     FinanceReceivable queryById(Long id);
+
+    List<BigDecimal> selectAllTaxRate();
+
+    List<String> selectAllFinanceProjectResponsiblePerson();
+
+    List<String> selectAllOperationProjectResponsiblePerson();
 }

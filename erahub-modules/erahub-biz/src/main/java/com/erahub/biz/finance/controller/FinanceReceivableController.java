@@ -20,6 +20,7 @@ import com.erahub.biz.finance.domain.bo.FinanceReceivableBo;
 import com.erahub.biz.finance.service.IFinanceReceivableService;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Arrays;
 import javax.validation.constraints.NotEmpty;
@@ -102,5 +103,35 @@ public class FinanceReceivableController extends BaseController {
     @DeleteMapping("/{receivableIds}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] receivableIds) {
         return toAjax(iFinanceReceivableService.deleteWithValidByIds(Arrays.asList(receivableIds), true));
+    }
+
+    /**
+     * 获取所有税率
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:list")
+    @GetMapping("/selectAllTaxRate")
+    public R<List<BigDecimal>> selectAllTaxRate() {
+        return R.ok((iFinanceReceivableService.selectAllTaxRate()));
+    }
+
+    /**
+     * 获取所有财务部项目负责人
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:list")
+    @GetMapping("/selectAllFinanceProjectResponsiblePerson")
+    public R<List<String>> selectAllFinanceProjectResponsiblePerson() {
+        return R.ok((iFinanceReceivableService.selectAllFinanceProjectResponsiblePerson()));
+    }
+
+    /**
+     * 获取所有经营部项目负责人
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:list")
+    @GetMapping("/selectAllOperationProjectResponsiblePerson")
+    public R<List<String>> selectAllOperationProjectResponsiblePerson() {
+        return R.ok((iFinanceReceivableService.selectAllOperationProjectResponsiblePerson()));
     }
 }

@@ -81,4 +81,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where bfr.receivable_id = #{id}
     </select>
 
+    <select id="selectAllTaxRate" resultType="java.math.BigDecimal">
+        select tax_rate
+        from biz_finance_receivable
+        group by tax_rate
+    </select>
+
+    <select id="selectAllFinanceProjectResponsiblePerson" resultType="string">
+        select finance_project_responsible_person
+        from biz_finance_receivable
+        group by finance_project_responsible_person
+    </select>
+
+    <select id="selectAllOperationProjectResponsiblePerson" resultType="string">
+        select operation_project_responsible_person
+        from biz_finance_receivable
+        group by operation_project_responsible_person
+    </select>
 </mapper>

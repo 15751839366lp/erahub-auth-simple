@@ -4,7 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
+import com.erahub.biz.finance.domain.FinanceCompany;
 import com.erahub.biz.finance.domain.excel.FinanceReceivableExport;
+import com.erahub.biz.finance.mapper.FinanceCompanyMapper;
+import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
@@ -18,7 +22,9 @@ import com.erahub.biz.finance.domain.vo.FinanceReceivableVo;
 import com.erahub.biz.finance.domain.FinanceReceivable;
 import com.erahub.biz.finance.mapper.FinanceReceivableMapper;
 import com.erahub.biz.finance.service.IFinanceReceivableService;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Collection;
@@ -34,14 +40,15 @@ import java.util.stream.Collectors;
 @Service
 public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
 
-    private final FinanceReceivableMapper baseMapper;
+    private final FinanceReceivableMapper financeReceivableMapper;
+    private final FinanceCompanyMapper financeCompanyMapper;
 
     /**
      * 查询应收管理
      */
     @Override
     public FinanceReceivableVo queryById(Long receivableId){
-        return BeanUtil.copyProperties(baseMapper.queryById(receivableId),FinanceReceivableVo.class);
+        return BeanUtil.copyProperties(financeReceivableMapper.queryById(receivableId),FinanceReceivableVo.class);
     }
 
     /**
@@ -50,7 +57,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
     @Override
     public TableDataInfo<FinanceReceivableVo> queryPageList(FinanceReceivableBo bo, PageQuery pageQuery) {
         QueryWrapper<FinanceReceivable> wrapper = buildQueryWrapper(bo);
-        Page<FinanceReceivable> result = baseMapper.selectPageFinanceReceivableList(pageQuery.build(), wrapper);
+        Page<FinanceReceivable> result = financeReceivableMapper.selectPageFinanceReceivableList(pageQuery.build(), wrapper);
         return TableDataInfo.build(BeanUtil.copyToList(result.getRecords(), FinanceReceivableVo.class));
     }
 
@@ -61,7 +68,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
     public List<FinanceReceivableExport> queryList(FinanceReceivableBo bo) {
         QueryWrapper<FinanceReceivable> wrapper = buildQueryWrapper(bo);
         //重写复制集合对象方法
-        return baseMapper.queryList(wrapper).stream().map((FinanceReceivable) -> {
+        return financeReceivableMapper.queryList(wrapper).stream().map((FinanceReceivable) -> {
             FinanceReceivableExport export = ReflectUtil.newInstanceIfPossible(FinanceReceivableExport.class);
             BeanUtil.copyProperties(FinanceReceivable,export);
             if(ObjectUtil.isNotEmpty(FinanceReceivable.getCompany())){
@@ -94,9 +101,19 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      */
     @Override
     public Boolean insertByBo(FinanceReceivableBo bo) {
+        FinanceCompany financeCompany = financeCompanyMapper.selectOne(new LambdaQueryWrapper<FinanceCompany>()
+            .eq(bo.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, bo.getCompanyNumber())
+            .eq(StringUtils.isNotEmpty(bo.getCompanyName()), FinanceCompany::getCompanyName, bo.getCompanyName()));
         FinanceReceivable add = BeanUtil.toBean(bo, FinanceReceivable.class);
+        if(ObjectUtil.isEmpty(financeCompany)){
+            throw new ServiceException("单位不存在！");
+        }
+        if("1".equals(financeCompany.getStatus())){
+            throw new ServiceException("单位已禁用！");
+        }
+        add.setCompanyId(financeCompany.getCompanyId());
         validEntityBeforeSave(add);
-        boolean flag = baseMapper.insert(add) > 0;
+        boolean flag = financeReceivableMapper.insert(add) > 0;
         if (flag) {
             bo.setReceivableId(add.getReceivableId());
         }
@@ -108,9 +125,19 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      */
     @Override
     public Boolean updateByBo(FinanceReceivableBo bo) {
+        FinanceCompany financeCompany = financeCompanyMapper.selectOne(new LambdaQueryWrapper<FinanceCompany>()
+            .eq(bo.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, bo.getCompanyNumber())
+            .eq(StringUtils.isNotEmpty(bo.getCompanyName()), FinanceCompany::getCompanyName, bo.getCompanyName()));
         FinanceReceivable update = BeanUtil.toBean(bo, FinanceReceivable.class);
+        if(ObjectUtil.isEmpty(financeCompany)){
+            throw new ServiceException("单位不存在！");
+        }
+        if("1".equals(financeCompany.getStatus())){
+            throw new ServiceException("单位已禁用！");
+        }
+        update.setCompanyId(financeCompany.getCompanyId());
         validEntityBeforeSave(update);
-        return baseMapper.updateById(update) > 0;
+        return financeReceivableMapper.updateById(update) > 0;
     }
 
     /**
@@ -128,6 +155,21 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
         if(isValid){
             //TODO 做一些业务上的校验,判断是否需要校验
         }
-        return baseMapper.deleteBatchIds(ids) > 0;
+        return financeReceivableMapper.deleteBatchIds(ids) > 0;
+    }
+
+    @Override
+    public List<BigDecimal> selectAllTaxRate() {
+        return financeReceivableMapper.selectAllTaxRate();
+    }
+
+    @Override
+    public List<String> selectAllFinanceProjectResponsiblePerson() {
+        return financeReceivableMapper.selectAllFinanceProjectResponsiblePerson();
+    }
+
+    @Override
+    public List<String> selectAllOperationProjectResponsiblePerson() {
+        return financeReceivableMapper.selectAllOperationProjectResponsiblePerson();
     }
 }

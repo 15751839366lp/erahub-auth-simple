@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erahub.biz.finance.mapper.FinanceReceivableMapper">
+
+    <resultMap type="com.erahub.biz.finance.domain.FinanceReceivable" id="FinanceReceivableResult">
+        <result property="receivableId" column="receivable_id"/>
+        <result property="invoicingDate" column="invoicing_date"/>
+        <result property="projectNumber" column="project_number"/>
+        <result property="projectName" column="project_name"/>
+        <result property="includingTaxPrice" column="including_tax_price"/>
+        <result property="taxRate" column="tax_rate"/>
+        <result property="excludingTaxPrice" column="excluding_tax_price"/>
+        <result property="accountPaid" column="account_paid"/>
+        <result property="arrearage" column="arrearage"/>
+        <result property="warrantyDeposit" column="warranty_deposit"/>
+        <result property="projectManager" column="project_manager"/>
+        <result property="uploadId" column="upload_id"/>
+        <result property="financeProjectResponsiblePerson" column="finance_project_responsible_person"/>
+        <result property="operationProjectResponsiblePerson" column="operation_project_responsible_person"/>
+        <result property="receivableType" column="receivable_type"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <association property="company" column="company_id" javaType="com.erahub.biz.finance.domain.FinanceCompany" resultMap="FinanceCompanyResult"/>
+    </resultMap>
+
+    <resultMap type="com.erahub.biz.finance.domain.FinanceCompany" id="FinanceCompanyResult">
+        <result property="companyId" column="company_id"/>
+        <result property="companyNumber" column="company_number"/>
+        <result property="companyName" column="company_name"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <sql id="selectFinanceReceivable">
+        select bfr.receivable_id,
+               bfr.invoicing_date,
+               bfr.project_number,
+               bfr.project_name,
+               bfr.including_tax_price,
+               bfr.tax_rate,
+               bfr.excluding_tax_price,
+               bfr.account_paid,
+               bfr.arrearage,
+               bfr.warranty_deposit,
+               bfr.project_manager,
+               bfr.upload_id,
+               bfr.finance_project_responsible_person,
+               bfr.operation_project_responsible_person,
+               bfr.receivable_type,
+               bfr.create_by,
+               bfr.create_time,
+               bfr.update_by,
+               bfr.update_time,
+               bfr.remark,
+
+               bfc.company_id,
+               bfc.company_number,
+               bfc.company_name,
+               bfc.status
+
+        from biz_finance_receivable bfr
+                 left join biz_finance_company bfc on bfr.company_id = bfc.company_id
+    </sql>
+
+    <select id="selectPageFinanceReceivableList" resultMap="FinanceReceivableResult">
+        <include refid="selectFinanceReceivable"/>
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="queryList" resultMap="FinanceReceivableResult">
+        <include refid="selectFinanceReceivable"/>
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="queryById" resultMap="FinanceReceivableResult">
+        <include refid="selectFinanceReceivable"/>
+        where bfr.receivable_id = #{id}
+    </select>
+
+</mapper>

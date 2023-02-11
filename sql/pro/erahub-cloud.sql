@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 10/02/2023 20:19:04
+ Date: 11/02/2023 13:47:30
 */
 
 SET NAMES utf8mb4;
@@ -67,7 +67,7 @@ CREATE TABLE `biz_finance_erp_project`  (
   `project_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'ERP工程名称',
   `plan_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '计划类别',
   `department` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '部门',
-  `settlement_review_amount` decimal(60, 0) NULL DEFAULT NULL COMMENT '结算审核额',
+  `settlement_review_amount` decimal(60, 2) NULL DEFAULT NULL COMMENT '结算审核额',
   `contract_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '合同编号',
   `project_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '工程类别',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
@@ -511,6 +511,8 @@ INSERT INTO `sys_dict_data` VALUES (1605148230401232897, 2, '停用', '1', 'blog
 INSERT INTO `sys_dict_data` VALUES (1617001763798863873, 10, '发送', '10', 'sys_oper_type', NULL, 'success', 'N', '0', 'admin', '2023-01-22 11:30:38', 'admin', '2023-01-22 11:30:49', '发送操作');
 INSERT INTO `sys_dict_data` VALUES (1617353307694092290, 1, '是', '0', 'yes_no', NULL, 'primary', 'N', '0', 'admin', '2023-01-23 10:47:32', 'admin', '2023-01-23 10:47:32', '是');
 INSERT INTO `sys_dict_data` VALUES (1617353369627185154, 2, '否', '1', 'yes_no', NULL, 'danger', 'N', '0', 'admin', '2023-01-23 10:47:47', 'admin', '2023-01-23 10:47:47', '否');
+INSERT INTO `sys_dict_data` VALUES (1624234123211022337, 0, '正常', '0', 'status', NULL, 'primary', 'N', '0', 'supermanager', '2023-02-11 10:29:26', 'supermanager', '2023-02-11 10:29:26', '正常');
+INSERT INTO `sys_dict_data` VALUES (1624234188709273601, 1, '停用', '1', 'status', NULL, 'danger', 'N', '0', 'supermanager', '2023-02-11 10:29:42', 'supermanager', '2023-02-11 10:29:42', '停用');
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -537,6 +539,7 @@ INSERT INTO `sys_dict_type` VALUES (1, '用户性别', 'sys_user_sex', '0', 'adm
 INSERT INTO `sys_dict_type` VALUES (2, '菜单状态', 'sys_show_hide', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '菜单状态列表');
 INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '系统开关列表');
 INSERT INTO `sys_dict_type` VALUES (4, '是否', 'yes_no', '0', 'admin', '2023-01-23 10:46:44', 'admin', '2023-01-23 10:46:44', '系统统一是否');
+INSERT INTO `sys_dict_type` VALUES (5, '状态', 'status', '0', 'supermanager', '2023-02-11 10:26:13', 'supermanager', '2023-02-11 10:27:27', '系统统一状态');
 INSERT INTO `sys_dict_type` VALUES (6, '系统是否', 'sys_yes_no', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '系统是否列表');
 INSERT INTO `sys_dict_type` VALUES (7, '通知类型', 'sys_notice_type', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '通知类型列表');
 INSERT INTO `sys_dict_type` VALUES (8, '通知状态', 'sys_notice_status', '0', 'admin', '2022-09-10 17:10:48', '', NULL, '通知状态列表');
@@ -1320,6 +1323,7 @@ INSERT INTO `sys_logininfor` VALUES (1623923845013413890, 'supermanager', '223.1
 INSERT INTO `sys_logininfor` VALUES (1623953260854353922, 'supermanager', '223.112.3.243', '0', '登录成功', '2023-02-10 15:53:24', '江苏省 南京市', 'Chrome', 'Windows 7 or Windows Server 2008R2');
 INSERT INTO `sys_logininfor` VALUES (1623956240664076290, 'supermanager', '223.112.3.243', '0', '登录成功', '2023-02-10 16:05:14', '江苏省 南京市', 'Chrome', 'Windows 7 or Windows Server 2008R2');
 INSERT INTO `sys_logininfor` VALUES (1624010280517214210, 'supermanager', '183.209.137.184', '0', '登录成功', '2023-02-10 19:39:58', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1624230102479904770, 'supermanager', '183.209.137.184', '0', '登录成功', '2023-02-11 10:13:28', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -2258,6 +2262,10 @@ INSERT INTO `sys_oper_log` VALUES (1623951670453968897, 'OSS对象存储', 6, 'c
 INSERT INTO `sys_oper_log` VALUES (1623952038684499969, 'OSS对象存储', 3, 'com.erahub.base.basicservice.controller.BSOssController.remove()', 'DELETE', 1, 'supermanager', '', '/oss/1623951670386860034', '223.112.3.243', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 15:48:32', 33);
 INSERT INTO `sys_oper_log` VALUES (1623952108582576130, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.upload()', 'POST', 1, 'supermanager', '', '/oss/upload', '223.112.3.243', '', '', '{\"code\":200,\"msg\":\"操作成功\",\"data\":{\"ossId\":null,\"fileName\":\"c6f8f464bcbe45a09113aaa364c2f421.xlsx\",\"originalName\":\"工程应收统计表.xlsx\",\"useField\":null,\"fileSuffix\":\".xlsx\",\"url\":null,\"createTime\":null,\"createBy\":null,\"service\":null,\"contentType\":\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\"}}', 0, '', '2023-02-10 15:48:49', 1);
 INSERT INTO `sys_oper_log` VALUES (1623952113338916866, 'OSS对象存储', 6, 'com.erahub.base.basicservice.controller.BSOssController.insertBatch()', 'POST', 1, 'supermanager', '', '/oss/addOssBatch', '223.112.3.243', '', '[{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"ossId\":null,\"fileName\":\"c6f8f464bcbe45a09113aaa364c2f421.xlsx\",\"originalName\":\"工程应收统计表.xlsx\",\"useField\":null,\"fileSuffix\":\".xlsx\",\"url\":null,\"service\":null,\"contentType\":\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\"}]', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-10 15:48:50', 41);
+INSERT INTO `sys_oper_log` VALUES (1624230225238794242, '代码生成', 3, 'com.erahub.base.tool.controller.ToGenController.remove()', 'DELETE', 1, 'supermanager', '', '/gen/1622036278466813954', '183.209.137.184', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-11 10:13:57', 66);
+INSERT INTO `sys_oper_log` VALUES (1624233621035393026, '字典类型', 2, 'com.erahub.base.system.controller.SysDictTypeController.edit()', 'PUT', 1, 'supermanager', '', '/dict/type', '183.209.137.184', '', '{\"createBy\":\"supermanager\",\"createTime\":\"2023-02-11 10:26:13\",\"updateBy\":\"supermanager\",\"updateTime\":\"2023-02-11 10:27:26\",\"dictId\":5,\"dictName\":\"状态\",\"dictType\":\"status\",\"status\":\"0\",\"remark\":\"系统统一状态\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-11 10:27:27', 36);
+INSERT INTO `sys_oper_log` VALUES (1624234123311685634, '字典数据', 1, 'com.erahub.base.system.controller.SysDictDataController.add()', 'POST', 1, 'supermanager', '', '/dict/data', '183.209.137.184', '', '{\"createBy\":\"supermanager\",\"createTime\":\"2023-02-11 10:29:26\",\"updateBy\":\"supermanager\",\"updateTime\":\"2023-02-11 10:29:26\",\"dictCode\":\"1624234123211022337\",\"dictSort\":0,\"dictLabel\":\"正常\",\"dictValue\":\"0\",\"dictType\":\"status\",\"cssClass\":null,\"listClass\":\"primary\",\"isDefault\":null,\"status\":\"0\",\"remark\":\"正常\",\"default\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-11 10:29:26', 18);
+INSERT INTO `sys_oper_log` VALUES (1624234188805742593, '字典数据', 1, 'com.erahub.base.system.controller.SysDictDataController.add()', 'POST', 1, 'supermanager', '', '/dict/data', '183.209.137.184', '', '{\"createBy\":\"supermanager\",\"createTime\":\"2023-02-11 10:29:42\",\"updateBy\":\"supermanager\",\"updateTime\":\"2023-02-11 10:29:42\",\"dictCode\":\"1624234188709273601\",\"dictSort\":1,\"dictLabel\":\"停用\",\"dictValue\":\"1\",\"dictType\":\"status\",\"cssClass\":null,\"listClass\":\"danger\",\"isDefault\":null,\"status\":\"0\",\"remark\":\"停用\",\"default\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-11 10:29:42', 15);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -2596,7 +2604,6 @@ INSERT INTO `to_gen_table` VALUES (1609381755329544193, 'biz_finance_erp_project
 INSERT INTO `to_gen_table` VALUES (1616992029272264714, 'bs_mail_account', '邮件账号表', NULL, NULL, 'BSMailAccount', 'crud', 'com.erahub.base.basicservice', 'basicservice', 'mailAccount', '邮件账号', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"1616994516599394306\"}', 'test', '2023-01-22 10:51:38', 'admin', '2023-01-22 11:03:34', NULL);
 INSERT INTO `to_gen_table` VALUES (1616999047454347265, 'bs_mail_record', '邮件记录表', NULL, NULL, 'BSMailRecord', 'crud', 'com.erahub.base.basicservice', 'basicservice', 'mailRecord', '邮件记录', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"1616994516599394306\"}', 'admin', '2023-01-22 11:19:19', 'admin', '2023-01-22 11:22:20', NULL);
 INSERT INTO `to_gen_table` VALUES (1621694958809944065, 'biz_finance_erp_contract', 'ERP合同表', NULL, NULL, 'FinanceERPContract', 'crud', 'com.erahub.biz.finance', 'biz', 'finance:erpcontract', 'ERP合同', 'erahub', '0', '/', '{\"treeCode\":null,\"treeName\":null,\"treeParentCode\":null,\"parentMenuId\":\"1609385690836598786\"}', 'test', '2023-02-04 09:49:36', 'test', '2023-02-04 10:25:55', NULL);
-INSERT INTO `to_gen_table` VALUES (1622036278466813954, 'undo_log', 'AT transaction mode undo table', NULL, NULL, 'UndoLog', 'crud', 'com.erahub.base', 'base', 'log', 'AT transaction mode undo table', 'erahub', '0', '/', NULL, 'admin', '2023-02-05 08:37:47', 'admin', '2023-02-05 08:37:47', NULL);
 
 -- ----------------------------
 -- Table structure for to_gen_table_column
@@ -2732,13 +2739,6 @@ INSERT INTO `to_gen_table_column` VALUES (1621694958935773185, 16216949588099440
 INSERT INTO `to_gen_table_column` VALUES (1621694958935773186, 1621694958809944065, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'input', '', 11, 'test', '2023-02-04 10:19:43', 'test', '2023-02-04 10:25:55');
 INSERT INTO `to_gen_table_column` VALUES (1621694958935773187, 1621694958809944065, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, NULL, NULL, NULL, NULL, 'EQ', 'datetime', '', 12, 'test', '2023-02-04 10:19:43', 'test', '2023-02-04 10:25:55');
 INSERT INTO `to_gen_table_column` VALUES (1621694958935773188, 1621694958809944065, 'remark', '备注', 'varchar(500)', 'String', 'remark', '0', '0', '0', '1', '1', '0', NULL, 'EQ', 'textarea', '', 13, 'test', '2023-02-04 10:19:43', 'test', '2023-02-04 10:25:55');
-INSERT INTO `to_gen_table_column` VALUES (1622036278714277890, 1622036278466813954, 'branch_id', 'branch transaction id', 'bigint', 'Long', 'branchId', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 1, 'admin', '2023-02-05 08:55:59', 'admin', '2023-02-05 08:55:59');
-INSERT INTO `to_gen_table_column` VALUES (1622036278752026625, 1622036278466813954, 'xid', 'global transaction id', 'varchar(100)', 'String', 'xid', '1', '0', '1', NULL, '1', '1', NULL, 'EQ', 'input', '', 2, 'admin', '2023-02-05 08:55:59', 'admin', '2023-02-05 08:55:59');
-INSERT INTO `to_gen_table_column` VALUES (1622036278806552577, 1622036278466813954, 'context', 'undo_log context,such as serialization', 'varchar(128)', 'String', 'context', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2023-02-05 08:56:00', 'admin', '2023-02-05 08:56:00');
-INSERT INTO `to_gen_table_column` VALUES (1622036278827524098, 1622036278466813954, 'rollback_info', 'rollback info', 'longblob', 'String', 'rollbackInfo', '0', '0', '1', '1', '1', '1', '1', 'EQ', NULL, '', 4, 'admin', '2023-02-05 08:56:00', 'admin', '2023-02-05 08:56:00');
-INSERT INTO `to_gen_table_column` VALUES (1622036278852689921, 1622036278466813954, 'log_status', '0:normal status,1:defense status', 'int', 'Long', 'logStatus', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 5, 'admin', '2023-02-05 08:56:00', 'admin', '2023-02-05 08:56:00');
-INSERT INTO `to_gen_table_column` VALUES (1622036278890438658, 1622036278466813954, 'log_created', 'create datetime', 'datetime(6)', 'Date', 'logCreated', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 6, 'admin', '2023-02-05 08:56:00', 'admin', '2023-02-05 08:56:00');
-INSERT INTO `to_gen_table_column` VALUES (1622036278915604481, 1622036278466813954, 'log_modified', 'modify datetime', 'datetime(6)', 'Date', 'logModified', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 7, 'admin', '2023-02-05 08:56:00', 'admin', '2023-02-05 08:56:00');
 
 -- ----------------------------
 -- Table structure for undo_log

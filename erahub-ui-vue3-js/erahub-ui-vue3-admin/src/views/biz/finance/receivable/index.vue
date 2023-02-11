@@ -435,7 +435,7 @@ import {
   updateFinanceReceivable,
   listAllTaxRate,
   listAllFinanceProjectResponsiblePerson,
-  listAllOperationProjectResponsiblePerson 
+  listAllOperationProjectResponsiblePerson
 } from '@/api/biz/finance/financeReceivable'
 
 const { proxy } = getCurrentInstance()
@@ -455,16 +455,17 @@ const multiple = ref(true)
 const total = ref(0)
 const title = ref('')
 
+//日期选择
 const dateRange = ref([])
 const invoicingDateShortcuts = ref([
-{
+  {
     text: '近1周',
     value: () => {
       const end = new Date()
       const start = new Date()
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
       return [start, end]
-    },
+    }
   },
   {
     text: '近1个月',
@@ -473,7 +474,7 @@ const invoicingDateShortcuts = ref([
       const start = new Date()
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
       return [start, end]
-    },
+    }
   },
   {
     text: '1-3个月之间',
@@ -483,7 +484,7 @@ const invoicingDateShortcuts = ref([
       end.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
       return [start, end]
-    },
+    }
   },
   {
     text: '3-12个月之间',
@@ -493,8 +494,8 @@ const invoicingDateShortcuts = ref([
       end.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 365)
       return [start, end]
-    },
-  },
+    }
+  }
 ])
 
 // 列显隐信息
@@ -520,6 +521,22 @@ const columns = ref([
   { key: 18, label: `修改时间`, visible: false }
 ])
 
+//校验单位信息
+const companyValidation = (rule, value, callback) => {
+  if (!form.value.companyNumber && !form.value.companyName) {
+    callback(new Error('单位编号和单位名称不能都为空'))
+  } else {
+    callback()
+  }
+}
+//校验金额信息
+const priceValidation = (rule, value, callback) => {
+  // if (!form.value.companyNumber && !form.value.companyName) {
+  //   callback(new Error('单位编号和单位名称不能都为空'))
+  // } else {
+  //   callback()
+  // }
+}
 const data = reactive({
   form: {},
   queryParams: {
@@ -537,6 +554,12 @@ const data = reactive({
   },
   rules: {
     invoicingDate: [{ required: true, message: '开票日期不能为空', trigger: 'blur' }],
+    companyNumber: [
+      { validator: companyValidation, trigger: 'blur' }
+    ],
+    companyName: [
+      { validator: companyValidation, trigger: 'blur' }
+    ],
     projectNumber: [{ required: true, message: '工程编号不能为空', trigger: 'blur' }],
     includingTaxPrice: [{ required: true, message: '开票金额(含税价)不能为空', trigger: 'blur' }],
     taxRate: [{ required: true, message: '税率不能为空', trigger: 'blur' }],

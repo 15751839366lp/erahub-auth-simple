@@ -101,6 +101,10 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      */
     @Override
     public Boolean insertByBo(FinanceReceivableBo bo) {
+        //校验单位
+        if(bo.getCompanyNumber() == null && StringUtils.isEmpty(bo.getCompanyName())){
+            throw new ServiceException("请输入单位！");
+        }
         FinanceCompany financeCompany = financeCompanyMapper.selectOne(new LambdaQueryWrapper<FinanceCompany>()
             .eq(bo.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, bo.getCompanyNumber())
             .eq(StringUtils.isNotEmpty(bo.getCompanyName()), FinanceCompany::getCompanyName, bo.getCompanyName()));
@@ -125,6 +129,10 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      */
     @Override
     public Boolean updateByBo(FinanceReceivableBo bo) {
+        //校验单位
+        if(bo.getCompanyNumber() == null && StringUtils.isEmpty(bo.getCompanyName())){
+            throw new ServiceException("请输入单位！");
+        }
         FinanceCompany financeCompany = financeCompanyMapper.selectOne(new LambdaQueryWrapper<FinanceCompany>()
             .eq(bo.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, bo.getCompanyNumber())
             .eq(StringUtils.isNotEmpty(bo.getCompanyName()), FinanceCompany::getCompanyName, bo.getCompanyName()));

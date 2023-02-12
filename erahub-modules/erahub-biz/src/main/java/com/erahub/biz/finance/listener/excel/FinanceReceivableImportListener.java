@@ -1,24 +1,19 @@
 package com.erahub.biz.finance.listener.excel;
 
-import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.erahub.base.system.api.domain.SysUser;
 import com.erahub.biz.finance.domain.FinanceCompany;
 import com.erahub.biz.finance.domain.FinanceReceivable;
 import com.erahub.biz.finance.domain.excel.FinanceReceivableImport;
 import com.erahub.biz.finance.mapper.FinanceCompanyMapper;
 import com.erahub.biz.finance.mapper.FinanceReceivableMapper;
-import com.erahub.biz.finance.service.IFinanceCompanyService;
-import com.erahub.biz.finance.service.IFinanceReceivableService;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.SpringUtils;
 import com.erahub.common.core.utils.StringUtils;
-import com.erahub.common.core.utils.ValidatorUtils;
 import com.erahub.common.excel.core.ExcelListener;
 import com.erahub.common.excel.core.ExcelResult;
 import com.erahub.common.satoken.utils.LoginHelper;
@@ -31,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 @Slf4j
 public class FinanceReceivableImportListener extends AnalysisEventListener<FinanceReceivableImport> implements ExcelListener<FinanceReceivableImport> {
@@ -70,12 +64,12 @@ public class FinanceReceivableImportListener extends AnalysisEventListener<Finan
             }
 
             //校验金额
-            BigDecimal includingTaxPrice = financeReceivableImport.getIncludingTaxPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal taxRate = financeReceivableImport.getTaxRate().setScale(3,BigDecimal.ROUND_HALF_UP);
-            BigDecimal excludingTaxPrice = financeReceivableImport.getExcludingTaxPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal accountPaid = financeReceivableImport.getAccountPaid().setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal arrearage = financeReceivableImport.getArrearage().setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal warrantyDeposit = financeReceivableImport.getWarrantyDeposit().setScale(2,BigDecimal.ROUND_HALF_UP);
+            BigDecimal includingTaxPrice = financeReceivableImport.getIncludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal taxRate = financeReceivableImport.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
+            BigDecimal excludingTaxPrice = financeReceivableImport.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal accountPaid = financeReceivableImport.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal arrearage = financeReceivableImport.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal warrantyDeposit = financeReceivableImport.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
             //计税金额校验
             if (includingTaxPrice.divide(new BigDecimal(1).add(taxRate),
                 2, BigDecimal.ROUND_HALF_UP).compareTo(excludingTaxPrice) != 0) {
@@ -107,7 +101,7 @@ public class FinanceReceivableImportListener extends AnalysisEventListener<Finan
             if (!CollectionUtil.isEmpty(financeReceivableImportMap) && !CollectionUtil.isEmpty(financeCompanyList)) {
                 List<FinanceReceivable> financeReceivableList = new ArrayList<>();
                 String uploadId = System.currentTimeMillis() + operName;
-
+                //从数据库中查询所有匹配的单位数据
                 List<Long> companyNumbers = financeCompanyList.stream().map(FinanceCompany::getCompanyNumber).collect(Collectors.toList());
                 List<String> companyNames = financeCompanyList.stream().map(FinanceCompany::getCompanyName).collect(Collectors.toList());
                 List<FinanceCompany> financeCompanies = financeCompanyMapper.selectList(new LambdaQueryWrapper<FinanceCompany>()
@@ -140,12 +134,12 @@ public class FinanceReceivableImportListener extends AnalysisEventListener<Finan
                                     financeReceivable.setCompanyId(financeCompany.getCompanyId());
                                     financeReceivable.setUploadId(uploadId);
                                     financeReceivableList.add(financeReceivable);
-                                } else if(ObjectUtil.equals(financeCompany.getCompanyName(), companyName)){
+                                } else if (ObjectUtil.equals(financeCompany.getCompanyName(), companyName)) {
                                     FinanceReceivable financeReceivable = BeanUtil.toBean(financeReceivableImport, FinanceReceivable.class);
                                     financeReceivable.setCompanyId(financeCompany.getCompanyId());
                                     financeReceivable.setUploadId(uploadId);
                                     financeReceivableList.add(financeReceivable);
-                                }else{
+                                } else {
                                     failureMsg.append("<br/>第").append(rowIndex).append("条，")
                                         .append("单位编号与单位名称填写有误！");
                                 }

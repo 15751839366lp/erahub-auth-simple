@@ -1,26 +1,34 @@
 package com.erahub.biz.finance.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.erahub.biz.finance.domain.FinanceReceivable;
 import com.erahub.biz.finance.domain.excel.FinanceReceivableExport;
+import com.erahub.biz.finance.domain.excel.FinanceReceivableImport;
+import com.erahub.biz.finance.listener.excel.FinanceReceivableImportListener;
 import com.erahub.common.core.domain.R;
 import com.erahub.common.core.validate.AddGroup;
 import com.erahub.common.core.validate.EditGroup;
 import com.erahub.common.core.validate.QueryGroup;
 import com.erahub.common.core.web.controller.BaseController;
+import com.erahub.common.excel.core.ExcelResult;
 import com.erahub.common.excel.utils.ExcelUtil;
 import com.erahub.common.log.annotation.Log;
 import com.erahub.common.log.enums.BusinessType;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.erahub.biz.finance.domain.vo.FinanceReceivableVo;
 import com.erahub.biz.finance.domain.bo.FinanceReceivableBo;
 import com.erahub.biz.finance.service.IFinanceReceivableService;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Arrays;
 import javax.validation.constraints.NotEmpty;
@@ -47,7 +55,7 @@ public class FinanceReceivableController extends BaseController {
      */
     @SaCheckPermission("biz:finance:receivable:list")
     @GetMapping("/list")
-    public TableDataInfo<FinanceReceivableVo> list(FinanceReceivableBo bo, PageQuery pageQuery) {
+    public TableDataInfo<FinanceReceivable> list(FinanceReceivableBo bo, PageQuery pageQuery) {
         return iFinanceReceivableService.queryPageList(bo, pageQuery);
     }
 
@@ -60,6 +68,34 @@ public class FinanceReceivableController extends BaseController {
     public void export(FinanceReceivableBo bo, HttpServletResponse response) {
         List<FinanceReceivableExport> list = iFinanceReceivableService.queryList(bo);
         ExcelUtil.exportExcel(list, "应收管理", FinanceReceivableExport.class, response);
+    }
+
+    /**
+     * 导入应收管理列表
+     *
+     * @param file          导入文件
+     * @param updateSupport 更新已有数据
+     */
+    @Log(title = "应收管理", businessType = BusinessType.IMPORT)
+    @SaCheckPermission("biz:finance:receivable:import")
+    @PostMapping(value = "/importData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public R<Void> importData(MultipartFile file, boolean updateSupport) throws Exception {
+        ExcelResult<FinanceReceivableImport> result = ExcelUtil.importExcel(file.getInputStream(), FinanceReceivableImport.class, new FinanceReceivableImportListener(updateSupport));
+        return R.ok(result.getAnalysis());
+    }
+
+    /**
+     * 下载导入模板
+     */
+    @PostMapping("/importTemplate")
+    public void importTemplate(HttpServletResponse response) {
+        FinanceReceivableImport FinanceReceivableImportVoTemp
+            = new FinanceReceivableImport(1624360848005332994L, new Date(), 10000L, "XXX有限公司", "工程编号", "工程名称",
+            new BigDecimal(100),new BigDecimal("0.13"),new BigDecimal(100),
+            new BigDecimal(100),new BigDecimal(100),new BigDecimal(100),
+            "张三","张三","张三",null,null);
+        ExcelUtil.exportExcel(Arrays.asList(FinanceReceivableImportVoTemp), "应收数据", FinanceReceivableImport.class, response);
+
     }
 
     /**

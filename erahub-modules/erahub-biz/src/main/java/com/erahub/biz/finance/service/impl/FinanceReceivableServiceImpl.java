@@ -55,10 +55,14 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      * 查询应收管理列表
      */
     @Override
-    public TableDataInfo<FinanceReceivableVo> queryPageList(FinanceReceivableBo bo, PageQuery pageQuery) {
+    public TableDataInfo<FinanceReceivable> queryPageList(FinanceReceivableBo bo, PageQuery pageQuery) {
         QueryWrapper<FinanceReceivable> wrapper = buildQueryWrapper(bo);
+        if (StringUtils.isBlank(pageQuery.getOrderByColumn())) {
+            pageQuery.setOrderByColumn("invoicing_date,create_time");
+            pageQuery.setIsAsc("desc,desc");
+        }
         Page<FinanceReceivable> result = financeReceivableMapper.selectPageFinanceReceivableList(pageQuery.build(), wrapper);
-        return TableDataInfo.build(BeanUtil.copyToList(result.getRecords(), FinanceReceivableVo.class));
+        return TableDataInfo.build(result);
     }
 
     /**
@@ -109,13 +113,9 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
             .eq(bo.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, bo.getCompanyNumber())
             .eq(StringUtils.isNotEmpty(bo.getCompanyName()), FinanceCompany::getCompanyName, bo.getCompanyName()));
         FinanceReceivable add = BeanUtil.toBean(bo, FinanceReceivable.class);
-        if(ObjectUtil.isEmpty(financeCompany)){
-            throw new ServiceException("单位不存在！");
-        }
-        if("1".equals(financeCompany.getStatus())){
-            throw new ServiceException("单位已禁用！");
-        }
-        add.setCompanyId(financeCompany.getCompanyId());
+
+        add.setCompany(financeCompany);
+
         validEntityBeforeSave(add);
         boolean flag = financeReceivableMapper.insert(add) > 0;
         if (flag) {
@@ -137,14 +137,10 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
             .eq(bo.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, bo.getCompanyNumber())
             .eq(StringUtils.isNotEmpty(bo.getCompanyName()), FinanceCompany::getCompanyName, bo.getCompanyName()));
         FinanceReceivable update = BeanUtil.toBean(bo, FinanceReceivable.class);
-        if(ObjectUtil.isEmpty(financeCompany)){
-            throw new ServiceException("单位不存在！");
-        }
-        if("1".equals(financeCompany.getStatus())){
-            throw new ServiceException("单位已禁用！");
-        }
-        update.setCompanyId(financeCompany.getCompanyId());
+
+        update.setCompany(financeCompany);
         validEntityBeforeSave(update);
+
         return financeReceivableMapper.updateById(update) > 0;
     }
 
@@ -152,7 +148,31 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      * 保存前的数据校验
      */
     private void validEntityBeforeSave(FinanceReceivable entity){
-        //TODO 做一些数据校验,如唯一约束
+        // 单位校验
+        FinanceCompany financeCompany = entity.getCompany();
+        if(ObjectUtil.isEmpty(financeCompany)){
+            throw new ServiceException("单位不存在！");
+        }
+        if("1".equals(financeCompany.getStatus())){
+            throw new ServiceException("单位已禁用！");
+        }
+        entity.setCompanyId(financeCompany.getCompanyId());
+
+        //校验金额
+        BigDecimal includingTaxPrice = entity.getIncludingTaxPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal taxRate = entity.getTaxRate().setScale(3,BigDecimal.ROUND_HALF_UP);
+        BigDecimal excludingTaxPrice = entity.getExcludingTaxPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal accountPaid = entity.getAccountPaid().setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal arrearage = entity.getArrearage().setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal warrantyDeposit = entity.getWarrantyDeposit().setScale(2,BigDecimal.ROUND_HALF_UP);
+        //计税金额校验
+        if(includingTaxPrice.divide(new BigDecimal(1)
+            .add(taxRate),2,BigDecimal.ROUND_HALF_UP)
+            .compareTo(excludingTaxPrice) != 0){
+            throw new ServiceException("税额计算有误！");
+        }
+        //应收金额校验 todo
+
     }
 
     /**

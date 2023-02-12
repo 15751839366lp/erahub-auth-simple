@@ -39,7 +39,7 @@ public class FinanceReceivableImport implements Serializable {
      * 单位名称（甲方）
      */
     @ExcelProperty(value = "单位名称（甲方）")
-    private Long companyName;
+    private String companyName;
 
     /**
      * 工程编号
@@ -94,12 +94,6 @@ public class FinanceReceivableImport implements Serializable {
      */
     @ExcelProperty(value = "项目经理")
     private String projectManager;
-
-    /**
-     * 上传编号
-     */
-    @ExcelProperty(value = "上传编号")
-    private String uploadId;
 
     /**
      * 财务部项目负责人

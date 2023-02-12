@@ -27,7 +27,7 @@ public interface IFinanceReceivableService {
     /**
      * 查询应收管理列表
      */
-    TableDataInfo<FinanceReceivableVo> queryPageList(FinanceReceivableBo bo, PageQuery pageQuery);
+    TableDataInfo<FinanceReceivable> queryPageList(FinanceReceivableBo bo, PageQuery pageQuery);
 
     /**
      * 查询应收管理列表

@@ -309,7 +309,6 @@ function resetQuery() {
   showTable.value = false
   daterangeCreateTime.value = []
   proxy.resetForm('queryRef')
-  defaultSort.value = { prop: 'createTime', order: 'descending' }
   queryParams.value.orderByColumn = defaultSort.value.prop
   queryParams.value.isAsc = defaultSort.value.order
   handleQuery()

@@ -1,6 +1,9 @@
 package com.erahub.biz.finance.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.erahub.biz.finance.domain.FinanceReceivable;
+import com.erahub.biz.finance.mapper.FinanceReceivableMapper;
+import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
@@ -29,14 +32,15 @@ import java.util.Collection;
 @Service
 public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
 
-    private final FinanceCompanyMapper baseMapper;
+    private final FinanceCompanyMapper financeCompanyMapper;
+    private final FinanceReceivableMapper financeReceivableMapper;
 
     /**
      * 查询单位管理
      */
     @Override
-    public FinanceCompanyVo queryById(Long companyId){
-        return baseMapper.selectVoById(companyId);
+    public FinanceCompanyVo queryById(Long companyId) {
+        return financeCompanyMapper.selectVoById(companyId);
     }
 
     /**
@@ -45,7 +49,7 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
     @Override
     public TableDataInfo<FinanceCompanyVo> queryPageList(FinanceCompanyBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<FinanceCompany> lqw = buildQueryWrapper(bo);
-        Page<FinanceCompanyVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        Page<FinanceCompanyVo> result = financeCompanyMapper.selectVoPage(pageQuery.build(), lqw);
         return TableDataInfo.build(result);
     }
 
@@ -55,7 +59,7 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
     @Override
     public List<FinanceCompanyVo> queryList(FinanceCompanyBo bo) {
         LambdaQueryWrapper<FinanceCompany> lqw = buildQueryWrapper(bo);
-        return baseMapper.selectVoList(lqw);
+        return financeCompanyMapper.selectVoList(lqw);
     }
 
     private LambdaQueryWrapper<FinanceCompany> buildQueryWrapper(FinanceCompanyBo bo) {
@@ -75,7 +79,7 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
     public Boolean insertByBo(FinanceCompanyBo bo) {
         FinanceCompany add = BeanUtil.toBean(bo, FinanceCompany.class);
         validEntityBeforeSave(add);
-        boolean flag = baseMapper.insert(add) > 0;
+        boolean flag = financeCompanyMapper.insert(add) > 0;
         if (flag) {
             bo.setCompanyId(add.getCompanyId());
         }
@@ -89,14 +93,29 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
     public Boolean updateByBo(FinanceCompanyBo bo) {
         FinanceCompany update = BeanUtil.toBean(bo, FinanceCompany.class);
         validEntityBeforeSave(update);
-        return baseMapper.updateById(update) > 0;
+        return financeCompanyMapper.updateById(update) > 0;
     }
 
     /**
      * 保存前的数据校验
      */
-    private void validEntityBeforeSave(FinanceCompany entity){
-        //TODO 做一些数据校验,如唯一约束
+    private void validEntityBeforeSave(FinanceCompany entity) {
+        List<FinanceCompany> financeCompanies = financeCompanyMapper.selectList(new LambdaQueryWrapper<FinanceCompany>()
+            .eq(entity.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, entity.getCompanyNumber())
+            .or()
+            .eq(StringUtils.isNotBlank(entity.getCompanyName()), FinanceCompany::getCompanyName, entity.getCompanyName()));
+
+        if(entity.getCompanyId() == null && !financeCompanies.isEmpty()){
+            throw new ServiceException("单位信息重复！");
+        }
+        if(entity.getCompanyId() != null && !financeCompanies.isEmpty()){
+            if(financeCompanies.size() == 1 && !financeCompanies.get(0).getCompanyId().equals(entity.getCompanyId())){
+                throw new ServiceException("单位信息已存在！");
+            }
+            if(financeCompanies.size() >= 2){
+                throw new ServiceException("单位信息已存在！");
+            }
+        }
     }
 
     /**
@@ -104,9 +123,12 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
      */
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
-        if(isValid){
-            //TODO 做一些业务上的校验,判断是否需要校验
+        if (isValid) {
+            if(financeReceivableMapper.exists(new LambdaQueryWrapper<FinanceReceivable>()
+                .in(!ids.isEmpty(), FinanceReceivable::getCompanyId, ids))){
+                throw new ServiceException("单位存在关联数据，无法删除！");
+            }
         }
-        return baseMapper.deleteBatchIds(ids) > 0;
+        return financeCompanyMapper.deleteBatchIds(ids) > 0;
     }
 }

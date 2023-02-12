@@ -143,6 +143,16 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
+          type="info"
+          plain
+          icon="Upload"
+          @click="handleImport"
+          v-hasPermi="['biz:finance:receivable:import']"
+          >导入</el-button
+        >
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
           type="warning"
           plain
           icon="Download"
@@ -162,7 +172,9 @@
       v-loading="loading"
       :data="financeReceivableList"
       @selection-change="handleSelectionChange"
-      border
+      :header-cell-class-name="handleHeaderClass"
+      @header-click="handleHeaderCLick"
+      v-if="showTable"
     >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="应收账款ID" align="center" prop="receivableId" v-if="false" />
@@ -171,6 +183,7 @@
         align="center"
         prop="invoicingDate"
         width="110"
+        sortable="custom"
         v-if="columns[0].visible"
         fixed
       >
@@ -199,6 +212,7 @@
         align="center"
         prop="projectNumber"
         width="120"
+        sortable="custom"
         v-if="columns[3].visible"
         fixed
       />
@@ -215,6 +229,7 @@
         align="center"
         prop="includingTaxPrice"
         width="140"
+        sortable="custom"
         v-if="columns[5].visible"
         show-overflow-tooltip
       />
@@ -223,6 +238,7 @@
         align="center"
         prop="taxRate"
         width="80"
+        sortable="custom"
         v-if="columns[6].visible"
         show-overflow-tooltip
       />
@@ -231,6 +247,7 @@
         align="center"
         prop="excludingTaxPrice"
         width="120"
+        sortable="custom"
         v-if="columns[7].visible"
         show-overflow-tooltip
       />
@@ -239,6 +256,7 @@
         align="center"
         prop="accountPaid"
         width="120"
+        sortable="custom"
         v-if="columns[8].visible"
         show-overflow-tooltip
       />
@@ -247,6 +265,7 @@
         align="center"
         prop="arrearage"
         width="120"
+        sortable="custom"
         v-if="columns[9].visible"
         show-overflow-tooltip
       />
@@ -255,6 +274,7 @@
         align="center"
         prop="warrantyDeposit"
         width="120"
+        sortable="custom"
         v-if="columns[10].visible"
         show-overflow-tooltip
       />
@@ -270,6 +290,7 @@
         align="center"
         prop="financeProjectResponsiblePerson"
         width="80"
+        sortable="custom"
         v-if="columns[12].visible"
       />
       <el-table-column
@@ -277,6 +298,7 @@
         align="center"
         prop="operationProjectResponsiblePerson"
         width="80"
+        sortable="custom"
         v-if="columns[13].visible"
       />
       <el-table-column
@@ -284,6 +306,7 @@
         align="center"
         prop="uploadId"
         width="120"
+        sortable="custom"
         v-if="columns[14].visible"
       />
       <el-table-column
@@ -291,6 +314,7 @@
         align="center"
         prop="createBy"
         width="100"
+        sortable="custom"
         show-overflow-tooltip
         v-if="columns[15].visible"
       />
@@ -299,6 +323,7 @@
         align="center"
         prop="createTime"
         width="180"
+        sortable="custom"
         show-overflow-tooltip
         v-if="columns[16].visible"
       />
@@ -423,6 +448,46 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 应收数据导入对话框 -->
+    <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
+      <el-upload
+        ref="uploadRef"
+        :limit="1"
+        accept=".xlsx, .xls"
+        :headers="upload.headers"
+        :action="upload.url + '?updateSupport=' + upload.updateSupport"
+        :disabled="upload.isUploading"
+        :on-progress="handleFileUploadProgress"
+        :on-success="handleFileSuccess"
+        :auto-upload="false"
+        drag
+      >
+        <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <template #tip>
+          <div class="el-upload__tip text-center">
+            <div class="el-upload__tip">
+              <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的应收数据
+            </div>
+            <span>仅允许导入xls、xlsx格式文件。</span>
+            <el-link
+              type="primary"
+              :underline="false"
+              style="font-size: 12px; vertical-align: baseline"
+              @click="importTemplate"
+              >下载模板</el-link
+            >
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button :loading="buttonLoading" type="primary" @click="submitFileForm">确 定</el-button>
+          <el-button @click="upload.open = false">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -438,6 +503,8 @@ import {
   listAllOperationProjectResponsiblePerson
 } from '@/api/biz/finance/financeReceivable'
 
+import { getToken } from '@/utils/auth'
+
 const { proxy } = getCurrentInstance()
 
 const taxRateList = ref([])
@@ -446,6 +513,7 @@ const operationProjectResponsiblePersonList = ref([])
 
 const financeReceivableList = ref([])
 const open = ref(false)
+const showTable = ref(true)
 const buttonLoading = ref(false)
 const loading = ref(true)
 const showSearch = ref(true)
@@ -554,12 +622,8 @@ const data = reactive({
   },
   rules: {
     invoicingDate: [{ required: true, message: '开票日期不能为空', trigger: 'blur' }],
-    companyNumber: [
-      { validator: companyValidation, trigger: 'blur' }
-    ],
-    companyName: [
-      { validator: companyValidation, trigger: 'blur' }
-    ],
+    companyNumber: [{ validator: companyValidation, trigger: 'blur' }],
+    companyName: [{ validator: companyValidation, trigger: 'blur' }],
     projectNumber: [{ required: true, message: '工程编号不能为空', trigger: 'blur' }],
     includingTaxPrice: [{ required: true, message: '开票金额(含税价)不能为空', trigger: 'blur' }],
     taxRate: [{ required: true, message: '税率不能为空', trigger: 'blur' }],
@@ -575,6 +639,22 @@ const data = reactive({
 
 const { queryParams, form, rules } = toRefs(data)
 
+/*** 应收数据导入参数 */
+const upload = reactive({
+  // 是否显示弹出层（用户导入）
+  open: false,
+  // 弹出层标题（用户导入）
+  title: '',
+  // 是否禁用上传
+  isUploading: false,
+  // 是否更新已经存在的用户数据
+  updateSupport: 0,
+  // 设置上传的请求头部
+  headers: { Authorization: 'Bearer ' + getToken() },
+  // 上传的地址
+  url: import.meta.env.VITE_APP_BASE_API + '/biz/finance/receivable/importData'
+})
+
 /** 查询应收管理列表 */
 function getList() {
   loading.value = true
@@ -582,6 +662,7 @@ function getList() {
     financeReceivableList.value = response.rows
     total.value = response.total
     loading.value = false
+    showTable.value = true
   })
 }
 
@@ -628,8 +709,11 @@ function handleQuery() {
 
 /** 重置按钮操作 */
 function resetQuery() {
+  showTable.value = false
   dateRange.value = []
   proxy.resetForm('queryRef')
+  queryParams.value.orderByColumn = null
+  queryParams.value.isAsc = null
   handleQuery()
 }
 
@@ -715,6 +799,87 @@ function handleDelete(row) {
     .finally(() => {
       loading.value = false
     })
+}
+
+//排序
+// 设置列的排序为我们自定义的排序
+function handleHeaderClass({ column }) {
+  column.order = column.multiOrder
+}
+// 点击表头进行排序
+function handleHeaderCLick(column) {
+  if (column.sortable !== 'custom') {
+    return
+  }
+  switch (column.multiOrder) {
+    case 'descending':
+      column.multiOrder = 'ascending'
+      break
+    case 'ascending':
+      column.multiOrder = ''
+      break
+    default:
+      column.multiOrder = 'descending'
+      break
+  }
+  handleOrderChange(column.property, column.multiOrder)
+}
+function handleOrderChange(prop, order) {
+  let orderByArr = queryParams.value.orderByColumn ? queryParams.value.orderByColumn.split(',') : []
+  let isAscArr = queryParams.value.isAsc ? queryParams.value.isAsc.split(',') : []
+  let propIndex = orderByArr.indexOf(prop)
+  if (propIndex !== -1) {
+    if (order) {
+      //排序里已存在 只修改排序
+      isAscArr[propIndex] = order
+    } else {
+      //如果order为null 则删除排序字段和属性
+      isAscArr.splice(propIndex, 1) //删除排序
+      orderByArr.splice(propIndex, 1) //删除属性
+    }
+  } else {
+    //排序里不存在则新增排序
+    orderByArr.push(prop)
+    isAscArr.push(order)
+  }
+  //合并排序
+  queryParams.value.orderByColumn = orderByArr.join(',')
+  queryParams.value.isAsc = isAscArr.join(',')
+  getList()
+}
+
+/** 导入按钮操作 */
+function handleImport() {
+  upload.title = '应收数据导入'
+  upload.open = true
+}
+/** 下载模板操作 */
+function importTemplate() {
+  proxy.download('/biz/finance/receivable/importTemplate', {}, `user_template_${new Date().getTime()}.xlsx`)
+}
+/**文件上传中处理 */
+const handleFileUploadProgress = (event, file, fileList) => {
+  upload.isUploading = true
+}
+/** 文件上传成功处理 */
+const handleFileSuccess = (response, file, fileList) => {
+  upload.open = false
+  upload.isUploading = false
+  buttonLoading.value = false
+  proxy.$refs['uploadRef'].handleRemove(file)
+  proxy.$alert(
+    "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
+      response.msg +
+      '</div>',
+    '导入结果',
+    { dangerouslyUseHTMLString: true }
+  )
+  getList()
+}
+/** 提交上传文件 */
+function submitFileForm() {
+  proxy.$refs['uploadRef'].submit()
+  buttonLoading.value = true
 }
 
 /** 导出按钮操作 */

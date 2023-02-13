@@ -859,6 +859,7 @@ function importTemplate() {
 }
 /**文件上传中处理 */
 const handleFileUploadProgress = (event, file, fileList) => {
+  buttonLoading.value = true
   upload.isUploading = true
 }
 /** 文件上传成功处理 */
@@ -879,7 +880,6 @@ const handleFileSuccess = (response, file, fileList) => {
 /** 提交上传文件 */
 function submitFileForm() {
   proxy.$refs['uploadRef'].submit()
-  buttonLoading.value = true
 }
 
 /** 导出按钮操作 */

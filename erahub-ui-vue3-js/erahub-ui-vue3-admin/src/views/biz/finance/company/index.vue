@@ -181,6 +181,7 @@
         :disabled="upload.isUploading"
         :on-progress="handleFileUploadProgress"
         :on-success="handleFileSuccess"
+        :on-error="handleFileError"
         :auto-upload="false"
         drag
       >
@@ -393,6 +394,7 @@ function importTemplate() {
 }
 /**文件上传中处理 */
 const handleFileUploadProgress = (event, file, fileList) => {
+  buttonLoading.value = true
   upload.isUploading = true
 }
 /** 文件上传成功处理 */
@@ -401,6 +403,7 @@ const handleFileSuccess = (response, file, fileList) => {
   upload.isUploading = false
   buttonLoading.value = false
   proxy.$refs['uploadRef'].handleRemove(file)
+  console.log(proxy)
   proxy.$alert(
     "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
       response.msg +
@@ -410,10 +413,13 @@ const handleFileSuccess = (response, file, fileList) => {
   )
   getList()
 }
+/** 文件上传失败处理 */
+const handleFileError = (response, file, fileList) => {
+
+}
 /** 提交上传文件 */
 function submitFileForm() {
   proxy.$refs['uploadRef'].submit()
-  buttonLoading.value = true
 }
 
 /** 导出按钮操作 */

@@ -1,6 +1,8 @@
 package com.erahub.biz.finance.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.StringUtils;
@@ -17,9 +19,7 @@ import com.erahub.biz.finance.domain.FinanceERPContract;
 import com.erahub.biz.finance.mapper.FinanceERPContractMapper;
 import com.erahub.biz.finance.service.IFinanceERPContractService;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * ERP合同Service业务层处理
@@ -75,11 +75,6 @@ public class FinanceERPContractServiceImpl implements IFinanceERPContractService
      */
     @Override
     public Boolean insertByBo(FinanceERPContractBo bo) {
-        if(baseMapper.exists(new LambdaUpdateWrapper<FinanceERPContract>()
-            .eq(FinanceERPContract::getContractNumber, bo.getContractNumber()))
-        ){
-            throw new ServiceException("合同编号已存在！");
-        }
         FinanceERPContract add = BeanUtil.toBean(bo, FinanceERPContract.class);
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
@@ -103,7 +98,32 @@ public class FinanceERPContractServiceImpl implements IFinanceERPContractService
      * 保存前的数据校验
      */
     private void validEntityBeforeSave(FinanceERPContract entity){
-        //TODO 做一些数据校验,如唯一约束
+        try {
+            List<FinanceERPContract> financeERPContracts
+                = baseMapper.selectList(new LambdaUpdateWrapper<FinanceERPContract>()
+                .eq(entity.getContractId() != null,FinanceERPContract::getContractId, entity.getContractId())
+                .or()
+                .eq(StringUtils.isNotBlank(entity.getContractNumber()),FinanceERPContract::getContractNumber, entity.getContractNumber()));
+
+            if(entity.getContractId() == null && CollectionUtil.isNotEmpty(financeERPContracts)){
+                throw new ServiceException("合同信息重复！");
+            }
+            if(entity.getContractId() != null){
+                //根据id筛选对象，不存在则报异常
+                FinanceERPContract contract = financeERPContracts.stream().filter(
+                    financeERPContract -> entity.getContractId().equals(financeERPContract.getContractId())
+                ).findFirst().get();
+
+                if(ObjectUtil.isEmpty(contract)){
+                    throw new ServiceException("合同ID不存在！");
+                }
+                if(financeERPContracts.size() > 1){
+                    throw new ServiceException("合同信息重复！");
+                }
+            }
+        }catch (Exception e){
+            throw new ServiceException("合同信息有误！");
+        }
     }
 
     /**
@@ -116,4 +136,5 @@ public class FinanceERPContractServiceImpl implements IFinanceERPContractService
         }
         return baseMapper.deleteBatchIds(ids) > 0;
     }
+
 }

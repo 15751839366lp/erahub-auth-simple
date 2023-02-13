@@ -60,7 +60,7 @@ public class FinanceCompanyImportListener extends AnalysisEventListener<FinanceC
         Integer rowIndex = context.readRowHolder().getRowIndex();
         try {
             //校验单位
-
+            Long companyId = financeCompanyImport.getCompanyId();
             Long companyNumber = financeCompanyImport.getCompanyNumber();
             String companyName = financeCompanyImport.getCompanyName();
             String status = financeCompanyImport.getStatus();
@@ -87,23 +87,32 @@ public class FinanceCompanyImportListener extends AnalysisEventListener<FinanceC
                 .or()
                 .eq(StringUtils.isNotEmpty(financeCompanyImport.getCompanyName()), FinanceCompany::getCompanyName, financeCompanyImport.getCompanyName()));
 
-            if (CollectionUtil.isNotEmpty(financeCompanies) && financeCompanies.size() > 1) {
-                throw new ServiceException("数据重复且不匹配有误！");
-            } else if (financeCompanyImport.getCompanyId() == null && CollectionUtil.isEmpty(financeCompanies)) {
-                financeCompanyList.add(BeanUtil.toBean(financeCompanyImport, FinanceCompany.class));
-                if(companyNumber != null){
-                    companyNumberList.add(companyNumber);
-                }
-                companyNameList.add(companyName);
-            } else if (isUpdateSupport && financeCompanyImport.getCompanyId() != null && financeCompanies.size() == 1) {
-                financeCompanyList.add(BeanUtil.toBean(financeCompanyImport, FinanceCompany.class));
-                if(companyNumber != null){
-                    companyNumberList.add(companyNumber);
-                }
-                companyNameList.add(companyName);
-            }else{
-                throw new ServiceException("数据可能重复，或未勾选更新！");
+            if (companyId == null && CollectionUtil.isNotEmpty(financeCompanies)) {
+                throw new ServiceException("单位信息重复！");
             }
+            if (companyId != null && !isUpdateSupport) {
+                throw new ServiceException("未勾选更新框，无法更新数据！");
+            }
+            if (companyId != null && isUpdateSupport) {
+                //根据id筛选对象，不存在则报异常
+                FinanceCompany company = financeCompanies.stream().filter(
+                    financeCompany -> companyId.equals(financeCompany.getCompanyId())
+                ).findFirst().get();
+
+                if(ObjectUtil.isEmpty(company)){
+                    throw new ServiceException("单位ID不存在！");
+                }
+                if (financeCompanies.size() > 1) {
+                    throw new ServiceException("单位信息重复！");
+                }
+            }
+
+            //添加可以插入的数据
+            financeCompanyList.add(BeanUtil.toBean(financeCompanyImport, FinanceCompany.class));
+            if(companyNumber != null){
+                companyNumberList.add(companyNumber);
+            }
+            companyNameList.add(companyName);
 
             if (financeCompanyList.size() >= BATCH_COUNT) {
                 if (isUpdateSupport) {

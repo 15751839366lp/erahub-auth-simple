@@ -1,6 +1,9 @@
 package com.erahub.biz.finance.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.erahub.biz.finance.domain.FinanceERPContract;
 import com.erahub.biz.finance.domain.FinanceReceivable;
 import com.erahub.biz.finance.mapper.FinanceReceivableMapper;
 import com.erahub.common.core.exception.ServiceException;
@@ -100,21 +103,32 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
      * 保存前的数据校验
      */
     private void validEntityBeforeSave(FinanceCompany entity) {
-        List<FinanceCompany> financeCompanies = financeCompanyMapper.selectList(new LambdaQueryWrapper<FinanceCompany>()
-            .eq(entity.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, entity.getCompanyNumber())
-            .or()
-            .eq(StringUtils.isNotBlank(entity.getCompanyName()), FinanceCompany::getCompanyName, entity.getCompanyName()));
+        try {
+            List<FinanceCompany> financeCompanies = financeCompanyMapper.selectList(new LambdaQueryWrapper<FinanceCompany>()
+                .eq(entity.getCompanyId() != null,FinanceCompany::getCompanyId, entity.getCompanyId())
+                .or()
+                .eq(entity.getCompanyNumber() != null, FinanceCompany::getCompanyNumber, entity.getCompanyNumber())
+                .or()
+                .eq(StringUtils.isNotBlank(entity.getCompanyName()), FinanceCompany::getCompanyName, entity.getCompanyName()));
 
-        if(entity.getCompanyId() == null && !financeCompanies.isEmpty()){
-            throw new ServiceException("单位信息重复！");
-        }
-        if(entity.getCompanyId() != null && !financeCompanies.isEmpty()){
-            if(financeCompanies.size() == 1 && !financeCompanies.get(0).getCompanyId().equals(entity.getCompanyId())){
-                throw new ServiceException("单位信息已存在！");
+            if (entity.getCompanyId() == null && CollectionUtil.isNotEmpty(financeCompanies)) {
+                throw new ServiceException("单位信息重复！");
             }
-            if(financeCompanies.size() >= 2){
-                throw new ServiceException("单位信息已存在！");
+            if (entity.getCompanyId() != null) {
+                //根据id筛选对象，不存在则报异常
+                FinanceCompany company = financeCompanies.stream().filter(
+                    financeCompany -> entity.getCompanyId().equals(financeCompany.getCompanyId())
+                ).findFirst().get();
+
+                if(ObjectUtil.isEmpty(company)){
+                    throw new ServiceException("单位ID不存在！");
+                }
+                if (financeCompanies.size() > 1) {
+                    throw new ServiceException("单位信息重复！");
+                }
             }
+        } catch (Exception e) {
+            throw new ServiceException("单位信息有误！");
         }
     }
 
@@ -124,8 +138,8 @@ public class FinanceCompanyServiceImpl implements IFinanceCompanyService {
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
         if (isValid) {
-            if(financeReceivableMapper.exists(new LambdaQueryWrapper<FinanceReceivable>()
-                .in(!ids.isEmpty(), FinanceReceivable::getCompanyId, ids))){
+            if (financeReceivableMapper.exists(new LambdaQueryWrapper<FinanceReceivable>()
+                .in(!ids.isEmpty(), FinanceReceivable::getCompanyId, ids))) {
                 throw new ServiceException("单位存在关联数据，无法删除！");
             }
         }

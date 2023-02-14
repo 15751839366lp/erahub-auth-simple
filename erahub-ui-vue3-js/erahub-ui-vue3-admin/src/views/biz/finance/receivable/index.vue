@@ -91,6 +91,21 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="收款状态" prop="status">
+        <el-select
+          v-model="queryParams.status"
+          placeholder="请选择收款状态"
+          clearable
+          style="width: 200px"
+        >
+          <el-option
+            v-for="dict in biz_finance_receivable_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="开票日期" style="width: 308px">
         <el-date-picker
           v-model="dateRange"
@@ -309,6 +324,11 @@
         sortable="custom"
         v-if="columns[14].visible"
       />
+      <el-table-column label="收款状态" align="center" prop="status" fixed="right">
+        <template #default="scope">
+          <dict-tag :options="biz_finance_receivable_status" :value="scope.row.status" />
+        </template>
+      </el-table-column>
       <el-table-column
         label="创建者"
         align="center"
@@ -422,6 +442,16 @@
         <el-form-item label="质保金" prop="warrantyDeposit">
           <el-input v-model="form.warrantyDeposit" placeholder="请输入质保金" />
         </el-form-item>
+        <el-form-item label="收款状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择收款状态">
+            <el-option
+              v-for="dict in biz_finance_receivable_status"
+              :key="dict.value"
+              :label="dict.label"
+              :value="dict.value"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="项目经理" prop="projectManager">
           <el-input v-model="form.projectManager" placeholder="请输入项目经理" />
         </el-form-item>
@@ -483,7 +513,9 @@
       </el-upload>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitFileForm">确 定</el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitFileForm"
+            >确 定</el-button
+          >
           <el-button @click="upload.open = false">取 消</el-button>
         </div>
       </template>
@@ -506,6 +538,7 @@ import {
 import { getToken } from '@/utils/auth'
 
 const { proxy } = getCurrentInstance()
+const { biz_finance_receivable_status } = proxy.useDict('biz_finance_receivable_status')
 
 const taxRateList = ref([])
 const financeProjectResponsiblePersonList = ref([])
@@ -618,7 +651,8 @@ const data = reactive({
     taxRate: undefined,
     uploadId: undefined,
     financeProjectResponsiblePerson: undefined,
-    operationProjectResponsiblePerson: undefined
+    operationProjectResponsiblePerson: undefined,
+    status: undefined
   },
   rules: {
     invoicingDate: [{ required: true, message: '开票日期不能为空', trigger: 'blur' }],
@@ -633,7 +667,8 @@ const data = reactive({
     ],
     operationProjectResponsiblePerson: [
       { required: true, message: '经营部项目负责人不能为空', trigger: 'blur' }
-    ]
+    ],
+    status: [{ required: true, message: '状态不能为空', trigger: 'change' }]
   }
 })
 
@@ -855,7 +890,11 @@ function handleImport() {
 }
 /** 下载模板操作 */
 function importTemplate() {
-  proxy.download('/biz/finance/receivable/importTemplate', {}, `financeReceivable_template_${new Date().getTime()}.xlsx`)
+  proxy.download(
+    '/biz/finance/receivable/importTemplate',
+    {},
+    `financeReceivable_template_${new Date().getTime()}.xlsx`
+  )
 }
 /**文件上传中处理 */
 const handleFileUploadProgress = (event, file, fileList) => {

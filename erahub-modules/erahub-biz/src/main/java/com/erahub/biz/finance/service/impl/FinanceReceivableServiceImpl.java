@@ -95,6 +95,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
         wrapper.eq(StringUtils.isNotBlank(bo.getUploadId()), "bfr.upload_id", bo.getUploadId());
         wrapper.eq(StringUtils.isNotBlank(bo.getFinanceProjectResponsiblePerson()), "bfr.finance_project_responsible_person", bo.getFinanceProjectResponsiblePerson());
         wrapper.eq(StringUtils.isNotBlank(bo.getOperationProjectResponsiblePerson()), "bfr.operation_project_responsible_person", bo.getOperationProjectResponsiblePerson());
+        wrapper.eq(StringUtils.isNotBlank(bo.getStatus()), "bfr.status", bo.getStatus());
         wrapper.between(params.get("beginTime") != null && params.get("endTime") != null,
             "bfr.invoicing_date", params.get("beginTime"), params.get("endTime"));
         return wrapper;

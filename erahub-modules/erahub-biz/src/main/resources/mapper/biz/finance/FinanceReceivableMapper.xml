@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="financeProjectResponsiblePerson" column="finance_project_responsible_person"/>
         <result property="operationProjectResponsiblePerson" column="operation_project_responsible_person"/>
         <result property="receivableType" column="receivable_type"/>
+        <result property="status" column="status"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
@@ -32,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="companyId" column="company_id"/>
         <result property="companyNumber" column="company_number"/>
         <result property="companyName" column="company_name"/>
-        <result property="status" column="status"/>
+        <result property="status" column="company_status"/>
     </resultMap>
 
     <sql id="selectFinanceReceivable">
@@ -51,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                bfr.finance_project_responsible_person,
                bfr.operation_project_responsible_person,
                bfr.receivable_type,
+               bfr.status,
                bfr.create_by,
                bfr.create_time,
                bfr.update_by,
@@ -60,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                bfc.company_id,
                bfc.company_number,
                bfc.company_name,
-               bfc.status
+               bfc.status as company_status
 
         from biz_finance_receivable bfr
                  left join biz_finance_company bfc on bfr.company_id = bfc.company_id

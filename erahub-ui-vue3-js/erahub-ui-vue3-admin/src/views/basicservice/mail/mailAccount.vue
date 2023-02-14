@@ -90,7 +90,11 @@
       <el-table-column label="账号ID" align="center" prop="mailAccountId" v-if="false" />
       <el-table-column label="发送方" align="center" prop="mailFrom" />
       <el-table-column label="用户名" align="center" prop="user" />
-      <el-table-column label="验证" align="center" prop="auth" />
+      <el-table-column label="验证" align="center" prop="auth">
+        <template #default="scope">
+          <dict-tag :options="yes_no" :value="scope.row.auth" />
+        </template>
+      </el-table-column>
       <el-table-column label="服务器域名" align="center" prop="host" />
       <el-table-column label="服务端口" align="center" prop="port" />
       <el-table-column label="SMTP超时" align="center" prop="timeout" />
@@ -203,6 +207,7 @@ import {
 } from '@/api/basicservice/mailAccount'
 
 const { proxy } = getCurrentInstance()
+
 const { yes_no } = proxy.useDict('yes_no')
 
 const mailAccountList = ref([])
@@ -237,7 +242,7 @@ const data = reactive({
     starttlsEnable: [{ required: true, message: 'STARTTLS安全连接不能为空', trigger: 'change' }],
     sslEnable: [{ required: true, message: 'SSL安全连接不能为空', trigger: 'change' }],
     timeout: [{ required: true, message: 'SMTP超时不能为空', trigger: 'blur' }],
-    connectionTimeout: [{ required: true, message: 'Socket超时不能为空', trigger: 'blur' }],
+    connectionTimeout: [{ required: true, message: 'Socket超时不能为空', trigger: 'blur' }]
   }
 })
 

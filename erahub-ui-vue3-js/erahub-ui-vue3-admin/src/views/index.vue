@@ -98,21 +98,36 @@
               <el-col :xl="10" :lg="10" :md="24" :sm="24" :xs="24">
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated>
-                    <Echart :options="pieOptionsData" :height="300" />
+                    <Echart
+                      v-model="pieChart"
+                      :options="pieOptionsData"
+                      :height="300"
+                      @clickFunction="pieChartClick"
+                    />
                   </el-skeleton>
                 </el-card>
               </el-col>
               <el-col :xl="14" :lg="14" :md="24" :sm="24" :xs="24">
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated>
-                    <Echart :options="barOptionsData" :height="300" />
+                    <Echart
+                      v-model="barChart"
+                      :options="barOptionsData"
+                      :height="300"
+                      @clickFunction="barChartClick"
+                    />
                   </el-skeleton>
                 </el-card>
               </el-col>
               <el-col :span="24">
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated :rows="4">
-                    <Echart :options="lineOptionsData" :height="350" />
+                    <Echart
+                      v-model="lineChart"
+                      :options="lineOptionsData"
+                      :height="350"
+                      @clickFunction="lineChartClick"
+                    />
                   </el-skeleton>
                 </el-card>
               </el-col>
@@ -176,7 +191,12 @@
             <span>{{ '指数' }}</span>
           </template>
           <el-skeleton :loading="loading" animated>
-            <Echart :options="radarOptionData" :height="400" />
+            <Echart
+              v-model="radarChart"
+              :options="radarOptionData"
+              :height="400"
+              @clickFunction="radarChartClick"
+            />
           </el-skeleton>
         </el-card>
       </el-col>
@@ -349,6 +369,13 @@ const getShortcut = async () => {
 
 // 获取指数
 let radarOptionData = reactive(radarOption)
+let radarChart = ref({})
+
+function radarChartClick() {
+  radarChart.value.on('click', function (params) {
+    console.log(params.name + ':' + params.data)
+  })
+}
 
 const getRadar = async () => {
   const data = [
@@ -386,9 +413,16 @@ const getRadar = async () => {
   ])
 }
 
-const pieOptionsData = reactive(pieOptions)
-
 // 用户来源
+const pieOptionsData = reactive(pieOptions)
+let pieChart = ref({})
+
+function pieChartClick() {
+  pieChart.value.on('click', function (params) {
+    console.log(params.name + ':' + params.data.value)
+  })
+}
+
 const getUserAccessSource = async () => {
   const data = [
     { value: 335, name: '直接访问' },
@@ -412,9 +446,16 @@ const getUserAccessSource = async () => {
   }
 }
 
-const barOptionsData = reactive(barOptions)
-
 // 周活跃量
+const barOptionsData = reactive(barOptions)
+let barChart = ref({})
+
+function barChartClick() {
+  barChart.value.on('click', function (params) {
+    console.log(params.name + ':' + params.data)
+  })
+}
+
 const getWeeklyUserActivity = async () => {
   const data = [
     { value: 13253, name: '周一' },
@@ -439,8 +480,16 @@ const getWeeklyUserActivity = async () => {
   ])
 }
 
-const lineOptionsData = reactive(lineOptions)
 // 每月销售总额
+const lineOptionsData = reactive(lineOptions)
+let lineChart = ref({})
+
+function lineChartClick() {
+  lineChart.value.on('click', function (params) {
+    console.log(params.name + ':' + params.data)
+  })
+}
+
 const getMonthlySales = async () => {
   const data = [
     { estimate: 100, actual: 120, name: '一月' },
@@ -531,6 +580,7 @@ const getAllApi = async () => {
     getWeeklyUserActivity(),
     getMonthlySales()
   ])
+
   loading.value = false
 }
 

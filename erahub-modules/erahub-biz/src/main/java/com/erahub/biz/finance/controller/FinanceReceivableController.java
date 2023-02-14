@@ -93,7 +93,7 @@ public class FinanceReceivableController extends BaseController {
             = new FinanceReceivableImport(16222222L, new Date(), 10000L, "XXX有限公司", "工程编号", "工程名称",
             new BigDecimal(100),new BigDecimal("0.13"),new BigDecimal(100),
             new BigDecimal(100),new BigDecimal(100),new BigDecimal(100),
-            "张三","张三","张三",null,null);
+            "张三","张三","张三","0",null,null);
         ExcelUtil.exportExcel(Arrays.asList(FinanceReceivableImportVoTemp), "应收管理", FinanceReceivableImport.class, response);
 
     }

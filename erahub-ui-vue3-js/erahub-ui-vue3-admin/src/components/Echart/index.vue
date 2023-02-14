@@ -11,6 +11,11 @@ const { getPrefixCls, variables } = useDesign()
 const prefixCls = getPrefixCls('echart')
 
 const props = defineProps({
+  modelValue: {
+    type: [String, Object, Array],
+    required: false,
+    default: null
+  },
   options: {
     type: Object,
     required: true
@@ -26,6 +31,8 @@ const props = defineProps({
     default: '500px'
   }
 })
+
+const emit = defineEmits(['clickFunction', 'update:modelValue'])
 
 const theme = 'auto'
 
@@ -55,6 +62,8 @@ const initChart = () => {
   if (unref(elRef) && props.options) {
     echartRef = echarts.init(unref(elRef))
     echartRef.setOption(unref(options))
+    emit('update:modelValue', echartRef)
+    emit('clickFunction')
   }
 }
 
@@ -63,6 +72,7 @@ watch(
   (options) => {
     if (echartRef) {
       echartRef.setOption(options)
+      // emit('update:modelValue', echartRef)
     }
   },
   {
@@ -73,6 +83,7 @@ watch(
 const resizeHandler = debounce(() => {
   if (echartRef) {
     echartRef.resize()
+    // emit('update:modelValue', echartRef)
   }
 }, 100)
 
@@ -99,6 +110,7 @@ onBeforeUnmount(() => {
 onActivated(() => {
   if (echartRef) {
     echartRef.resize()
+    // emit('update:modelValue', echartRef)
   }
 })
 </script>

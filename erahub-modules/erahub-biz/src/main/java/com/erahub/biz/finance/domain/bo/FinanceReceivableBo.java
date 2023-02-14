@@ -117,6 +117,11 @@ public class FinanceReceivableBo extends BaseEntity {
     private String receivableType;
 
     /**
+     * 状态（0 未结清，1 已结清）
+     */
+    private String status;
+
+    /**
      * 备注
      */
     private String remark;

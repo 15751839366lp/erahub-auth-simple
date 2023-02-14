@@ -2,6 +2,8 @@ package com.erahub.biz.finance.domain.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.erahub.common.excel.annotation.ExcelDictFormat;
+import com.erahub.common.excel.convert.ExcelDictConvert;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -112,6 +114,13 @@ public class FinanceReceivableImport implements Serializable {
      */
     @ExcelProperty(value = "应收类别")
     private String receivableType;
+
+    /**
+     * 状态（0 未结清，1 已结清）
+     */
+    @ExcelProperty(value = "状态（未结清/已结清）", converter = ExcelDictConvert.class)
+    @ExcelDictFormat(dictType = "biz_finance_receivable_status")
+    private String status;
 
     /**
      * 备注

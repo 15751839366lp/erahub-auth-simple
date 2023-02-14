@@ -107,6 +107,11 @@ public class FinanceReceivableVo {
     private String receivableType;
 
     /**
+     * 状态（0 未结清，1 已结清）
+     */
+    private String status;
+
+    /**
      * 创建者
      */
     private String createBy;

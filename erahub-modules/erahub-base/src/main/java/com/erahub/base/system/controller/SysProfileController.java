@@ -3,6 +3,7 @@ package com.erahub.base.system.controller;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.erahub.base.system.service.ISysDeptService;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.domain.R;
 import com.erahub.common.core.utils.StringUtils;
@@ -40,6 +41,7 @@ import java.util.Map;
 public class SysProfileController extends BaseController {
 
     private final ISysUserService userService;
+    private final ISysDeptService deptService;
 
     @DubboReference
     private RemoteFileService remoteFileService;
@@ -51,6 +53,12 @@ public class SysProfileController extends BaseController {
     public R<Map<String, Object>> profile() {
         String username = LoginHelper.getUsername();
         SysUser user = userService.selectUserByUserName(username);
+        if(ObjectUtil.isNotNull(user.getDept())){
+            user.getDept().setAncestorsName(
+                deptService.selectDeptNameByIds(user.getDept().getAncestors()).replace(",","/")
+            );
+        }
+
         Map<String, Object> ajax = new HashMap<>();
         ajax.put("user", user);
         ajax.put("roleGroup", userService.selectUserRoleGroup(username));

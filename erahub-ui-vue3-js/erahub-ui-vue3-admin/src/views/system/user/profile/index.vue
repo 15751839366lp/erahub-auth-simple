@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-col :span="6" :xs="24">
+      <el-col :span="8" :xs="24">
         <el-card class="box-card">
           <template #header>
             <div class="clearfix">
@@ -27,9 +27,22 @@
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="tree" />所属部门
-                <div v-if="state.user.dept" class="pull-right"
-                  >{{ state.user.dept.deptName }} / {{ state.postGroup }}</div
-                >
+                <div v-if="state.user.dept" class="pull-right">
+                  <el-popover
+                    placement="top-start"
+                    :width="200"
+                    trigger="hover"
+                    :content="state.user.dept.ancestorsName + '/' + state.user.dept.deptName"
+                  >
+                    <template #reference>
+                      {{ state.user.dept.deptName }}
+                    </template>
+                  </el-popover>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <svg-icon icon-class="post" />所属岗位
+                <div class="pull-right">{{ state.postGroup }}</div>
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="peoples" />所属角色
@@ -43,7 +56,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="18" :xs="24">
+      <el-col :span="16" :xs="24">
         <el-card>
           <template #header>
             <div class="clearfix">

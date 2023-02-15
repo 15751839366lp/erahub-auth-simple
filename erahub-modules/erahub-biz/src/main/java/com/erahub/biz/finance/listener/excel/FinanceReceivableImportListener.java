@@ -67,15 +67,27 @@ public class FinanceReceivableImportListener extends AnalysisEventListener<Finan
             BigDecimal includingTaxPrice = financeReceivableImport.getIncludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal taxRate = financeReceivableImport.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
             BigDecimal excludingTaxPrice = financeReceivableImport.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal accountPaid = financeReceivableImport.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal arrearage = financeReceivableImport.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal warrantyDeposit = financeReceivableImport.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal accountPaid =
+                financeReceivableImport.getAccountPaid() == null ? BigDecimal.ZERO : financeReceivableImport.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal arrearage =
+                financeReceivableImport.getArrearage() == null ? BigDecimal.ZERO : financeReceivableImport.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal warrantyDeposit =
+                financeReceivableImport.getWarrantyDeposit() == null ? BigDecimal.ZERO : financeReceivableImport.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
             //计税金额校验
             if (includingTaxPrice.divide(new BigDecimal(1).add(taxRate),
                 2, BigDecimal.ROUND_HALF_UP).compareTo(excludingTaxPrice) != 0) {
                 throw new ServiceException("税额计算有误！");
             }
-            //todo
+            //应收金额校验
+            if (financeReceivableImport.getArrearage() != null
+                && !ObjectUtil.equal(financeReceivableImport.getArrearage(), includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit))
+            ) {
+                throw new ServiceException("应收余额有误！");
+            }
+            arrearage = includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit);
+            financeReceivableImport.setAccountPaid(accountPaid);
+            financeReceivableImport.setArrearage(arrearage);
+            financeReceivableImport.setWarrantyDeposit(warrantyDeposit);
 
             if (financeReceivableImport.getReceivableId() != null && !isUpdateSupport) {
                 throw new ServiceException("未勾选更新数据，无法更新！");

@@ -176,6 +176,16 @@
           >导出</el-button
         >
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+        type="primary"
+          plain
+          icon="Search"
+          @click=""
+          v-hasPermi="['biz:finance:receivable:list']"
+          >结清</el-button
+        >
+      </el-col>
       <right-toolbar
         v-model:showSearch="showSearch"
         @queryTable="getList"

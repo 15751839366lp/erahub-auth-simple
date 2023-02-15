@@ -3,6 +3,7 @@ package com.erahub.base.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.ObjectUtil;
 import com.erahub.base.system.api.model.LoginUser;
@@ -115,6 +116,12 @@ public class SysUserController extends BaseController {
     public R<Map<String, Object>> getInfo() {
         LoginUser loginUser = LoginHelper.getLoginUser();
         SysUser user = userService.selectUserById(loginUser.getUserId());
+        if(ObjectUtil.isNotNull(user.getDept())){
+            user.getDept().setAncestorsName(
+                deptService.selectDeptNameByIds(user.getDept().getAncestors()).replace(",","/")
+            );
+        }
+
         Map<String, Object> ajax = new HashMap<>();
         ajax.put("user", user);
         ajax.put("roles", loginUser.getRolePermission());

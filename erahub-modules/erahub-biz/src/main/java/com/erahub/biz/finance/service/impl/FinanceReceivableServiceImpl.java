@@ -1,6 +1,7 @@
 package com.erahub.biz.finance.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -47,8 +48,8 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      * 查询应收管理
      */
     @Override
-    public FinanceReceivableVo queryById(Long receivableId){
-        return BeanUtil.copyProperties(financeReceivableMapper.queryById(receivableId),FinanceReceivableVo.class);
+    public FinanceReceivableVo queryById(Long receivableId) {
+        return BeanUtil.copyProperties(financeReceivableMapper.queryById(receivableId), FinanceReceivableVo.class);
     }
 
     /**
@@ -74,8 +75,8 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
         //重写复制集合对象方法
         return financeReceivableMapper.queryList(wrapper).stream().map((FinanceReceivable) -> {
             FinanceReceivableExport export = ReflectUtil.newInstanceIfPossible(FinanceReceivableExport.class);
-            BeanUtil.copyProperties(FinanceReceivable,export);
-            if(ObjectUtil.isNotEmpty(FinanceReceivable.getCompany())){
+            BeanUtil.copyProperties(FinanceReceivable, export);
+            if (ObjectUtil.isNotEmpty(FinanceReceivable.getCompany())) {
                 export.setCompanyName(FinanceReceivable.getCompany().getCompanyName());
                 export.setCompanyNumber(FinanceReceivable.getCompany().getCompanyNumber());
             }
@@ -107,7 +108,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
     @Override
     public Boolean insertByBo(FinanceReceivableBo bo) {
         //校验单位
-        if(bo.getCompanyNumber() == null && StringUtils.isEmpty(bo.getCompanyName())){
+        if (bo.getCompanyNumber() == null && StringUtils.isEmpty(bo.getCompanyName())) {
             throw new ServiceException("请输入单位！");
         }
         FinanceCompany financeCompany = financeCompanyMapper.selectOne(new LambdaQueryWrapper<FinanceCompany>()
@@ -131,7 +132,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
     @Override
     public Boolean updateByBo(FinanceReceivableBo bo) {
         //校验单位
-        if(bo.getCompanyNumber() == null && StringUtils.isEmpty(bo.getCompanyName())){
+        if (bo.getCompanyNumber() == null && StringUtils.isEmpty(bo.getCompanyName())) {
             throw new ServiceException("请输入单位！");
         }
         FinanceCompany financeCompany = financeCompanyMapper.selectOne(new LambdaQueryWrapper<FinanceCompany>()
@@ -148,32 +149,44 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
     /**
      * 保存前的数据校验
      */
-    private void validEntityBeforeSave(FinanceReceivable entity){
+    private void validEntityBeforeSave(FinanceReceivable entity) {
         // 单位校验
         FinanceCompany financeCompany = entity.getCompany();
-        if(ObjectUtil.isEmpty(financeCompany)){
+        if (ObjectUtil.isEmpty(financeCompany)) {
             throw new ServiceException("单位不存在！");
         }
-        if("1".equals(financeCompany.getStatus())){
+        if ("1".equals(financeCompany.getStatus())) {
             throw new ServiceException("单位已禁用！");
         }
         entity.setCompanyId(financeCompany.getCompanyId());
 
         //校验金额
-        BigDecimal includingTaxPrice = entity.getIncludingTaxPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
-        BigDecimal taxRate = entity.getTaxRate().setScale(3,BigDecimal.ROUND_HALF_UP);
-        BigDecimal excludingTaxPrice = entity.getExcludingTaxPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
-        BigDecimal accountPaid = entity.getAccountPaid().setScale(2,BigDecimal.ROUND_HALF_UP);
-        BigDecimal arrearage = entity.getArrearage().setScale(2,BigDecimal.ROUND_HALF_UP);
-        BigDecimal warrantyDeposit = entity.getWarrantyDeposit().setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal includingTaxPrice = entity.getIncludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal taxRate = entity.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal excludingTaxPrice = entity.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal accountPaid =
+            entity.getAccountPaid() == null ? BigDecimal.ZERO : entity.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal arrearage =
+            entity.getArrearage() == null ? BigDecimal.ZERO : entity.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal warrantyDeposit =
+            entity.getWarrantyDeposit() == null ? BigDecimal.ZERO : entity.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
         //计税金额校验
-        if(includingTaxPrice.divide(new BigDecimal(1)
-            .add(taxRate),2,BigDecimal.ROUND_HALF_UP)
-            .compareTo(excludingTaxPrice) != 0){
+        if (includingTaxPrice.divide(new BigDecimal(1)
+                .add(taxRate), 2, BigDecimal.ROUND_HALF_UP)
+            .compareTo(excludingTaxPrice) != 0) {
             throw new ServiceException("税额计算有误！");
         }
-        //应收金额校验 todo
+        //应收金额校验
+        if (entity.getArrearage() != null
+            && !ObjectUtil.equal(entity.getArrearage(), includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit))
+        ) {
+            throw new ServiceException("应收余额有误！");
+        }
 
+        arrearage = includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit);
+        entity.setAccountPaid(accountPaid);
+        entity.setArrearage(arrearage);
+        entity.setWarrantyDeposit(warrantyDeposit);
     }
 
     /**
@@ -181,7 +194,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
      */
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
-        if(isValid){
+        if (isValid) {
             //TODO 做一些业务上的校验,判断是否需要校验
         }
         return financeReceivableMapper.deleteBatchIds(ids) > 0;

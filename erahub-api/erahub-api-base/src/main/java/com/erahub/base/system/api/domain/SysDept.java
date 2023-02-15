@@ -2,6 +2,7 @@ package com.erahub.base.system.api.domain;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * 部门表 sys_dept
@@ -84,7 +86,6 @@ public class SysDept extends TreeEntity<SysDept> {
      * 删除标志（0代表存在 2代表删除）
      */
     @ExcelProperty(value = "删除标志")
-    @TableLogic
     private String delFlag;
 
     /**
@@ -92,5 +93,12 @@ public class SysDept extends TreeEntity<SysDept> {
      */
     @ExcelProperty(value = "祖级列表")
     private String ancestors;
+
+    /**
+     * 祖级列表
+     */
+    @ExcelProperty(value = "祖级名称列表")
+    @TableField(exist = false)
+    private String ancestorsName;
 
 }

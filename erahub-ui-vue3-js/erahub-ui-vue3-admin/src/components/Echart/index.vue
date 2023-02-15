@@ -63,7 +63,7 @@ const initChart = () => {
     echartRef = echarts.init(unref(elRef))
     echartRef.setOption(unref(options))
     emit('update:modelValue', echartRef)
-    emit('clickFunction')
+    emit('clickFunction', echartRef)
   }
 }
 

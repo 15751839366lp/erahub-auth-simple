@@ -99,7 +99,6 @@
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated>
                     <Echart
-                      v-model="pieChart"
                       :options="pieOptionsData"
                       :height="300"
                       @clickFunction="pieChartClick"
@@ -111,7 +110,6 @@
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated>
                     <Echart
-                      v-model="barChart"
                       :options="barOptionsData"
                       :height="300"
                       @clickFunction="barChartClick"
@@ -123,7 +121,6 @@
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated :rows="4">
                     <Echart
-                      v-model="lineChart"
                       :options="lineOptionsData"
                       :height="350"
                       @clickFunction="lineChartClick"
@@ -191,12 +188,7 @@
             <span>{{ '指数' }}</span>
           </template>
           <el-skeleton :loading="loading" animated>
-            <Echart
-              v-model="radarChart"
-              :options="radarOptionData"
-              :height="400"
-              @clickFunction="radarChartClick"
-            />
+            <Echart :options="radarOptionData" :height="400" @clickFunction="radarChartClick" />
           </el-skeleton>
         </el-card>
       </el-col>
@@ -369,10 +361,9 @@ const getShortcut = async () => {
 
 // 获取指数
 let radarOptionData = reactive(radarOption)
-let radarChart = ref({})
 
-function radarChartClick() {
-  radarChart.value.on('click', function (params) {
+function radarChartClick(_echartRef) {
+  _echartRef.on('click', function (params) {
     console.log(params.name + ':' + params.data)
   })
 }
@@ -415,10 +406,9 @@ const getRadar = async () => {
 
 // 用户来源
 const pieOptionsData = reactive(pieOptions)
-let pieChart = ref({})
 
-function pieChartClick() {
-  pieChart.value.on('click', function (params) {
+function pieChartClick(_echartRef) {
+  _echartRef.on('click', function (params) {
     console.log(params.name + ':' + params.data.value)
   })
 }
@@ -450,8 +440,8 @@ const getUserAccessSource = async () => {
 const barOptionsData = reactive(barOptions)
 let barChart = ref({})
 
-function barChartClick() {
-  barChart.value.on('click', function (params) {
+function barChartClick(_echartRef) {
+  _echartRef.on('click', function (params) {
     console.log(params.name + ':' + params.data)
   })
 }
@@ -482,10 +472,9 @@ const getWeeklyUserActivity = async () => {
 
 // 每月销售总额
 const lineOptionsData = reactive(lineOptions)
-let lineChart = ref({})
 
-function lineChartClick() {
-  lineChart.value.on('click', function (params) {
+function lineChartClick(_echartRef) {
+  _echartRef.on('click', function (params) {
     console.log(params.name + ':' + params.data)
   })
 }

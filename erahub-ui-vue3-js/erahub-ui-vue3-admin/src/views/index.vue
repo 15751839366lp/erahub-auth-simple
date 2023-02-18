@@ -19,34 +19,34 @@
               <div class="flex h-70px items-center justify-end <sm:mt-10px">
                 <div class="px-8px text-right">
                   <div class="text-14px text-gray-400 mb-20px">{{ '项目数' }}</div>
-                  <span
+                  <count-to
                     class="text-20px"
                     :start-val="0"
                     :end-val="totalSate.access"
                     :duration="2600"
-                    >{{ 20 }}</span
+                    >{{ 20 }}</count-to
                   >
                 </div>
                 <el-divider direction="vertical" />
                 <div class="px-8px text-right">
                   <div class="text-14px text-gray-400 mb-20px">{{ '待办' }}</div>
-                  <span
+                  <count-to
                     class="text-20px"
                     :start-val="0"
                     :end-val="totalSate.access"
                     :duration="2600"
-                    >{{ 10 }}</span
+                    >{{ 10 }}</count-to
                   >
                 </div>
                 <el-divider direction="vertical" border-style="dashed" />
                 <div class="px-8px text-right">
                   <div class="text-14px text-gray-400 mb-20px">{{ '项目访问' }}</div>
-                  <span
+                  <count-to
                     class="text-20px"
                     :start-val="0"
                     :end-val="totalSate.access"
                     :duration="2600"
-                    >{{ 1234 }}</span
+                    >{{ 1234 }}</count-to
                   >
                 </div>
               </div>
@@ -438,7 +438,6 @@ const getUserAccessSource = async () => {
 
 // 周活跃量
 const barOptionsData = reactive(barOptions)
-let barChart = ref({})
 
 function barChartClick(_echartRef) {
   _echartRef.on('click', function (params) {

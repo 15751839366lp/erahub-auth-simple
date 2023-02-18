@@ -66,3 +66,21 @@ export function listAllOperationProjectResponsiblePerson() {
     method: 'get'
   })
 }
+
+// 统计数据
+export function listStatisticsData(data) {
+  return request({
+    url: '/biz/finance/receivable/selectStatisticsData',
+    method: 'post',
+    data: data
+  })
+}
+
+// 分单位统计未收回款
+export function listArrearageGroupByCompanyName(data) {
+  return request({
+    url: '/biz/finance/receivable/selectArrearageGroupByCompanyName',
+    method: 'post',
+    data: data
+  })
+}

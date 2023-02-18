@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.erahub.biz.finance.mapper.FinanceReceivableMapper">
 
     <resultMap type="com.erahub.biz.finance.domain.FinanceReceivable" id="FinanceReceivableResult">
@@ -26,7 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
-        <association property="company" column="company_id" javaType="com.erahub.biz.finance.domain.FinanceCompany" resultMap="FinanceCompanyResult"/>
+        <association property="company" column="company_id" javaType="com.erahub.biz.finance.domain.FinanceCompany"
+                     resultMap="FinanceCompanyResult"/>
     </resultMap>
 
     <resultMap type="com.erahub.biz.finance.domain.FinanceCompany" id="FinanceCompanyResult">
@@ -100,4 +101,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from biz_finance_receivable
         group by operation_project_responsible_person
     </select>
+
+
+    <select id="selectStatisticsData" parameterType="java.util.Map" resultType="java.util.Map">
+        select sum(bfr.including_tax_price) as total_including_tax_price,
+               sum(bfr.arrearage)           as total_arrearage,
+               sum(bfr.warranty_deposit)    as total_warranty_deposit,
+               COUNT(bfr.receivable_id)     as total
+        from biz_finance_receivable bfr
+                 left join biz_finance_company bfc on bfr.company_id = bfc.company_id
+        where bfc.status = #{param.companyStatus}
+          and bfr.status = #{param.receivableStatus}
+    </select>
+
+    <select id="selectArrearageGroupByCompanyName" parameterType="java.util.Map" resultType="java.util.Map">
+        select bfs.company_name,
+               bfs.total_arrearage,
+               bfs.ranking
+        from (select bfc.company_name,
+                     sum(bfr.arrearage) as total_arrearage,
+                     row_number()          OVER (ORDER BY sum(bfr.arrearage) DESC) AS ranking
+
+              from biz_finance_receivable bfr
+                       left join biz_finance_company bfc on bfr.company_id = bfc.company_id
+              where bfc.status = #{param.arrearageCompanyStatus}
+                and bfr.status = #{param.arrearageReceivableStatus}
+              group by bfc.company_name) bfs
+        where bfs.ranking &lt;= #{param.arrearageRanking}
+    </select>
+
 </mapper>

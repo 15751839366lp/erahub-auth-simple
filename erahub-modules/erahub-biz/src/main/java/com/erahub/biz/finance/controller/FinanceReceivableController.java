@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Map;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.servlet.http.HttpServletResponse;
@@ -169,5 +170,25 @@ public class FinanceReceivableController extends BaseController {
     @GetMapping("/selectAllOperationProjectResponsiblePerson")
     public R<List<String>> selectAllOperationProjectResponsiblePerson() {
         return R.ok((iFinanceReceivableService.selectAllOperationProjectResponsiblePerson()));
+    }
+
+    /**
+     * 统计数据
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:statistics")
+    @PostMapping("/selectStatisticsData")
+    public R<Map<String,Object>> selectStatisticsData(@RequestBody Map<String,Object> param) {
+        return R.ok((iFinanceReceivableService.selectStatisticsData(param)));
+    }
+
+    /**
+     * 分单位统计未收回款
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:statistics")
+    @PostMapping("/selectArrearageGroupByCompanyName")
+    public R<List<Object>> selectArrearageGroupByCompanyName(@RequestBody Map<String,Object> param) {
+        return R.ok((iFinanceReceivableService.selectArrearageGroupByCompanyName(param)));
     }
 }

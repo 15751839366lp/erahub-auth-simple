@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 应收管理Mapper接口
@@ -31,4 +32,9 @@ public interface FinanceReceivableMapper extends BaseMapperPlus<FinanceReceivabl
     List<String> selectAllFinanceProjectResponsiblePerson();
 
     List<String> selectAllOperationProjectResponsiblePerson();
+
+    Map<String,Object> selectStatisticsData(@Param("param") Map<String,Object> param);
+
+    List<Object> selectArrearageGroupByCompanyName(@Param("param") Map<String,Object> param);
+
 }

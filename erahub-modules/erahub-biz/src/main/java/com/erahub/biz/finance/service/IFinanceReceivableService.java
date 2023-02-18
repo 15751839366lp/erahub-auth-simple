@@ -10,6 +10,7 @@ import com.erahub.common.mybatis.core.page.TableDataInfo;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 应收管理Service接口
@@ -63,4 +64,8 @@ public interface IFinanceReceivableService {
      * 获取所有经营部项目负责人
      */
     List<String> selectAllOperationProjectResponsiblePerson();
+
+    Map<String,Object> selectStatisticsData(Map<String, Object> param);
+
+    List<Object> selectArrearageGroupByCompanyName(Map<String,Object> param);
 }

@@ -1,11 +1,9 @@
 package com.erahub.biz.finance.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.erahub.biz.finance.domain.FinanceCompany;
 import com.erahub.biz.finance.domain.excel.FinanceReceivableExport;
 import com.erahub.biz.finance.mapper.FinanceCompanyMapper;
@@ -23,7 +21,6 @@ import com.erahub.biz.finance.domain.vo.FinanceReceivableVo;
 import com.erahub.biz.finance.domain.FinanceReceivable;
 import com.erahub.biz.finance.mapper.FinanceReceivableMapper;
 import com.erahub.biz.finance.service.IFinanceReceivableService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -214,4 +211,17 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
     public List<String> selectAllOperationProjectResponsiblePerson() {
         return financeReceivableMapper.selectAllOperationProjectResponsiblePerson();
     }
+
+    @Override
+    public Map<String,Object> selectStatisticsData(Map<String, Object> param) {
+        Map<String, Object> stringObjectMap = financeReceivableMapper.selectStatisticsData(param);
+        return financeReceivableMapper.selectStatisticsData(param);
+    }
+
+    @Override
+    public List<Object> selectArrearageGroupByCompanyName(Map<String,Object> param) {
+        return financeReceivableMapper.selectArrearageGroupByCompanyName(param);
+    }
+
+
 }

@@ -55,6 +55,7 @@ specifiers:
   vue: 3.2.45
   vue-cropper: ^1.0.3
   vue-router: 4.1.4
+  vue3-count-to: ^1.1.2
   windicss: ^3.5.6
   windicss-analysis: ^0.3.5
 
@@ -78,6 +79,7 @@ dependencies:
   vue: 3.2.45
   vue-cropper: 1.0.3
   vue-router: 4.1.4_vue@3.2.45
+  vue3-count-to: 1.1.2_vue@3.2.45
 
 devDependencies:
   '@iconify/json': 2.1.132
@@ -1395,6 +1397,11 @@ packages:
     resolution: {integrity: sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /core-js/3.28.0:
+    resolution: {integrity: sha512-GiZn9D4Z/rSYvTeg1ljAIsEqFm0LaN9gVtwDCrKL80zHtS31p9BAjmTxVqTQDMpwlMolJZOFntUG2uwyj7DAqw==}
+    requiresBuild: true
+    dev: false
 
   /cors/2.8.5:
     resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
@@ -4669,6 +4676,10 @@ packages:
       fsevents: 2.3.2
     dev: true
 
+  /vue-count-to/1.0.13:
+    resolution: {integrity: sha512-6R4OVBVNtQTlcbXu6SJ8ENR35M2/CdWt3Jmv57jOUM+1ojiFmjVGvZPH8DfHpMDSA+ITs+EW5V6qthADxeyYOQ==}
+    dev: false
+
   /vue-cropper/1.0.3:
     resolution: {integrity: sha512-yDrZkE4H5vOiMA9WQHE+6rmXrZ1S9TMZasEPAZPKg/2I/nySHL4ECD1lNxt7+ofTPKT+9+2sQkCwagPqEqiqJg==}
     dev: false
@@ -4722,6 +4733,16 @@ packages:
       '@vue/runtime-dom': 3.2.45
       '@vue/server-renderer': 3.2.45_vue@3.2.45
       '@vue/shared': 3.2.45
+
+  /vue3-count-to/1.1.2_vue@3.2.45:
+    resolution: {integrity: sha512-C5AvlcGfyM4XvFqPDkni94rqGd5K/+RB+B4xv/1NQx3RrdC+GvXPFzeXW5hWL/jh8ehWLm4LITyK0eMKf4iJbg==}
+    peerDependencies:
+      vue: '>= 3 < 4'
+    dependencies:
+      core-js: 3.28.0
+      vue: 3.2.45
+      vue-count-to: 1.0.13
+    dev: false
 
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}

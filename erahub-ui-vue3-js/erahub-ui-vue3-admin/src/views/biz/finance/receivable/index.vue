@@ -178,7 +178,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-        type="primary"
+          type="primary"
           plain
           icon="Search"
           @click=""
@@ -191,6 +191,16 @@
         @queryTable="getList"
         :columns="columns"
       ></right-toolbar>
+      <el-col :span="1.5">
+        <el-button
+          type="info"
+          plain
+          icon="Operation"
+          @click="handleReceivableStatistics"
+          v-hasPermi="['biz:finance:receivable:statistics']"
+          >应收统计</el-button
+        >
+      </el-col>
     </el-row>
 
     <el-table
@@ -200,6 +210,7 @@
       :header-cell-class-name="handleHeaderClass"
       @header-click="handleHeaderCLick"
       v-if="showTable"
+      border
     >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="应收账款ID" align="center" prop="receivableId" v-if="false" />
@@ -422,61 +433,103 @@
           >
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="单位编号" prop="companyNumber">
-          <el-input v-model="form.companyNumber" placeholder="请输入单位编号" />
-        </el-form-item>
-        <el-form-item label="单位名称" prop="companyName">
-          <el-input v-model="form.companyName" placeholder="请输入单位名称" />
-        </el-form-item>
-        <el-form-item label="工程编号" prop="projectNumber">
-          <el-input v-model="form.projectNumber" placeholder="请输入工程编号" />
-        </el-form-item>
-        <el-form-item label="工程名称" prop="projectName">
-          <el-input v-model="form.projectName" placeholder="请输入工程名称" />
-        </el-form-item>
-        <el-form-item label="开票金额(含税价)" prop="includingTaxPrice">
-          <el-input v-model="form.includingTaxPrice" placeholder="请输入开票金额(含税价)" />
-        </el-form-item>
-        <el-form-item label="税率" prop="taxRate">
-          <el-input v-model="form.taxRate" placeholder="请输入税率" />
-        </el-form-item>
-        <el-form-item label="不含税金额" prop="excludingTaxPrice">
-          <el-input v-model="form.excludingTaxPrice" placeholder="请输入不含税金额" />
-        </el-form-item>
-        <el-form-item label="收款金额" prop="accountPaid">
-          <el-input v-model="form.accountPaid" placeholder="请输入收款金额" />
-        </el-form-item>
-        <el-form-item label="应收余额" prop="arrearage">
-          <el-input v-model="form.arrearage" placeholder="请输入应收余额" />
-        </el-form-item>
-        <el-form-item label="质保金" prop="warrantyDeposit">
-          <el-input v-model="form.warrantyDeposit" placeholder="请输入质保金" />
-        </el-form-item>
-        <el-form-item label="收款状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择收款状态">
-            <el-option
-              v-for="dict in biz_finance_receivable_status"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="项目经理" prop="projectManager">
-          <el-input v-model="form.projectManager" placeholder="请输入项目经理" />
-        </el-form-item>
-        <el-form-item label="财务部项目负责人" prop="financeProjectResponsiblePerson">
-          <el-input
-            v-model="form.financeProjectResponsiblePerson"
-            placeholder="请输入财务部项目负责人"
-          />
-        </el-form-item>
-        <el-form-item label="经营部项目负责人" prop="operationProjectResponsiblePerson">
-          <el-input
-            v-model="form.operationProjectResponsiblePerson"
-            placeholder="请输入经营部项目负责人"
-          />
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="单位编号" prop="companyNumber">
+              <el-input v-model="form.companyNumber" placeholder="请输入单位编号" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="单位名称" prop="companyName">
+              <el-input v-model="form.companyName" placeholder="请输入单位名称" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="工程编号" prop="projectNumber">
+              <el-input v-model="form.projectNumber" placeholder="请输入工程编号" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="工程名称" prop="projectName">
+              <el-input v-model="form.projectName" placeholder="请输入工程名称" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="税率" prop="taxRate">
+              <el-input v-model="form.taxRate" placeholder="请输入税率" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="不含税金额" prop="excludingTaxPrice">
+              <el-input v-model="form.excludingTaxPrice" placeholder="请输入不含税金额" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="开票金额(含税价)" prop="includingTaxPrice">
+              <el-input v-model="form.includingTaxPrice" placeholder="请输入开票金额(含税价)" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="质保金" prop="warrantyDeposit">
+              <el-input v-model="form.warrantyDeposit" placeholder="请输入质保金" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="收款金额" prop="accountPaid">
+              <el-input v-model="form.accountPaid" placeholder="请输入收款金额" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="应收余额" prop="arrearage">
+              <el-input v-model="form.arrearage" placeholder="请输入应收余额" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="收款状态" prop="status">
+              <el-select v-model="form.status" placeholder="请选择收款状态">
+                <el-option
+                  v-for="dict in biz_finance_receivable_status"
+                  :key="dict.value"
+                  :label="dict.label"
+                  :value="dict.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="项目经理" prop="projectManager">
+              <el-input v-model="form.projectManager" placeholder="请输入项目经理" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="财务部项目负责人" prop="financeProjectResponsiblePerson">
+              <el-input
+                v-model="form.financeProjectResponsiblePerson"
+                placeholder="请输入财务部项目负责人"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="经营部项目负责人" prop="operationProjectResponsiblePerson">
+              <el-input
+                v-model="form.operationProjectResponsiblePerson"
+                placeholder="请输入经营部项目负责人"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
@@ -547,6 +600,7 @@ import {
 
 import { getToken } from '@/utils/auth'
 
+const router = useRouter()
 const { proxy } = getCurrentInstance()
 const { biz_finance_receivable_status } = proxy.useDict('biz_finance_receivable_status')
 
@@ -967,6 +1021,13 @@ function getAllFinanceProjectResponsiblePerson() {
 function getAllOperationProjectResponsiblePerson() {
   listAllOperationProjectResponsiblePerson().then((response) => {
     operationProjectResponsiblePersonList.value = response.data
+  })
+}
+
+/** 跳转应收统计 */
+function handleReceivableStatistics() {
+  router.push({
+    path: '/biz/finance/receivable-statistics/index'
   })
 }
 

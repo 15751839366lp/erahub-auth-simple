@@ -33,6 +33,9 @@ import elementIcons from '@/components/SvgIcon/svgicon'
 // 高亮
 import Highlight from '@/components/Highlight'
 
+// 计数
+import { CountTo } from 'vue3-count-to'
+
 import './permission' // permission control
 
 import { useDict } from '@/utils/dict'
@@ -94,6 +97,7 @@ app.use(mavonEditor)
 app.component('Iconify', Iconify)
 app.component('SvgIcon', SvgIcon)
 app.component('Highlight', Highlight)
+app.component('CountTo', CountTo)
 
 directive(app)
 

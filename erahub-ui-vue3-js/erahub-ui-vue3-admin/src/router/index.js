@@ -170,6 +170,20 @@ export const dynamicRoutes = [
         meta: { title: '编辑博客文章', activeMenu: '/blog/article/article' }
       }
     ]
+  },
+  {
+    path: '/biz/finance/receivable-statistics',
+    component: Layout,
+    hidden: true,
+    permissions: ['biz:finance:receivable:statistics'],
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/biz/finance/receivable/statistics.vue'),
+        name: 'ReceivableStatistics',
+        meta: { title: '应收统计', activeMenu: '/biz/finance/receivable' }
+      }
+    ]
   }
 ]
 

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="erahub-biz" type="docker-deploy" factoryName="dockerfile" server-name="Docker 1.117.176.57">
+  <configuration default="false" name="erahub-biz" type="docker-deploy" factoryName="dockerfile" server-name="Docker 124.223.106.151">
     <deployment type="dockerfile">
       <settings>
         <option name="imageTag" value="erahub/erahub-biz:1.2.0" />

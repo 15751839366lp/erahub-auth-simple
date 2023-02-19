@@ -124,10 +124,53 @@
 
               from biz_finance_receivable bfr
                        left join biz_finance_company bfc on bfr.company_id = bfc.company_id
-              where bfc.status = #{param.arrearageCompanyStatus}
-                and bfr.status = #{param.arrearageReceivableStatus}
+              where bfc.status = #{param.companyStatusByCompany}
+                and bfr.status = #{param.receivableStatusByCompany}
               group by bfc.company_name) bfs
-        where bfs.ranking &lt;= #{param.arrearageRanking}
+        where bfs.ranking &lt;= #{param.rankingByCompany}
     </select>
 
+    <select id="selectArrearageGroupByTaxRate" parameterType="java.util.Map" resultType="java.util.Map">
+        select bfr.tax_rate,
+               sum(bfr.arrearage) as total_arrearage
+        from biz_finance_receivable bfr
+        where bfr.status = #{param.receivableStatusByTaxRate}
+        group by bfr.tax_rate
+    </select>
+
+    <select id="selectArrearageGroupByInvoicingDate" parameterType="java.util.Map" resultType="java.util.Map">
+        (select date_format(bfr.invoicing_date, '%Y-%m') as invoicing_month,
+                sum(bfr.including_tax_price)             as total_including_tax_price,
+                sum(bfr.arrearage)                       as total_arrearage
+         from biz_finance_receivable bfr
+         where bfr.status = #{param.receivableStatusByInvoicingDate}
+         group by invoicing_month
+         having invoicing_month > date_format(date (date_add(now(), interval -1 year)), '%Y-%m')
+         order by invoicing_month asc)
+        union
+        (select ('before')                   as invoicing_month,
+                sum(bfr.including_tax_price) as total_including_tax_price,
+                sum(bfr.arrearage)           as total_arrearage
+         from biz_finance_receivable bfr
+         where date_format(bfr.invoicing_date, '%Y-%m') &lt;=
+               date_format(date (date_add(now(), interval -1 year)), '%Y-%m')
+           and bfr.status = #{param.receivableStatusByInvoicingDate})
+    </select>
+
+    <select id="selectPageListByInvoicingMonth" parameterType="com.erahub.biz.finance.domain.bo.FinanceReceivableBo" resultMap="FinanceReceivableResult">
+        <include refid="selectFinanceReceivable"/>
+        where
+        <choose>
+            <when test="bo.invoicingMonth == 'before'.toString()">
+                date_format(bfr.invoicing_date, '%Y-%m') &lt;=
+                date_format(date (date_add(now(), interval -1 year)), '%Y-%m')
+                and bfr.status = #{bo.status}
+            </when>
+            <otherwise>
+                date_format(bfr.invoicing_date, '%Y-%m') = #{bo.invoicingMonth}
+                and bfr.status = #{bo.status}
+            </otherwise>
+        </choose>
+        ${ew.getCustomSqlSegment}
+    </select>
 </mapper>

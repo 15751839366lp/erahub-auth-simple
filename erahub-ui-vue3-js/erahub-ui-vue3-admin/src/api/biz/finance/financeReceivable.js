@@ -84,3 +84,30 @@ export function listArrearageGroupByCompanyName(data) {
     data: data
   })
 }
+
+// 分税率统计未收回款
+export function listArrearageGroupByTaxRate(data) {
+  return request({
+    url: '/biz/finance/receivable/selectArrearageGroupByTaxRate',
+    method: 'post',
+    data: data
+  })
+}
+
+// 分开票日期统计未收回款
+export function listArrearageGroupByInvoicingDate(data) {
+  return request({
+    url: '/biz/finance/receivable/selectArrearageGroupByInvoicingDate',
+    method: 'post',
+    data: data
+  })
+}
+
+// 根据开票月份查询应收管理列表
+export function listPageListByInvoicingMonth(query) {
+  return request({
+    url: '/biz/finance/receivable/queryPageListByInvoicingMonth',
+    method: 'get',
+    params: query
+  })
+}

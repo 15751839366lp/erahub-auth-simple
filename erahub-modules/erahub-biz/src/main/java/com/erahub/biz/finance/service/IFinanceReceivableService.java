@@ -68,4 +68,11 @@ public interface IFinanceReceivableService {
     Map<String,Object> selectStatisticsData(Map<String, Object> param);
 
     List<Object> selectArrearageGroupByCompanyName(Map<String,Object> param);
+
+    List<Object> selectArrearageGroupByTaxRate(Map<String,Object> param);
+
+    List<Object> selectArrearageGroupByInvoicingDate(Map<String,Object> param);
+
+    TableDataInfo<FinanceReceivable> queryPageListByInvoicingMonth(FinanceReceivableBo bo, PageQuery pageQuery);
+
 }

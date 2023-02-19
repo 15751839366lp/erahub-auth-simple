@@ -23,10 +23,12 @@ import com.erahub.biz.finance.mapper.FinanceReceivableMapper;
 import com.erahub.biz.finance.service.IFinanceReceivableService;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Collection;
 import java.util.stream.Collectors;
+
 
 /**
  * 应收管理Service业务层处理
@@ -223,5 +225,33 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
         return financeReceivableMapper.selectArrearageGroupByCompanyName(param);
     }
 
+    @Override
+    public List<Object> selectArrearageGroupByTaxRate(Map<String,Object> param) {
+        return financeReceivableMapper.selectArrearageGroupByTaxRate(param);
+    }
 
+    @Override
+    public List<Object> selectArrearageGroupByInvoicingDate(Map<String,Object> param) {
+        List<Map<String,Object>> result = financeReceivableMapper.selectArrearageGroupByInvoicingDate(param);
+        return result.stream().sorted((a, b) -> {
+                String before = (String)a.get("invoicing_month");
+                String after = (String)b.get("invoicing_month");
+                if("before".equals(before)){
+                    return 1;
+                }
+                return after.compareTo(before);
+            })
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public TableDataInfo<FinanceReceivable> queryPageListByInvoicingMonth(FinanceReceivableBo bo, PageQuery pageQuery) {
+        QueryWrapper<FinanceReceivable> wrapper = Wrappers.query();
+        if (StringUtils.isBlank(pageQuery.getOrderByColumn())) {
+            pageQuery.setOrderByColumn("arrearage");
+            pageQuery.setIsAsc("desc");
+        }
+        Page<FinanceReceivable> result = financeReceivableMapper.selectPageListByInvoicingMonth(pageQuery.build(), wrapper, bo);
+        return TableDataInfo.build(result);
+    }
 }

@@ -36,6 +36,11 @@ public class FinanceReceivableBo extends BaseEntity {
     private Date invoicingDate;
 
     /**
+     * 开票月份
+     */
+    private String invoicingMonth;
+
+    /**
      * 单位编号（甲方）
      */
     private Long companyNumber;

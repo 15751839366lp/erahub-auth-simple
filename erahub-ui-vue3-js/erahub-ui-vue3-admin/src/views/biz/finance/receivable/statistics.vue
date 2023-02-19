@@ -75,9 +75,9 @@
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated>
                     <Echart
-                      :options="pieOptionsData"
+                      :options="companyPieOptionsData"
                       :height="300"
-                      @clickFunction="pieChartClick"
+                      @clickFunction="companyPieChartClick"
                     />
                   </el-skeleton>
                 </el-card>
@@ -86,9 +86,9 @@
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated>
                     <Echart
-                      :options="barOptionsData"
+                      :options="taxRatePieOptionsData"
                       :height="300"
-                      @clickFunction="barChartClick"
+                      @clickFunction="taxRatePieChartClick"
                     />
                   </el-skeleton>
                 </el-card>
@@ -97,9 +97,9 @@
                 <el-card shadow="hover" class="mb-20px">
                   <el-skeleton :loading="loading" animated :rows="4">
                     <Echart
-                      :options="lineOptionsData"
+                      :options="invoicingDateLineOptionsData"
                       :height="350"
-                      @clickFunction="lineChartClick"
+                      @clickFunction="invoicingDateLineChartClick"
                     />
                   </el-skeleton>
                 </el-card>
@@ -305,12 +305,14 @@
 import { ElRow, ElCol, ElSkeleton, ElCard, ElDivider } from 'element-plus'
 import Echart from '@/components/Echart'
 import { set } from 'lodash-es'
-import { barOptions, lineOptions } from '@/data/echarts-data'
 import useUserStore from '@/store/modules/user'
 import {
   listFinanceReceivable,
   listStatisticsData,
-  listArrearageGroupByCompanyName
+  listArrearageGroupByCompanyName,
+  listArrearageGroupByTaxRate,
+  listArrearageGroupByInvoicingDate,
+  listPageListByInvoicingMonth
 } from '@/api/biz/finance/financeReceivable'
 
 const { proxy } = getCurrentInstance()
@@ -338,6 +340,7 @@ const data = reactive({
     pageNum: 1,
     pageSize: 10,
     invoicingDate: undefined,
+    invoicingMonth: undefined,
     companyNumber: undefined,
     companyName: undefined,
     projectNumber: undefined,
@@ -352,17 +355,13 @@ const data = reactive({
     pageNum: 1,
     pageSize: 10,
 
-    arrearageCompanyStatus: '0',
-    arrearageReceivableStatus: '0',
-    arrearageRanking: 10,
+    companyStatusByCompany: '0',
+    receivableStatusByCompany: '0',
+    rankingByCompany: 10,
 
-    // arrearageCompanyStatus: '0',
-    // arrearageResponsibleStatus: '0',
-    // arrearageRanking: 10,
+    receivableStatusByTaxRate: '0',
 
-    // arrearageCompanyStatus: '0',
-    // arrearageResponsibleStatus: '0',
-    // arrearageRanking: 10,
+    receivableStatusByInvoicingDate: '0',
 
     companyStatus: '0',
     receivableStatus: '0'
@@ -391,10 +390,10 @@ const getStatisticsCount = async () => {
   })
 }
 
-// 单位未收款
-const pieOptionsData = reactive({
+// 单位统计
+const companyPieOptionsData = reactive({
   title: {
-    text: '单位未收款（top' + statisticsParams.value.arrearageRanking + '）',
+    text: '单位统计（top' + statisticsParams.value.rankingByCompany + '）',
     left: 'center'
   },
   tooltip: {
@@ -404,7 +403,7 @@ const pieOptionsData = reactive({
   },
   series: [
     {
-      name: '单位未收款',
+      name: '单位统计',
       type: 'pie',
       radius: '55%',
       center: ['50%', '60%'],
@@ -413,7 +412,7 @@ const pieOptionsData = reactive({
   ]
 })
 
-function pieChartClick(_echartRef) {
+function companyPieChartClick(_echartRef) {
   _echartRef.on('click', function (params) {
     reset()
     queryParams.value.companyName = params.name
@@ -421,10 +420,10 @@ function pieChartClick(_echartRef) {
   })
 }
 
-const getUserAccessSource = async () => {
+const getArrearageGroupByCompanyNameSource = async () => {
   listArrearageGroupByCompanyName(statisticsParams.value).then((response) => {
-    if (pieOptionsData != null && pieOptionsData.series != null) {
-      pieOptionsData.series[0].data = response.data.map((v) => {
+    if (companyPieOptionsData != null && companyPieOptionsData.series != null) {
+      companyPieOptionsData.series[0].data = response.data.map((v) => {
         return {
           name: v.company_name,
           value: v.total_arrearage
@@ -434,95 +433,132 @@ const getUserAccessSource = async () => {
   })
 }
 
-// 周活跃量
-const barOptionsData = reactive(barOptions)
-
-function barChartClick(_echartRef) {
-  _echartRef.on('click', function (params) {
-    console.log(params.name + ':' + params.data)
-  })
-}
-
-const getWeeklyUserActivity = async () => {
-  const data = [
-    { value: 13253, name: '周一' },
-    { value: 34235, name: '周二' },
-    { value: 26321, name: '周三' },
-    { value: 12340, name: '周四' },
-    { value: 24643, name: '周五' },
-    { value: 1322, name: '周六' },
-    { value: 1324, name: '周日' }
-  ]
-  set(
-    barOptionsData,
-    'xAxis.data',
-    data.map((v) => v.name)
-  )
-  set(barOptionsData, 'series', [
+// 税率统计
+const taxRatePieOptionsData = reactive({
+  title: {
+    text: '税率统计',
+    left: 'center'
+  },
+  tooltip: {
+    confine: true,
+    trigger: 'item',
+    formatter: '{b} <br/> {c} 元 ({d}%)'
+  },
+  series: [
     {
-      name: '每周用户活跃量',
-      data: data.map((v) => v.value),
-      type: 'bar'
+      name: '税率统计',
+      type: 'pie',
+      radius: '55%',
+      center: ['50%', '60%'],
+      data: []
     }
-  ])
-}
-
-// 每月销售总额
-const lineOptionsData = reactive(lineOptions)
-
-function lineChartClick(_echartRef) {
+  ]
+})
+function taxRatePieChartClick(_echartRef) {
   _echartRef.on('click', function (params) {
-    console.log(params.name + ':' + params.data)
+    reset()
+    queryParams.value.taxRate = params.name
+    getList()
   })
 }
 
-const getMonthlySales = async () => {
-  const data = [
-    { estimate: 100, actual: 120, name: '一月' },
-    { estimate: 120, actual: 82, name: '二月' },
-    { estimate: 161, actual: 91, name: '三月' },
-    { estimate: 134, actual: 154, name: '四月' },
-    { estimate: 105, actual: 162, name: '五月' },
-    { estimate: 160, actual: 140, name: '六月' },
-    { estimate: 165, actual: 145, name: '七月' },
-    { estimate: 114, actual: 250, name: '八月' },
-    { estimate: 163, actual: 134, name: '九月' },
-    { estimate: 185, actual: 56, name: '十月' },
-    { estimate: 118, actual: 99, name: '十一月' },
-    { estimate: 123, actual: 123, name: '十二月' }
-  ]
-  set(
-    lineOptionsData,
-    'xAxis.data',
-    data.map((v) => v.name)
-  )
-  set(lineOptionsData, 'series', [
-    {
-      name: '预计',
-      smooth: true,
-      type: 'line',
-      data: data.map((v) => v.estimate),
-      animationDuration: 2800,
-      animationEasing: 'cubicInOut'
+const getArrearageGroupByTaxRateSource = async () => {
+  listArrearageGroupByTaxRate(statisticsParams.value).then((response) => {
+    if (taxRatePieOptionsData != null && taxRatePieOptionsData.series != null) {
+      taxRatePieOptionsData.series[0].data = response.data.map((v) => {
+        return {
+          name: v.tax_rate,
+          value: v.total_arrearage
+        }
+      })
+    }
+  })
+}
+
+// 开票日期统计
+const invoicingDateLineOptionsData = reactive({
+  title: {
+    text: '开票日期统计',
+    left: 'center'
+  },
+  xAxis: {
+    data: [],
+    inverse: true,
+    axisTick: {
+      show: false
+    }
+  },
+  grid: {
+    left: 0,
+    right: 40,
+    bottom: 20,
+    top: 80,
+    containLabel: true
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross'
     },
-    {
-      name: '实际',
-      smooth: true,
-      type: 'bar',
-      itemStyle: {},
-      data: data.map((v) => v.actual),
-      animationDuration: 2800,
-      animationEasing: 'quadraticOut'
+    padding: [5, 10]
+  },
+  yAxis: {
+    axisTick: {
+      show: false
     }
-  ])
+  },
+  legend: {
+    data: ['应收金额', '未收金额'],
+    top: 50
+  },
+  series: []
+})
+
+function invoicingDateLineChartClick(_echartRef) {
+  _echartRef.on('click', function (params) {
+    reset()
+    queryParams.value.invoicingMonth = params.name
+    getList()
+  })
+}
+
+const getArrearageGroupByInvoicingDateSource = async () => {
+  listArrearageGroupByInvoicingDate(statisticsParams.value).then((response) => {
+    if (invoicingDateLineOptionsData != null && invoicingDateLineOptionsData.series != null) {
+      set(
+        invoicingDateLineOptionsData,
+        'xAxis.data',
+        response.data.map((v) => v.invoicing_month)
+      )
+      set(invoicingDateLineOptionsData, 'series', [
+        {
+          name: '应收金额',
+          smooth: true,
+          type: 'line',
+          data: response.data.map((v) => v.total_including_tax_price),
+          animationDuration: 2000,
+          animationEasing: 'cubicInOut'
+        },
+        {
+          name: '未收金额',
+          smooth: true,
+          type: 'bar',
+          itemStyle: {},
+          data: response.data.map((v) => v.total_arrearage),
+          animationDuration: 2000,
+          animationEasing: 'quadraticOut'
+        }
+      ])
+    }
+  })
 }
 
 const getAllApi = async () => {
   await Promise.all([
     getStatisticsCount(),
-    getUserAccessSource(),
-    getWeeklyUserActivity(),
-    getMonthlySales()
+    getArrearageGroupByCompanyNameSource(),
+    getArrearageGroupByTaxRateSource(),
+    getArrearageGroupByInvoicingDateSource()
   ])
 
   getList()
@@ -541,6 +577,7 @@ function reset() {
     pageNum: 1,
     pageSize: 10,
     invoicingDate: undefined,
+    invoicingMonth: undefined,
     companyNumber: undefined,
     companyName: undefined,
     projectNumber: undefined,
@@ -556,12 +593,21 @@ function reset() {
 /** 查询应收管理列表 */
 function getList() {
   tableLoading.value = true
-  listFinanceReceivable(queryParams.value).then((response) => {
-    financeReceivableList.value = response.rows
-    total.value = response.total
-    tableLoading.value = false
-    showTable.value = true
-  })
+  if (!queryParams.value.invoicingMonth) {
+    listFinanceReceivable(queryParams.value).then((response) => {
+      financeReceivableList.value = response.rows
+      total.value = response.total
+      tableLoading.value = false
+      showTable.value = true
+    })
+  } else {
+    listPageListByInvoicingMonth(queryParams.value).then((response) => {
+      financeReceivableList.value = response.rows
+      total.value = response.total
+      tableLoading.value = false
+      showTable.value = true
+    })
+  }
 }
 
 function handleShowInfo(row) {

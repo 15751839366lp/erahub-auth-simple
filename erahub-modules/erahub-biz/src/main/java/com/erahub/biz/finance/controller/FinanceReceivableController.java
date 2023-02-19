@@ -191,4 +191,33 @@ public class FinanceReceivableController extends BaseController {
     public R<List<Object>> selectArrearageGroupByCompanyName(@RequestBody Map<String,Object> param) {
         return R.ok((iFinanceReceivableService.selectArrearageGroupByCompanyName(param)));
     }
+
+    /**
+     * 分税率统计未收回款
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:statistics")
+    @PostMapping("/selectArrearageGroupByTaxRate")
+    public R<List<Object>> selectArrearageGroupByTaxRate(@RequestBody Map<String,Object> param) {
+        return R.ok((iFinanceReceivableService.selectArrearageGroupByTaxRate(param)));
+    }
+
+    /**
+     * 分开票日期统计未收回款
+     *
+     */
+    @SaCheckPermission("biz:finance:receivable:statistics")
+    @PostMapping("/selectArrearageGroupByInvoicingDate")
+    public R<List<Object>> selectArrearageGroupByInvoicingDate(@RequestBody Map<String,Object> param) {
+        return R.ok((iFinanceReceivableService.selectArrearageGroupByInvoicingDate(param)));
+    }
+
+    /**
+     * 根据开票月份查询应收管理列表
+     */
+    @SaCheckPermission("biz:finance:receivable:statistics")
+    @GetMapping("/queryPageListByInvoicingMonth")
+    public TableDataInfo<FinanceReceivable> queryPageListByInvoicingMonth(FinanceReceivableBo bo, PageQuery pageQuery) {
+        return iFinanceReceivableService.queryPageListByInvoicingMonth(bo, pageQuery);
+    }
 }

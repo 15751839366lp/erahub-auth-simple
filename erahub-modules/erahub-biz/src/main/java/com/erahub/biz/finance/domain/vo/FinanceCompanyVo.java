@@ -42,7 +42,7 @@ public class FinanceCompanyVo {
     /**
      * 单位状态（0正常 1停用）
      */
-    @ExcelProperty(value = "单位状态", converter = ExcelDictConvert.class)
+    @ExcelProperty(value = "单位状态（正常/停用），默认正常", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "status")
     private String status;
 

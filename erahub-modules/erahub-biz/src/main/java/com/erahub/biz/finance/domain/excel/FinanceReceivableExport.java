@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.erahub.biz.finance.domain.FinanceCompany;
 import com.erahub.common.excel.annotation.ExcelDictFormat;
+import com.erahub.common.excel.convert.ExcelDictConvert;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -99,12 +100,6 @@ public class FinanceReceivableExport implements Serializable {
     private String projectManager;
 
     /**
-     * 上传编号
-     */
-    @ExcelProperty(value = "上传编号")
-    private String uploadId;
-
-    /**
      * 财务部项目负责人
      */
     @ExcelProperty(value = "财务部项目负责人")
@@ -125,9 +120,21 @@ public class FinanceReceivableExport implements Serializable {
     /**
      * 状态（0 未结清，1 已结清）
      */
-    @ExcelProperty(value = "状态")
+    @ExcelProperty(value = "状态（未结清/已结清）", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "biz_finance_receivable_status")
     private String status;
+
+    /**
+     * 备注
+     */
+    @ExcelProperty(value = "备注")
+    private String remark;
+
+    /**
+     * 上传编号
+     */
+    @ExcelProperty(value = "上传编号")
+    private String uploadId;
 
     /**
      * 创建者
@@ -152,11 +159,5 @@ public class FinanceReceivableExport implements Serializable {
      */
     @ExcelProperty(value = "更新时间")
     private Date updateTime;
-
-    /**
-     * 备注
-     */
-    @ExcelProperty(value = "备注")
-    private String remark;
 
 }

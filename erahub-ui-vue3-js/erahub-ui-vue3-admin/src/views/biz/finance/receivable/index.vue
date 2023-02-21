@@ -180,7 +180,7 @@
         <el-button
           type="primary"
           plain
-          icon="Search"
+          icon="EditPen"
           @click=""
           v-hasPermi="['biz:finance:receivable:list']"
           >结清</el-button
@@ -410,6 +410,11 @@
           >
         </template>
       </el-table-column>
+      <template #empty>
+        <div class="flex items-center justify-center h-100%">
+          <el-empty />
+        </div>
+      </template>
     </el-table>
 
     <pagination

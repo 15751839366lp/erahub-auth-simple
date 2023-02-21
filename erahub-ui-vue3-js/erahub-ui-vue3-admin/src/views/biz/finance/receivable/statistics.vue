@@ -174,6 +174,11 @@
                   >
                 </template>
               </el-table-column>
+              <template #empty>
+                <div class="flex items-center justify-center h-100%">
+                  <el-empty />
+                </div>
+              </template>
             </el-table>
             <pagination
               v-show="total > 0"

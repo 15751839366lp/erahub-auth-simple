@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 19/02/2023 12:58:11
+ Date: 23/02/2023 18:11:39
 */
 
 SET NAMES utf8mb4;
@@ -130,18 +130,18 @@ CREATE TABLE `biz_finance_receivable`  (
   `receivable_id` bigint(0) NOT NULL COMMENT '应收账款ID',
   `invoicing_date` datetime(0) NOT NULL COMMENT '开票日期',
   `company_id` bigint(0) NOT NULL COMMENT '单位ID（甲方）',
-  `project_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '工程编号',
+  `project_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '工程编号',
   `project_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '工程名称',
   `including_tax_price` decimal(60, 2) NOT NULL COMMENT '开票金额(含税价)',
-  `tax_rate` decimal(60, 3) NOT NULL COMMENT '税率',
-  `excluding_tax_price` decimal(60, 2) NOT NULL COMMENT '不含税金额',
+  `tax_rate` decimal(60, 3) NULL DEFAULT NULL COMMENT '税率',
+  `excluding_tax_price` decimal(60, 2) NULL DEFAULT NULL COMMENT '不含税金额',
   `account_paid` decimal(60, 2) NOT NULL COMMENT '收款金额',
   `arrearage` decimal(60, 2) NOT NULL COMMENT '应收余额',
   `warranty_deposit` decimal(60, 2) NOT NULL COMMENT '质保金',
   `project_manager` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '项目经理',
   `upload_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '上传编号',
-  `finance_project_responsible_person` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '财务部项目负责人',
-  `operation_project_responsible_person` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '经营部项目负责人',
+  `finance_project_responsible_person` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '财务部项目负责人',
+  `operation_project_responsible_person` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '经营部项目负责人',
   `receivable_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '应收类别',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '状态（0 未结清，1 已结清）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
@@ -295,7 +295,7 @@ CREATE TABLE `blog_article`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`article_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1616012326130536450 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客文章表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1616012326130536449 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '博客文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_article
@@ -448,7 +448,7 @@ CREATE TABLE `bs_mail_record`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`mail_record_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1620718619940405250 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '邮件记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1620718619940405249 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '邮件记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bs_mail_record
@@ -1489,6 +1489,7 @@ INSERT INTO `sys_logininfor` VALUES (1627119801726443521, 'supervisor', '127.0.0
 INSERT INTO `sys_logininfor` VALUES (1627119856504053761, 'supermanager', '127.0.0.1', '0', '登录成功', '2023-02-19 09:36:19', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1627130892028256258, 'supermanager', '127.0.0.1', '0', '退出成功', '2023-02-19 10:20:10', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 INSERT INTO `sys_logininfor` VALUES (1627130901666766850, 'supermanager', '127.0.0.1', '0', '登录成功', '2023-02-19 10:20:12', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1627975159869181954, 'supermanager', '127.0.0.1', '0', '登录成功', '2023-02-21 18:14:59', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -2693,6 +2694,7 @@ INSERT INTO `sys_oper_log` VALUES (1627119790825447425, '角色管理', 2, 'com.
 INSERT INTO `sys_oper_log` VALUES (1627127275070201857, '应收管理', 2, 'com.erahub.biz.finance.controller.FinanceReceivableController.edit()', 'PUT', 1, 'supermanager', '', '/finance/receivable', '127.0.0.1', '', '{\"createBy\":\"supervisor\",\"createTime\":\"2023-02-12 13:19:53\",\"updateBy\":\"supervisor\",\"updateTime\":\"2023-02-18 20:39:22\",\"receivableId\":\"1624639405055115265\",\"invoicingDate\":\"2023-02-15 00:00:00\",\"companyNumber\":10112,\"companyName\":\"中国人寿保险股份有限公司\",\"projectNumber\":\"工程编号\",\"projectName\":\"工程名称\",\"includingTaxPrice\":\"109000.00\",\"taxRate\":\"0.09\",\"excludingTaxPrice\":\"100000.00\",\"accountPaid\":\"100.00\",\"arrearage\":null,\"warrantyDeposit\":\"0.00\",\"projectManager\":\"张三\",\"uploadId\":\"1676462859183supervisor\",\"financeProjectResponsiblePerson\":\"张三\",\"operationProjectResponsiblePerson\":\"张三\",\"receivableType\":\"0\",\"status\":\"0\",\"remark\":null,\"company\":{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"companyId\":\"1626879571463311368\",\"companyNumber\":10112,\"companyName\":\"中国人寿保险股份有限公司\",\"status\":\"0\",\"remark\":null}}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-19 10:05:48', 42);
 INSERT INTO `sys_oper_log` VALUES (1627131069019496449, '应收管理', 2, 'com.erahub.biz.finance.controller.FinanceReceivableController.edit()', 'PUT', 1, 'supermanager', '', '/finance/receivable', '127.0.0.1', '', '{\"createBy\":\"supervisor\",\"createTime\":\"2023-02-15 20:07:39\",\"updateBy\":\"supervisor\",\"updateTime\":\"2023-02-18 20:40:18\",\"receivableId\":\"1625829187328274434\",\"invoicingDate\":\"2022-09-22 00:00:00\",\"companyNumber\":10102,\"companyName\":\"中国建设银行股份有限公司\",\"projectNumber\":\"工程编号\",\"projectName\":\"工程名称\",\"includingTaxPrice\":\"22600\",\"taxRate\":\"0.130\",\"excludingTaxPrice\":\"20000\",\"accountPaid\":\"20.00\",\"arrearage\":null,\"warrantyDeposit\":\"11.22\",\"projectManager\":null,\"uploadId\":\"1676462859183supervisor\",\"financeProjectResponsiblePerson\":\"张三\",\"operationProjectResponsiblePerson\":\"张三\",\"receivableType\":\"0\",\"status\":\"0\",\"remark\":null,\"company\":{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"companyId\":\"1624362379123421186\",\"companyNumber\":10102,\"companyName\":\"中国建设银行股份有限公司\",\"status\":\"0\",\"remark\":null}}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-19 10:20:52', 8);
 INSERT INTO `sys_oper_log` VALUES (1627135032846491649, '应收管理', 2, 'com.erahub.biz.finance.controller.FinanceReceivableController.edit()', 'PUT', 1, 'supermanager', '', '/finance/receivable', '127.0.0.1', '', '{\"createBy\":\"supervisor\",\"createTime\":\"2023-02-12 13:19:53\",\"updateBy\":\"supermanager\",\"updateTime\":\"2023-02-19 10:05:47\",\"receivableId\":\"1624639405055115265\",\"invoicingDate\":\"2023-02-15 00:00:00\",\"companyNumber\":10112,\"companyName\":\"中国人寿保险股份有限公司\",\"projectNumber\":\"工程编号\",\"projectName\":\"工程名称\",\"includingTaxPrice\":\"109000.00\",\"taxRate\":\"0.090\",\"excludingTaxPrice\":\"100000.00\",\"accountPaid\":\"50000\",\"arrearage\":null,\"warrantyDeposit\":\"0.00\",\"projectManager\":\"张三\",\"uploadId\":\"1676462859183supervisor\",\"financeProjectResponsiblePerson\":\"张三\",\"operationProjectResponsiblePerson\":\"张三\",\"receivableType\":\"0\",\"status\":\"0\",\"remark\":null,\"company\":{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"companyId\":\"1626879571463311368\",\"companyNumber\":10112,\"companyName\":\"中国人寿保险股份有限公司\",\"status\":\"0\",\"remark\":null}}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-19 10:36:37', 31);
+INSERT INTO `sys_oper_log` VALUES (1627977952420007937, '应收管理', 5, 'com.erahub.biz.finance.controller.FinanceReceivableController.export()', 'POST', 1, 'supermanager', '', '/finance/receivable/export', '127.0.0.1', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"receivableId\":null,\"invoicingDate\":null,\"invoicingMonth\":null,\"companyNumber\":null,\"companyName\":null,\"projectNumber\":null,\"projectName\":null,\"includingTaxPrice\":null,\"taxRate\":null,\"excludingTaxPrice\":null,\"accountPaid\":null,\"arrearage\":null,\"warrantyDeposit\":null,\"projectManager\":null,\"uploadId\":null,\"financeProjectResponsiblePerson\":null,\"operationProjectResponsiblePerson\":null,\"receivableType\":null,\"status\":null,\"remark\":null,\"company\":null}', '', 0, '', '2023-02-21 18:26:05', 1141);
 
 -- ----------------------------
 -- Table structure for sys_post

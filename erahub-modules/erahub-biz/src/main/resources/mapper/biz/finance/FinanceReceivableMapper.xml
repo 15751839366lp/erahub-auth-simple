@@ -7,6 +7,7 @@
     <resultMap type="com.erahub.biz.finance.domain.FinanceReceivable" id="FinanceReceivableResult">
         <result property="receivableId" column="receivable_id"/>
         <result property="invoicingDate" column="invoicing_date"/>
+        <result property="financeProjectNumber" column="finance_project_number"/>
         <result property="projectNumber" column="project_number"/>
         <result property="projectName" column="project_name"/>
         <result property="includingTaxPrice" column="including_tax_price"/>
@@ -40,6 +41,7 @@
     <sql id="selectFinanceReceivable">
         select bfr.receivable_id,
                bfr.invoicing_date,
+               bfr.finance_project_number,
                bfr.project_number,
                bfr.project_name,
                bfr.including_tax_price,

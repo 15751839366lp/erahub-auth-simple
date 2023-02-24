@@ -51,10 +51,15 @@ public class FinanceReceivableBo extends BaseEntity {
     private String companyName;
 
     /**
+     * 财务工程编号
+     */
+    private String financeProjectNumber;
+
+    /**
      * 工程编号
      */
-    @NotBlank(message = "工程编号不能为空", groups = { AddGroup.class, EditGroup.class })
     private String projectNumber;
+
 
     /**
      * 工程名称
@@ -70,13 +75,11 @@ public class FinanceReceivableBo extends BaseEntity {
     /**
      * 税率
      */
-    @NotNull(message = "税率不能为空", groups = { AddGroup.class, EditGroup.class })
     private BigDecimal taxRate;
 
     /**
      * 不含税金额
      */
-    @NotNull(message = "不含税金额不能为空", groups = { AddGroup.class, EditGroup.class })
     private BigDecimal excludingTaxPrice;
 
     /**
@@ -107,13 +110,11 @@ public class FinanceReceivableBo extends BaseEntity {
     /**
      * 财务部项目负责人
      */
-    @NotBlank(message = "财务部项目负责人不能为空", groups = { AddGroup.class, EditGroup.class })
     private String financeProjectResponsiblePerson;
 
     /**
      * 经营部项目负责人
      */
-    @NotBlank(message = "经营部项目负责人不能为空", groups = { AddGroup.class, EditGroup.class })
     private String operationProjectResponsiblePerson;
 
     /**

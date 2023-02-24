@@ -89,6 +89,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
         wrapper.eq(bo.getInvoicingDate() != null, "bfr.invoicing_date", bo.getInvoicingDate());
         wrapper.eq(bo.getCompanyNumber() != null, "bfc.company_number", bo.getCompanyNumber());
         wrapper.like(bo.getCompanyName() != null, "bfc.company_name", bo.getCompanyName());
+        wrapper.like(StringUtils.isNotBlank(bo.getFinanceProjectNumber()), "bfr.finance_project_number", bo.getFinanceProjectNumber());
         wrapper.like(StringUtils.isNotBlank(bo.getProjectNumber()), "bfr.project_number", bo.getProjectNumber());
         wrapper.eq(bo.getIncludingTaxPrice() != null, "bfr.including_tax_price", bo.getIncludingTaxPrice());
         wrapper.eq(bo.getTaxRate() != null, "bfr.tax_rate", bo.getTaxRate());
@@ -160,24 +161,46 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
         entity.setCompanyId(financeCompany.getCompanyId());
 
         //校验金额
-        BigDecimal includingTaxPrice = entity.getIncludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal taxRate = entity.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
-        BigDecimal excludingTaxPrice = entity.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal includingTaxPrice =
+            entity.getIncludingTaxPrice() == null ?
+                null : entity.getIncludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal taxRate =
+            entity.getTaxRate() == null ?
+                null : entity.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal excludingTaxPrice =
+            entity.getExcludingTaxPrice() == null ?
+                null : entity.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
         BigDecimal accountPaid =
-            entity.getAccountPaid() == null ? BigDecimal.ZERO : entity.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
+            entity.getAccountPaid() == null ?
+                BigDecimal.ZERO : entity.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
         BigDecimal arrearage =
-            entity.getArrearage() == null ? BigDecimal.ZERO : entity.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
+            entity.getArrearage() == null ?
+                BigDecimal.ZERO : entity.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
         BigDecimal warrantyDeposit =
-            entity.getWarrantyDeposit() == null ? BigDecimal.ZERO : entity.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
+            entity.getWarrantyDeposit() == null ?
+                BigDecimal.ZERO : entity.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
+
         //计税金额校验
-        if (includingTaxPrice.divide(new BigDecimal(1)
-                .add(taxRate), 2, BigDecimal.ROUND_HALF_UP)
-            .compareTo(excludingTaxPrice) != 0) {
-            throw new ServiceException("税额计算有误！");
+        if(ObjectUtil.isNotNull(taxRate) && ObjectUtil.isNotNull(excludingTaxPrice)){
+            if (includingTaxPrice.divide(new BigDecimal(1)
+                    .add(taxRate), 2, BigDecimal.ROUND_HALF_UP)
+                .compareTo(excludingTaxPrice) != 0) {
+                throw new ServiceException("税额计算有误！");
+            }
+        }else if(ObjectUtil.isNotNull(taxRate)
+            && ObjectUtil.isNull(excludingTaxPrice)
+            && ObjectUtil.equal(taxRate,-1)
+        ){
+            entity.setExcludingTaxPrice(includingTaxPrice.divide(new BigDecimal(1)
+                .add(taxRate), 2, BigDecimal.ROUND_HALF_UP));
+        }else {
+            entity.setTaxRate(BigDecimal.valueOf(-1));
+            entity.setExcludingTaxPrice(null);
         }
+
         //应收金额校验
         if (entity.getArrearage() != null
-            && !ObjectUtil.equal(entity.getArrearage(), includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit))
+            && includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit).compareTo(arrearage) != 0
         ) {
             throw new ServiceException("应收余额有误！");
         }

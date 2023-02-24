@@ -91,7 +91,7 @@ public class FinanceReceivableController extends BaseController {
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
         FinanceReceivableImport FinanceReceivableImportVoTemp
-            = new FinanceReceivableImport(16222222L, new Date(), 10000L, "XXX有限公司", "工程编号", "工程名称",
+            = new FinanceReceivableImport(16222222L, new Date(), 10000L, "XXX有限公司", "财务工程编号","工程编号", "工程名称",
             new BigDecimal(100),new BigDecimal("0.13"),new BigDecimal(100),
             new BigDecimal(100),new BigDecimal(100),new BigDecimal(100),
             "张三","张三","张三","0",null,null);

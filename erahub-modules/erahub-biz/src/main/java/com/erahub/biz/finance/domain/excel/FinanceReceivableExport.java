@@ -30,7 +30,7 @@ public class FinanceReceivableExport implements Serializable {
      * 开票日期
      */
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty(value = "开票日期")
+    @ExcelProperty(value = "开票日期（必填）")
     private Date invoicingDate;
 
     /**
@@ -44,6 +44,12 @@ public class FinanceReceivableExport implements Serializable {
      */
     @ExcelProperty(value = "单位名称（甲方）")
     private String companyName;
+
+    /**
+     * 财务工程编号
+     */
+    @ExcelProperty(value = "财务工程编号")
+    private String financeProjectNumber;
 
     /**
      * 工程编号
@@ -60,7 +66,7 @@ public class FinanceReceivableExport implements Serializable {
     /**
      * 开票金额(含税价)
      */
-    @ExcelProperty(value = "开票金额(含税价)")
+    @ExcelProperty(value = "开票金额(含税价)（必填）")
     private BigDecimal includingTaxPrice;
 
     /**

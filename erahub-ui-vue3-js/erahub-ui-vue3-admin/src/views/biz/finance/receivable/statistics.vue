@@ -39,7 +39,7 @@
                 </div>
                 <el-divider direction="vertical" />
                 <div class="px-8px text-right">
-                  <div class="text-14px text-gray-400 mb-20px mr-10px">{{ '应收回笔数' }}</div>
+                  <div class="text-14px text-gray-400 mb-20px mr-10px">{{ '应收回金额' }}</div>
                   <count-to
                     class="text-20px"
                     :start-val="0"
@@ -160,7 +160,20 @@
                 width="80"
                 show-overflow-tooltip
               />
-              <el-table-column label="工程编号" align="center" prop="projectNumber" width="100" />
+              <el-table-column
+                label="财务工程编号"
+                align="center"
+                prop="financeProjectNumber"
+                width="80"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                label="工程编号"
+                align="center"
+                prop="projectNumber"
+                width="100"
+                show-overflow-tooltip
+              />
               <el-table-column
                 label="操作"
                 align="center"
@@ -212,6 +225,13 @@
           <el-col :span="12">
             <el-form-item label="单位名称：" prop="companyName">
               {{ financeReceivableInfoForm.company.companyName }}
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="财务工程编号：" prop="financeProjectNumber">
+              {{ financeReceivableInfoForm.financeProjectNumber }}
             </el-form-item>
           </el-col>
         </el-row>

@@ -62,25 +62,46 @@ public class FinanceReceivableImportListener extends AnalysisEventListener<Finan
             if (companyNumber == null && StringUtils.isEmpty(companyName)) {
                 throw new ServiceException("单位信息不能为空！");
             }
+            if (financeReceivableImport.getIncludingTaxPrice() == null) {
+                throw new ServiceException("开票金额不能为空！");
+            }
 
             //校验金额
             BigDecimal includingTaxPrice = financeReceivableImport.getIncludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal taxRate = financeReceivableImport.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
-            BigDecimal excludingTaxPrice = financeReceivableImport.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal taxRate =
+                financeReceivableImport.getTaxRate() == null ?
+                    null : financeReceivableImport.getTaxRate().setScale(3, BigDecimal.ROUND_HALF_UP);
+            BigDecimal excludingTaxPrice =
+                financeReceivableImport.getExcludingTaxPrice() == null ?
+                    null : financeReceivableImport.getExcludingTaxPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal accountPaid =
                 financeReceivableImport.getAccountPaid() == null ? BigDecimal.ZERO : financeReceivableImport.getAccountPaid().setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal arrearage =
                 financeReceivableImport.getArrearage() == null ? BigDecimal.ZERO : financeReceivableImport.getArrearage().setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal warrantyDeposit =
                 financeReceivableImport.getWarrantyDeposit() == null ? BigDecimal.ZERO : financeReceivableImport.getWarrantyDeposit().setScale(2, BigDecimal.ROUND_HALF_UP);
+
             //计税金额校验
-            if (includingTaxPrice.divide(new BigDecimal(1).add(taxRate),
-                2, BigDecimal.ROUND_HALF_UP).compareTo(excludingTaxPrice) != 0) {
-                throw new ServiceException("税额计算有误！");
+            if(ObjectUtil.isNotNull(taxRate) && ObjectUtil.isNotNull(excludingTaxPrice)){
+                if (includingTaxPrice.divide(new BigDecimal(1)
+                        .add(taxRate), 2, BigDecimal.ROUND_HALF_UP)
+                    .compareTo(excludingTaxPrice) != 0) {
+                    throw new ServiceException("税额计算有误！");
+                }
+            }else if(ObjectUtil.isNotNull(taxRate)
+                && ObjectUtil.isNull(excludingTaxPrice)
+                && ObjectUtil.equal(taxRate,-1)
+            ){
+                financeReceivableImport.setExcludingTaxPrice(includingTaxPrice.divide(new BigDecimal(1)
+                    .add(taxRate), 2, BigDecimal.ROUND_HALF_UP));
+            }else {
+                financeReceivableImport.setTaxRate(BigDecimal.valueOf(-1));
+                financeReceivableImport.setExcludingTaxPrice(null);
             }
+
             //应收金额校验
             if (financeReceivableImport.getArrearage() != null
-                && !ObjectUtil.equal(financeReceivableImport.getArrearage(), includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit))
+                && includingTaxPrice.subtract(accountPaid).subtract(warrantyDeposit).compareTo(arrearage) != 0
             ) {
                 throw new ServiceException("应收余额有误！");
             }

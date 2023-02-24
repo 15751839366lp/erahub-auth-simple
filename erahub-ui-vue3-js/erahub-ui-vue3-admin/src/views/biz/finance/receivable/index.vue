@@ -19,6 +19,15 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="财务编号" prop="financeProjectNumber">
+        <el-input
+          v-model="queryParams.financeProjectNumber"
+          placeholder="请输入财务编号"
+          clearable
+          style="width: 200px"
+          @keyup.enter="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="工程编号" prop="projectNumber">
         <el-input
           v-model="queryParams.projectNumber"
@@ -244,12 +253,23 @@
         fixed
       />
       <el-table-column
+        label="财务工程编号"
+        align="center"
+        prop="financeProjectNumber"
+        width="120"
+        sortable="custom"
+        show-overflow-tooltip
+        v-if="columns[3].visible"
+        fixed
+      />
+      <el-table-column
         label="工程编号"
         align="center"
         prop="projectNumber"
         width="120"
         sortable="custom"
-        v-if="columns[3].visible"
+        show-overflow-tooltip
+        v-if="columns[4].visible"
         fixed
       />
       <el-table-column
@@ -258,7 +278,7 @@
         prop="projectName"
         width="120"
         show-overflow-tooltip
-        v-if="columns[4].visible"
+        v-if="columns[5].visible"
       />
       <el-table-column
         label="开票金额(含税价)"
@@ -266,7 +286,7 @@
         prop="includingTaxPrice"
         width="140"
         sortable="custom"
-        v-if="columns[5].visible"
+        v-if="columns[6].visible"
         show-overflow-tooltip
       />
       <el-table-column
@@ -275,7 +295,7 @@
         prop="taxRate"
         width="80"
         sortable="custom"
-        v-if="columns[6].visible"
+        v-if="columns[7].visible"
         show-overflow-tooltip
       />
       <el-table-column
@@ -284,7 +304,7 @@
         prop="excludingTaxPrice"
         width="120"
         sortable="custom"
-        v-if="columns[7].visible"
+        v-if="columns[8].visible"
         show-overflow-tooltip
       />
       <el-table-column
@@ -293,7 +313,7 @@
         prop="accountPaid"
         width="120"
         sortable="custom"
-        v-if="columns[8].visible"
+        v-if="columns[9].visible"
         show-overflow-tooltip
       />
       <el-table-column
@@ -302,7 +322,7 @@
         prop="arrearage"
         width="120"
         sortable="custom"
-        v-if="columns[9].visible"
+        v-if="columns[10].visible"
         show-overflow-tooltip
       />
       <el-table-column
@@ -311,7 +331,7 @@
         prop="warrantyDeposit"
         width="120"
         sortable="custom"
-        v-if="columns[10].visible"
+        v-if="columns[11].visible"
         show-overflow-tooltip
       />
       <el-table-column
@@ -319,7 +339,7 @@
         align="center"
         prop="projectManager"
         width="120"
-        v-if="columns[11].visible"
+        v-if="columns[12].visible"
       />
       <el-table-column
         label="财务部项目负责人"
@@ -327,7 +347,7 @@
         prop="financeProjectResponsiblePerson"
         width="80"
         sortable="custom"
-        v-if="columns[12].visible"
+        v-if="columns[13].visible"
       />
       <el-table-column
         label="经营部项目负责人"
@@ -335,7 +355,7 @@
         prop="operationProjectResponsiblePerson"
         width="80"
         sortable="custom"
-        v-if="columns[13].visible"
+        v-if="columns[14].visible"
       />
       <el-table-column
         label="上传编号"
@@ -343,7 +363,15 @@
         prop="uploadId"
         width="120"
         sortable="custom"
-        v-if="columns[14].visible"
+        v-if="columns[15].visible"
+      />
+      <el-table-column
+        label="备注"
+        align="center"
+        prop="remark"
+        width="120"
+        sortable="custom"
+        v-if="columns[16].visible"
       />
       <el-table-column label="收款状态" align="center" prop="status" fixed="right">
         <template #default="scope">
@@ -357,7 +385,7 @@
         width="100"
         sortable="custom"
         show-overflow-tooltip
-        v-if="columns[15].visible"
+        v-if="columns[17].visible"
       />
       <el-table-column
         label="创建时间"
@@ -366,7 +394,7 @@
         width="180"
         sortable="custom"
         show-overflow-tooltip
-        v-if="columns[16].visible"
+        v-if="columns[18].visible"
       />
       <el-table-column
         label="修改者"
@@ -374,7 +402,7 @@
         prop="updateBy"
         width="100"
         show-overflow-tooltip
-        v-if="columns[17].visible"
+        v-if="columns[19].visible"
       />
       <el-table-column
         label="修改时间"
@@ -382,7 +410,7 @@
         prop="updateTime"
         width="180"
         show-overflow-tooltip
-        v-if="columns[18].visible"
+        v-if="columns[20].visible"
       />
       <el-table-column
         label="操作"
@@ -447,6 +475,13 @@
           <el-col :span="12">
             <el-form-item label="单位名称" prop="companyName">
               <el-input v-model="form.companyName" placeholder="请输入单位名称" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="财务工程编号" prop="financeProjectNumber">
+              <el-input v-model="form.financeProjectNumber" placeholder="请输入财务工程编号" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -673,22 +708,24 @@ const columns = ref([
   { key: 0, label: `开票日期`, visible: true },
   { key: 1, label: `单位编号`, visible: false },
   { key: 2, label: `单位名称`, visible: true },
-  { key: 3, label: `工程编号`, visible: true },
-  { key: 4, label: `工程名称`, visible: false },
-  { key: 5, label: `开票金额（含税价）`, visible: true },
-  { key: 6, label: `税率`, visible: true },
-  { key: 7, label: `不含税金额`, visible: true },
-  { key: 8, label: `收款金额`, visible: true },
-  { key: 9, label: `应收余额`, visible: true },
-  { key: 10, label: `质保金`, visible: true },
-  { key: 11, label: `项目经理`, visible: false },
-  { key: 12, label: `财务部项目负责人`, visible: true },
-  { key: 13, label: `经营部项目负责人`, visible: true },
-  { key: 14, label: `上传编号`, visible: true },
-  { key: 15, label: `创建者`, visible: false },
-  { key: 16, label: `创建时间`, visible: false },
-  { key: 17, label: `修改者`, visible: false },
-  { key: 18, label: `修改时间`, visible: false }
+  { key: 3, label: `财务工程编号`, visible: true },
+  { key: 4, label: `工程编号`, visible: true },
+  { key: 5, label: `工程名称`, visible: false },
+  { key: 6, label: `开票金额（含税价）`, visible: true },
+  { key: 7, label: `税率`, visible: true },
+  { key: 8, label: `不含税金额`, visible: true },
+  { key: 9, label: `收款金额`, visible: true },
+  { key: 10, label: `应收余额`, visible: true },
+  { key: 11, label: `质保金`, visible: true },
+  { key: 12, label: `项目经理`, visible: false },
+  { key: 13, label: `财务部项目负责人`, visible: true },
+  { key: 14, label: `经营部项目负责人`, visible: true },
+  { key: 15, label: `上传编号`, visible: true },
+  { key: 16, label: `备注`, visible: true },
+  { key: 17, label: `创建者`, visible: false },
+  { key: 18, label: `创建时间`, visible: false },
+  { key: 19, label: `修改者`, visible: false },
+  { key: 20, label: `修改时间`, visible: false }
 ])
 
 //校验单位信息
@@ -715,6 +752,7 @@ const data = reactive({
     invoicingDate: undefined,
     companyNumber: undefined,
     companyName: undefined,
+    financeProjectNumber: undefined,
     projectNumber: undefined,
     includingTaxPrice: undefined,
     taxRate: undefined,
@@ -727,16 +765,7 @@ const data = reactive({
     invoicingDate: [{ required: true, message: '开票日期不能为空', trigger: 'blur' }],
     companyNumber: [{ validator: companyValidation, trigger: 'blur' }],
     companyName: [{ validator: companyValidation, trigger: 'blur' }],
-    projectNumber: [{ required: true, message: '工程编号不能为空', trigger: 'blur' }],
     includingTaxPrice: [{ required: true, message: '开票金额(含税价)不能为空', trigger: 'blur' }],
-    taxRate: [{ required: true, message: '税率不能为空', trigger: 'blur' }],
-    excludingTaxPrice: [{ required: true, message: '不含税金额不能为空', trigger: 'blur' }],
-    financeProjectResponsiblePerson: [
-      { required: true, message: '财务部项目负责人不能为空', trigger: 'blur' }
-    ],
-    operationProjectResponsiblePerson: [
-      { required: true, message: '经营部项目负责人不能为空', trigger: 'blur' }
-    ],
     status: [{ required: true, message: '状态不能为空', trigger: 'change' }]
   }
 })
@@ -783,6 +812,7 @@ function reset() {
     invoicingDate: null,
     companyNumber: null,
     companyName: null,
+    financeProjectNumber: undefined,
     projectNumber: null,
     projectName: null,
     includingTaxPrice: null,

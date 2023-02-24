@@ -42,6 +42,11 @@ public class FinanceReceivableVo {
     private Long companyId;
 
     /**
+     * 财务工程编号
+     */
+    private String financeProjectNumber;
+
+    /**
      * 工程编号
      */
     private String projectNumber;

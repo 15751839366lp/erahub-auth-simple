@@ -38,12 +38,19 @@ public class FinanceReceivable extends BaseEntity {
      */
     private Long companyId;
     /**
+     * 财务工程编号
+     */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
+    private String financeProjectNumber;
+    /**
      * 工程编号
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String projectNumber;
     /**
      * 工程名称
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String projectName;
     /**
      * 开票金额(含税价)
@@ -52,10 +59,12 @@ public class FinanceReceivable extends BaseEntity {
     /**
      * 税率
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private BigDecimal taxRate;
     /**
      * 不含税金额
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private BigDecimal excludingTaxPrice;
     /**
      * 收款金额
@@ -72,6 +81,7 @@ public class FinanceReceivable extends BaseEntity {
     /**
      * 项目经理
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String projectManager;
     /**
      * 上传编号
@@ -80,10 +90,12 @@ public class FinanceReceivable extends BaseEntity {
     /**
      * 财务部项目负责人
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String financeProjectResponsiblePerson;
     /**
      * 经营部项目负责人
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String operationProjectResponsiblePerson;
     /**
      * 应收类别
@@ -96,6 +108,7 @@ public class FinanceReceivable extends BaseEntity {
     /**
      * 备注
      */
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String remark;
     /**
      * 单位（甲方）

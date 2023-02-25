@@ -189,7 +189,7 @@ public class FinanceReceivableServiceImpl implements IFinanceReceivableService {
             }
         }else if(ObjectUtil.isNotNull(taxRate)
             && ObjectUtil.isNull(excludingTaxPrice)
-            && ObjectUtil.equal(taxRate,-1)
+            && !ObjectUtil.equal(taxRate,new BigDecimal(-1))
         ){
             entity.setExcludingTaxPrice(includingTaxPrice.divide(new BigDecimal(1)
                 .add(taxRate), 2, BigDecimal.ROUND_HALF_UP));

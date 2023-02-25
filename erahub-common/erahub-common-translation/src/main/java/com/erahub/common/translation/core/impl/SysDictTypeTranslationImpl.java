@@ -6,17 +6,15 @@ import com.erahub.common.translation.annotation.TranslationType;
 import com.erahub.common.translation.constant.TransConstant;
 import com.erahub.common.translation.core.TranslationInterface;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * 字典翻译实现
  *
  * @author Lion Li
  */
-@Component
 @AllArgsConstructor
 @TranslationType(type = TransConstant.SYS_DICT_TYPE_TO_LABEL)
-public class SysDictTypeTranslationImpl implements TranslationInterface {
+public class SysDictTypeTranslationImpl implements TranslationInterface<String> {
 
     private final DictService dictService;
 

@@ -6,17 +6,15 @@ import com.erahub.common.translation.core.TranslationInterface;
 import com.erahub.base.system.api.RemoteDeptService;
 import lombok.AllArgsConstructor;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.stereotype.Component;
 
 /**
  * 部门翻译实现
  *
  * @author Lion Li
  */
-@Component
 @AllArgsConstructor
 @TranslationType(type = TransConstant.SYS_DEPT_ID_TO_NAME)
-public class SysDeptNameTranslationImpl implements TranslationInterface {
+public class SysDeptNameTranslationImpl implements TranslationInterface<String> {
 
     @DubboReference
     private RemoteDeptService remoteDeptService;

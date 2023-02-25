@@ -1,3 +1,1 @@
-com.erahub.common.satoken.core.dao.PlusSaTokenDao
-com.erahub.common.satoken.core.service.SaPermissionImpl
 com.erahub.common.satoken.config.SaTokenConfiguration

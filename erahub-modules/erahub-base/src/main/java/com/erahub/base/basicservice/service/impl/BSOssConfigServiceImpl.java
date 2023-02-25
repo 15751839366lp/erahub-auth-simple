@@ -14,12 +14,10 @@ import com.erahub.common.core.constant.CacheNames;
 import com.erahub.common.core.constant.UserConstants;
 import com.erahub.common.core.exception.ServiceException;
 import com.erahub.common.core.utils.JsonUtils;
-import com.erahub.common.core.utils.SpringUtils;
 import com.erahub.common.core.utils.StringUtils;
 import com.erahub.common.mybatis.core.page.PageQuery;
 import com.erahub.common.mybatis.core.page.TableDataInfo;
 import com.erahub.common.oss.constant.OssConstant;
-import com.erahub.common.oss.factory.OssFactory;
 import com.erahub.common.redis.utils.CacheUtils;
 import com.erahub.common.redis.utils.RedisUtils;
 import com.erahub.base.basicservice.domain.BSOssConfig;
@@ -28,7 +26,6 @@ import com.erahub.base.basicservice.domain.vo.BSOssConfigVo;
 import com.erahub.base.basicservice.mapper.BSOssConfigMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,10 +60,8 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
             if ("0".equals(config.getStatus())) {
                 RedisUtils.setCacheObject(OssConstant.DEFAULT_CONFIG_KEY, configKey);
             }
-            SpringUtils.context().publishEvent(config);
+            CacheUtils.put(CacheNames.SYS_OSS_CONFIG, config.getConfigKey(), JsonUtils.toJsonString(config));
         }
-        // 初始化OSS工厂
-        OssFactory.init();
     }
 
     @Override
@@ -96,7 +91,7 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
         validEntityBeforeSave(config);
         boolean flag = bsOssConfigMapper.insert(config) > 0;
         if (flag) {
-            SpringUtils.context().publishEvent(config);
+            CacheUtils.put(CacheNames.SYS_OSS_CONFIG, config.getConfigKey(), JsonUtils.toJsonString(config));
         }
         return flag;
     }
@@ -115,7 +110,7 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
         luw.eq(BSOssConfig::getOssConfigId, config.getOssConfigId());
         boolean flag = bsOssConfigMapper.update(config, luw) > 0;
         if (flag) {
-            SpringUtils.context().publishEvent(config);
+            CacheUtils.put(CacheNames.SYS_OSS_CONFIG, config.getConfigKey(), JsonUtils.toJsonString(config));
         }
         return flag;
     }
@@ -180,18 +175,5 @@ public class BSOssConfigServiceImpl implements IBSOssConfigService {
             RedisUtils.setCacheObject(OssConstant.DEFAULT_CONFIG_KEY, bSOssConfig.getConfigKey());
         }
         return row;
-    }
-
-    /**
-     * 更新配置缓存
-     * @param config 配置
-     * @return 返回操作状态
-     */
-    @EventListener
-    public void updateConfigCache(BSOssConfig config) {
-        CacheUtils.put(CacheNames.SYS_OSS_CONFIG, config.getConfigKey(), JsonUtils.toJsonString(config));
-        RedisUtils.publish(OssConstant.DEFAULT_CONFIG_KEY, config.getConfigKey(), msg -> {
-            log.info("发布刷新OSS配置 => " + msg);
-        });
     }
 }

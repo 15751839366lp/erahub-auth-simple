@@ -1,1 +1,5 @@
 com.erahub.common.translation.config.TranslationConfig
+com.erahub.common.translation.core.impl.SysDeptNameTranslationImpl
+com.erahub.common.translation.core.impl.SysDictTypeTranslationImpl
+com.erahub.common.translation.core.impl.SysUserNameTranslationImpl
+com.erahub.common.translation.core.impl.BsOssUrlTranslationImpl

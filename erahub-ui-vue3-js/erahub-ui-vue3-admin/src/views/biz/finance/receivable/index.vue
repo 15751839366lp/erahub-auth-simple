@@ -56,7 +56,7 @@
           <el-option
             v-for="taxRate in taxRateList"
             :key="taxRate"
-            :label="taxRate"
+            :label="decimalToPercent(taxRate, 2)"
             :value="taxRate"
           />
         </el-select>
@@ -260,7 +260,6 @@
         sortable="custom"
         show-overflow-tooltip
         v-if="columns[3].visible"
-        fixed
       />
       <el-table-column
         label="工程编号"
@@ -288,7 +287,11 @@
         sortable="custom"
         v-if="columns[6].visible"
         show-overflow-tooltip
-      />
+        >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.includingTaxPrice) }}
+                </template>
+              </el-table-column>
       <el-table-column
         label="税率"
         align="center"
@@ -297,7 +300,11 @@
         sortable="custom"
         v-if="columns[7].visible"
         show-overflow-tooltip
-      />
+      >
+        <template #default="scope">
+          {{ decimalToPercent(scope.row.taxRate, 2) }}
+        </template>
+      </el-table-column>
       <el-table-column
         label="不含税金额"
         align="center"
@@ -306,7 +313,11 @@
         sortable="custom"
         v-if="columns[8].visible"
         show-overflow-tooltip
-      />
+        >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.excludingTaxPrice) }}
+                </template>
+              </el-table-column>
       <el-table-column
         label="收款金额"
         align="center"
@@ -315,7 +326,11 @@
         sortable="custom"
         v-if="columns[9].visible"
         show-overflow-tooltip
-      />
+        >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.accountPaid) }}
+                </template>
+              </el-table-column>
       <el-table-column
         label="应收余额"
         align="center"
@@ -324,7 +339,11 @@
         sortable="custom"
         v-if="columns[10].visible"
         show-overflow-tooltip
-      />
+        >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.arrearage) }}
+                </template>
+              </el-table-column>
       <el-table-column
         label="质保金"
         align="center"
@@ -333,7 +352,11 @@
         sortable="custom"
         v-if="columns[11].visible"
         show-overflow-tooltip
-      />
+        >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.warrantyDeposit) }}
+                </template>
+              </el-table-column>
       <el-table-column
         label="项目经理"
         align="center"
@@ -639,6 +662,7 @@ import {
 } from '@/api/biz/finance/financeReceivable'
 
 import { getToken } from '@/utils/auth'
+import { decimalToPercent, percentToDecimal,numberToCurrencyNo } from '@/utils/number'
 
 const router = useRouter()
 const { proxy } = getCurrentInstance()
@@ -765,7 +789,49 @@ const data = reactive({
     invoicingDate: [{ required: true, message: '开票日期不能为空', trigger: 'blur' }],
     companyNumber: [{ validator: companyValidation, trigger: 'blur' }],
     companyName: [{ validator: companyValidation, trigger: 'blur' }],
-    includingTaxPrice: [{ required: true, message: '开票金额(含税价)不能为空', trigger: 'blur' }],
+    includingTaxPrice: [
+      {
+        required: true,
+        pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/,
+        message: '请输入正确的开票金额(含税价)',
+        trigger: 'blur'
+      }
+    ],
+    taxRate: [
+      {
+        pattern: /^(-)?(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+        message: '请输入正确的税率',
+        trigger: 'blur'
+      }
+    ],
+    excludingTaxPrice: [
+      {
+        pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/,
+        message: '请输入正确的不含税金额',
+        trigger: 'blur'
+      }
+    ],
+    accountPaid: [
+      {
+        pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/,
+        message: '请输入正确的收款金额',
+        trigger: 'blur'
+      }
+    ],
+    arrearage: [
+      {
+        pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/,
+        message: '请输入正确的应收余额',
+        trigger: 'blur'
+      }
+    ],
+    warrantyDeposit: [
+      {
+        pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/,
+        message: '请输入正确的质保金',
+        trigger: 'blur'
+      }
+    ],
     status: [{ required: true, message: '状态不能为空', trigger: 'change' }]
   }
 })

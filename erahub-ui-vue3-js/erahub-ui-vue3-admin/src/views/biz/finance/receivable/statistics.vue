@@ -141,25 +141,37 @@
               />
               <el-table-column
                 label="应收余额"
-                align="center"
+                align="right"
                 prop="arrearage"
                 width="120"
                 show-overflow-tooltip
-              />
+              >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.arrearage) }}
+                </template>
+              </el-table-column>
               <el-table-column
                 label="开票金额(含税价)"
-                align="center"
+                align="right"
                 prop="includingTaxPrice"
-                width="90"
+                width="120"
                 show-overflow-tooltip
-              />
+                >
+                <template #default="scope">
+                  {{ numberToCurrencyNo(scope.row.includingTaxPrice) }}
+                </template>
+              </el-table-column>
               <el-table-column
                 label="税率"
-                align="center"
+                align="right"
                 prop="taxRate"
                 width="80"
                 show-overflow-tooltip
-              />
+              >
+                <template #default="scope">
+                  {{ decimalToPercent(scope.row.taxRate, 2) }}
+                </template>
+              </el-table-column>
               <el-table-column
                 label="财务工程编号"
                 align="center"
@@ -250,36 +262,36 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="税率：" prop="taxRate">
-              {{ financeReceivableInfoForm.taxRate }}
+              {{ decimalToPercent(financeReceivableInfoForm.taxRate, 2) }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="不含税金额：" prop="excludingTaxPrice">
-              {{ financeReceivableInfoForm.excludingTaxPrice }}
+              {{ numberToCurrencyNo(financeReceivableInfoForm.excludingTaxPrice) }}
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="开票金额(含税价)：" prop="includingTaxPrice">
-              {{ financeReceivableInfoForm.includingTaxPrice }}
+              {{ numberToCurrencyNo(financeReceivableInfoForm.includingTaxPrice) }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="质保金：" prop="warrantyDeposit">
-              {{ financeReceivableInfoForm.warrantyDeposit }}
+              {{ numberToCurrencyNo(financeReceivableInfoForm.warrantyDeposit) }}
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="收款金额：" prop="accountPaid">
-              {{ financeReceivableInfoForm.accountPaid }}
+              {{ numberToCurrencyNo(financeReceivableInfoForm.accountPaid) }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="应收余额：" prop="arrearage">
-              {{ financeReceivableInfoForm.arrearage }}
+              {{ numberToCurrencyNo(financeReceivableInfoForm.arrearage) }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -339,6 +351,7 @@ import {
   listArrearageGroupByInvoicingDate,
   listPageListByInvoicingMonth
 } from '@/api/biz/finance/financeReceivable'
+import { decimalToPercent, percentToDecimal, numberToCurrencyNo } from '@/utils/number'
 
 const { proxy } = getCurrentInstance()
 const { biz_finance_receivable_status } = proxy.useDict('biz_finance_receivable_status')
@@ -424,7 +437,16 @@ const companyPieOptionsData = reactive({
   tooltip: {
     confine: true,
     trigger: 'item',
-    formatter: '{b} <br/> {c} 元 ({d}%)'
+    formatter: function (params) {
+      return (
+        params.data.name +
+        ' <br/> ' +
+        numberToCurrencyNo(params.data.value) +
+        ' 元 (' +
+        params.percent +
+        '%)'
+      )
+    }
   },
   series: [
     {
@@ -467,7 +489,16 @@ const taxRatePieOptionsData = reactive({
   tooltip: {
     confine: true,
     trigger: 'item',
-    formatter: '{b} <br/> {c} 元 ({d}%)'
+    formatter: function (params) {
+      return (
+        params.data.name +
+        ' <br/> ' +
+        numberToCurrencyNo(params.data.value) +
+        ' 元 (' +
+        params.percent +
+        '%)'
+      )
+    }
   },
   series: [
     {
@@ -482,7 +513,12 @@ const taxRatePieOptionsData = reactive({
 function taxRatePieChartClick(_echartRef) {
   _echartRef.on('click', function (params) {
     reset()
-    queryParams.value.taxRate = params.name
+    if (params.name == '未确认') {
+      queryParams.value.taxRate = -1
+    } else {
+      queryParams.value.taxRate = percentToDecimal(params.name)
+    }
+
     getList()
   })
 }
@@ -491,8 +527,14 @@ const getArrearageGroupByTaxRateSource = async () => {
   listArrearageGroupByTaxRate(statisticsParams.value).then((response) => {
     if (taxRatePieOptionsData != null && taxRatePieOptionsData.series != null) {
       taxRatePieOptionsData.series[0].data = response.data.map((v) => {
+        if (v.tax_rate == -1) {
+          return {
+            name: '未确认',
+            value: v.total_arrearage
+          }
+        }
         return {
-          name: v.tax_rate,
+          name: decimalToPercent(v.tax_rate, 2),
           value: v.total_arrearage
         }
       })

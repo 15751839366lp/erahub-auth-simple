@@ -249,6 +249,7 @@
         align="center"
         prop="company.companyName"
         width="120"
+        show-overflow-tooltip
         v-if="columns[2].visible"
         fixed
       />
@@ -281,20 +282,20 @@
       />
       <el-table-column
         label="开票金额(含税价)"
-        align="center"
+        align="right"
         prop="includingTaxPrice"
         width="140"
         sortable="custom"
         v-if="columns[6].visible"
         show-overflow-tooltip
-        >
-                <template #default="scope">
-                  {{ numberToCurrencyNo(scope.row.includingTaxPrice) }}
-                </template>
-              </el-table-column>
+      >
+        <template #default="scope">
+          {{ numberToCurrencyNo(scope.row.includingTaxPrice) }}
+        </template>
+      </el-table-column>
       <el-table-column
         label="税率"
-        align="center"
+        align="right"
         prop="taxRate"
         width="80"
         sortable="custom"
@@ -307,56 +308,56 @@
       </el-table-column>
       <el-table-column
         label="不含税金额"
-        align="center"
+        align="right"
         prop="excludingTaxPrice"
         width="120"
         sortable="custom"
         v-if="columns[8].visible"
         show-overflow-tooltip
-        >
-                <template #default="scope">
-                  {{ numberToCurrencyNo(scope.row.excludingTaxPrice) }}
-                </template>
-              </el-table-column>
+      >
+        <template #default="scope">
+          {{ numberToCurrencyNo(scope.row.excludingTaxPrice) }}
+        </template>
+      </el-table-column>
       <el-table-column
         label="收款金额"
-        align="center"
+        align="right"
         prop="accountPaid"
         width="120"
         sortable="custom"
         v-if="columns[9].visible"
         show-overflow-tooltip
-        >
-                <template #default="scope">
-                  {{ numberToCurrencyNo(scope.row.accountPaid) }}
-                </template>
-              </el-table-column>
+      >
+        <template #default="scope">
+          {{ numberToCurrencyNo(scope.row.accountPaid) }}
+        </template>
+      </el-table-column>
       <el-table-column
         label="应收余额"
-        align="center"
+        align="right"
         prop="arrearage"
         width="120"
         sortable="custom"
         v-if="columns[10].visible"
         show-overflow-tooltip
-        >
-                <template #default="scope">
-                  {{ numberToCurrencyNo(scope.row.arrearage) }}
-                </template>
-              </el-table-column>
+      >
+        <template #default="scope">
+          {{ numberToCurrencyNo(scope.row.arrearage) }}
+        </template>
+      </el-table-column>
       <el-table-column
         label="质保金"
-        align="center"
+        align="right"
         prop="warrantyDeposit"
         width="120"
         sortable="custom"
         v-if="columns[11].visible"
         show-overflow-tooltip
-        >
-                <template #default="scope">
-                  {{ numberToCurrencyNo(scope.row.warrantyDeposit) }}
-                </template>
-              </el-table-column>
+      >
+        <template #default="scope">
+          {{ numberToCurrencyNo(scope.row.warrantyDeposit) }}
+        </template>
+      </el-table-column>
       <el-table-column
         label="项目经理"
         align="center"
@@ -662,7 +663,7 @@ import {
 } from '@/api/biz/finance/financeReceivable'
 
 import { getToken } from '@/utils/auth'
-import { decimalToPercent, percentToDecimal,numberToCurrencyNo } from '@/utils/number'
+import { decimalToPercent, percentToDecimal, numberToCurrencyNo } from '@/utils/number'
 
 const router = useRouter()
 const { proxy } = getCurrentInstance()

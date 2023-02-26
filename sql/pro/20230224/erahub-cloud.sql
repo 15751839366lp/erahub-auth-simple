@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 24/02/2023 18:31:41
+ Date: 26/02/2023 09:03:02
 */
 
 SET NAMES utf8mb4;
@@ -1543,6 +1543,8 @@ INSERT INTO `sys_logininfor` VALUES (1628964549355872258, 'gonghzh82', '180.101.
 INSERT INTO `sys_logininfor` VALUES (1628991636238213122, 'lipeng0921', '180.101.128.246', '0', '登录成功', '2023-02-24 13:34:06', '江苏省 南京市', 'Chrome', 'Windows 7 or Windows Server 2008R2');
 INSERT INTO `sys_logininfor` VALUES (1629000678989864961, 'gonghzh82', '180.101.128.235', '0', '登录成功', '2023-02-24 14:10:02', '江苏省 南京市', 'Chrome', 'Windows 7 or Windows Server 2008R2');
 INSERT INTO `sys_logininfor` VALUES (1629037148429590529, 'lipeng0921', '180.101.128.246', '0', '登录成功', '2023-02-24 16:34:57', '江苏省 南京市', 'Chrome', 'Windows 7 or Windows Server 2008R2');
+INSERT INTO `sys_logininfor` VALUES (1629083168052060161, 'lipeng0921', '183.209.136.218', '0', '登录成功', '2023-02-24 19:37:49', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
+INSERT INTO `sys_logininfor` VALUES (1629648106646642690, 'lipeng0921', '183.209.136.218', '0', '登录成功', '2023-02-26 09:02:41', '江苏省 南京市', 'Chrome', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -2843,6 +2845,7 @@ INSERT INTO `sys_oper_log` VALUES (1628918188589686785, '应收管理', 5, 'com.
 INSERT INTO `sys_oper_log` VALUES (1628918628786085890, '应收管理', 6, 'com.erahub.biz.finance.controller.FinanceReceivableController.importData()', 'POST', 1, 'lipeng0921', '', '/finance/receivable/importData', '180.101.128.246', '', 'true', '{\"code\":200,\"msg\":\"恭喜您，数据已全部导入成功！共 106 条，数据如下：\",\"data\":null}', 0, '', '2023-02-24 08:44:00', 1609);
 INSERT INTO `sys_oper_log` VALUES (1628959998355677185, '角色管理', 1, 'com.erahub.base.system.controller.SysRoleController.add()', 'POST', 1, 'lipeng0921', '', '/role', '180.101.128.246', '', '{\"createBy\":\"lipeng0921\",\"createTime\":\"2023-02-24 11:28:22\",\"updateBy\":\"lipeng0921\",\"updateTime\":\"2023-02-24 11:28:22\",\"roleId\":\"1628959997923663874\",\"roleName\":\"收入\",\"roleKey\":\"finance_income\",\"roleSort\":3,\"dataScope\":null,\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"delFlag\":null,\"remark\":null,\"flag\":false,\"menuIds\":[\"1609385420790530049\",\"1609385690836598786\",\"1609386213455265792\",\"1609386213455265793\",\"1609386213455265794\",\"1609386213455265795\",\"1609386213455265796\",\"1609386213455265797\",\"1609400747695906817\",\"1621696535054553089\",\"1621696535054553090\",\"1621696535054553091\",\"1621696535054553092\",\"1621696535054553093\",\"1621696535054553094\",\"1625437353686917122\",\"1624235497459658754\",\"1624235497459658755\",\"1624235497459658756\",\"1624235497459658757\",\"1624235497459658758\",\"1624235497459658759\",\"1625437497819979777\",\"1624245280287862786\",\"1624245280287862787\",\"1624245280287862788\",\"1624245280287862789\",\"1624245280287862790\",\"1624245280287862791\",\"1624587783666954241\",\"1626877816134455298\"],\"deptIds\":[],\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-24 11:28:23', 170);
 INSERT INTO `sys_oper_log` VALUES (1628960287796207618, '用户管理', 1, 'com.erahub.base.system.controller.SysUserController.add()', 'POST', 1, 'lipeng0921', '', '/user', '180.101.128.246', '', '{\"createBy\":\"lipeng0921\",\"createTime\":\"2023-02-24 11:29:31\",\"updateBy\":\"lipeng0921\",\"updateTime\":\"2023-02-24 11:29:31\",\"userId\":\"1628960287645212674\",\"deptId\":106,\"userName\":\"gonghzh82\",\"nickName\":\"贡浩中\",\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"avatar\":null,\"status\":\"0\",\"delFlag\":null,\"loginIp\":null,\"loginDate\":null,\"remark\":null,\"dept\":null,\"roles\":null,\"roleIds\":[\"1628959997923663874\"],\"postIds\":[4],\"roleId\":null,\"admin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2023-02-24 11:29:32', 205);
+INSERT INTO `sys_oper_log` VALUES (1629083232677896194, '应收管理', 5, 'com.erahub.biz.finance.controller.FinanceReceivableController.export()', 'POST', 1, 'lipeng0921', '', '/finance/receivable/export', '183.209.136.218', '', '{\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"receivableId\":null,\"invoicingDate\":null,\"invoicingMonth\":null,\"companyNumber\":null,\"companyName\":null,\"projectNumber\":null,\"projectName\":null,\"includingTaxPrice\":null,\"taxRate\":null,\"excludingTaxPrice\":null,\"accountPaid\":null,\"arrearage\":null,\"warrantyDeposit\":null,\"projectManager\":null,\"uploadId\":null,\"financeProjectResponsiblePerson\":null,\"operationProjectResponsiblePerson\":null,\"receivableType\":null,\"status\":null,\"remark\":null,\"company\":null}', '', 0, '', '2023-02-24 19:38:04', 213);
 
 -- ----------------------------
 -- Table structure for sys_post
